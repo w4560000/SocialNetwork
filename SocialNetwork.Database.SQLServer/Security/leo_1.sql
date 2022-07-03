@@ -1,0 +1,3 @@
+﻿CREATE LOGIN [leo]
+    WITH PASSWORD = N'Efa{gkwxiameytbhFflqfw5>msFT7_&#$!~<vjZ{rFutm{sf', SID = 0x8CF80E65BFB9A44C8CBC146BA783F6E0, DEFAULT_LANGUAGE = [繁體中文];
+

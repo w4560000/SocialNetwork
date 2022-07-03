@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SocialNetwork.Repository.Base\SocialNetwork.Repository.Base.csproj" />
-    <ProjectReference Include="..\SocialNetwork.Service\SocialNetwork.Service.csproj" />
   </ItemGroup>
 
 </Project>

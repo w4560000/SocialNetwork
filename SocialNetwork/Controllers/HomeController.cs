@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SocialNetwork.Models;
+using SocialNetwork.Service;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,15 +12,21 @@ namespace SocialNetwork.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<HomeController> Logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IMemberService MemberService;
+
+        public HomeController(
+            ILogger<HomeController> logger,
+            IMemberService memberService)
         {
-            _logger = logger;
+            Logger = logger;
+            MemberService = memberService;
         }
 
         public IActionResult Index()
         {
+            string a = MemberService.Test();
             return View();
         }
 
