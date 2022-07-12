@@ -5,15 +5,27 @@
 // 
 //     Connection String Name: `SocialNetworkConnectionString`
 //     Provider:               `System.Data.SqlClient`
-//     Connection String:      `data source=.;initial catalog=SocialNetwork;user id=leo;Password=******;`
+//     Connection String:      `data source=localhost\SQLExpress;initial catalog=SocialNetwork;user id=leo;Password=******;`
 //     Include Views:          `True`
 
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SocialNetwork.Repository.Base
+namespace SocialNetwork.Repository
 {
+    /// <summary>
+    /// A class which represents the FriendList table.
+    /// </summary>
+	[Table("FriendList")]
+	public partial class FriendList
+	{
+		[Key]
+		public virtual int MemberID { get; set; }
+		public virtual int FriendID { get; set; }
+		public virtual DateTime CreateDate { get; set; }
+	}
+
     /// <summary>
     /// A class which represents the Member table.
     /// </summary>
@@ -36,18 +48,19 @@ namespace SocialNetwork.Repository.Base
 	}
 
     /// <summary>
-    /// A class which represents the VerificationCode table.
+    /// A class which represents the Post table.
     /// </summary>
-	[Table("VerificationCode")]
-	public partial class VerificationCode
+	[Table("Post")]
+	public partial class Post
 	{
 		[Key]
-		public virtual int Key { get; set; }
-		public virtual string Mail { get; set; }
-		public virtual string VCode { get; set; }
+		public virtual int PostNumber { get; set; }
+		public virtual int MeberID { get; set; }
+		public virtual string PostContent { get; set; }
+		public virtual string PostImage { get; set; }
+		public virtual int GoodQuantity { get; set; }
 		public virtual int Status { get; set; }
 		public virtual DateTime CreateDate { get; set; }
-		public virtual DateTime? VerificationDate { get; set; }
 	}
 
     /// <summary>
@@ -66,31 +79,18 @@ namespace SocialNetwork.Repository.Base
 	}
 
     /// <summary>
-    /// A class which represents the FriendList table.
+    /// A class which represents the VerificationCode table.
     /// </summary>
-	[Table("FriendList")]
-	public partial class FriendList
+	[Table("VerificationCode")]
+	public partial class VerificationCode
 	{
 		[Key]
-		public virtual int MemberID { get; set; }
-		public virtual int FriendID { get; set; }
-		public virtual DateTime CreateDate { get; set; }
-	}
-
-    /// <summary>
-    /// A class which represents the Post table.
-    /// </summary>
-	[Table("Post")]
-	public partial class Post
-	{
-		[Key]
-		public virtual int PostNumber { get; set; }
-		public virtual int MeberID { get; set; }
-		public virtual string PostContent { get; set; }
-		public virtual string PostImage { get; set; }
-		public virtual int GoodQuantity { get; set; }
+		public virtual int Key { get; set; }
+		public virtual string Mail { get; set; }
+		public virtual string VCode { get; set; }
 		public virtual int Status { get; set; }
 		public virtual DateTime CreateDate { get; set; }
+		public virtual DateTime? VerificationDate { get; set; }
 	}
 
 }

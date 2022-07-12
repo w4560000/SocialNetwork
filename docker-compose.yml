@@ -1,0 +1,48 @@
+version: '3'
+services:
+  socialnetwork:
+    container_name: socialnetwork
+    build:
+      context: .
+      args:
+        ProjectName: SocialNetwork
+    ports:
+      - "7000:80"
+    expose:
+      - "80"
+    restart: always
+    depends_on:
+      - redis
+      - postgres
+  redis:
+    container_name: redis
+    image: redis:3.2.4
+    entrypoint: redis-server --maxmemory "4gb" --requirepass xxx
+    ports:
+      - 6379:6379
+    restart: always
+    volumes:
+      - //d/Lab/SocialNetworkData/RedisData:/data
+    sysctls:
+      net.core.somaxconn: '511'
+  postgres:
+    container_name: postgres
+    ports: 
+      - "5432:5432"
+    image: "postgres:alpine"
+    volumes:
+      - //d/Lab/SocialNetworkData/PostgreData:/var/lib/postgresql/data # persist data even if container shuts down
+    restart: always
+    environment:
+      POSTGRES_USER: superuser
+      POSTGRES_PASSWORD: superpassword
+      POSTGRES_DB: demo_db
+  pgadmin4:
+    container_name: pgadmin4
+    ports: 
+      - "5050:80"
+    image: "dpage/pgadmin4"
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: superuser@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: superpassword

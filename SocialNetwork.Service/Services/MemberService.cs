@@ -1,4 +1,5 @@
-﻿using SocialNetwork.Repository;
+﻿using Microsoft.Extensions.Configuration;
+using SocialNetwork.Repository;
 using System;
 
 namespace SocialNetwork.Service

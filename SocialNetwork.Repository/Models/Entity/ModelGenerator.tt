@@ -29,8 +29,8 @@ It is based on the T4 template from the PetaPoco project which in turn is based 
 */
 	// Settings
     ConnectionStringName = "SocialNetworkConnectionString"; // Uses last connection string in config if not specified
-	ConfigPath = @"C:\Users\leo.zheng\source\repos\SocialNetwork\SocialNetwork.Repository.Base\App.config";
-    Namespace = "SocialNetwork.Repository.Base";
+	ConfigPath = @"D:\Lab\SocialNetwork\SocialNetwork.Repository\App.config";
+    Namespace = "SocialNetwork.Repository";
 	ClassPrefix = "";
 	ClassSuffix = "";
     IncludeViews = true;
