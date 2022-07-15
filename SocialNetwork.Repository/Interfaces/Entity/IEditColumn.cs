@@ -15,7 +15,7 @@ namespace SocialNetwork.Repository
         /// <summary>
         /// 建立人員
         /// </summary>
-        string CreatedBy { get; set; }
+        int CreatedBy { get; set; }
 
         /// <summary>
         /// 修改時間
@@ -25,6 +25,6 @@ namespace SocialNetwork.Repository
         /// <summary>
         /// 修改人員
         /// </summary>
-        string UpdatedBy { get; set; }
+        int UpdatedBy { get; set; }
     }
 }

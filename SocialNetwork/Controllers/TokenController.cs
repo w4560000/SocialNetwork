@@ -14,9 +14,9 @@ namespace SocialNetwork.Controllers
     public class TokenController : ControllerBase
     {
         /// <summary>
-        /// JwtHelpers
+        /// JwtHelper
         /// </summary>
-        private readonly JwtHelpers JwtHelpers;
+        private readonly JwtHelper JwtHelper;
 
         /// <summary>
         /// HttpContext
@@ -24,25 +24,33 @@ namespace SocialNetwork.Controllers
         private readonly HttpContext HttpContext;
 
         /// <summary>
+        /// IUserContext
+        /// </summary>
+        private readonly IUserContext UserContext;
+
+        /// <summary>
         /// Construct
         /// </summary>
-        /// <param name="jwtHelpers">JwtHelpers</param>
+        /// <param name="jwtHelper">JwtHelper</param>
         /// <param name="httpContextAccessor">IHttpContextAccessor</param>
+        /// <param name="userContext">IUserContext</param>
         public TokenController(
-            JwtHelpers jwtHelpers,
-            IHttpContextAccessor httpContextAccessor)
+            JwtHelper jwtHelper,
+            IHttpContextAccessor httpContextAccessor,
+            IUserContext userContext)
         {
-            this.JwtHelpers = jwtHelpers;
+            this.JwtHelper = jwtHelper;
             this.HttpContext = httpContextAccessor.HttpContext;
+            this.UserContext = userContext;
         }
 
         [AllowAnonymous]
         [HttpPost("~/signin")]
-        public ActionResult<string> SignIn(LoginViewModel login)
+        public ActionResult<string> SignIn(UserInfo login)
         {
-            if (ValidateUser(login))
+            if (ValidateUser())
             {
-                return JwtHelpers.GenerateToken(login.Username);
+                return JwtHelper.GenerateToken(login);
             }
             else
             {
@@ -50,7 +58,7 @@ namespace SocialNetwork.Controllers
             }
         }
 
-        private bool ValidateUser(LoginViewModel login)
+        private bool ValidateUser()
         {
             return true; // TODO
         }
@@ -67,17 +75,16 @@ namespace SocialNetwork.Controllers
             return Ok(User.Identity.Name);
         }
 
-        [HttpGet("~/jwtid")]
-        public IActionResult GetUniqueId()
+        [HttpGet("~/GetUserInfo")]
+        public IActionResult GetUserInfo()
         {
-            var jti = User.Claims.FirstOrDefault(p => p.Type == "jti");
-            return Ok(jti.Value);
+            return Ok(JwtHelper.GetUserInfoFromJwtToken(HttpContext.Request.Cookies.GetJwtTokenFromCookie()));
         }
-    }
 
-    public class LoginViewModel
-    {
-        public string Username { get; set; }
-        public string Password { get; set; }
+        [HttpGet("~/GetUserInfoV2")]
+        public IActionResult GetUserInfoV2()
+        {
+            return Ok(this.UserContext.User);
+        }
     }
 }

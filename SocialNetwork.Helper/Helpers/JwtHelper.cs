@@ -3,21 +3,39 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 
 namespace SocialNetwork.Helper
 {
-    public class JwtHelpers
+    /// <summary>
+    /// JwtHelper
+    /// </summary>
+    public class JwtHelper
     {
+        /// <summary>
+        /// IConfiguration
+        /// </summary>
         private readonly IConfiguration Configuration;
 
-        public JwtHelpers(IConfiguration configuration)
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="configuration">IConfiguration</param>
+        public JwtHelper(
+            IConfiguration configuration)
         {
             this.Configuration = configuration;
         }
 
-        public string GenerateToken(string userName, int expireMinutes = 30)
+        /// <summary>
+        /// 建立 JwtToken
+        /// </summary>
+        /// <param name="userInfo">會員資訊</param>
+        /// <param name="expireMinutes">過期時間(分)</param>
+        /// <returns>JwtToken</returns>
+        public string GenerateToken(UserInfo userInfo, int expireMinutes = 30)
         {
             var issuer = Configuration.GetValue<string>("JwtSettings:Issuer");
             var signKey = Configuration.GetValue<string>("JwtSettings:SignKey");
@@ -27,14 +45,18 @@ namespace SocialNetwork.Helper
 
             // 在 RFC 7519 規格中(Section#4)，總共定義了 7 個預設的 Claims，我們應該只用的到兩種！
             //claims.Add(new Claim(JwtRegisteredClaimNames.Iss, issuer));
-            claims.Add(new Claim(JwtRegisteredClaimNames.Sub, userName)); // User.Identity.Name
+            claims.Add(new Claim(JwtRegisteredClaimNames.Sub, userInfo.NickName)); // User.Identity.Name
             //claims.Add(new Claim(JwtRegisteredClaimNames.Aud, "The Audience"));
             //claims.Add(new Claim(JwtRegisteredClaimNames.Exp, DateTimeOffset.UtcNow.AddMinutes(30).ToUnixTimeSeconds().ToString()));
             //claims.Add(new Claim(JwtRegisteredClaimNames.Nbf, DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString())); // 必須為數字
             //claims.Add(new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString())); // 必須為數字
             claims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())); // JWT ID
-            claims.Add(new Claim("qqq", "123"));
-            claims.Add(new Claim("www", "678"));
+
+            // 自定義
+            claims.Add(new Claim(nameof(UserInfo.MemberID), userInfo.MemberID.ToString()));
+            claims.Add(new Claim(nameof(UserInfo.Account), userInfo.Account));
+            claims.Add(new Claim(nameof(UserInfo.NickName), userInfo.NickName));
+
             // 網路上常看到的這個 NameId 設定是多餘的
             //claims.Add(new Claim(JwtRegisteredClaimNames.NameId, userName));
 
@@ -72,6 +94,29 @@ namespace SocialNetwork.Helper
             var serializeToken = tokenHandler.WriteToken(securityToken);
 
             return serializeToken;
+        }
+
+        /// <summary>
+        /// 從 JwtToken 取得會員資訊
+        /// </summary>
+        /// <param name="jwtToken">jwtToken</param>
+        /// <returns>會員資訊</returns>
+        public UserInfo GetUserInfoFromJwtToken(string jwtToken)
+        {
+            if (string.IsNullOrEmpty(jwtToken))
+                return null;
+
+            var jsonToken = new JwtSecurityTokenHandler().ReadToken(jwtToken) as JwtSecurityToken;
+
+            UserInfo userInfo = new UserInfo()
+            {
+                MemberID = int.TryParse(jsonToken.Claims.FirstOrDefault(p => p.Type == nameof(UserInfo.MemberID))?.Value, out int memberID) ? memberID : 0,
+                Account = jsonToken.Claims.FirstOrDefault(p => p.Type == nameof(UserInfo.Account))?.Value,
+                NickName = jsonToken.Claims.FirstOrDefault(p => p.Type == nameof(UserInfo.NickName))?.Value
+            };
+
+            return userInfo;
+
         }
     }
 }

@@ -17,4 +17,8 @@
     <ProjectReference Include="..\SocialNetwork.Service\SocialNetwork.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Helpers\" />
+  </ItemGroup>
+
 </Project>

@@ -64,9 +64,9 @@ namespace SocialNetwork.Repository
             {
                 IEditColumn editModel = (IEditColumn)entity;
                 editModel.CreatedAt = DateTime.Now;
-                editModel.CreatedBy = this.UserContext.User.Id;
+                editModel.CreatedBy = this.UserContext.User.MemberID;
                 editModel.UpdatedAt = DateTime.Now;
-                editModel.UpdatedBy = this.UserContext.User.Id;
+                editModel.UpdatedBy = this.UserContext.User.MemberID;
             }
 
             return base.Add(entity);
@@ -87,9 +87,9 @@ namespace SocialNetwork.Repository
             {
                 IEditColumn editModel = (IEditColumn)entity;
                 editModel.CreatedAt = DateTime.Now;
-                editModel.CreatedBy = this.UserContext.User.Id;
+                editModel.CreatedBy = this.UserContext.User.MemberID;
                 editModel.UpdatedAt = DateTime.Now;
-                editModel.UpdatedBy = this.UserContext.User.Id;
+                editModel.UpdatedBy = this.UserContext.User.MemberID;
             }
 
             return base.Add<TId>(entity);
@@ -110,9 +110,9 @@ namespace SocialNetwork.Repository
             {
                 IEditColumn editModel = (IEditColumn)entity;
                 editModel.CreatedAt = DateTime.Now;
-                editModel.CreatedBy = this.UserContext.User.Id;
+                editModel.CreatedBy = this.UserContext.User.MemberID;
                 editModel.UpdatedAt = DateTime.Now;
-                editModel.UpdatedBy = this.UserContext.User.Id;
+                editModel.UpdatedBy = this.UserContext.User.MemberID;
             }
 
             return base.AddAsync<TId>(entity);
@@ -129,7 +129,7 @@ namespace SocialNetwork.Repository
             {
                 IEditColumn editModel = (IEditColumn)entity;
                 editModel.UpdatedAt = DateTime.Now;
-                editModel.UpdatedBy = this.UserContext.User.Id;
+                editModel.UpdatedBy = this.UserContext.User.MemberID;
             }
 
             return base.Update(entity);
@@ -146,7 +146,7 @@ namespace SocialNetwork.Repository
             {
                 IEditColumn editModel = (IEditColumn)entity;
                 editModel.UpdatedAt = DateTime.Now;
-                editModel.UpdatedBy = this.UserContext.User.Id;
+                editModel.UpdatedBy = this.UserContext.User.MemberID;
             }
 
             return base.UpdateAsync(entity);
@@ -161,7 +161,7 @@ namespace SocialNetwork.Repository
         {
             List<TEntity> updatedEntities = entities.ToList();
             DateTime createdAt = DateTime.Now;
-            string createdBy = this.UserContext.User.Id;
+            int createdBy = this.UserContext.User.MemberID;
             foreach (TEntity entity in updatedEntities)
             {
                 if (this.IsEditColumn)
@@ -186,7 +186,7 @@ namespace SocialNetwork.Repository
         {
             List<TEntity> updatedEntities = entities.ToList();
             DateTime updatedAt = DateTime.Now;
-            string updatedBy = this.UserContext.User.Id;
+            int updatedBy = this.UserContext.User.MemberID;
             foreach (TEntity entity in updatedEntities)
             {
                 if (this.IsEditColumn)

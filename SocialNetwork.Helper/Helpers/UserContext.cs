@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
-using SocialNetwork.Helper;
 
-namespace SocialNetwork
+namespace SocialNetwork.Helper
 {
     /// <summary>
     /// User context
@@ -14,6 +13,11 @@ namespace SocialNetwork
         private readonly ICacheHelper CacheHelper;
 
         /// <summary>
+        /// JwtHelper
+        /// </summary>
+        private readonly JwtHelper JwtHelper;
+
+        /// <summary>
         /// HttpContext
         /// </summary>
         private readonly HttpContext HttpContext;
@@ -22,12 +26,15 @@ namespace SocialNetwork
         /// Constructor
         /// </summary>
         /// <param name="cacheHelper">快取</param>
+        /// <param name="jwtHelper">JwtHelper</param>
         /// <param name="httpContextAccessor">IHttpContextAccessor</param>
         public UserContext(
             ICacheHelper cacheHelper,
+            JwtHelper jwtHelper,
             IHttpContextAccessor httpContextAccessor)
         {
             this.CacheHelper = cacheHelper;
+            this.JwtHelper = jwtHelper;
             this.HttpContext = httpContextAccessor.HttpContext;
         }
 
@@ -40,8 +47,8 @@ namespace SocialNetwork
             {
                 UserInfo systemAccount = new UserInfo()
                 {
-                    Id = "000000",
-                    UserName = "System"
+                    MemberID = 0,
+                    Account = "System"
                 };
 
                 if (HttpContext == null)
@@ -49,7 +56,7 @@ namespace SocialNetwork
                     return systemAccount;
                 }
 
-                return systemAccount;
+                return JwtHelper.GetUserInfoFromJwtToken(HttpContext.Request.Cookies.GetJwtTokenFromCookie());
             }
         }
     }

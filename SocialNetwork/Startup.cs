@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -71,13 +73,11 @@ namespace SocialNetwork
             services.AddScoped<IMemberService, MemberService>();
             services.AddScoped<ITestService, TestService>();
 
-
-            
             services.AddSingleton<IUserContext, UserContext>();
             services.AddSingleton(provider => Configuration);
             services.AddSingleton<IConfigHelper, ConfigHelper>();
             services.AddSingleton<ICacheHelper, RedisCacheHelper>();
-            services.AddSingleton<JwtHelpers>();
+            services.AddSingleton<JwtHelper>();
 
             // ÅçÃÒ JWT
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -128,6 +128,10 @@ namespace SocialNetwork
                         };
                     });
 
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(new AuthorizeFilter(new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build()));
+            });
             services.AddHttpContextAccessor();
             services.AddControllersWithViews();
         }
