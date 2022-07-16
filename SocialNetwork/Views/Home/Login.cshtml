@@ -1,0 +1,839 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+@{
+    ViewBag.Title = "Login";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>IKKON</title>
+    <style>
+        html {
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            font-family: Arial,"Microsoft JhengHei";
+            background-color: #FCD4D5;
+            height: 100%;
+            margin: 0;
+        }
+
+        .login_background {
+            width: 500px;
+            height: 100%;
+            background-color: #FFFFFF;
+            margin: 0px auto;
+        }
+
+        .loginBox {
+            padding-top: 35%;
+        }
+
+        .logo {
+            font-size: 40pt;
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            padding-top: 8%;
+            padding-bottom: 3%;
+            color: #f2a1a1;
+        }
+
+        .inputbox {
+            width: 350px;
+            height: 50px;
+            background-color: #FFFFFF;
+            color: #acacac;
+            border-radius: 5px;
+            margin: auto;
+            margin-top: 3%;
+        }
+
+        .inputbox_text {
+            font-size: 20pt;
+            padding-left: 15px;
+            line-height: 50px;
+        }
+
+        .btn_div {
+            display: flex;
+            align-content: center;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .btn_loginPage {
+            width: 350px;
+            height: 40px;
+            font-size: 15pt;
+            border-radius: 5px;
+            background-color: #F2A1A1;
+            color: #FFFFFF;
+            font-weight: 600;
+        }
+
+        .btn_loginPage:hover {
+            background-color: #D68D8D;
+        }
+
+        .btn_singup, .btn_info {
+            width: 130px;
+            height: 50px;
+            font-size: 15pt;
+            border-radius: 5px;
+            background-color: #F2A1A1;
+            color: #FFFFFF;
+            font-weight: 700;
+        }
+
+        .btn_singup:hover, .btn_info:hover {
+            border: 1px solid #FFFFFF;
+        }
+
+        .btn_login_text {
+            color: #be5959;
+            font-size: 18pt;
+            text-align: center;
+            line-height: 50px;
+            font-weight: 800;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        input[type="text"] {
+            height: 45px;
+            border-radius: 5px;
+            border: 1px solid #FCD4D5;
+            font-size: 15pt;
+            margin-top: 2px;
+            outline: 0;
+            padding-left: 15px;
+        }
+
+        input[type="text"]:focus {
+            border: 1px solid #F2A1A1;
+        }
+
+        .input_login {
+            width: 330px;
+        }
+
+        .input_sinup {
+            width: 430px;
+        }
+
+        input[type="button"] {
+            border: none;
+        }
+
+        input[type="date"] {
+            height: 45px;
+            border-radius: 5px;
+            border: 1px solid #FCD4D5;
+            font-size: 15pt;
+            margin-top: 2px;
+            outline: 0;
+            padding-left: 12px;
+            padding-right: 5px;
+        }
+
+        input[type="date"]:focus {
+            border: 1px solid #F2A1A1;
+        }
+
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            background-image: url('/Image/date.png');
+            background-repeat: no-repeat;
+        }
+
+        /*POP背景遮罩*/
+        .popLayer {
+            display: none;
+            background-color: #00000052;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+
+        /*POP彈窗樣式*/
+        .popBox {
+            display: none;
+            background-color: #FFFFFF;
+            border: 1px solid #D68D8D;
+            border-radius: 10px;
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            margin: auto;
+        }
+
+        .signupStyle {
+            width: 700px;
+            height: 680px;
+        }
+
+        .InfoStyle {
+            width: 700px;
+            height: 470px;
+        }
+
+        .topBar {
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 8%;
+        }
+
+        .closeIcon {
+            width: 50px;
+            height: 50px;
+            fill: #F2A1A1;
+            position: absolute;
+            right: 0px;
+        }
+
+        .closeIcon:hover {
+            fill: #D68D8D;
+        }
+
+        .popTitle {
+            color: #D68D8D;
+            font-size: 25pt;
+            font-weight: 700;
+            position: absolute;
+            padding-top: 35px;
+        }
+
+        .singupText {
+            font-size: 16pt;
+            color: #4E4E4E;
+            position: relative;
+            bottom: 50%;
+            right: 5%;
+            font-weight: 600;
+        }
+
+        .singupTextBackground {
+            width: 90%;
+            height: 70%;
+            background-color: #ffe9e9;
+            border-radius: 25px;
+            position: relative;
+            top: 20%;
+        }
+
+        .InfoTextBackground {
+            width: 50px;
+            height: 70%;
+            background-color: #ffe9e9;
+            border-radius: 25px;
+            position: relative;
+            top: 20%;
+            right: 15px;
+        }
+
+        .singupContent {
+            display: flex;
+            align-items: center;
+            justify-content: left;
+            margin: 3% 9%;
+        }
+
+        .singupInputText {
+            width: 100px;
+            height: 30px;
+        }
+
+        .InfoInputText {
+            height: 30px;
+        }
+
+        .linediv {
+            display: flex;
+            align-content: center;
+            justify-content: center;
+        }
+
+        .lineStyle {
+            width: 80%;
+            height: 1px;
+            background-color: #dadada;
+        }
+
+        .forgotPassword {
+            display: flex;
+            justify-content: center;
+        }
+
+        .forgotPasswordWindow {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn_forgotPassword {
+            background: none;
+            color: #F2A1A1;
+            font-size: 14pt;
+            margin-top: 3%;
+        }
+
+        .btn_forgotPassword:hover {
+            color: #D68D8D;
+        }
+
+        .Error, .Info {
+            width: 300px;
+            height: 200px;
+        }
+
+        .btn_Error {
+            width: 130px;
+            height: 50px;
+            font-size: 15pt;
+            border-radius: 5px;
+            background-color: #F2A1A1;
+            color: #FFFFFF;
+            font-weight: 700;
+        }
+
+        .btn_Error:hover {
+            border: 1px solid #FFFFFF;
+        }
+
+        .ErrorText {
+            display: flex;
+            justify-content: center;
+            margin-top: 10%;
+            font-size: 15pt;
+            color: #FF5A5A;
+            font-weight: 600;
+            text-align: center;
+            height: 80px;
+            align-items: center;
+        }
+
+        .InfoText {
+            display: flex;
+            justify-content: center;
+            margin-top: 10%;
+            font-size: 15pt;
+            color: black;
+            font-weight: 600;
+            text-align: center;
+            height: 80px;
+            align-items: center;
+        }
+
+        .PromptText {
+            color: #BFBFBF;
+            font-size: 12pt;
+        }
+
+        .btn_Verification {
+            height: 40px;
+            font-size: 15pt;
+            border-radius: 5px;
+            background-color: #F2A1A1;
+            color: #FFFFFF;
+            font-weight: 600;
+        }
+
+            .btn_Verification:hover {
+                background-color: #D68D8D;
+            }
+
+        .subTitle {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .InfoIcon {
+            width: 90px;
+            margin-left: 10px;
+            right: 0px;
+        }
+
+        .InfoInputdiv {
+            display: contents;
+        }
+
+        /*隱藏時間選擇按鈕文字*/
+        #datepicker {
+            width: 45px;
+            height: 45px;
+            text-indent: -999px;
+            overflow: hidden;
+            background: none;
+            margin: auto;
+            position: absolute;
+        }
+
+        .DateText {
+            margin: auto;
+            font-size: 14pt;
+        }
+
+        .DateInput {
+            width: 85px;
+        }
+
+        .DateIcon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ui-widget-content {
+            background: #FFFFFF;
+            border: none;
+            box-shadow: 1px 1px 3px 1px #0000001c;
+        }
+
+        .ui-widget-header {
+            border: none;
+            background: #FCD4D5;
+        }
+
+        .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+            background: #FFF3F3;
+            border: none;
+            border-radius: 3px;
+            text-align: center;
+        }
+
+        .ui-state-default:hover {
+            background: #f2a1a1;
+            color: #FFFFFF;
+        }
+
+        .ui-datepicker select.ui-datepicker-month, .ui-datepicker select.ui-datepicker-year {
+            width: 35%;
+            border-radius: 5px;
+            margin: 0px 5px;
+            border: none;
+        }
+
+        .ui-datepicker-year::-webkit-scrollbar-thumb {
+            display: none;
+        }
+
+        .ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {
+            border: none;
+            background: #f2a1a180;
+            top: 3px;
+        }
+
+        .ui-datepicker .ui-datepicker-prev-hover {
+            left: 3px;
+        }
+
+        .ui-datepicker .ui-datepicker-next-hover {
+            right: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login_background">
+        <div class="loginBox">
+            <a class="logo">I K K O N</a>
+            <div class="inputbox">
+                <input class="input_login" type="text" placeholder="請輸入帳號" id="account" autocomplete="off" maxlength="20">
+            </div>
+            <div class="inputbox">
+                <input class="input_login" type="text" placeholder="請輸入密碼" id="password" autocomplete="off" maxlength="100">
+            </div>
+
+            <!--忘記密碼-->
+            <div id="forgotPassword" class="forgotPassword">
+                <input class="btn_forgotPassword" type="button" value="忘記密碼?" onclick="pop('forgotPassword')">
+                <div class="popLayer"></div>
+                <div class="popBox forgotPasswordWindow">
+                    <div class="topBar">
+                        <div class="popTitle"><a>忘記密碼</a></div>
+                        <div onclick="pop('forgotPassword', false)"><img class="svg closeIcon" src="~/Image/Close.svg"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!--登入-->
+            <div class="btn_div">
+                <div><input class="btn_loginPage" type="button" value="登入" onclick="Login()"></div>
+            </div>
+            <div id="loginError">
+                <div class="popLayer"></div>
+                <div class="popBox Error">
+                    <a class="ErrorText">帳號或密碼錯誤<br>請重新輸入</a>
+                    <div class="btn_div">
+                        <input class="btn_Error" type="button" value="確認" onclick="pop('loginError', false)">
+                    </div>
+                </div>
+            </div>
+
+            <!--Google帳號登入-->
+            <div class="btn_div">
+                <div><input class="btn_loginPage" type="button" value="Google帳號登入" onclick=""></div>
+            </div>
+
+            <!--分隔線-->
+            <div class="linediv">
+                <div class="lineStyle" style="margin-top: 20px;"></div>
+            </div>
+
+            <!--註冊-->
+            <div class="btn_div" id="signup">
+                <div><input class="btn_loginPage" type="button" value="新會員註冊" onclick="pop('signup')"></div>
+                <div class="popLayer"></div>
+                <div class="popBox signupStyle">
+                    <div class="topBar">
+                        <div class="popTitle"><a>新會員註冊</a></div>
+                        <div onclick="pop('signup', false)"><img class="svg closeIcon" src="~/Image/Close.svg"></div>
+                    </div>
+                    <div class="singupContent">
+                        <div class="singupInputText">
+                            <div class="singupTextBackground">
+                                <a class="singupText">會員名稱</a>
+                            </div>
+                        </div>
+                        <div>
+                            <input class="input_sinup" type="text" placeholder="限制字數30字" id="singup_name" autocomplete="off" maxlength="30" onkeyup="RemoveErrorInput(this.id)">
+                        </div>
+                    </div>
+                    <div class="singupContent">
+                        <div class="singupInputText" style="margin-bottom: 15px">
+                            <div class="singupTextBackground">
+                                <a class="singupText">會員帳號</a>
+                            </div>
+                        </div>
+                        <div>
+                            <input class="input_sinup" type="text" placeholder="請輸入會員帳號" id="singup_account" autocomplete="off" maxlength="20" style="margin-bottom:5px" onkeyup="RemoveErrorInput(this.id)">
+                            <br>
+                            <a class="PromptText">限制設定至少6碼的英數字</a>
+                        </div>
+                    </div>
+                    <div class="singupContent">
+                        <div class="singupInputText">
+                            <div class="singupTextBackground">
+                                <a class="singupText">會員密碼</a>
+                            </div>
+                        </div>
+                        <div>
+                            <input class="input_sinup" type="text" placeholder="請輸入會員密碼" id="singup_password" autocomplete="off" maxlength="20" onkeyup="RemoveErrorInput(this.id)">
+                        </div>
+                    </div>
+                    <div class="singupContent">
+                        <div class="singupInputText">
+                            <div class="singupTextBackground">
+                                <a class="singupText">確認密碼</a>
+                            </div>
+                        </div>
+                        <div>
+                            <input class="input_sinup" type="text" placeholder="請再次輸入密碼" id="singup_passwordCheck" autocomplete="off" maxlength="20" onkeyup="RemoveErrorInput(this.id)">
+                        </div>
+                    </div>
+                    <div class="singupContent">
+                        <div class="singupInputText">
+                            <div class="singupTextBackground">
+                                <a class="singupText">電子郵件</a>
+                            </div>
+                        </div>
+                        <div style="display:flex; align-items:center;">
+                            <input class="input_sinup" type="text" placeholder="請輸入有效電子郵件" id="singup_mail" autocomplete="off" maxlength="100" style="width: 310px; margin-right:5px;" onkeyup="RemoveErrorInput(this.id)">
+                            <input class="btn_Verification" type="button" value="取得驗證碼" onclick="SendAuthCode()">
+                        </div>
+                    </div>
+                    <div class="linediv"><div class="lineStyle"></div></div>
+                    <div class="singupContent">
+                        <div class="singupInputText" style="margin-bottom: 15px">
+                            <div class="singupTextBackground">
+                                <a class="singupText">驗 證 碼</a>
+                            </div>
+                        </div>
+                        <div>
+                            <input class="input_sinup" type="text" placeholder="請輸入驗證碼" id="singup_Vcode" autocomplete="off" maxlength="4" style="margin-bottom:5px" oninput="value=value.replace(/[^\d]/g,'')" onkeyup="RemoveErrorInput(this.id)">
+                            <br>
+                            <a class="PromptText">請至電子郵件收取信件，取得驗證碼以完成註冊。</a>
+                        </div>
+                    </div>
+                    <div class="btn_div">
+                        <div><input class="btn_singup" type="button" value="註冊" onclick="Singup()"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="PopupError">
+                <div class="popLayer"></div>
+                <div class="popBox Error">
+                    <a class="ErrorText" id="ErrorText"></a>
+                    <div class="btn_div">
+                        <input class="btn_Error" type="button" value="確認" onclick="pop('PopupError', false)">
+                    </div>
+                </div>
+            </div>
+            <div id="PopupInfo">
+                <div class="popLayer"></div>
+                <div class="popBox Info">
+                    <a class="InfoText" id="InfoText"></a>
+                    <div class="btn_div">
+                        <input class="btn_info" type="button" value="確認">
+                    </div>
+                </div>
+            </div>
+            <div id="MailError">
+                <div class="popLayer"></div>
+                <div class="popBox Error">
+                    <a class="ErrorText">請輸入電子郵件!</a>
+                    <div class="btn_div">
+                        <input class="btn_Error" type="button" value="確認" onclick="pop('MailError', false)">
+                    </div>
+                </div>
+            </div>
+
+            <!--會員資料填寫-->
+            <div class="btn_div" id="MemberInfo">
+                <div><input class="btn_loginPage" type="button" value="會員資料POPTest" onclick="pop('MemberInfo')"></div>
+                <div class="popLayer"></div>
+                <div class="popBox InfoStyle">
+                    <div class="topBar">
+                        <div class="popTitle"><a>填寫會員資料</a></div>
+                        <div onclick="pop('MemberInfo', false)"><img class="svg closeIcon" src="~/Image/Close.svg"></div>
+                    </div>
+                    <div class="singupContent">
+                        <div class="InfoInputText">
+                            <div class="InfoTextBackground">
+                                <a class="singupText">生日</a>
+                            </div>
+                        </div>
+                        <div class="InfoInputdiv">
+                            <input type="text" id="year" autocomplete="off" class="DateInput" disabled="disabled"><a class="DateText">年</a>
+                            <input type="text" id="month" autocomplete="off" class="DateInput" disabled="disabled"><a class="DateText">月</a>
+                            <input type="text" id="day" autocomplete="off" class="DateInput" disabled="disabled"><a class="DateText">日</a>
+                            <div class="DateIcon">
+                                <input type="button" id="datepicker">
+                                <img src="~/Image/date.png">
+                            </div>
+                            <div><img onclick="InfoDate(this)" id="InfoBtn1" class="svg InfoIcon" src="/Image/InfoPublic.png"></div>
+                        </div>
+                    </div>
+                    <div class="singupContent">
+                        <div class="InfoInputText" style="margin-bottom: 15px">
+                            <div class="InfoTextBackground">
+                                <a class="singupText">興趣</a>
+                            </div>
+                        </div>
+                        <div class="InfoInputdiv">
+                            <input id="infoInternest" class="input_sinup" type="text" autocomplete="off" maxlength="20">
+                            <div><img onclick="InfoDate(this)" id="InfoBtn2" class="svg InfoIcon" src="/Image/InfoPublic.png"></div>
+                        </div>
+                    </div>
+                    <div class="singupContent">
+                        <div class="InfoInputText">
+                            <div class="InfoTextBackground">
+                                <a class="singupText">工作</a>
+                            </div>
+                        </div>
+                        <div class="InfoInputdiv">
+                            <input id="infoJob" class="input_sinup" type="text" autocomplete="off" maxlength="100">
+                            <div><img onclick="InfoDate(this)" id="InfoBtn4" class="svg InfoIcon" src="/Image/InfoPublic.png"></div>
+                        </div>
+                    </div>
+                    <div class="singupContent">
+                        <div class="InfoInputText">
+                            <div class="InfoTextBackground">
+                                <a class="singupText">學歷</a>
+                            </div>
+                        </div>
+                        <div class="InfoInputdiv">
+                            <input id="infoEducation" class="input_sinup" type="text" autocomplete="off" maxlength="100">
+                            <div><img onclick="InfoDate(this)" id="InfoBtn8" class="svg InfoIcon" src="/Image/InfoPublic.png"></div>
+                        </div>
+                    </div>
+                    <div class="btn_div">
+                        <div><input class="btn_singup" type="button" value="完成" onclick="InfoNumber()"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script type="text/javascript">
+    function Login() {
+        LoginAPI($('#account').val(), $('#passowrd').val());
+    }
+
+
+    /*SVG元素控制*/
+    jQuery('img.svg').each(function () {
+        var $img = jQuery(this);
+        var imgID = $img.attr('id');
+        var imgClass = $img.attr('class');
+        var imgURL = $img.attr('src');
+
+        jQuery.get(imgURL, function (data) {
+            // Get the SVG tag, ignore the rest
+            var $svg = jQuery(data).find('svg');
+
+            // Add replaced image's ID to the new SVG
+            if (typeof imgID !== 'undefined') {
+                $svg = $svg.attr('id', imgID);
+            }
+            // Add replaced image's classes to the new SVG
+            if (typeof imgClass !== 'undefined') {
+                $svg = $svg.attr('class', imgClass + ' replaced-svg');
+            }
+
+            // Remove any invalid XML tags as per http://validator.w3.org
+            $svg = $svg.removeAttr('xmlns:a');
+
+            // Check if the viewport is set, if the viewport is not set the SVG wont't scale.
+            if (!$svg.attr('viewBox') && $svg.attr('height') && $svg.attr('width')) {
+                $svg.attr('viewBox', '0 0 ' + $svg.attr('height') + ' ' + $svg.attr('width'))
+            }
+
+            // Replace image with new SVG
+            $img.replaceWith($svg);
+
+        }, 'xml');
+
+    });
+
+    $(document).ready(() => {
+        /*日期選擇元件*/
+        datepickerInit();
+    });
+
+    /** 註冊 */
+    function Singup() {
+        let errorMsg = {
+            singup_name: '您尚未填寫 會員名稱',
+            singup_account: '您尚未填寫 會員帳號',
+            singup_password: '您尚未填寫 會員密碼',
+            singup_passwordCheck: '您尚未填寫 確認密碼',
+            singup_mail: '您尚未填寫 電子郵件',
+            singup_Vcode: '您尚未填寫 驗證碼'
+        };
+
+        let error = '';
+
+        // 前端欄位基礎驗證
+        Object.keys(errorMsg).forEach(key => {
+            if (!error && !$('#' + key).val()) {
+                $('#' + key).removeClass('input-error');
+
+                error = errorMsg[key];
+                $('#' + key).addClass('input-error');
+            }
+        });
+
+        // 驗證特殊邏輯
+        if (!error) {
+            let regexAccountValidation = new RegExp('^.[A-Za-z0-9]+$');
+            if ($("#singup_account").val().length < 6 || !regexAccountValidation.test($("#singup_account").val())) {
+                error = '會員帳號需至少為6碼的英數字';
+                $('#singup_account').addClass('input-error');
+            }
+            else if ($("#singup_password").val() != $("#singup_passwordCheck").val()) {
+                error = '會員密碼與確認密碼不相符';
+                $('#singup_password').addClass('input-error');
+                $('#singup_passwordCheck').addClass('input-error');
+            }
+        }
+
+        if (error) {
+            $('#ErrorText').html(error);
+            pop('PopupError');
+            return;
+        }
+
+        //串註冊API
+        $.post("/API/MemberAPI/Singup",
+            {
+                nickName: $("#singup_name").val(),
+                Account: $("#singup_account").val(),
+                Password: $("#singup_password").val(),
+                PasswordCheck: $("#singup_passwordCheck").val(),
+                Mail: $("#singup_mail").val(),
+                VCode: $("#singup_Vcode").val()
+            },
+            (res) => {
+                if (res.ResultCode == 1) {
+                    $('#InfoText').html(res.Message);
+                    pop('PopupInfo');
+
+                    $('.btn_info').click(() => pop('PopupInfo', false, () => pop('MemberInfo')));
+                }
+                else {
+                    $('#ErrorText').html(res.Message);
+                    pop('PopupError');
+                }
+            }
+        );
+    };
+
+    /*測試用*/
+    function dateTest() {
+        $.post("/API/MemberAPI/Datetest",
+            {
+                Brithdate: $('#Birth').val()
+            },
+            (res) => {
+                if (res.ResultCode == 1)
+                    // 導主頁
+                    alert(res.Message);
+                else
+                    alert(res.Message);
+            }
+        );
+    }
+
+    /*會員資料公開或隱藏*/
+    var infoSum = 15;
+    function InfoDate(e) {
+        var hideImage = "/Image/InfoHide.png";
+        var publicImage = "/Image/InfoPublic.png";
+        e.src = e.src.includes(publicImage) ? hideImage : publicImage;
+
+        var infoNumber = e.id.slice(-1);
+        infoSum = e.src.includes(publicImage) ? infoSum + Number(infoNumber) : infoSum - Number(infoNumber);
+    };
+
+    function InfoNumber() {
+        var birthday = $('#year').val() + '-' + $('#month').val() + '-' + $('#day').val();
+        var internest = $('#infoInternest').val();
+        var job = $('#infoJob').val();
+        var education = $('#infoEducation').val();
+        alert(infoSum + '\n' + birthday + '\n' + internest + '\n' + job + '\n' + education);
+    }
+
+    /*寄驗證碼到Mail*/
+    function SendAuthCode() {
+        $.post("/API/MailAPI/SendVCode",
+            {
+                Mail: $('#singup_mail').val()
+            },
+            (res) => {
+                if (res.ResultCode == 1) {
+                    $('#InfoText').html(res.Message);
+                    pop('PopupInfo');
+                    $('.btn_info').click(() => pop('PopupInfo', false));
+                }
+                else {
+                    $('#ErrorText').html(res.Message);
+                    $('#singup_mail').addClass('input-error');
+                    pop('PopupError');
+                }
+            }
+        );
+    }
+</script>

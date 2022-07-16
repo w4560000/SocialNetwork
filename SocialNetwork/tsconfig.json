@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "noEmitOnError": true,
+    "noImplicitAny": true,
+    "sourceMap": false,
+    "target": "es6",
+    "outDir": "./wwwroot/js",
+    "rootDir": "./wwwroot/ts"
+  },
+  "compileOnSave": true
+}

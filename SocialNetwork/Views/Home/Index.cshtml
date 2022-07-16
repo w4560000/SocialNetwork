@@ -1,8 +1,215 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewBag.Title = "Index";
+    Layout = null;
 }
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>IKKON</title>
+    <style>
+        html {
+            height: 100%;
+            margin: 0;
+        }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+            html::-webkit-scrollbar { /*捲軸本身*/
+                width: 5px;
+            }
+
+            html::-webkit-scrollbar-thumb { /*捲軸可以拉的部分*/
+                background-color: #00000050;
+                border-radius: 50px;
+            }
+
+        body {
+            font-family: Arial,"Microsoft JhengHei";
+            background-color: #F5F5F5;
+            margin: 0;
+        }
+
+        .div_menu {
+            background-color: #ffffff;
+            width: 20%;
+            height: 100%;
+            position: fixed;
+            top: 0px;
+            left: 0px;
+        }
+
+        .div_content {
+            height: 5000px;
+            position: absolute;
+            left: 22%;
+            right: 28.5%;
+        }
+
+        .div_right {
+            width: 25%;
+            height: 100%;
+            position: fixed;
+            top: 0px;
+            right: 30px;
+        }
+
+        .div_banner {
+            background-color: #ffffff;
+            width: 100%;
+            height: 150px;
+            margin: 30px auto;
+            border-radius: 5px;
+        }
+
+        .div_friend {
+            background-color: #ffffff;
+            width: 100%;
+            height: 74.5%;
+            border-radius: 5px;
+        }
+
+        .div_mypost {
+            background-color: #ffffff;
+            width: 100%;
+            height: 50px;
+            margin-top: 30px;
+            border-radius: 5px;
+        }
+
+        .div_post {
+            background-color: #ffffff;
+            width: 100%;
+            height: 85px;
+            margin-top: 30px;
+            border-radius: 5px;
+        }
+
+        .logo {
+            font-size: 25pt;
+            display: flex;
+            justify-content: center;
+            padding-top: 8%;
+            padding-bottom: 10%;
+            color: #f2a1a1;
+        }
+
+        .meunContent {
+            padding-left: 15%;
+        }
+
+        .btn_singout {
+            color: #808080;
+            font-size: 12pt;
+            text-align: left;
+            padding: 0px;
+            display: flex;
+        }
+
+        input[type="button"] {
+            background-color: #ffffff;
+            border: none;
+        }
+
+        .accountPhoto {
+            display: flex;
+            width: 50%;
+            height: 50%;
+            fill: #f2a1a1;
+        }
+    </style>
+</head>
+<body>
+    <div class="div_menu">
+        <div class="logo"><a>I K K O N</a></div>
+        <div class="meunContent">
+            <img class="svg accountPhoto" src="~/Image/accountphoto.svg">
+            <!--
+                使用後端語法要加小老鼠
+                tempdata為暫存資料
+                textbox和html的input一樣
+                actionlink是超鏈結語法
+            -->
+            @TempData["Message"]
+            @*@Html.TextBoxFor(x => Model.NickName)
+                <input type="text" value="@Model.NickName" />*@
+            @*@Html.ActionLink(Model.NickName, "About", "Home", new { memberID = Model.MemberID }, null)*@
+            <select class="btn_singout">
+                <option>在線</option>
+                <option>離線</option>
+                <option>忙碌</option>
+            </select>
+            <input class="btn_singout" type="button" value="首頁" onclick="login()">
+            <input class="btn_singout" type="button" value="個人主頁" onclick="login()">
+            <input class="btn_singout" type="button" value="帳號設定" onclick="login()">
+            <input class="btn_singout" type="button" value="好友管理" onclick="login()">
+            <input class="btn_singout" type="button" value="登出" onclick="login()">
+        </div>
+    </div>
+    <div class="div_content">
+        <div class="div_mypost">
+            <a>mypost</a>
+        </div>
+        <div class="div_post">
+            <a>content</a>
+        </div>
+    </div>
+    <div class="div_right">
+        <div class="div_banner">
+            <a>banner</a>
+            <!--放banner要讓他水平垂直置中在div內，隨窗口變化要避免圖片變形-->
+        </div>
+        <div class="div_friend">
+            <a>friend</a>
+        </div>
+    </div>
+    <script type="text/javascript">
+        /*SVG元素控制*/
+        jQuery('img.svg').each(function () {
+            var $img = jQuery(this);
+            var imgID = $img.attr('id');
+            var imgClass = $img.attr('class');
+            var imgURL = $img.attr('src');
+
+            jQuery.get(imgURL, function (data) {
+                // Get the SVG tag, ignore the rest
+                var $svg = jQuery(data).find('svg');
+
+                // Add replaced image's ID to the new SVG
+                if (typeof imgID !== 'undefined') {
+                    $svg = $svg.attr('id', imgID);
+                }
+                // Add replaced image's classes to the new SVG
+                if (typeof imgClass !== 'undefined') {
+                    $svg = $svg.attr('class', imgClass + ' replaced-svg');
+                }
+
+                // Remove any invalid XML tags as per http://validator.w3.org
+                $svg = $svg.removeAttr('xmlns:a');
+
+                // Check if the viewport is set, if the viewport is not set the SVG wont't scale.
+                if (!$svg.attr('viewBox') && $svg.attr('height') && $svg.attr('width')) {
+                    $svg.attr('viewBox', '0 0 ' + $svg.attr('height') + ' ' + $svg.attr('width'))
+                }
+
+                // Replace image with new SVG
+                $img.replaceWith($svg);
+
+            }, 'xml');
+
+        });
+        $(document).ready(() => {
+
+            var data = [1, 2, 3, 4, 5];
+
+            data.forEach(x => {
+                debugger;
+                $('.div_mypost').append(`<a>${x}</a>`);
+            });
+
+            //進網頁先載入API
+        });
+        function login() {
+            window.location.href = '/Home/Login';
+        }
+    </script>
+</body>
+</html>

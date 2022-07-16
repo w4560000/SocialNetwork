@@ -167,7 +167,7 @@ namespace SocialNetwork
                 var response = context.HttpContext.Response;
 
                 if (response.StatusCode == (int)HttpStatusCode.Unauthorized)
-                    response.Redirect("/account/login");
+                    response.Redirect("/Home/Login");
 
                 return Task.CompletedTask;
             });
