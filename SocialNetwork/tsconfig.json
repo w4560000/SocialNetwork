@@ -3,7 +3,7 @@
     "noEmitOnError": true,
     "noImplicitAny": true,
     "sourceMap": false,
-    "target": "es6",
+    "target": "es5",
     "outDir": "./wwwroot/js",
     "rootDir": "./wwwroot/ts"
   },

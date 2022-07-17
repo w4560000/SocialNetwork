@@ -1,15 +1,16 @@
 [
   {
-    "outputFileName": "wwwroot/css/site.min.css",
+    "outputFileName": "wwwroot/css/bundle/Common.min.css",
     "inputFiles": [
-      "wwwroot/lib/bootstrap/dist/css/bootstrap.css",
-      "wwwroot/css/site.css"
+      "wwwroot/css/normalize.css",
+      "wwwroot/css/Common.css"
     ]
   },
   {
     "outputFileName": "wwwroot/js/bundle/Common.min.js",
     "inputFiles": [
-      "wwwroot/js/Common/*.js"
+      "wwwroot/js/Common/*.js",
+      "wwwroot/lib/jquery/jquery.js"
     ],
     "minify": {
       "enabled": true,

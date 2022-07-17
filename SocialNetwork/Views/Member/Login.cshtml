@@ -1,5 +1,7 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-<script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+@*<script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>*@
+<script src="~/js/bundle/Common.min.js" asp-append-version="true"></script>
+<link rel="stylesheet" href="~/css/bundle/Common.min.css" asp-append-version="true" />
 @{
     ViewBag.Title = "Login";
     Layout = null;
@@ -10,18 +12,6 @@
     <meta charset="utf-8" />
     <title>IKKON</title>
     <style>
-        html {
-            height: 100%;
-            margin: 0;
-        }
-
-        body {
-            font-family: Arial,"Microsoft JhengHei";
-            background-color: #FCD4D5;
-            height: 100%;
-            margin: 0;
-        }
-
         .login_background {
             width: 500px;
             height: 100%;
@@ -59,13 +49,6 @@
             line-height: 50px;
         }
 
-        .btn_div {
-            display: flex;
-            align-content: center;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
         .btn_loginPage {
             width: 350px;
             height: 40px;
@@ -76,9 +59,9 @@
             font-weight: 600;
         }
 
-        .btn_loginPage:hover {
-            background-color: #D68D8D;
-        }
+            .btn_loginPage:hover {
+                background-color: #D68D8D;
+            }
 
         .btn_singup, .btn_info {
             width: 130px;
@@ -90,9 +73,9 @@
             font-weight: 700;
         }
 
-        .btn_singup:hover, .btn_info:hover {
-            border: 1px solid #FFFFFF;
-        }
+            .btn_singup:hover, .btn_info:hover {
+                border: 1px solid #FFFFFF;
+            }
 
         .btn_login_text {
             color: #be5959;
@@ -100,24 +83,6 @@
             text-align: center;
             line-height: 50px;
             font-weight: 800;
-        }
-
-        a {
-            text-decoration: none;
-        }
-
-        input[type="text"] {
-            height: 45px;
-            border-radius: 5px;
-            border: 1px solid #FCD4D5;
-            font-size: 15pt;
-            margin-top: 2px;
-            outline: 0;
-            padding-left: 15px;
-        }
-
-        input[type="text"]:focus {
-            border: 1px solid #F2A1A1;
         }
 
         .input_login {
@@ -128,90 +93,9 @@
             width: 430px;
         }
 
-        input[type="button"] {
-            border: none;
-        }
-
-        input[type="date"] {
-            height: 45px;
-            border-radius: 5px;
-            border: 1px solid #FCD4D5;
-            font-size: 15pt;
-            margin-top: 2px;
-            outline: 0;
-            padding-left: 12px;
-            padding-right: 5px;
-        }
-
-        input[type="date"]:focus {
-            border: 1px solid #F2A1A1;
-        }
-
-        input[type="date"]::-webkit-calendar-picker-indicator {
-            background-image: url('/Image/date.png');
-            background-repeat: no-repeat;
-        }
-
-        /*POP背景遮罩*/
-        .popLayer {
-            display: none;
-            background-color: #00000052;
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-        }
-
-        /*POP彈窗樣式*/
-        .popBox {
-            display: none;
-            background-color: #FFFFFF;
-            border: 1px solid #D68D8D;
-            border-radius: 10px;
-            position: fixed;
-            top: 0;
-            right: 0;
-            left: 0;
-            bottom: 0;
-            margin: auto;
-        }
-
         .signupStyle {
             width: 700px;
             height: 680px;
-        }
-
-        .InfoStyle {
-            width: 700px;
-            height: 470px;
-        }
-
-        .topBar {
-            height: 50px;
-            display: flex;
-            justify-content: center;
-            margin-bottom: 8%;
-        }
-
-        .closeIcon {
-            width: 50px;
-            height: 50px;
-            fill: #F2A1A1;
-            position: absolute;
-            right: 0px;
-        }
-
-        .closeIcon:hover {
-            fill: #D68D8D;
-        }
-
-        .popTitle {
-            color: #D68D8D;
-            font-size: 25pt;
-            font-weight: 700;
-            position: absolute;
-            padding-top: 35px;
         }
 
         .singupText {
@@ -287,57 +171,9 @@
             margin-top: 3%;
         }
 
-        .btn_forgotPassword:hover {
-            color: #D68D8D;
-        }
-
-        .Error, .Info {
-            width: 300px;
-            height: 200px;
-        }
-
-        .btn_Error {
-            width: 130px;
-            height: 50px;
-            font-size: 15pt;
-            border-radius: 5px;
-            background-color: #F2A1A1;
-            color: #FFFFFF;
-            font-weight: 700;
-        }
-
-        .btn_Error:hover {
-            border: 1px solid #FFFFFF;
-        }
-
-        .ErrorText {
-            display: flex;
-            justify-content: center;
-            margin-top: 10%;
-            font-size: 15pt;
-            color: #FF5A5A;
-            font-weight: 600;
-            text-align: center;
-            height: 80px;
-            align-items: center;
-        }
-
-        .InfoText {
-            display: flex;
-            justify-content: center;
-            margin-top: 10%;
-            font-size: 15pt;
-            color: black;
-            font-weight: 600;
-            text-align: center;
-            height: 80px;
-            align-items: center;
-        }
-
-        .PromptText {
-            color: #BFBFBF;
-            font-size: 12pt;
-        }
+            .btn_forgotPassword:hover {
+                color: #D68D8D;
+            }
 
         .btn_Verification {
             height: 40px;
@@ -405,12 +241,12 @@
             background: #FCD4D5;
         }
 
-        .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
-            background: #FFF3F3;
-            border: none;
-            border-radius: 3px;
-            text-align: center;
-        }
+            .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+                background: #FFF3F3;
+                border: none;
+                border-radius: 3px;
+                text-align: center;
+            }
 
         .ui-state-default:hover {
             background: #f2a1a1;
@@ -456,12 +292,12 @@
 
             <!--忘記密碼-->
             <div id="forgotPassword" class="forgotPassword">
-                <input class="btn_forgotPassword" type="button" value="忘記密碼?" onclick="pop('forgotPassword')">
+                <input class="btn_forgotPassword" type="button" value="忘記密碼?" onclick="Popup('forgotPassword')">
                 <div class="popLayer"></div>
                 <div class="popBox forgotPasswordWindow">
                     <div class="topBar">
                         <div class="popTitle"><a>忘記密碼</a></div>
-                        <div onclick="pop('forgotPassword', false)"><img class="svg closeIcon" src="~/Image/Close.svg"></div>
+                        <div onclick="ClosePopup('forgotPassword')"><img class="svg closeIcon" src="~/images/Close.svg"></div>
                     </div>
                 </div>
             </div>
@@ -475,7 +311,7 @@
                 <div class="popBox Error">
                     <a class="ErrorText">帳號或密碼錯誤<br>請重新輸入</a>
                     <div class="btn_div">
-                        <input class="btn_Error" type="button" value="確認" onclick="pop('loginError', false)">
+                        <input class="btn_Error" type="button" value="確認" onclick="ClosePopup('loginError')">
                     </div>
                 </div>
             </div>
@@ -492,12 +328,12 @@
 
             <!--註冊-->
             <div class="btn_div" id="signup">
-                <div><input class="btn_loginPage" type="button" value="新會員註冊" onclick="pop('signup')"></div>
+                <div><input class="btn_loginPage" type="button" value="新會員註冊" onclick="Popup('signup')"></div>
                 <div class="popLayer"></div>
                 <div class="popBox signupStyle">
                     <div class="topBar">
                         <div class="popTitle"><a>新會員註冊</a></div>
-                        <div onclick="pop('signup', false)"><img class="svg closeIcon" src="~/Image/Close.svg"></div>
+                        <div onclick="ClosePopup('signup')"><img class="svg closeIcon" src="~/images/Close.svg"></div>
                     </div>
                     <div class="singupContent">
                         <div class="singupInputText">
@@ -575,7 +411,7 @@
                 <div class="popBox Error">
                     <a class="ErrorText" id="ErrorText"></a>
                     <div class="btn_div">
-                        <input class="btn_Error" type="button" value="確認" onclick="pop('PopupError', false)">
+                        <input class="btn_Error" type="button" value="確認" onclick="ClosePopup('PopupError')">
                     </div>
                 </div>
             </div>
@@ -593,19 +429,19 @@
                 <div class="popBox Error">
                     <a class="ErrorText">請輸入電子郵件!</a>
                     <div class="btn_div">
-                        <input class="btn_Error" type="button" value="確認" onclick="pop('MailError', false)">
+                        <input class="btn_Error" type="button" value="確認" onclick="ClosePopup('MailError')">
                     </div>
                 </div>
             </div>
 
             <!--會員資料填寫-->
             <div class="btn_div" id="MemberInfo">
-                <div><input class="btn_loginPage" type="button" value="會員資料POPTest" onclick="pop('MemberInfo')"></div>
+                <div><input class="btn_loginPage" type="button" value="會員資料POPTest" onclick="Popup('MemberInfo')"></div>
                 <div class="popLayer"></div>
                 <div class="popBox InfoStyle">
                     <div class="topBar">
                         <div class="popTitle"><a>填寫會員資料</a></div>
-                        <div onclick="pop('MemberInfo', false)"><img class="svg closeIcon" src="~/Image/Close.svg"></div>
+                        <div onclick="ClosePopup('MemberInfo')"><img class="svg closeIcon" src="~/images/Close.svg"></div>
                     </div>
                     <div class="singupContent">
                         <div class="InfoInputText">
@@ -669,9 +505,8 @@
 
 <script type="text/javascript">
     function Login() {
-        LoginAPI($('#account').val(), $('#passowrd').val());
+        LoginAPI($('#account').val(), $('#password').val());
     }
-
 
     /*SVG元素控制*/
     jQuery('img.svg').each(function () {
@@ -752,7 +587,7 @@
 
         if (error) {
             $('#ErrorText').html(error);
-            pop('PopupError');
+            Popup('PopupError');
             return;
         }
 
@@ -769,13 +604,13 @@
             (res) => {
                 if (res.ResultCode == 1) {
                     $('#InfoText').html(res.Message);
-                    pop('PopupInfo');
+                    Popup('PopupInfo');
 
-                    $('.btn_info').click(() => pop('PopupInfo', false, () => pop('MemberInfo')));
+                    $('.btn_info').click(() => Popup('PopupInfo', false, () => Popup('MemberInfo')));
                 }
                 else {
                     $('#ErrorText').html(res.Message);
-                    pop('PopupError');
+                    Popup('PopupError');
                 }
             }
         );
@@ -825,13 +660,13 @@
             (res) => {
                 if (res.ResultCode == 1) {
                     $('#InfoText').html(res.Message);
-                    pop('PopupInfo');
-                    $('.btn_info').click(() => pop('PopupInfo', false));
+                    Popup('PopupInfo');
+                    $('.btn_info').click(() => ClosePopup('PopupInfo'));
                 }
                 else {
                     $('#ErrorText').html(res.Message);
                     $('#singup_mail').addClass('input-error');
-                    pop('PopupError');
+                    Popup('PopupError');
                 }
             }
         );

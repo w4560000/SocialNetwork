@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SocialNetwork.Helper;
 using SocialNetwork.Repository;
 using SocialNetwork.Service;
 
@@ -42,27 +43,5 @@ namespace SocialNetwork.Controllers
         {
             return View();
         }
-
-        /// <summary>
-        /// 登入頁
-        /// </summary>
-        /// <returns>登入頁</returns>
-        [AllowAnonymous]
-        public IActionResult Login(string returnUrl)
-        {
-            this.ViewBag.ReturnUrl = returnUrl;
-            return View();
-        }
-
-        /// <summary>
-        /// 登入
-        /// </summary>
-        /// <returns>登入頁</returns>
-        [AllowAnonymous]
-        public IActionResult Login(LoginViewModel model)
-        {
-            return Ok();
-        }
-
     }
 }

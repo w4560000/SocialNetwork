@@ -42,20 +42,55 @@ namespace Dapper
         /// </summary>
         public enum Dialect
         {
+            /// <summary>
+            /// SQLServer
+            /// </summary>
             SQLServer,
+
+            /// <summary>
+            /// PostgreSQL
+            /// </summary>
             PostgreSQL,
+
+            /// <summary>
+            /// SQLite
+            /// </summary>
             SQLite,
+
+            /// <summary>
+            /// MySQL
+            /// </summary>
             MySQL,
+
+            /// <summary>
+            /// Oracle
+            /// </summary>
             Oracle
         }
 
+        /// <summary>
+        /// IColumnNameResolver
+        /// </summary>
         public interface IColumnNameResolver
         {
+            /// <summary>
+            /// ResolveColumnName
+            /// </summary>
+            /// <param name="propertyInfo">PropertyInfo</param>
+            /// <returns>ColumnName</returns>
             string ResolveColumnName(PropertyInfo propertyInfo);
         }
 
+        /// <summary>
+        /// ITableNameResolver
+        /// </summary>
         public interface ITableNameResolver
         {
+            /// <summary>
+            /// ResolveTableName
+            /// </summary>
+            /// <param name="type">type</param>
+            /// <returns>TableName</returns>
             string ResolveTableName(Type type);
         }
 
@@ -1080,8 +1115,16 @@ namespace Dapper
             return false;
         }
 
+        /// <summary>
+        /// ColumnNameResolver
+        /// </summary>
         public class ColumnNameResolver : IColumnNameResolver
         {
+            /// <summary>
+            /// ResolveColumnName
+            /// </summary>
+            /// <param name="propertyInfo">PropertyInfo</param>
+            /// <returns>ColumnName</returns>
             public virtual string ResolveColumnName(PropertyInfo propertyInfo)
             {
                 string columnName = Encapsulate(propertyInfo.Name);
@@ -1097,8 +1140,16 @@ namespace Dapper
             }
         }
 
+        /// <summary>
+        /// TableNameResolver
+        /// </summary>
         public class TableNameResolver : ITableNameResolver
         {
+            /// <summary>
+            /// ResolveTableName
+            /// </summary>
+            /// <param name="type">type</param>
+            /// <returns>TableName</returns>
             public virtual string ResolveTableName(Type type)
             {
                 string tableName = Encapsulate(type.Name);

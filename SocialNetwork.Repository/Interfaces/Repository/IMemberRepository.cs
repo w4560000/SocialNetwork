@@ -5,6 +5,10 @@
     /// </summary>
     public interface IMemberRepository
     {
+        /// <summary>
+        /// Test
+        /// </summary>
+        /// <returns>Test</returns>
         public string Test();
     }
 }
