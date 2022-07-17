@@ -2,8 +2,11 @@
   {
     "outputFileName": "wwwroot/css/bundle/Common.min.css",
     "inputFiles": [
-      "wwwroot/css/normalize.css",
-      "wwwroot/css/Common.css"
+      //"wwwroot/css/normalize.css",
+      "wwwroot/css/Common.css",
+      "wwwroot/lib/bootstrap/bootstrap.css",
+      "wwwroot/lib/bootstrap/bootstrap-grid.css",
+      "wwwroot/lib/bootstrap/bootstrap-reboot.css"
     ]
   },
   {

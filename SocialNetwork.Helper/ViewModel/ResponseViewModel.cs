@@ -1,6 +1,5 @@
 ﻿namespace SocialNetwork.Helper
 {
-
     /// <summary>
     /// 共用回應 ViewModel
     /// </summary>
@@ -21,5 +20,21 @@
         /// 回應資料
         /// </summary>
         public T Data { get; set; }
+    }
+
+    /// <summary>
+    /// 共用回應 ViewModel
+    /// </summary>
+    public class ResponseViewModel
+    {
+        /// <summary>
+        /// 回應狀態
+        /// </summary>
+        public ResponseStatusEnum Status { get; set; }
+
+        /// <summary>
+        /// 回應訊息
+        /// </summary>
+        public string Message { get; set; } = string.Empty;
     }
 }

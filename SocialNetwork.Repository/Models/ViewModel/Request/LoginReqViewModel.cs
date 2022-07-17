@@ -1,9 +1,9 @@
 ﻿namespace SocialNetwork.Repository
 {
     /// <summary>
-    /// LoginViewModel
+    /// LoginReqViewModel
     /// </summary>
-    public class LoginViewModel
+    public class LoginReqViewModel
     {
         /// <summary>
         /// 帳號

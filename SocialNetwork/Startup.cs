@@ -64,10 +64,11 @@ namespace SocialNetwork
             services.Configure<AppSettings>(Configuration);
 
             // DIµù¥U Repository
-            services.AddScoped<IMemberRepository, MemberRepository>();
-            services.AddScoped<ITestPostgreSQLRepository, TestPostgreSQLRepository>();
             services.AddScoped<IPostgreSqlConnectionFactory, PostgreSqlConnectionFactoryBase>();
             services.AddScoped<ISQLServerConnectionFactory, SQLServerConnectionFactoryBase>();
+            services.AddScoped<ITestPostgreSQLRepository, TestPostgreSQLRepository>();
+            services.AddScoped<IMemberRepository, MemberRepository>();
+            services.AddScoped<IVerificationCodeRepository, VerificationCodeRepository>();
 
             // DIµù¥U Service
             services.AddScoped<IMemberService, MemberService>();

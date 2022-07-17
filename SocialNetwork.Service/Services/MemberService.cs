@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using SocialNetwork.Helper;
 using SocialNetwork.Repository;
 using System;
 
@@ -10,27 +11,48 @@ namespace SocialNetwork.Service
     public class MemberService : IMemberService
     {
         /// <summary>
-        /// Mart repository
+        /// IMemberRepository
         /// </summary>
         private readonly IMemberRepository MemberRepository;
 
         /// <summary>
+        /// IVerificationCodeRepository
+        /// </summary>
+        private readonly IVerificationCodeRepository VerificationCodeRepository;
+
+        /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="martRepository">IMemberRepository</param>
+        /// <param name="memberRepository">IMemberRepository</param>
+        /// <param name="verificationCode">IVerificationCodeRepository</param>
         public MemberService(
-            IMemberRepository martRepository)
+            IMemberRepository memberRepository,
+            IVerificationCodeRepository verificationCode)
         {
-            MemberRepository = martRepository;
+            this.MemberRepository = memberRepository;
+            this.VerificationCodeRepository = verificationCode;
         }
 
         /// <summary>
-        /// Test
+        /// 註冊
         /// </summary>
-        /// <returns>Test</returns>
-        public string Test()
+        /// <returns>註冊結果</returns>
+        public ResponseViewModel Signup(SingupReqViewModel model)
         {
-            return MemberRepository.Test();
+            bool isMemberExist = this.MemberRepository.CheckMemberExist(model.Account, model.Mail);
+
+            if (isMemberExist)
+                return "會員帳號或信箱已被註冊!".AsFailResponse();
+
+            (bool IsVCodeValid, VerificationCode vCode) = this.VerificationCodeRepository.CheckVerificationCodeIsValid(model.Mail, model.VCode);
+
+            if (!IsVCodeValid)
+                return "驗證碼錯誤!".AsFailResponse();
+
+            this.VerificationCodeRepository.AuthVerificationCodeSuccess(vCode);
+
+
+            return new ResponseViewModel();
         }
     }
 }

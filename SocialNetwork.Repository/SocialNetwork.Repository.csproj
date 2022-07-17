@@ -37,8 +37,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Enum\" />
-    <Folder Include="Models\ViewModel\Request\" />
     <Folder Include="Models\ViewModel\Response\" />
   </ItemGroup>
 

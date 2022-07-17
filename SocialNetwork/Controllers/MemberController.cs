@@ -36,6 +36,7 @@ namespace SocialNetwork.Controllers
         /// <summary>
         /// 登入頁
         /// </summary>
+        /// <param name="returnUrl">返回網址</param>
         /// <returns>登入頁</returns>
         [AllowAnonymous]
         public IActionResult Login(string returnUrl)
@@ -47,12 +48,29 @@ namespace SocialNetwork.Controllers
         /// <summary>
         /// 登入
         /// </summary>
-        /// <returns>登入頁</returns>
+        /// <param name="model">viewModel</param>
+        /// <returns>登入結果</returns>
         [AllowAnonymous]
         [HttpPost]
-        public ResponseViewModel<object> Login(LoginViewModel model)
+        public ResponseViewModel Login(LoginReqViewModel model)
         {
-            return "登入成功".AsSuccessResponse<object>(null);
+            return "登入成功".AsSuccessResponse();
+        }
+
+        /// <summary>
+        /// 註冊
+        /// </summary>
+        /// <param name="model">viewModel</param>
+        /// <returns>註冊結果</returns>
+        [AllowAnonymous]
+        [HttpPost]
+        public ResponseViewModel Signup(SingupReqViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return ModelState.AsFailResponse();
+
+            this.MemberService.Signup(model);
+            return "註冊成功".AsSuccessResponse();
         }
     }
 }

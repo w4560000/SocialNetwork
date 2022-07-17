@@ -1,4 +1,7 @@
-﻿namespace SocialNetwork.Service
+﻿using SocialNetwork.Helper;
+using SocialNetwork.Repository;
+
+namespace SocialNetwork.Service
 {
     /// <summary>
     /// IMemberService
@@ -6,9 +9,9 @@
     public interface IMemberService
     {
         /// <summary>
-        /// Test
+        /// 註冊
         /// </summary>
-        /// <returns></returns>
-        public string Test();
+        /// <returns>註冊結果</returns>
+        ResponseViewModel Signup(SingupReqViewModel model);
     }
 }
