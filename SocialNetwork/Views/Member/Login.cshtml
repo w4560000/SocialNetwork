@@ -171,22 +171,22 @@
             margin-top: 3%;
         }
 
-            .btn_forgotPassword:hover {
-                color: #D68D8D;
-            }
+        .btn_forgotPassword:hover {
+            color: #D68D8D;
+        }
 
         .btn_Verification {
-            height: 40px;
-            font-size: 15pt;
+            height: 48px;
+            font-size: 16pt;
             border-radius: 5px;
             background-color: #F2A1A1;
             color: #FFFFFF;
             font-weight: 600;
         }
 
-            .btn_Verification:hover {
-                background-color: #D68D8D;
-            }
+        .btn_Verification:hover {
+            background-color: #D68D8D;
+        }
 
         .subTitle {
             display: flex;
@@ -385,7 +385,7 @@
                         </div>
                         <div style="display:flex; align-items:center;">
                             <input class="input_sinup" type="text" placeholder="請輸入有效電子郵件" id="singup_mail" autocomplete="off" maxlength="100" style="width: 310px; margin-right:5px;" onkeyup="RemoveErrorInput(this.id)">
-                            <input class="btn_Verification" type="button" value="取得驗證碼" onclick="SendAuthCode()">
+                            <input class="btn_Verification" type="button" value="取得驗證碼" onclick="SendVCode()">
                         </div>
                     </div>
                     <div class="linediv"><div class="lineStyle"></div></div>
@@ -505,7 +505,27 @@
 
 <script type="text/javascript">
     function Login() {
-        LoginAPI($('#account').val(), $('#password').val());
+        let model = new LoginViewModel($('#account').val(), $('#password').val());
+        let successFuc = () => window.location.href = "/Home/Index";
+        let errorFuc = () => Popup('loginError');
+        LoginAPI(model, successFuc, errorFuc);
+    }
+
+    function SendVCode() {
+        let model = new SendVCodeReqViewModel($('#singup_mail').val());
+        let successFuc = (res) => {
+            $('#InfoText').html(res.message);
+            Popup('PopupInfo');
+            $('.btn_info').click(() => ClosePopup('PopupInfo'));
+        };
+        let errorFuc = (res) => {
+            debugger;
+            $('#ErrorText').html(res.message);
+            $('#singup_mail').addClass('input-error');
+            Popup('PopupError');
+        };
+
+        SendVCodeAPI(model, successFuc, errorFuc);
     }
 
     /*SVG元素控制*/
@@ -649,26 +669,5 @@
         var job = $('#infoJob').val();
         var education = $('#infoEducation').val();
         alert(infoSum + '\n' + birthday + '\n' + internest + '\n' + job + '\n' + education);
-    }
-
-    /*寄驗證碼到Mail*/
-    function SendAuthCode() {
-        $.post("/API/MailAPI/SendVCode",
-            {
-                Mail: $('#singup_mail').val()
-            },
-            (res) => {
-                if (res.ResultCode == 1) {
-                    $('#InfoText').html(res.Message);
-                    Popup('PopupInfo');
-                    $('.btn_info').click(() => ClosePopup('PopupInfo'));
-                }
-                else {
-                    $('#ErrorText').html(res.Message);
-                    $('#singup_mail').addClass('input-error');
-                    Popup('PopupError');
-                }
-            }
-        );
     }
 </script>

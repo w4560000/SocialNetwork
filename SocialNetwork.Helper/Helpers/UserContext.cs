@@ -18,9 +18,9 @@ namespace SocialNetwork.Helper
         private readonly JwtHelper JwtHelper;
 
         /// <summary>
-        /// HttpContext
+        /// IHttpContextAccessor
         /// </summary>
-        private readonly HttpContext HttpContext;
+        private readonly IHttpContextAccessor HttpContextAccessor;
 
         /// <summary>
         /// Constructor
@@ -35,7 +35,7 @@ namespace SocialNetwork.Helper
         {
             this.CacheHelper = cacheHelper;
             this.JwtHelper = jwtHelper;
-            this.HttpContext = httpContextAccessor.HttpContext;
+            this.HttpContextAccessor = httpContextAccessor;
         }
 
         /// <summary>
@@ -45,18 +45,20 @@ namespace SocialNetwork.Helper
         {
             get
             {
+                var context = HttpContextAccessor.HttpContext;
+
                 UserInfo systemAccount = new UserInfo()
                 {
                     MemberID = 0,
                     Account = "System"
                 };
 
-                if (HttpContext == null)
+                if (context == null || string.IsNullOrEmpty(context.Request.Cookies.GetJwtTokenFromCookie()))
                 {
                     return systemAccount;
                 }
 
-                return JwtHelper.GetUserInfoFromJwtToken(HttpContext.Request.Cookies.GetJwtTokenFromCookie());
+                return JwtHelper.GetUserInfoFromJwtToken(context.Request.Cookies.GetJwtTokenFromCookie());
             }
         }
     }

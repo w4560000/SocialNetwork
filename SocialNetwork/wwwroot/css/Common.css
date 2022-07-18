@@ -19,7 +19,7 @@ a {
   text-decoration: none; }
 
 input[type="text"] {
-  height: 45px;
+  height: 50px;
   border-radius: 5px;
   border: 1px solid #FCD4D5;
   font-size: 15pt;
@@ -143,3 +143,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .PromptText {
   color: #BFBFBF;
   font-size: 12pt; }
+
+.input-error {
+  border: 2px solid red !important; }

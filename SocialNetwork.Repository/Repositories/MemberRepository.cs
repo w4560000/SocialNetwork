@@ -30,7 +30,7 @@ namespace SocialNetwork.Repository
         /// <returns>檢查結果</returns>
         public bool CheckMemberExist(string account, string mail)
         {
-            return this.Connection.RecordCount<int>("WHERE Account = @account OR Mail = @mail", new { account, mail }) > 0;
+            return this.Connection.RecordCount<Member>("WHERE Account = @account OR Mail = @mail", new { account, mail }) > 0;
         }
     }
 }

@@ -1,11 +1,22 @@
-﻿function LoginAPI(account: string, password: string) :void{
-    $.post("/Member/Login", new LoginViewModel(account, password),
+﻿function LoginAPI(model: SingupReqViewModel, success: Function, error: Function) :void{
+    $.post("/Member/Login", model,
         (res: ResponseViewModel<object>) => { 
             if (res.Status == ResponseStatusEnum.Success)
-                // 導主頁
-                window.location.href = "/Home/Index";
+                success();
             else
-                Popup('loginError');
+                error();
+        }
+    );
+}
+
+function SendVCodeAPI(model: SendVCodeReqViewModel, success: Function, error: Function): void {
+    $.post("/Member/SendVCode", model,
+        (res: ResponseViewModel<object>) => {
+            debugger;
+            if (res.Status == ResponseStatusEnum.Success)
+                success(res);
+            else
+                error(res);
         }
     );
 }
@@ -33,13 +44,21 @@ class ResponseViewModel<T>
 }
 
 
-class LoginViewModel {
+class SingupReqViewModel {
     Account: string;
     Password: string;
 
     constructor(account: string, password: string) {
         this.Account = account;
         this.Password = password;
+    }
+}
+
+class SendVCodeReqViewModel {
+    Mail: string;
+
+    constructor(mail: string) {
+        this.Mail = mail;
     }
 }
 

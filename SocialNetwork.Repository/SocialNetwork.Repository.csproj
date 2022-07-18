@@ -18,8 +18,8 @@
     <None Update="App.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Models\Entity\ModelGenerator.tt">
-      <LastGenOutput>ModelGenerator.cs</LastGenOutput>
+    <None Update="Models\Entity\ModelGeneratorSample.tt">
+      <LastGenOutput>ModelGeneratorSample.cs</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>
     </None>
   </ItemGroup>
@@ -29,10 +29,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Models\Entity\ModelGenerator.cs">
+    <Compile Update="Models\Entity\ModelGeneratorSample.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>ModelGenerator.tt</DependentUpon>
+      <DependentUpon>ModelGeneratorSample.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 

@@ -1,7 +1,7 @@
 ﻿namespace SocialNetwork.Repository
 {
     /// <summary>
-    /// LoginReqViewModel
+    /// 登入 Request ViewModel
     /// </summary>
     public class LoginReqViewModel
     {

@@ -1,9 +1,11 @@
-﻿namespace SocialNetwork.Repository
+﻿using SocialNetwork.Repository.Base;
+
+namespace SocialNetwork.Repository
 {
     /// <summary>
     /// IMemberRepository
     /// </summary>
-    public interface IMemberRepository
+    public interface IMemberRepository : IGenericRepository<Member>
     {
         /// <summary>
         /// 檢查會員帳號和會員信箱是否已存在

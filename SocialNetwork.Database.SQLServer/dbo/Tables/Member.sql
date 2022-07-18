@@ -10,12 +10,14 @@
     [Education]  NVARCHAR (20)  NULL,
     [InfoStatus] INT            NOT NULL,
     [Status]     INT            NOT NULL,
-    [CreatedAt]  DATETIME      NoT NULL,
-    [CreatedBy]  INT NOT NULL,
-    [UpdatedAt]  DATETIME      NULL,
-    [UpdatedBy]  INT NULL,
+    [CreatedAt]  DATETIME       NOT NULL,
+    [CreatedBy]  INT            NOT NULL,
+    [UpdatedAt]  DATETIME       NOT NULL,
+    [UpdatedBy]  INT            NOT NULL,
     CONSTRAINT [PK_Member] PRIMARY KEY CLUSTERED ([MemberID] ASC)
 );
+
+
 
 
 GO
@@ -63,39 +65,17 @@ EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'會員狀�
 
 
 GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'建立日期', @level0type = N'SCHEMA', @level0name = N'dbo', @level1type = N'TABLE', @level1name = N'Member', @level2type = N'COLUMN', @level2name = N'CreatedAt';
 
-EXEC sp_addextendedproperty @name = N'MS_Description',
-    @value = N'建立日期',
-    @level0type = N'SCHEMA',
-    @level0name = N'dbo',
-    @level1type = N'TABLE',
-    @level1name = N'Member',
-    @level2type = N'COLUMN',
-    @level2name = N'CreatedAt'
+
 GO
-EXEC sp_addextendedproperty @name = N'MS_Description',
-    @value = N'建立人員',
-    @level0type = N'SCHEMA',
-    @level0name = N'dbo',
-    @level1type = N'TABLE',
-    @level1name = N'Member',
-    @level2type = N'COLUMN',
-    @level2name = N'CreatedBy'
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'建立人員', @level0type = N'SCHEMA', @level0name = N'dbo', @level1type = N'TABLE', @level1name = N'Member', @level2type = N'COLUMN', @level2name = N'CreatedBy';
+
+
 GO
-EXEC sp_addextendedproperty @name = N'MS_Description',
-    @value = N'修改日期',
-    @level0type = N'SCHEMA',
-    @level0name = N'dbo',
-    @level1type = N'TABLE',
-    @level1name = N'Member',
-    @level2type = N'COLUMN',
-    @level2name = N'UpdatedAt'
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'修改日期', @level0type = N'SCHEMA', @level0name = N'dbo', @level1type = N'TABLE', @level1name = N'Member', @level2type = N'COLUMN', @level2name = N'UpdatedAt';
+
+
 GO
-EXEC sp_addextendedproperty @name = N'MS_Description',
-    @value = N'修改人員',
-    @level0type = N'SCHEMA',
-    @level0name = N'dbo',
-    @level1type = N'TABLE',
-    @level1name = N'Member',
-    @level2type = N'COLUMN',
-    @level2name = N'UpdatedBy'
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'修改人員', @level0type = N'SCHEMA', @level0name = N'dbo', @level1type = N'TABLE', @level1name = N'Member', @level2type = N'COLUMN', @level2name = N'UpdatedBy';
+

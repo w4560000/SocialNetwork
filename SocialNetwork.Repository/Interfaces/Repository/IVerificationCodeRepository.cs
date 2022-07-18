@@ -1,9 +1,11 @@
-﻿namespace SocialNetwork.Repository
+﻿using SocialNetwork.Repository.Base;
+
+namespace SocialNetwork.Repository
 {
     /// <summary>
     /// IVerificationCodeRepository
     /// </summary>
-    public interface IVerificationCodeRepository
+    public interface IVerificationCodeRepository : IGenericRepository<VerificationCode>
     {
         /// <summary>
         /// 檢查會員驗證碼是否有效

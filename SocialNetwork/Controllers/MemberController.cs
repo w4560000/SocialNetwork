@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using SocialNetwork.Helper;
 using SocialNetwork.Repository;
 using SocialNetwork.Service;
+using System;
 
 namespace SocialNetwork.Controllers
 {
@@ -66,11 +67,41 @@ namespace SocialNetwork.Controllers
         [HttpPost]
         public ResponseViewModel Signup(SingupReqViewModel model)
         {
-            if (!ModelState.IsValid)
-                return ModelState.AsFailResponse();
+            try
+            {
+                if (!ModelState.IsValid)
+                    return ModelState.AsFailResponse();
 
-            this.MemberService.Signup(model);
-            return "註冊成功".AsSuccessResponse();
+                return this.MemberService.Signup(model);
+            }
+            catch (Exception ex)
+            {
+                this.Logger.LogCritical(ex, $"註冊失敗，{ex.GetExceptionMessage()}");
+                return CommonExtension.AsSystemFailResponse();
+            }
+        }
+
+        /// <summary>
+        /// 寄送驗證碼
+        /// </summary>
+        /// <param name="model">viewModel</param>
+        /// <returns>寄送結果</returns>
+        [AllowAnonymous]
+        [HttpPost]
+        public ResponseViewModel SendVCode(SendVCodeReqViewModel model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return ModelState.AsFailResponse();
+
+                return this.MemberService.SendVCode(model);
+            }
+            catch (Exception ex)
+            {
+                this.Logger.LogCritical(ex, $"寄送驗證碼失敗，{ex.GetExceptionMessage()}");
+                return CommonExtension.AsSystemFailResponse();
+            }
         }
     }
 }

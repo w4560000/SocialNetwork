@@ -1,10 +1,18 @@
-function LoginAPI(account, password) {
-    $.post("/Member/Login", new LoginViewModel(account, password), function (res) {
+function LoginAPI(model, success, error) {
+    $.post("/Member/Login", model, function (res) {
         if (res.Status == ResponseStatusEnum.Success)
-            // 導主頁
-            window.location.href = "/Home/Index";
+            success();
         else
-            Popup('loginError');
+            error();
+    });
+}
+function SendVCodeAPI(model, success, error) {
+    $.post("/Member/SendVCode", model, function (res) {
+        debugger;
+        if (res.Status == ResponseStatusEnum.Success)
+            success(res);
+        else
+            error(res);
     });
 }
 /// <summary>
@@ -16,12 +24,18 @@ var ResponseViewModel = /** @class */ (function () {
     }
     return ResponseViewModel;
 }());
-var LoginViewModel = /** @class */ (function () {
-    function LoginViewModel(account, password) {
+var SingupReqViewModel = /** @class */ (function () {
+    function SingupReqViewModel(account, password) {
         this.Account = account;
         this.Password = password;
     }
-    return LoginViewModel;
+    return SingupReqViewModel;
+}());
+var SendVCodeReqViewModel = /** @class */ (function () {
+    function SendVCodeReqViewModel(mail) {
+        this.Mail = mail;
+    }
+    return SendVCodeReqViewModel;
 }());
 var ResponseStatusEnum;
 (function (ResponseStatusEnum) {

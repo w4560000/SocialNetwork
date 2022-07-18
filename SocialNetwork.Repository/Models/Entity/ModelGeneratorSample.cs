@@ -12,7 +12,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SocialNetwork.Repository
+namespace SocialNetwork.Sample
 {
     /// <summary>
     /// A class which represents the FriendList table.
@@ -23,7 +23,10 @@ namespace SocialNetwork.Repository
 		[Key]
 		public virtual int MemberID { get; set; }
 		public virtual int FriendID { get; set; }
-		public virtual DateTime CreateDate { get; set; }
+		public virtual DateTime CreatedAt { get; set; }
+		public virtual int CreatedBy { get; set; }
+		public virtual DateTime? UpdatedAt { get; set; }
+		public virtual int? UpdatedBy { get; set; }
 	}
 
     /// <summary>
@@ -44,7 +47,10 @@ namespace SocialNetwork.Repository
 		public virtual string Education { get; set; }
 		public virtual int InfoStatus { get; set; }
 		public virtual int Status { get; set; }
-		public virtual DateTime CreateDate { get; set; }
+		public virtual DateTime CreatedAt { get; set; }
+		public virtual int CreatedBy { get; set; }
+		public virtual DateTime? UpdatedAt { get; set; }
+		public virtual int? UpdatedBy { get; set; }
 	}
 
     /// <summary>
@@ -60,7 +66,10 @@ namespace SocialNetwork.Repository
 		public virtual string PostImage { get; set; }
 		public virtual int GoodQuantity { get; set; }
 		public virtual int Status { get; set; }
-		public virtual DateTime CreateDate { get; set; }
+		public virtual DateTime CreatedAt { get; set; }
+		public virtual int CreatedBy { get; set; }
+		public virtual DateTime? UpdatedAt { get; set; }
+		public virtual int? UpdatedBy { get; set; }
 	}
 
     /// <summary>
@@ -75,7 +84,10 @@ namespace SocialNetwork.Repository
 		public virtual int MemberID { get; set; }
 		public virtual string MsgContent { get; set; }
 		public virtual string MsgImage { get; set; }
-		public virtual DateTime CreateDate { get; set; }
+		public virtual DateTime CreatedAt { get; set; }
+		public virtual int CreatedBy { get; set; }
+		public virtual DateTime? UpdatedAt { get; set; }
+		public virtual int? UpdatedBy { get; set; }
 	}
 
     /// <summary>
@@ -89,8 +101,11 @@ namespace SocialNetwork.Repository
 		public virtual string Mail { get; set; }
 		public virtual string VCode { get; set; }
 		public virtual int Status { get; set; }
-		public virtual DateTime CreateDate { get; set; }
 		public virtual DateTime? VerificationDate { get; set; }
+		public virtual DateTime CreatedAt { get; set; }
+		public virtual int CreatedBy { get; set; }
+		public virtual DateTime? UpdatedAt { get; set; }
+		public virtual int? UpdatedBy { get; set; }
 	}
 
 }
