@@ -1,7 +1,5 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@*<script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>*@
-<script src="~/js/bundle/Common.min.js" asp-append-version="true"></script>
-<link rel="stylesheet" href="~/css/bundle/Common.min.css" asp-append-version="true" />
+
 @{
     ViewBag.Title = "Login";
     Layout = null;
@@ -9,6 +7,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <environment include="Development">
+        <script src="~/lib/jquery/jquery.min.js" asp-append-version="true"></script>
+        <script src="~/lib/sweetalert2/dist/sweetalert2.min.js" asp-append-version="true"></script>
+        <script src="~/js/Common/Common.js" asp-append-version="true"></script>
+        <script src="~/js/Common/API.js" asp-append-version="true"></script>
+        <link rel="stylesheet" href="~/css/Common/Common.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/lib/sweetalert2/dist/sweetalert2.min.css" asp-append-version="true" />
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/bundle/Common.min.js" asp-append-version="true"></script>
+        <link rel="stylesheet" href="~/css/bundle/Common.min.css" asp-append-version="true" />
+    </environment>
     <meta charset="utf-8" />
     <title>IKKON</title>
     <style>
@@ -57,6 +67,7 @@
             background-color: #F2A1A1;
             color: #FFFFFF;
             font-weight: 600;
+            outline: 0;
         }
 
             .btn_loginPage:hover {
@@ -71,6 +82,7 @@
             background-color: #F2A1A1;
             color: #FFFFFF;
             font-weight: 700;
+            outline: 0;
         }
 
             .btn_singup:hover, .btn_info:hover {
@@ -95,7 +107,7 @@
 
         .signupStyle {
             width: 700px;
-            height: 680px;
+            height: 720px;
         }
 
         .singupText {
@@ -171,9 +183,9 @@
             margin-top: 3%;
         }
 
-        .btn_forgotPassword:hover {
-            color: #D68D8D;
-        }
+            .btn_forgotPassword:hover {
+                color: #D68D8D;
+            }
 
         .btn_Verification {
             height: 48px;
@@ -182,11 +194,12 @@
             background-color: #F2A1A1;
             color: #FFFFFF;
             font-weight: 600;
+            outline: 0;
         }
 
-        .btn_Verification:hover {
-            background-color: #D68D8D;
-        }
+            .btn_Verification:hover {
+                background-color: #D68D8D;
+            }
 
         .subTitle {
             display: flex;
@@ -279,7 +292,7 @@
         }
     </style>
 </head>
-<body>
+<body style="height: 100% !important">
     <div class="login_background">
         <div class="loginBox">
             <a class="logo">I K K O N</a>
@@ -292,12 +305,12 @@
 
             <!--忘記密碼-->
             <div id="forgotPassword" class="forgotPassword">
-                <input class="btn_forgotPassword" type="button" value="忘記密碼?" onclick="Popup('forgotPassword')">
+                <input class="btn_forgotPassword" type="button" value="忘記密碼?" onclick="Common.Popup('forgotPassword')">
                 <div class="popLayer"></div>
                 <div class="popBox forgotPasswordWindow">
                     <div class="topBar">
                         <div class="popTitle"><a>忘記密碼</a></div>
-                        <div onclick="ClosePopup('forgotPassword')"><img class="svg closeIcon" src="~/images/Close.svg"></div>
+                        <div onclick="Common.ClosePopup('forgotPassword')"><img class="svg closeIcon" src="~/images/Close.svg"></div>
                     </div>
                 </div>
             </div>
@@ -311,7 +324,7 @@
                 <div class="popBox Error">
                     <a class="ErrorText">帳號或密碼錯誤<br>請重新輸入</a>
                     <div class="btn_div">
-                        <input class="btn_Error" type="button" value="確認" onclick="ClosePopup('loginError')">
+                        <input class="btn_Error" type="button" value="確認" onclick="Common.ClosePopup('loginError')">
                     </div>
                 </div>
             </div>
@@ -328,12 +341,12 @@
 
             <!--註冊-->
             <div class="btn_div" id="signup">
-                <div><input class="btn_loginPage" type="button" value="新會員註冊" onclick="Popup('signup')"></div>
+                <div><input class="btn_loginPage" type="button" value="新會員註冊" onclick="Common.Popup('signup')"></div>
                 <div class="popLayer"></div>
                 <div class="popBox signupStyle">
                     <div class="topBar">
                         <div class="popTitle"><a>新會員註冊</a></div>
-                        <div onclick="ClosePopup('signup')"><img class="svg closeIcon" src="~/images/Close.svg"></div>
+                        <div onclick="Common.ClosePopup('signup')"><img class="svg closeIcon" src="~/images/Close.svg"></div>
                     </div>
                     <div class="singupContent">
                         <div class="singupInputText">
@@ -411,7 +424,7 @@
                 <div class="popBox Error">
                     <a class="ErrorText" id="ErrorText"></a>
                     <div class="btn_div">
-                        <input class="btn_Error" type="button" value="確認" onclick="ClosePopup('PopupError')">
+                        <input class="btn_Error" type="button" value="確認" onclick="Common.ClosePopup('PopupError')">
                     </div>
                 </div>
             </div>
@@ -429,19 +442,19 @@
                 <div class="popBox Error">
                     <a class="ErrorText">請輸入電子郵件!</a>
                     <div class="btn_div">
-                        <input class="btn_Error" type="button" value="確認" onclick="ClosePopup('MailError')">
+                        <input class="btn_Error" type="button" value="確認" onclick="Common.ClosePopup('MailError')">
                     </div>
                 </div>
             </div>
 
             <!--會員資料填寫-->
             <div class="btn_div" id="MemberInfo">
-                <div><input class="btn_loginPage" type="button" value="會員資料POPTest" onclick="Popup('MemberInfo')"></div>
+                <div><input class="btn_loginPage" type="button" value="會員資料POPTest" onclick="Common.Popup('MemberInfo')"></div>
                 <div class="popLayer"></div>
                 <div class="popBox InfoStyle">
                     <div class="topBar">
                         <div class="popTitle"><a>填寫會員資料</a></div>
-                        <div onclick="ClosePopup('MemberInfo')"><img class="svg closeIcon" src="~/images/Close.svg"></div>
+                        <div onclick="Common.ClosePopup('MemberInfo')"><img class="svg closeIcon" src="~/images/Close.svg"></div>
                     </div>
                     <div class="singupContent">
                         <div class="InfoInputText">
@@ -507,25 +520,78 @@
     function Login() {
         let model = new LoginViewModel($('#account').val(), $('#password').val());
         let successFuc = () => window.location.href = "/Home/Index";
-        let errorFuc = () => Popup('loginError');
-        LoginAPI(model, successFuc, errorFuc);
+        LoginAPI(model, successFuc);
     }
 
     function SendVCode() {
         let model = new SendVCodeReqViewModel($('#singup_mail').val());
         let successFuc = (res) => {
-            $('#InfoText').html(res.message);
-            Popup('PopupInfo');
-            $('.btn_info').click(() => ClosePopup('PopupInfo'));
+            SweetAlertSuccess(res.message);
+        //    $('#InfoText').html(res.message);
+        //    Popup('PopupInfo');
+        //    $('.btn_info').click(() => ClosePopup('PopupInfo'));
         };
         let errorFuc = (res) => {
-            debugger;
+            SweetAlertError()
             $('#ErrorText').html(res.message);
             $('#singup_mail').addClass('input-error');
-            Popup('PopupError');
+            Common.Popup('PopupError');
         };
 
-        SendVCodeAPI(model, successFuc, errorFuc);
+        SendVCodeAPI(model);
+    }
+
+    function Singup() {
+        let errorMsg = {
+            singup_name: '您尚未填寫 會員名稱',
+            singup_account: '您尚未填寫 會員帳號',
+            singup_password: '您尚未填寫 會員密碼',
+            singup_passwordCheck: '您尚未填寫 確認密碼',
+            singup_mail: '您尚未填寫 電子郵件',
+            singup_Vcode: '您尚未填寫 驗證碼'
+        };
+
+        let error = Validate(errorMsg);
+
+        // 驗證特殊邏輯
+        if (!error) {
+            let regexAccountValidation = new RegExp('^.[A-Za-z0-9]+$');
+            if ($("#singup_account").val().length < 6 || !regexAccountValidation.test($("#singup_account").val())) {
+                error = '會員帳號需至少為6碼的英數字';
+                $('#singup_account').addClass('input-error');
+            }
+            else if ($("#singup_password").val() != $("#singup_passwordCheck").val()) {
+                error = '會員密碼與確認密碼不相符';
+                $('#singup_password').addClass('input-error');
+                $('#singup_passwordCheck').addClass('input-error');
+            }
+        }
+
+        if (error) {
+            $('#ErrorText').html(error);
+            Common.Popup('PopupError');
+            return;
+        }
+
+        let model = new SignupReqViewModel(
+            $("#singup_name").val(),
+            $("#singup_account").val(),
+            $("#singup_password").val(),
+            $("#singup_passwordCheck").val(),
+            $("#singup_mail").val(),
+            $("#singup_Vcode").val()
+        );
+        let successFuc = (res) => {
+            $('#InfoText').html(res.message);
+            Common.Popup('PopupInfo');
+            $('.btn_info').click(() => Popup('PopupInfo', false, () => Popup('MemberInfo')));
+        };
+        let errorFuc = (res) => {
+            $('#ErrorText').html(res.message);
+            Common.Popup('PopupError');
+        };
+
+        SignupAPI(model, successFuc, errorFuc);
     }
 
     /*SVG元素控制*/
@@ -568,73 +634,32 @@
         datepickerInit();
     });
 
-    /** 註冊 */
-    function Singup() {
-        let errorMsg = {
-            singup_name: '您尚未填寫 會員名稱',
-            singup_account: '您尚未填寫 會員帳號',
-            singup_password: '您尚未填寫 會員密碼',
-            singup_passwordCheck: '您尚未填寫 確認密碼',
-            singup_mail: '您尚未填寫 電子郵件',
-            singup_Vcode: '您尚未填寫 驗證碼'
-        };
+    ///** 註冊 */
+    //function Singup() {
+    //    //串註冊API
+    //    $.post("/API/MemberAPI/Singup",
+    //        {
+    //            nickName: $("#singup_name").val(),
+    //            Account: $("#singup_account").val(),
+    //            Password: $("#singup_password").val(),
+    //            PasswordCheck: $("#singup_passwordCheck").val(),
+    //            Mail: $("#singup_mail").val(),
+    //            VCode: $("#singup_Vcode").val()
+    //        },
+    //        (res) => {
+    //            if (res.ResultCode == 1) {
+    //                $('#InfoText').html(res.Message);
+    //                Popup('PopupInfo');
 
-        let error = '';
-
-        // 前端欄位基礎驗證
-        Object.keys(errorMsg).forEach(key => {
-            if (!error && !$('#' + key).val()) {
-                $('#' + key).removeClass('input-error');
-
-                error = errorMsg[key];
-                $('#' + key).addClass('input-error');
-            }
-        });
-
-        // 驗證特殊邏輯
-        if (!error) {
-            let regexAccountValidation = new RegExp('^.[A-Za-z0-9]+$');
-            if ($("#singup_account").val().length < 6 || !regexAccountValidation.test($("#singup_account").val())) {
-                error = '會員帳號需至少為6碼的英數字';
-                $('#singup_account').addClass('input-error');
-            }
-            else if ($("#singup_password").val() != $("#singup_passwordCheck").val()) {
-                error = '會員密碼與確認密碼不相符';
-                $('#singup_password').addClass('input-error');
-                $('#singup_passwordCheck').addClass('input-error');
-            }
-        }
-
-        if (error) {
-            $('#ErrorText').html(error);
-            Popup('PopupError');
-            return;
-        }
-
-        //串註冊API
-        $.post("/API/MemberAPI/Singup",
-            {
-                nickName: $("#singup_name").val(),
-                Account: $("#singup_account").val(),
-                Password: $("#singup_password").val(),
-                PasswordCheck: $("#singup_passwordCheck").val(),
-                Mail: $("#singup_mail").val(),
-                VCode: $("#singup_Vcode").val()
-            },
-            (res) => {
-                if (res.ResultCode == 1) {
-                    $('#InfoText').html(res.Message);
-                    Popup('PopupInfo');
-
-                    $('.btn_info').click(() => Popup('PopupInfo', false, () => Popup('MemberInfo')));
-                }
-                else {
-                    $('#ErrorText').html(res.Message);
-                    Popup('PopupError');
-                }
-            }
-        );
-    };
+    //                $('.btn_info').click(() => Popup('PopupInfo', false, () => Popup('MemberInfo')));
+    //            }
+    //            else {
+    //                $('#ErrorText').html(res.Message);
+    //                Popup('PopupError');
+    //            }
+    //        }
+    //    );
+    //};
 
     /*測試用*/
     function dateTest() {

@@ -10,7 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.10" />
     <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="4.7.4">
       <PrivateAssets>all</PrivateAssets>
@@ -31,7 +30,7 @@
     <Folder Include="Helpers\" />
     <Folder Include="Models\" />
     <Folder Include="wwwroot\css\bundle\" />
-    <Folder Include="wwwroot\js\" />
+    <Folder Include="wwwroot\js\bundle\" />
     <Folder Include="wwwroot\ts\Home\" />
   </ItemGroup>
 

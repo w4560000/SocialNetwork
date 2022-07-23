@@ -48,7 +48,7 @@ namespace SocialNetwork.Service
             DateTime expiryDate = DateTime.Now.AddMinutes(-10);
 
             VerificationCode vCode = this.VerificationCodeRepository
-                                         .GetList("WHERE Mail = @mail AND Status = @status AND CreateDate > @expiryDate AND VCode = @vCode",
+                                         .GetList("WHERE Mail = @mail AND Status = @status AND CreatedAt > @expiryDate AND VCode = @vCode",
                                             new { mail = model.Mail, status = VerificationEnum.NotAuth, expiryDate, vCode = model.VCode }).FirstOrDefault();
 
             if (vCode == null)
@@ -59,10 +59,17 @@ namespace SocialNetwork.Service
             vCode.Status = VerificationEnum.AuthSuccess;
             vCode.VerificationDate = DateTime.Now;
             this.VerificationCodeRepository.Update(vCode);
-            
 
-            // todo 註冊
-
+            // 註冊
+            this.MemberRepository.Add<int>(new Member()
+            {
+                Account = model.Account,
+                NickName = model.NickName,
+                Password = model.Password,
+                Mail = model.Mail,
+                InfoStatus = MemberInfoEnum.All,
+                Status = MemberStatusEnum.離線
+            });
 
             return "註冊成功".AsSuccessResponse();
         }

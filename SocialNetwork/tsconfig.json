@@ -1,11 +1,19 @@
 {
   "compilerOptions": {
-    "noEmitOnError": true,
-    "noImplicitAny": true,
-    "sourceMap": false,
     "target": "es5",
+    "module": "es2015",
+    "moduleResolution": "node",
+    "lib": [
+      "es5",
+      "dom",
+      "es2015"
+    ],
+    "strictNullChecks": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     "outDir": "./wwwroot/js",
-    "rootDir": "./wwwroot/ts"
+    "rootDir": "./wwwroot/ts",
+    "types": [ "jquery" ]
   },
   "compileOnSave": true
 }

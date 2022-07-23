@@ -1,19 +1,21 @@
-function LoginAPI(model, success, error) {
-    $.post("/Member/Login", model, function (res) {
-        if (res.Status == ResponseStatusEnum.Success)
-            success();
-        else
-            error();
+function BaseAPI(api, model, successFunc, errorFunc) {
+    $.post(api, model, function (res) {
+        if (res.Status == ResponseStatusEnum.Success) {
+            Common.SweetAlertSuccess(res.Message, successFunc);
+        }
+        else {
+            Common.SweetAlertError(res.Message, errorFunc);
+        }
     });
 }
-function SendVCodeAPI(model, success, error) {
-    $.post("/Member/SendVCode", model, function (res) {
-        debugger;
-        if (res.Status == ResponseStatusEnum.Success)
-            success(res);
-        else
-            error(res);
-    });
+function LoginAPI(model, successFunc, errorFunc) {
+    BaseAPI("/Member/Login", model, successFunc, errorFunc);
+}
+function SendVCodeAPI(model, successFunc, errorFunc) {
+    BaseAPI("/Member/SendVCode", model, successFunc, errorFunc);
+}
+function SignupAPI(model, successFunc, errorFunc) {
+    BaseAPI("/Member/Signup", model, successFunc, errorFunc);
 }
 /// <summary>
 /// 共用回應 ViewModel
@@ -24,18 +26,29 @@ var ResponseViewModel = /** @class */ (function () {
     }
     return ResponseViewModel;
 }());
-var SingupReqViewModel = /** @class */ (function () {
-    function SingupReqViewModel(account, password) {
+var LoginReqViewModel = /** @class */ (function () {
+    function LoginReqViewModel(account, password) {
         this.Account = account;
         this.Password = password;
     }
-    return SingupReqViewModel;
+    return LoginReqViewModel;
 }());
 var SendVCodeReqViewModel = /** @class */ (function () {
     function SendVCodeReqViewModel(mail) {
         this.Mail = mail;
     }
     return SendVCodeReqViewModel;
+}());
+var SignupReqViewModel = /** @class */ (function () {
+    function SignupReqViewModel(nickName, account, password, passwordCheck, mail, vCode) {
+        this.NickName = nickName;
+        this.Account = account;
+        this.Password = password;
+        this.PasswordCheck = passwordCheck;
+        this.Mail = mail;
+        this.VCode = vCode;
+    }
+    return SignupReqViewModel;
 }());
 var ResponseStatusEnum;
 (function (ResponseStatusEnum) {

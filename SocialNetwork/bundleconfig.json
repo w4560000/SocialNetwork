@@ -2,18 +2,19 @@
   {
     "outputFileName": "wwwroot/css/bundle/Common.min.css",
     "inputFiles": [
-      "wwwroot/css/normalize.css",
-      "wwwroot/css/Common.css",
-      "wwwroot/lib/bootstrap/bootstrap.css",
-      "wwwroot/lib/bootstrap/bootstrap-grid.css",
-      "wwwroot/lib/bootstrap/bootstrap-reboot.css"
+      "wwwroot/css/Common/*.css",
+      "wwwroot/lib/bootstrap/dist/css/bootstrap.css",
+      "wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css",
+      "wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.css",
+      "wwwroot/lib/sweetalert2/dist/sweetalert2.min.css"
     ]
   },
   {
     "outputFileName": "wwwroot/js/bundle/Common.min.js",
     "inputFiles": [
       "wwwroot/js/Common/*.js",
-      "wwwroot/lib/jquery/jquery.js"
+      "wwwroot/lib/jquery/jquery.js",
+      "wwwroot/lib/sweetalert2/dist/sweetalert2.min.js"
     ],
     "minify": {
       "enabled": true,
