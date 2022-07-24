@@ -18,7 +18,6 @@ using System.IO;
 using System.Net;
 using System.Security.Claims;
 using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace SocialNetwork
@@ -132,11 +131,19 @@ namespace SocialNetwork
 
             services.AddMvc(options =>
             {
+                // Global ActionFilter
                 options.Filters.Add(new AuthorizeFilter(new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build()));
+                options.Filters.Add(new ValidateModelAttribute());
             }).AddJsonOptions(options =>
             {
+                // Json 輸出 預設是 Camel，改為 Null (PascalCase)
                 options.JsonSerializerOptions.PropertyNamingPolicy = null;
+            }).ConfigureApiBehaviorOptions(options =>
+            {
+                // 關閉驗證失敗時自動 HTTP 400 回應
+                options.SuppressModelStateInvalidFilter = true;
             });
+
             services.AddHttpContextAccessor();
             services.AddControllersWithViews();
         }

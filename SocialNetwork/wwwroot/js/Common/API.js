@@ -1,21 +1,33 @@
-function BaseAPI(api, model, successFunc, errorFunc) {
-    $.post(api, model, function (res) {
-        if (res.Status == ResponseStatusEnum.Success) {
-            Common.SweetAlertSuccess(res.Message, successFunc);
-        }
-        else {
-            Common.SweetAlertError(res.Message, errorFunc);
+function BaseAPI(loadingMsg, api, model, successFunc, errorFunc) {
+    if (loadingMsg)
+        Common.SweetAlertLoading(loadingMsg);
+    $.ajax({
+        method: "POST",
+        url: api,
+        data: JSON.stringify(model),
+        dataType: "json",
+        contentType: "application/json",
+        success: function (res) {
+            if (res.Status == ResponseStatusEnum.Success) {
+                Common.SweetAlertSuccess(res.Message, successFunc);
+            }
+            else {
+                Common.SweetAlertError(res.Message, errorFunc);
+            }
+        },
+        error: function (e) {
+            Common.SweetAlertError("伺服器異常", errorFunc);
         }
     });
 }
-function LoginAPI(model, successFunc, errorFunc) {
-    BaseAPI("/Member/Login", model, successFunc, errorFunc);
+function LoginAPI(loadingMsg, model, successFunc, errorFunc) {
+    BaseAPI(loadingMsg, "/MemberApi/Login", model, successFunc, errorFunc);
 }
-function SendVCodeAPI(model, successFunc, errorFunc) {
-    BaseAPI("/Member/SendVCode", model, successFunc, errorFunc);
+function SendVCodeAPI(loadingMsg, model, successFunc, errorFunc) {
+    BaseAPI(loadingMsg, "/MemberApi/SendVCode", model, successFunc, errorFunc);
 }
-function SignupAPI(model, successFunc, errorFunc) {
-    BaseAPI("/Member/Signup", model, successFunc, errorFunc);
+function SignupAPI(loadingMsg, model, successFunc, errorFunc) {
+    BaseAPI(loadingMsg, "/MemberApi/Signup", model, successFunc, errorFunc);
 }
 /// <summary>
 /// 共用回應 ViewModel

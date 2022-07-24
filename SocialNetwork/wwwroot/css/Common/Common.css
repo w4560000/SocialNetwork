@@ -160,3 +160,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .swal2-styled.swal2-confirm:focus {
   box-shadow: none !important; }
+
+.swal2-html-container {
+  font-size: 1.5em !important;
+  font-weight: 600 !important; }

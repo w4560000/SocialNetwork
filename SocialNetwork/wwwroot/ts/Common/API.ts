@@ -1,28 +1,39 @@
 ﻿
-function BaseAPI<T>(api: string, model: T, successFunc?: Function, errorFunc?: Function) {
-    $.post(api, model,
-        (res: ResponseViewModel<object>) => {
+function BaseAPI<T>(loadingMsg: string, api: string, model: T, successFunc?: Function, errorFunc?: Function) {
+    if (loadingMsg)
+        Common.SweetAlertLoading(loadingMsg);
+    
+    $.ajax({
+        method: "POST",
+        url: api,
+        data: JSON.stringify(model),
+        dataType: "json",
+        contentType: "application/json",
+        success: (res: ResponseViewModel<object>) => {
             if (res.Status == ResponseStatusEnum.Success) {
                 Common.SweetAlertSuccess(res.Message, successFunc);
             }
             else {
                 Common.SweetAlertError(res.Message, errorFunc);
             }
+        },
+        error: (e) => {
+            Common.SweetAlertError("伺服器異常", errorFunc);
         }
-    );
+    });
 }
 
 
-function LoginAPI(model: LoginReqViewModel, successFunc: Function, errorFunc: Function): void {
-    BaseAPI<LoginReqViewModel>("/Member/Login", model, successFunc, errorFunc);
+function LoginAPI(loadingMsg: string, model: LoginReqViewModel, successFunc: Function, errorFunc: Function): void {
+    BaseAPI<LoginReqViewModel>(loadingMsg, "/MemberApi/Login", model, successFunc, errorFunc);
 }
     
-function SendVCodeAPI(model: SendVCodeReqViewModel, successFunc: Function, errorFunc: Function): void {
-    BaseAPI<SendVCodeReqViewModel>("/Member/SendVCode", model, successFunc, errorFunc);
+function SendVCodeAPI(loadingMsg: string, model: SendVCodeReqViewModel, successFunc: Function, errorFunc: Function): void {
+    BaseAPI<SendVCodeReqViewModel>(loadingMsg, "/MemberApi/SendVCode", model, successFunc, errorFunc);
 }
 
-function SignupAPI(model: SignupReqViewModel, successFunc: Function, errorFunc: Function): void {
-    BaseAPI<SignupReqViewModel>("/Member/Signup", model, successFunc, errorFunc);
+function SignupAPI(loadingMsg: string, model: SignupReqViewModel, successFunc: Function, errorFunc: Function): void {
+    BaseAPI<SignupReqViewModel>(loadingMsg, "/MemberApi/Signup", model, successFunc, errorFunc);
 }
 
 /// <summary>

@@ -64,8 +64,8 @@ namespace SocialNetwork.Helper
             //claims.Add(new Claim(ClaimTypes.Name, userName));
 
             // 你可以自行擴充 "roles" 加入登入者該有的角色
-            claims.Add(new Claim("roles", "Admin"));
-            claims.Add(new Claim("roles", "Users"));
+            //claims.Add(new Claim("roles", "Admin"));
+            //claims.Add(new Claim("roles", "Users"));
 
             var userClaimsIdentity = new ClaimsIdentity(claims);
 

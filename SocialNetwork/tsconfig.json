@@ -12,8 +12,7 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "outDir": "./wwwroot/js",
-    "rootDir": "./wwwroot/ts",
-    "types": [ "jquery" ]
+    "rootDir": "./wwwroot/ts"
   },
   "compileOnSave": true
 }

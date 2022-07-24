@@ -8,17 +8,21 @@
 <html>
 <head>
     <environment include="Development">
-        <script src="~/lib/jquery/jquery.min.js" asp-append-version="true"></script>
-        <script src="~/lib/sweetalert2/dist/sweetalert2.min.js" asp-append-version="true"></script>
         <script src="~/js/Common/Common.js" asp-append-version="true"></script>
         <script src="~/js/Common/API.js" asp-append-version="true"></script>
         <link rel="stylesheet" href="~/css/Common/Common.css" asp-append-version="true" />
-        <link rel="stylesheet" href="~/lib/sweetalert2/dist/sweetalert2.min.css" asp-append-version="true" />
     </environment>
     <environment exclude="Development">
         <script src="~/js/bundle/Common.min.js" asp-append-version="true"></script>
         <link rel="stylesheet" href="~/css/bundle/Common.min.css" asp-append-version="true" />
     </environment>
+
+    <script src="~/lib/jquery/jquery.min.js" asp-append-version="true"></script>
+    <script src="~/lib/jqueryui/jquery-ui.min.js" asp-append-version="true"></script>
+    <script src="~/lib/sweetalert2/dist/sweetalert2.min.js" asp-append-version="true"></script>
+    <link rel="stylesheet" href="~/lib/sweetalert2/dist/sweetalert2.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/jqueryui/jquery-ui.min.css" asp-append-version="true" />
+
     <meta charset="utf-8" />
     <title>IKKON</title>
     <style>
@@ -310,7 +314,7 @@
                 <div class="popBox forgotPasswordWindow">
                     <div class="topBar">
                         <div class="popTitle"><a>忘記密碼</a></div>
-                        <div onclick="Common.ClosePopup('forgotPassword')"><img class="svg closeIcon" src="~/images/Close.svg"></div>
+                        <div onclick="Common.ClosePopup('forgotPassword')"><img class="svg closeIcon" src="/images/Close.svg"></div>
                     </div>
                 </div>
             </div>
@@ -346,7 +350,7 @@
                 <div class="popBox signupStyle">
                     <div class="topBar">
                         <div class="popTitle"><a>新會員註冊</a></div>
-                        <div onclick="Common.ClosePopup('signup')"><img class="svg closeIcon" src="~/images/Close.svg"></div>
+                        <div onclick="Common.ClosePopup('signup')"><img class="svg closeIcon" src="/images/Close.svg"></div>
                     </div>
                     <div class="singupContent">
                         <div class="singupInputText">
@@ -355,7 +359,7 @@
                             </div>
                         </div>
                         <div>
-                            <input class="input_sinup" type="text" placeholder="限制字數30字" id="singup_name" autocomplete="off" maxlength="30" onkeyup="RemoveErrorInput(this.id)">
+                            <input class="input_sinup" type="text" placeholder="限制字數30字" id="singup_name" autocomplete="off" maxlength="30" ">
                         </div>
                     </div>
                     <div class="singupContent">
@@ -365,7 +369,7 @@
                             </div>
                         </div>
                         <div>
-                            <input class="input_sinup" type="text" placeholder="請輸入會員帳號" id="singup_account" autocomplete="off" maxlength="20" style="margin-bottom:5px" onkeyup="RemoveErrorInput(this.id)">
+                            <input class="input_sinup" type="text" placeholder="請輸入會員帳號" id="singup_account" autocomplete="off" maxlength="20" style="margin-bottom:5px">
                             <br>
                             <a class="PromptText">限制設定至少6碼的英數字</a>
                         </div>
@@ -377,7 +381,7 @@
                             </div>
                         </div>
                         <div>
-                            <input class="input_sinup" type="text" placeholder="請輸入會員密碼" id="singup_password" autocomplete="off" maxlength="20" onkeyup="RemoveErrorInput(this.id)">
+                            <input class="input_sinup" type="text" placeholder="請輸入會員密碼" id="singup_password" autocomplete="off" maxlength="20">
                         </div>
                     </div>
                     <div class="singupContent">
@@ -387,7 +391,7 @@
                             </div>
                         </div>
                         <div>
-                            <input class="input_sinup" type="text" placeholder="請再次輸入密碼" id="singup_passwordCheck" autocomplete="off" maxlength="20" onkeyup="RemoveErrorInput(this.id)">
+                            <input class="input_sinup" type="text" placeholder="請再次輸入密碼" id="singup_passwordCheck" autocomplete="off" maxlength="20">
                         </div>
                     </div>
                     <div class="singupContent">
@@ -397,7 +401,7 @@
                             </div>
                         </div>
                         <div style="display:flex; align-items:center;">
-                            <input class="input_sinup" type="text" placeholder="請輸入有效電子郵件" id="singup_mail" autocomplete="off" maxlength="100" style="width: 310px; margin-right:5px;" onkeyup="RemoveErrorInput(this.id)">
+                            <input class="input_sinup" type="text" placeholder="請輸入有效電子郵件" id="singup_mail" autocomplete="off" maxlength="100" style="width: 310px; margin-right:5px;">
                             <input class="btn_Verification" type="button" value="取得驗證碼" onclick="SendVCode()">
                         </div>
                     </div>
@@ -409,7 +413,7 @@
                             </div>
                         </div>
                         <div>
-                            <input class="input_sinup" type="text" placeholder="請輸入驗證碼" id="singup_Vcode" autocomplete="off" maxlength="4" style="margin-bottom:5px" oninput="value=value.replace(/[^\d]/g,'')" onkeyup="RemoveErrorInput(this.id)">
+                            <input class="input_sinup" type="text" placeholder="請輸入驗證碼" id="singup_vCode" autocomplete="off" maxlength="4" style="margin-bottom:5px" oninput="value=value.replace(/[^\d]/g,'')">
                             <br>
                             <a class="PromptText">請至電子郵件收取信件，取得驗證碼以完成註冊。</a>
                         </div>
@@ -419,15 +423,15 @@
                     </div>
                 </div>
             </div>
-            <div id="PopupError">
-                <div class="popLayer"></div>
-                <div class="popBox Error">
-                    <a class="ErrorText" id="ErrorText"></a>
-                    <div class="btn_div">
-                        <input class="btn_Error" type="button" value="確認" onclick="Common.ClosePopup('PopupError')">
+            @*<div id="PopupError">
+                    <div class="popLayer"></div>
+                    <div class="popBox Error">
+                        <a class="ErrorText" id="ErrorText"></a>
+                        <div class="btn_div">
+                            <input class="btn_Error" type="button" value="確認" onclick="Common.ClosePopup('PopupError')">
+                        </div>
                     </div>
-                </div>
-            </div>
+                </div>*@
             <div id="PopupInfo">
                 <div class="popLayer"></div>
                 <div class="popBox Info">
@@ -437,15 +441,15 @@
                     </div>
                 </div>
             </div>
-            <div id="MailError">
-                <div class="popLayer"></div>
-                <div class="popBox Error">
-                    <a class="ErrorText">請輸入電子郵件!</a>
-                    <div class="btn_div">
-                        <input class="btn_Error" type="button" value="確認" onclick="Common.ClosePopup('MailError')">
+            @*<div id="MailError">
+                    <div class="popLayer"></div>
+                    <div class="popBox Error">
+                        <a class="ErrorText">請輸入電子郵件!</a>
+                        <div class="btn_div">
+                            <input class="btn_Error" type="button" value="確認" onclick="Common.ClosePopup('MailError')">
+                        </div>
                     </div>
-                </div>
-            </div>
+                </div>*@
 
             <!--會員資料填寫-->
             <div class="btn_div" id="MemberInfo">
@@ -454,7 +458,7 @@
                 <div class="popBox InfoStyle">
                     <div class="topBar">
                         <div class="popTitle"><a>填寫會員資料</a></div>
-                        <div onclick="Common.ClosePopup('MemberInfo')"><img class="svg closeIcon" src="~/images/Close.svg"></div>
+                        <div onclick="Common.ClosePopup('MemberInfo')"><img class="svg closeIcon" src="/images/Close.svg"></div>
                     </div>
                     <div class="singupContent">
                         <div class="InfoInputText">
@@ -468,9 +472,9 @@
                             <input type="text" id="day" autocomplete="off" class="DateInput" disabled="disabled"><a class="DateText">日</a>
                             <div class="DateIcon">
                                 <input type="button" id="datepicker">
-                                <img src="~/Image/date.png">
+                                <img src="/images/date.png">
                             </div>
-                            <div><img onclick="InfoDate(this)" id="InfoBtn1" class="svg InfoIcon" src="/Image/InfoPublic.png"></div>
+                            <div><img onclick="InfoDate(this)" id="InfoBtn1" class="svg InfoIcon" src="/images/InfoPublic.png"></div>
                         </div>
                     </div>
                     <div class="singupContent">
@@ -481,7 +485,7 @@
                         </div>
                         <div class="InfoInputdiv">
                             <input id="infoInternest" class="input_sinup" type="text" autocomplete="off" maxlength="20">
-                            <div><img onclick="InfoDate(this)" id="InfoBtn2" class="svg InfoIcon" src="/Image/InfoPublic.png"></div>
+                            <div><img onclick="InfoDate(this)" id="InfoBtn2" class="svg InfoIcon" src="/images/InfoPublic.png"></div>
                         </div>
                     </div>
                     <div class="singupContent">
@@ -492,7 +496,7 @@
                         </div>
                         <div class="InfoInputdiv">
                             <input id="infoJob" class="input_sinup" type="text" autocomplete="off" maxlength="100">
-                            <div><img onclick="InfoDate(this)" id="InfoBtn4" class="svg InfoIcon" src="/Image/InfoPublic.png"></div>
+                            <div><img onclick="InfoDate(this)" id="InfoBtn4" class="svg InfoIcon" src="/images/InfoPublic.png"></div>
                         </div>
                     </div>
                     <div class="singupContent">
@@ -503,7 +507,7 @@
                         </div>
                         <div class="InfoInputdiv">
                             <input id="infoEducation" class="input_sinup" type="text" autocomplete="off" maxlength="100">
-                            <div><img onclick="InfoDate(this)" id="InfoBtn8" class="svg InfoIcon" src="/Image/InfoPublic.png"></div>
+                            <div><img onclick="InfoDate(this)" id="InfoBtn8" class="svg InfoIcon" src="/images/InfoPublic.png"></div>
                         </div>
                     </div>
                     <div class="btn_div">
@@ -517,28 +521,35 @@
 </html>
 
 <script type="text/javascript">
+    $(function () {
+        /*日期選擇元件*/
+        Common.DatepickerInit();
+
+        $('#singup_name').keyup((e) => Common.RemoveErrorInput(e.target));
+        $('#singup_account').keyup((e) => Common.RemoveErrorInput(e.target));
+        $('#singup_password').keyup((e) => Common.RemoveErrorInput(e.target));
+        $('#singup_passwordCheck').keyup((e) => Common.RemoveErrorInput(e.target));
+        $('#singup_mail').keyup((e) => Common.RemoveErrorInput(e.target));
+        $('#singup_vCode').keyup((e) => Common.RemoveErrorInput(e.target));
+    });
+
     function Login() {
         let model = new LoginViewModel($('#account').val(), $('#password').val());
-        let successFuc = () => window.location.href = "/Home/Index";
-        LoginAPI(model, successFuc);
+        let successFuc = () => {
+            window.location.href = "/Home/Index";
+        };
+        let errorFuc = (res) => { };
+        LoginAPI("登入", model, successFuc);
     }
 
     function SendVCode() {
         let model = new SendVCodeReqViewModel($('#singup_mail').val());
-        let successFuc = (res) => {
-            SweetAlertSuccess(res.message);
-        //    $('#InfoText').html(res.message);
-        //    Popup('PopupInfo');
-        //    $('.btn_info').click(() => ClosePopup('PopupInfo'));
-        };
+        let successFuc = (res) => { };
         let errorFuc = (res) => {
-            SweetAlertError()
-            $('#ErrorText').html(res.message);
             $('#singup_mail').addClass('input-error');
-            Common.Popup('PopupError');
         };
 
-        SendVCodeAPI(model);
+        SendVCodeAPI("寄送驗證碼", model, successFuc, errorFuc);
     }
 
     function Singup() {
@@ -548,10 +559,10 @@
             singup_password: '您尚未填寫 會員密碼',
             singup_passwordCheck: '您尚未填寫 確認密碼',
             singup_mail: '您尚未填寫 電子郵件',
-            singup_Vcode: '您尚未填寫 驗證碼'
+            singup_vCode: '您尚未填寫 驗證碼'
         };
 
-        let error = Validate(errorMsg);
+        let error = Common.Validate(errorMsg);
 
         // 驗證特殊邏輯
         if (!error) {
@@ -568,8 +579,7 @@
         }
 
         if (error) {
-            $('#ErrorText').html(error);
-            Common.Popup('PopupError');
+            Common.SweetAlertError(error);
             return;
         }
 
@@ -579,19 +589,14 @@
             $("#singup_password").val(),
             $("#singup_passwordCheck").val(),
             $("#singup_mail").val(),
-            $("#singup_Vcode").val()
+            $("#singup_vCode").val()
         );
         let successFuc = (res) => {
-            $('#InfoText').html(res.message);
-            Common.Popup('PopupInfo');
-            $('.btn_info').click(() => Popup('PopupInfo', false, () => Popup('MemberInfo')));
+            Common.Popup('MemberInfo');
         };
-        let errorFuc = (res) => {
-            $('#ErrorText').html(res.message);
-            Common.Popup('PopupError');
-        };
+        let errorFuc = (res) => { };
 
-        SignupAPI(model, successFuc, errorFuc);
+        SignupAPI("註冊", model, successFuc, errorFuc);
     }
 
     /*SVG元素控制*/
@@ -627,11 +632,6 @@
 
         }, 'xml');
 
-    });
-
-    $(document).ready(() => {
-        /*日期選擇元件*/
-        datepickerInit();
     });
 
     ///** 註冊 */
@@ -680,8 +680,8 @@
     /*會員資料公開或隱藏*/
     var infoSum = 15;
     function InfoDate(e) {
-        var hideImage = "/Image/InfoHide.png";
-        var publicImage = "/Image/InfoPublic.png";
+        var hideImage = "/images/InfoHide.png";
+        var publicImage = "/images/InfoPublic.png";
         e.src = e.src.includes(publicImage) ? hideImage : publicImage;
 
         var infoNumber = e.id.slice(-1);
