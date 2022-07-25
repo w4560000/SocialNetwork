@@ -59,7 +59,7 @@ namespace SocialNetwork.Repository
         /// <summary>
         /// 資訊狀態
         /// </summary>
-        public virtual MemberInfoEnum InfoStatus { get; set; }
+        public virtual MemberPublicInfoEnum InfoStatus { get; set; }
 
         /// <summary>
         /// 會員狀態

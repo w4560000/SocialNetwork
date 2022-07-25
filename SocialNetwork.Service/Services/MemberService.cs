@@ -32,31 +32,41 @@ namespace SocialNetwork.Service
         private readonly JwtHelper JwtHelper;
 
         /// <summary>
+        /// IUserContext
+        /// </summary>
+        private readonly IUserContext UserContext;
+
+        /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="memberRepository">IMemberRepository</param>
         /// <param name="verificationCode">IVerificationCodeRepository</param>
         /// <param name="httpContextAccessor">IHttpContextAccessor</param>
         /// <param name="jwtHelper">JwtHelper</param>
+        /// <param name="userContext">IUserContext</param>
         public MemberService(
             IMemberRepository memberRepository,
             IVerificationCodeRepository verificationCode,
             IHttpContextAccessor httpContextAccessor,
-            JwtHelper jwtHelper)
+            JwtHelper jwtHelper,
+            IUserContext userContext)
+
         {
             this.MemberRepository = memberRepository;
             this.VerificationCodeRepository = verificationCode;
             this.HttpContext = httpContextAccessor.HttpContext;
             this.JwtHelper = jwtHelper;
+            this.UserContext = userContext;
         }
 
         /// <summary>
         /// 註冊
         /// </summary>
+        /// <param name="model">註冊 Req ViewModel</param>
         /// <returns>註冊結果</returns>
         public ResponseViewModel Signup(SingupReqViewModel model)
         {
-            bool isMemberExist = this.MemberRepository.CheckMemberExist(model.Account, model.Mail);
+            bool isMemberExist = this.MemberRepository.RecordCount("WHERE Account = @Account OR Mail = @Mail", new { model.Account, model.Mail }) > 0;
 
             if (isMemberExist)
                 return "會員帳號或信箱已被註冊!".AsFailResponse();
@@ -81,20 +91,21 @@ namespace SocialNetwork.Service
                 NickName = model.NickName,
                 Password = model.Password,
                 Mail = model.Mail,
-                InfoStatus = MemberInfoEnum.All,
+                InfoStatus = MemberPublicInfoEnum.全部不公開,
                 Status = MemberStatusEnum.離線
             });
 
             // 寫入登入 Cookie
-            this.SetUserInfoToCookie(new UserInfo() { MemberID = memberID, Account = model.Account, NickName = model.NickName });
+            this.LoginProcess(new UserInfo() { MemberID = memberID, Account = model.Account, NickName = model.NickName });
 
-            return "註冊成功".AsSuccessResponse();
+            return "註冊成功!".AsSuccessResponse();
         }
 
         /// <summary>
         /// 寄送驗證碼
         /// </summary>
-        /// <returns>註冊結果</returns>
+        /// <param name="model">寄送驗證碼 Req ViewModel</param>
+        /// <returns>寄送結果</returns>
         public ResponseViewModel SendVCode(SendVCodeReqViewModel model)
         {
             bool isMemberExist = this.MemberRepository.RecordCount("WHERE Mail = @mail", new { mail = model.Mail }) > 0;
@@ -115,17 +126,64 @@ namespace SocialNetwork.Service
                 Status = VerificationEnum.NotAuth
             });
 
-            return "寄送驗證碼成功".AsSuccessResponse();
+            return "寄送驗證碼成功!".AsSuccessResponse();
         }
 
         /// <summary>
-        /// 設定 UserInfo 轉為 Jwt 存至 Cookie 中
+        /// 登入
+        /// </summary>
+        /// <param name="model">登入 Req ViewModel</param>
+        /// <returns>登入結果</returns>
+        public ResponseViewModel Login(LoginReqViewModel model)
+        {
+            var member = this.MemberRepository.GetList("WHERE Account = @Account AND Password = @Password", new { model.Account, model.Password }).FirstOrDefault();
+
+            if (member == null)
+                return  "帳號或密碼錯誤!".AsFailResponse();
+
+            LoginProcess(new UserInfo() { MemberID = member.MemberID, Account = member.Account, NickName = member.NickName });
+
+            return "登入成功!".AsSuccessResponse();
+        }
+
+        /// <summary>
+        /// 更新會員公開資訊
+        /// </summary>
+        /// <param name="model">更新會員公開資訊 Req viewModel</param>
+        /// <returns>更新結果</returns>
+        public ResponseViewModel UpdateMemberPublicInfo(UpdateMemberPublicInfoReqViewModel model)
+        {
+            if (!this.MemberRepository.TryGetEntity(UserContext.User.MemberID, out Member member))
+                return CommonExtension.AsSystemFailResponse();
+
+            member.InfoStatus = model.MemberPublicInfo;
+            member.Birthday = model.Birthday;
+            member.Interest = model.Interest;
+            member.Job = model.Job;
+            member.Education = model.Education;
+            this.MemberRepository.Update(member);
+
+            return "更新成功!".AsSuccessResponse();
+        }
+
+        /// <summary>
+        /// 登入流程
+        /// 1. 設定 UserInfo 轉為 Jwt 存至 Cookie 中
+        /// 2. 更新會員狀態
         /// </summary>
         /// <param name="userInfo">使用者資訊</param>
-        private void SetUserInfoToCookie(UserInfo userInfo)
+        private void LoginProcess(UserInfo userInfo)
         {
             var token = this.JwtHelper.GenerateToken(userInfo);
             this.HttpContext.Response.Cookies.AddJwtTokenToCookie(token);
+
+            if (this.MemberRepository.TryGetEntity(userInfo.MemberID, out Member member))
+            {
+                member.Status = MemberStatusEnum.在線;
+                this.MemberRepository.Update(member);
+            }
+
+            // todo 會員在線狀態 存入 Redis
         }
     }
 }

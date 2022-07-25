@@ -3,34 +3,33 @@
 namespace SocialNetwork.Repository
 {
     /// <summary>
-    /// 會員資訊狀態
+    /// 更新會員公開資訊 Req ViewModel
     /// </summary>
-    [Flags]
-    public enum MemberInfoEnum
+    public class UpdateMemberPublicInfoReqViewModel
     {
         /// <summary>
         /// 生日
         /// </summary>
-        生日 = 1,
+        public DateTime Birthday { get; set; }
 
         /// <summary>
         /// 興趣
         /// </summary>
-        興趣 = 2,
+        public string Interest { get; set; }
 
         /// <summary>
         /// 工作
         /// </summary>
-        工作 = 4,
+        public string Job { get; set; }
 
         /// <summary>
         /// 學歷
         /// </summary>
-        學歷 = 8,
+        public string Education { get; set; }
 
         /// <summary>
-        /// 生日 | 興趣 | 工作 | 學歷
+        /// 會員公開資訊狀態
         /// </summary>
-        All = 生日 | 興趣 | 工作 | 學歷
+        public MemberPublicInfoEnum MemberPublicInfo { get; set; }
     }
 }

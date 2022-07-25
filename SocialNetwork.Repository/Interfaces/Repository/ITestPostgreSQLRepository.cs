@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace SocialNetwork.Repository
+﻿namespace SocialNetwork.Repository
 {
     /// <summary>
     /// 測試 PostgreSQL Interface

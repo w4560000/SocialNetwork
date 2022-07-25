@@ -39,19 +39,27 @@ namespace SocialNetwork.Controllers
         /// <summary>
         /// 登入
         /// </summary>
-        /// <param name="model">viewModel</param>
+        /// <param name="model">登入 Req ViewModel</param>
         /// <returns>登入結果</returns>
         [AllowAnonymous]
         [HttpPost(nameof(Login))]
         public ResponseViewModel Login(LoginReqViewModel model)
         {
-            return "登入成功".AsSuccessResponse();
+            try
+            {
+                return this.MemberService.Login(model);
+            }
+            catch (Exception ex)
+            {
+                this.Logger.LogCritical(ex, $"登入失敗，{ex.GetExceptionMessage()}");
+                return CommonExtension.AsSystemFailResponse();
+            }
         }
 
         /// <summary>
         /// 註冊
         /// </summary>
-        /// <param name="model">viewModel</param>
+        /// <param name="model">註冊 Req ViewModel</param>
         /// <returns>註冊結果</returns>
         [AllowAnonymous]
         [HttpPost(nameof(Signup))]
@@ -71,7 +79,7 @@ namespace SocialNetwork.Controllers
         /// <summary>
         /// 寄送驗證碼
         /// </summary>
-        /// <param name="model">viewModel</param>
+        /// <param name="model">寄送驗證碼 Req ViewModel</param>
         /// <returns>寄送結果</returns>
         [AllowAnonymous]
         [HttpPost(nameof(SendVCode))]
@@ -84,6 +92,25 @@ namespace SocialNetwork.Controllers
             catch (Exception ex)
             {
                 this.Logger.LogCritical(ex, $"寄送驗證碼失敗，{ex.GetExceptionMessage()}");
+                return CommonExtension.AsSystemFailResponse();
+            }
+        }
+
+        /// <summary>
+        /// 更新會員公開資訊
+        /// </summary>
+        /// <param name="model">更新會員公開資訊 Req ViewModel</param>
+        /// <returns>更新結果</returns>
+        [HttpPost(nameof(UpdateMemberPublicInfo))]
+        public ResponseViewModel UpdateMemberPublicInfo(UpdateMemberPublicInfoReqViewModel model)
+        {
+            try
+            {
+                return this.MemberService.UpdateMemberPublicInfo(model);
+            }
+            catch (Exception ex)
+            {
+                this.Logger.LogCritical(ex, $"更新使用者資訊失敗，{ex.GetExceptionMessage()}");
                 return CommonExtension.AsSystemFailResponse();
             }
         }

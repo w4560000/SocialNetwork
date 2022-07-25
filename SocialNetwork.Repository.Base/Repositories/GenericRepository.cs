@@ -220,6 +220,19 @@ namespace SocialNetwork.Repository.Base
         }
 
         /// <summary>
+        /// 嘗試根據主鍵取得物件
+        /// </summary>
+        /// <typeparam name="TId">主鍵類型</typeparam>
+        /// <param name="id">值</param>
+        /// <param name="entity">資料庫物件</param>
+        /// <returns>是否取得成功</returns>
+        public virtual bool TryGetEntity<TId>(TId id, out TEntity entity)
+        {
+            entity = this.Connection.Get<TEntity>(id);
+
+            return entity != null;
+        }
+        /// <summary>
         /// [非同步]根據主鍵取得物件
         /// </summary>
         /// <typeparam name="TId">主鍵類型</typeparam>
