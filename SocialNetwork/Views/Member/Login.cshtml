@@ -239,6 +239,8 @@
 
         .DateInput {
             width: 85px;
+            padding-left: 0 !important;
+            text-align: center;
         }
 
         .DateIcon {
@@ -457,7 +459,7 @@
                 <div class="popLayer"></div>
                 <div class="popBox InfoStyle">
                     <div class="topBar">
-                        <div class="popTitle"><a>填寫會員資料</a></div>
+                        <div class="popTitle"><a>填寫會員資訊</a></div>
                         <div onclick="Common.ClosePopup('MemberInfo')"><img class="svg closeIcon" src="/images/Close.svg"></div>
                     </div>
                     <div class="singupContent">
@@ -474,7 +476,7 @@
                                 <input type="button" id="datepicker">
                                 <img src="/images/date.png">
                             </div>
-                            <div><img onclick="InfoDate(this)" id="InfoBtn1" class="svg InfoIcon" src="/images/InfoPublic.png"></div>
+                            <div><img onclick="InfoIconToggle(this)" class="svg InfoIcon" src="/images/InfoPublic.png" MemberPublicInfoFlag="1"></div>
                         </div>
                     </div>
                     <div class="singupContent">
@@ -485,7 +487,7 @@
                         </div>
                         <div class="InfoInputdiv">
                             <input id="infoInternest" class="input_sinup" type="text" autocomplete="off" maxlength="20">
-                            <div><img onclick="InfoDate(this)" id="InfoBtn2" class="svg InfoIcon" src="/images/InfoPublic.png"></div>
+                            <div><img onclick="InfoIconToggle(this)" class="svg InfoIcon" src="/images/InfoPublic.png" MemberPublicInfoFlag="2"></div>
                         </div>
                     </div>
                     <div class="singupContent">
@@ -496,7 +498,7 @@
                         </div>
                         <div class="InfoInputdiv">
                             <input id="infoJob" class="input_sinup" type="text" autocomplete="off" maxlength="100">
-                            <div><img onclick="InfoDate(this)" id="InfoBtn4" class="svg InfoIcon" src="/images/InfoPublic.png"></div>
+                            <div><img onclick="InfoIconToggle(this)" class="svg InfoIcon" src="/images/InfoPublic.png" MemberPublicInfoFlag="4"></div>
                         </div>
                     </div>
                     <div class="singupContent">
@@ -507,11 +509,11 @@
                         </div>
                         <div class="InfoInputdiv">
                             <input id="infoEducation" class="input_sinup" type="text" autocomplete="off" maxlength="100">
-                            <div><img onclick="InfoDate(this)" id="InfoBtn8" class="svg InfoIcon" src="/images/InfoPublic.png"></div>
+                            <div><img onclick="InfoIconToggle(this)" class="svg InfoIcon" src="/images/InfoPublic.png" MemberPublicInfoFlag="8"></div>
                         </div>
                     </div>
                     <div class="btn_div">
-                        <div><input class="btn_singup" type="button" value="完成" onclick="InfoNumber()"></div>
+                        <div><input class="btn_singup" type="button" value="完成" onclick="UpdateMemberPublicInfo()"></div>
                     </div>
                 </div>
             </div>
@@ -522,8 +524,15 @@
 
 <script type="text/javascript">
     $(function () {
-        /*日期選擇元件*/
+
+        // 日期選擇元件
         Common.DatepickerInit();
+
+        // 控制 SVG CSS
+        Common.ControllSVG();
+
+        $('#account').keyup((e) => Common.RemoveErrorInput(e.target));
+        $('#password').keyup((e) => Common.RemoveErrorInput(e.target));
 
         $('#singup_name').keyup((e) => Common.RemoveErrorInput(e.target));
         $('#singup_account').keyup((e) => Common.RemoveErrorInput(e.target));
@@ -534,12 +543,24 @@
     });
 
     function Login() {
-        let model = new LoginViewModel($('#account').val(), $('#password').val());
+        let errorMsg = {
+            account: '請輸入帳號',
+            password: '請輸入密碼'
+        };
+
+        let error = Common.Validate(errorMsg);
+
+        if (error) {
+            Common.SweetAlertError(error);
+            return;
+        }
+
+        let model = new LoginReqViewModel($('#account').val(), $('#password').val());
         let successFuc = () => {
             window.location.href = "/Home/Index";
         };
         let errorFuc = (res) => { };
-        LoginAPI("登入", model, successFuc);
+        LoginAPI("登入中", model, successFuc, errorFuc);
     }
 
     function SendVCode() {
@@ -549,7 +570,7 @@
             $('#singup_mail').addClass('input-error');
         };
 
-        SendVCodeAPI("寄送驗證碼", model, successFuc, errorFuc);
+        SendVCodeAPI("寄送驗證碼中", model, successFuc, errorFuc);
     }
 
     function Singup() {
@@ -596,103 +617,34 @@
         };
         let errorFuc = (res) => { };
 
-        SignupAPI("註冊", model, successFuc, errorFuc);
+        SignupAPI("註冊中", model, successFuc, errorFuc);
     }
 
-    /*SVG元素控制*/
-    jQuery('img.svg').each(function () {
-        var $img = jQuery(this);
-        var imgID = $img.attr('id');
-        var imgClass = $img.attr('class');
-        var imgURL = $img.attr('src');
+    function UpdateMemberPublicInfo() {
+        let birthday = $('#datepicker').val();
 
-        jQuery.get(imgURL, function (data) {
-            // Get the SVG tag, ignore the rest
-            var $svg = jQuery(data).find('svg');
+        let memberPublicInfo = 0;
 
-            // Add replaced image's ID to the new SVG
-            if (typeof imgID !== 'undefined') {
-                $svg = $svg.attr('id', imgID);
+        $('.InfoIcon').each(function (i) {
+            if (this.src.includes('InfoPublic')) {
+                memberPublicInfo += Number($(this).attr('memberpublicinfoflag'));
             }
-            // Add replaced image's classes to the new SVG
-            if (typeof imgClass !== 'undefined') {
-                $svg = $svg.attr('class', imgClass + ' replaced-svg');
-            }
+        });
 
-            // Remove any invalid XML tags as per http://validator.w3.org
-            $svg = $svg.removeAttr('xmlns:a');
+        let model = new UpdateMemberPublicInfoReqViewModel(birthday, $('#infoInternest').val(), $('#infoJob').val(), $('#infoEducation').val(), memberPublicInfo);
+        let successFuc = (res) => {
+            window.location.href = "/Home/Index";
+        };
+        let errorFuc = (res) => {};
 
-            // Check if the viewport is set, if the viewport is not set the SVG wont't scale.
-            if (!$svg.attr('viewBox') && $svg.attr('height') && $svg.attr('width')) {
-                $svg.attr('viewBox', '0 0 ' + $svg.attr('height') + ' ' + $svg.attr('width'))
-            }
-
-            // Replace image with new SVG
-            $img.replaceWith($svg);
-
-        }, 'xml');
-
-    });
-
-    ///** 註冊 */
-    //function Singup() {
-    //    //串註冊API
-    //    $.post("/API/MemberAPI/Singup",
-    //        {
-    //            nickName: $("#singup_name").val(),
-    //            Account: $("#singup_account").val(),
-    //            Password: $("#singup_password").val(),
-    //            PasswordCheck: $("#singup_passwordCheck").val(),
-    //            Mail: $("#singup_mail").val(),
-    //            VCode: $("#singup_Vcode").val()
-    //        },
-    //        (res) => {
-    //            if (res.ResultCode == 1) {
-    //                $('#InfoText').html(res.Message);
-    //                Popup('PopupInfo');
-
-    //                $('.btn_info').click(() => Popup('PopupInfo', false, () => Popup('MemberInfo')));
-    //            }
-    //            else {
-    //                $('#ErrorText').html(res.Message);
-    //                Popup('PopupError');
-    //            }
-    //        }
-    //    );
-    //};
-
-    /*測試用*/
-    function dateTest() {
-        $.post("/API/MemberAPI/Datetest",
-            {
-                Brithdate: $('#Birth').val()
-            },
-            (res) => {
-                if (res.ResultCode == 1)
-                    // 導主頁
-                    alert(res.Message);
-                else
-                    alert(res.Message);
-            }
-        );
+        UpdateMemberPublicInfoAPI("更新會員資訊中", model, successFuc, errorFuc);
     }
 
     /*會員資料公開或隱藏*/
-    var infoSum = 15;
-    function InfoDate(e) {
+    function InfoIconToggle(e) {
         var hideImage = "/images/InfoHide.png";
         var publicImage = "/images/InfoPublic.png";
         e.src = e.src.includes(publicImage) ? hideImage : publicImage;
-
-        var infoNumber = e.id.slice(-1);
-        infoSum = e.src.includes(publicImage) ? infoSum + Number(infoNumber) : infoSum - Number(infoNumber);
-    };
-
-    function InfoNumber() {
-        var birthday = $('#year').val() + '-' + $('#month').val() + '-' + $('#day').val();
-        var internest = $('#infoInternest').val();
-        var job = $('#infoJob').val();
-        var education = $('#infoEducation').val();
-        alert(infoSum + '\n' + birthday + '\n' + internest + '\n' + job + '\n' + education);
     }
+
 </script>

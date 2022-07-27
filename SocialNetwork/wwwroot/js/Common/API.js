@@ -29,6 +29,9 @@ function SendVCodeAPI(loadingMsg, model, successFunc, errorFunc) {
 function SignupAPI(loadingMsg, model, successFunc, errorFunc) {
     BaseAPI(loadingMsg, "/MemberApi/Signup", model, successFunc, errorFunc);
 }
+function UpdateMemberPublicInfoAPI(loadingMsg, model, successFunc, errorFunc) {
+    BaseAPI(loadingMsg, "/MemberApi/UpdateMemberPublicInfo", model, successFunc, errorFunc);
+}
 /// <summary>
 /// 共用回應 ViewModel
 /// </summary>
@@ -62,6 +65,16 @@ var SignupReqViewModel = /** @class */ (function () {
     }
     return SignupReqViewModel;
 }());
+var UpdateMemberPublicInfoReqViewModel = /** @class */ (function () {
+    function UpdateMemberPublicInfoReqViewModel(birthday, interest, job, education, memberPublicInfo) {
+        this.Birthday = birthday;
+        this.Interest = interest;
+        this.Job = job;
+        this.Education = education;
+        this.MemberPublicInfo = memberPublicInfo;
+    }
+    return UpdateMemberPublicInfoReqViewModel;
+}());
 var ResponseStatusEnum;
 (function (ResponseStatusEnum) {
     /// <summary>
@@ -73,3 +86,30 @@ var ResponseStatusEnum;
     /// </summary>
     ResponseStatusEnum[ResponseStatusEnum["Success"] = 1] = "Success";
 })(ResponseStatusEnum || (ResponseStatusEnum = {}));
+var MemberPublicInfoEnum;
+(function (MemberPublicInfoEnum) {
+    /// <summary>
+    /// 全部不公開
+    /// </summary>
+    MemberPublicInfoEnum[MemberPublicInfoEnum["\u5168\u90E8\u4E0D\u516C\u958B"] = 0] = "\u5168\u90E8\u4E0D\u516C\u958B";
+    /// <summary>
+    /// 公開生日
+    /// </summary>
+    MemberPublicInfoEnum[MemberPublicInfoEnum["\u516C\u958B\u751F\u65E5"] = 1] = "\u516C\u958B\u751F\u65E5";
+    /// <summary>
+    /// 公開興趣
+    /// </summary>
+    MemberPublicInfoEnum[MemberPublicInfoEnum["\u516C\u958B\u8208\u8DA3"] = 2] = "\u516C\u958B\u8208\u8DA3";
+    /// <summary>
+    /// 公開工作
+    /// </summary>
+    MemberPublicInfoEnum[MemberPublicInfoEnum["\u516C\u958B\u5DE5\u4F5C"] = 4] = "\u516C\u958B\u5DE5\u4F5C";
+    /// <summary>
+    /// 公開學歷
+    /// </summary>
+    MemberPublicInfoEnum[MemberPublicInfoEnum["\u516C\u958B\u5B78\u6B77"] = 8] = "\u516C\u958B\u5B78\u6B77";
+    /// <summary>
+    /// 公開生日 | 公開興趣 | 公開工作 | 公開學歷
+    /// </summary>
+    MemberPublicInfoEnum[MemberPublicInfoEnum["\u5168\u90E8\u516C\u958B"] = 15] = "\u5168\u90E8\u516C\u958B";
+})(MemberPublicInfoEnum || (MemberPublicInfoEnum = {}));

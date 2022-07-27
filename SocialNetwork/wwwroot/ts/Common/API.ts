@@ -36,6 +36,10 @@ function SignupAPI(loadingMsg: string, model: SignupReqViewModel, successFunc: F
     BaseAPI<SignupReqViewModel>(loadingMsg, "/MemberApi/Signup", model, successFunc, errorFunc);
 }
 
+function UpdateMemberPublicInfoAPI(loadingMsg: string, model: UpdateMemberPublicInfoReqViewModel, successFunc: Function, errorFunc: Function): void {
+    BaseAPI<UpdateMemberPublicInfoReqViewModel>(loadingMsg, "/MemberApi/UpdateMemberPublicInfo", model, successFunc, errorFunc);
+}
+
 /// <summary>
 /// 共用回應 ViewModel
 /// </summary>
@@ -94,6 +98,22 @@ class SignupReqViewModel {
     }
 }
 
+class UpdateMemberPublicInfoReqViewModel {
+    Birthday: Date;
+    Interest: string;
+    Job: string;
+    Education: string;
+    MemberPublicInfo: MemberPublicInfoEnum;
+
+    constructor(birthday: Date, interest: string, job: string, education: string, memberPublicInfo: MemberPublicInfoEnum) {
+        this.Birthday = birthday;
+        this.Interest = interest;
+        this.Job = job;
+        this.Education = education;
+        this.MemberPublicInfo = memberPublicInfo;
+    }
+}
+
 enum ResponseStatusEnum {
     /// <summary>
     /// Error
@@ -104,4 +124,36 @@ enum ResponseStatusEnum {
     /// Success
     /// </summary>
     Success = 1
+}
+
+enum MemberPublicInfoEnum {
+    /// <summary>
+    /// 全部不公開
+    /// </summary>
+    全部不公開 = 0,
+
+    /// <summary>
+    /// 公開生日
+    /// </summary>
+    公開生日 = 1,
+
+    /// <summary>
+    /// 公開興趣
+    /// </summary>
+    公開興趣 = 2,
+
+    /// <summary>
+    /// 公開工作
+    /// </summary>
+    公開工作 = 4,
+
+    /// <summary>
+    /// 公開學歷
+    /// </summary>
+    公開學歷 = 8,
+
+    /// <summary>
+    /// 公開生日 | 公開興趣 | 公開工作 | 公開學歷
+    /// </summary>
+    全部公開 = 公開生日 | 公開興趣 | 公開工作 | 公開學歷
 }
