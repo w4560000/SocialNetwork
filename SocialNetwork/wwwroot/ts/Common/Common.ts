@@ -86,8 +86,32 @@ const Common = {
             }
         });
     },
-    DatepickerInit: () => {
-        $("#datepicker").datepicker({
+    SweetAlertRedirect: (path: string, pathName: string) => {
+        let timerInterval;
+        Swal.fire({
+            html: `<b></b> 秒後 跳轉回${pathName}`,
+            timer: 5000,
+            timerProgressBar: true,
+            showConfirmButton: false,
+            didOpen: () => {
+                Swal.showLoading();
+                const b = (Swal.getHtmlContainer() as HTMLElement).querySelector('b') as HTMLElement;
+                timerInterval = setInterval(() => {
+                    b.textContent = Math.round((Swal.getTimerLeft() as number) / 1000).toString();
+                }, 100)
+            },
+            willClose: () => {
+                clearInterval(timerInterval)
+            }
+        }).then((result) => {
+            /* Read more about handling dismissals below */
+            if (result.dismiss === Swal.DismissReason.timer) {
+                window.location.href = path;
+            }
+        })
+    },
+    DatepickerInit: (e: JQuery<HTMLElement>) => {
+        e.datepicker({
             changeMonth: true,
             changeYear: true,
             showMonthAfterYear: true,

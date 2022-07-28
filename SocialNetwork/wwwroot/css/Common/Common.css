@@ -148,6 +148,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .input-error {
   border: 2px solid red !important; }
 
+/* 客製化 SweetAlert2 */
 .swal2-styled.swal2-confirm {
   width: 130px !important;
   height: 50px !important;
@@ -164,3 +165,43 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .swal2-html-container {
   font-size: 1.5em !important;
   font-weight: 600 !important; }
+
+/* 客製化 JQuery DatePicker*/
+.ui-widget-content {
+  background: #FFFFFF;
+  border: none;
+  box-shadow: 1px 1px 3px 1px #F2A1A1; }
+
+.ui-widget-header {
+  border: none;
+  background: #FCD4D5; }
+
+.ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+  background: #FFF3F3;
+  border: none;
+  border-radius: 3px;
+  text-align: center; }
+
+.ui-state-default:hover {
+  background: #f2a1a1;
+  color: #FFFFFF; }
+
+.ui-datepicker select.ui-datepicker-month, .ui-datepicker select.ui-datepicker-year {
+  width: 35%;
+  border-radius: 5px;
+  margin: 0px 5px;
+  border: none; }
+
+.ui-datepicker-year::-webkit-scrollbar-thumb {
+  display: none; }
+
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {
+  border: none;
+  background: #f2a1a180;
+  top: 3px; }
+
+.ui-datepicker .ui-datepicker-prev-hover {
+  left: 3px; }
+
+.ui-datepicker .ui-datepicker-next-hover {
+  right: 3px; }

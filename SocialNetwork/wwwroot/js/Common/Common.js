@@ -81,8 +81,32 @@ var Common = {
             }
         });
     },
-    DatepickerInit: function () {
-        $("#datepicker").datepicker({
+    SweetAlertRedirect: function (path, pathName) {
+        var timerInterval;
+        Swal.fire({
+            html: "<b></b> \u79D2\u5F8C \u8DF3\u8F49\u56DE".concat(pathName),
+            timer: 5000,
+            timerProgressBar: true,
+            showConfirmButton: false,
+            didOpen: function () {
+                Swal.showLoading();
+                var b = Swal.getHtmlContainer().querySelector('b');
+                timerInterval = setInterval(function () {
+                    b.textContent = Math.round(Swal.getTimerLeft() / 1000).toString();
+                }, 100);
+            },
+            willClose: function () {
+                clearInterval(timerInterval);
+            }
+        }).then(function (result) {
+            /* Read more about handling dismissals below */
+            if (result.dismiss === Swal.DismissReason.timer) {
+                window.location.href = path;
+            }
+        });
+    },
+    DatepickerInit: function (e) {
+        e.datepicker({
             changeMonth: true,
             changeYear: true,
             showMonthAfterYear: true,

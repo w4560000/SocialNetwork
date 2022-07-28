@@ -1,12 +1,18 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "IKKON";
     Layout = null;
 }
 <!DOCTYPE html>
 <html>
 <head>
+    <script src="~/lib/jquery/jquery.min.js" asp-append-version="true"></script>
+    <script src="~/lib/jqueryui/jquery-ui.min.js" asp-append-version="true"></script>
+    <script src="~/lib/sweetalert2/dist/sweetalert2.min.js" asp-append-version="true"></script>
+    <link rel="stylesheet" href="~/lib/sweetalert2/dist/sweetalert2.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/jqueryui/jquery-ui.min.css" asp-append-version="true" />
+
     <environment include="Development">
         <script src="~/js/Common/Common.js" asp-append-version="true"></script>
         <script src="~/js/Common/API.js" asp-append-version="true"></script>
@@ -17,286 +23,8 @@
         <link rel="stylesheet" href="~/css/bundle/Common.min.css" asp-append-version="true" />
     </environment>
 
-    <script src="~/lib/jquery/jquery.min.js" asp-append-version="true"></script>
-    <script src="~/lib/jqueryui/jquery-ui.min.js" asp-append-version="true"></script>
-    <script src="~/lib/sweetalert2/dist/sweetalert2.min.js" asp-append-version="true"></script>
-    <link rel="stylesheet" href="~/lib/sweetalert2/dist/sweetalert2.min.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/lib/jqueryui/jquery-ui.min.css" asp-append-version="true" />
-
-    <meta charset="utf-8" />
-    <title>IKKON</title>
-    <style>
-        .login_background {
-            width: 500px;
-            height: 100%;
-            background-color: #FFFFFF;
-            margin: 0px auto;
-        }
-
-        .loginBox {
-            padding-top: 35%;
-        }
-
-        .logo {
-            font-size: 40pt;
-            margin: auto;
-            display: flex;
-            justify-content: center;
-            padding-top: 8%;
-            padding-bottom: 3%;
-            color: #f2a1a1;
-        }
-
-        .inputbox {
-            width: 350px;
-            height: 50px;
-            background-color: #FFFFFF;
-            color: #acacac;
-            border-radius: 5px;
-            margin: auto;
-            margin-top: 3%;
-        }
-
-        .inputbox_text {
-            font-size: 20pt;
-            padding-left: 15px;
-            line-height: 50px;
-        }
-
-        .btn_loginPage {
-            width: 350px;
-            height: 40px;
-            font-size: 15pt;
-            border-radius: 5px;
-            background-color: #F2A1A1;
-            color: #FFFFFF;
-            font-weight: 600;
-            outline: 0;
-        }
-
-            .btn_loginPage:hover {
-                background-color: #D68D8D;
-            }
-
-        .btn_singup, .btn_info {
-            width: 130px;
-            height: 50px;
-            font-size: 15pt;
-            border-radius: 5px;
-            background-color: #F2A1A1;
-            color: #FFFFFF;
-            font-weight: 700;
-            outline: 0;
-        }
-
-            .btn_singup:hover, .btn_info:hover {
-                border: 1px solid #FFFFFF;
-            }
-
-        .btn_login_text {
-            color: #be5959;
-            font-size: 18pt;
-            text-align: center;
-            line-height: 50px;
-            font-weight: 800;
-        }
-
-        .input_login {
-            width: 330px;
-        }
-
-        .input_sinup {
-            width: 430px;
-        }
-
-        .signupStyle {
-            width: 700px;
-            height: 720px;
-        }
-
-        .singupText {
-            font-size: 16pt;
-            color: #4E4E4E;
-            position: relative;
-            bottom: 50%;
-            right: 5%;
-            font-weight: 600;
-        }
-
-        .singupTextBackground {
-            width: 90%;
-            height: 70%;
-            background-color: #ffe9e9;
-            border-radius: 25px;
-            position: relative;
-            top: 20%;
-        }
-
-        .InfoTextBackground {
-            width: 50px;
-            height: 70%;
-            background-color: #ffe9e9;
-            border-radius: 25px;
-            position: relative;
-            top: 20%;
-            right: 15px;
-        }
-
-        .singupContent {
-            display: flex;
-            align-items: center;
-            justify-content: left;
-            margin: 3% 9%;
-        }
-
-        .singupInputText {
-            width: 100px;
-            height: 30px;
-        }
-
-        .InfoInputText {
-            height: 30px;
-        }
-
-        .linediv {
-            display: flex;
-            align-content: center;
-            justify-content: center;
-        }
-
-        .lineStyle {
-            width: 80%;
-            height: 1px;
-            background-color: #dadada;
-        }
-
-        .forgotPassword {
-            display: flex;
-            justify-content: center;
-        }
-
-        .forgotPasswordWindow {
-            width: 300px;
-            height: 300px;
-        }
-
-        .btn_forgotPassword {
-            background: none;
-            color: #F2A1A1;
-            font-size: 14pt;
-            margin-top: 3%;
-        }
-
-            .btn_forgotPassword:hover {
-                color: #D68D8D;
-            }
-
-        .btn_Verification {
-            height: 48px;
-            font-size: 16pt;
-            border-radius: 5px;
-            background-color: #F2A1A1;
-            color: #FFFFFF;
-            font-weight: 600;
-            outline: 0;
-        }
-
-            .btn_Verification:hover {
-                background-color: #D68D8D;
-            }
-
-        .subTitle {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .InfoIcon {
-            width: 90px;
-            margin-left: 10px;
-            right: 0px;
-        }
-
-        .InfoInputdiv {
-            display: contents;
-        }
-
-        /*隱藏時間選擇按鈕文字*/
-        #datepicker {
-            width: 45px;
-            height: 45px;
-            text-indent: -999px;
-            overflow: hidden;
-            background: none;
-            margin: auto;
-            position: absolute;
-        }
-
-        .DateText {
-            margin: auto;
-            font-size: 14pt;
-        }
-
-        .DateInput {
-            width: 85px;
-            padding-left: 0 !important;
-            text-align: center;
-        }
-
-        .DateIcon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .ui-widget-content {
-            background: #FFFFFF;
-            border: none;
-            box-shadow: 1px 1px 3px 1px #0000001c;
-        }
-
-        .ui-widget-header {
-            border: none;
-            background: #FCD4D5;
-        }
-
-            .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
-                background: #FFF3F3;
-                border: none;
-                border-radius: 3px;
-                text-align: center;
-            }
-
-        .ui-state-default:hover {
-            background: #f2a1a1;
-            color: #FFFFFF;
-        }
-
-        .ui-datepicker select.ui-datepicker-month, .ui-datepicker select.ui-datepicker-year {
-            width: 35%;
-            border-radius: 5px;
-            margin: 0px 5px;
-            border: none;
-        }
-
-        .ui-datepicker-year::-webkit-scrollbar-thumb {
-            display: none;
-        }
-
-        .ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {
-            border: none;
-            background: #f2a1a180;
-            top: 3px;
-        }
-
-        .ui-datepicker .ui-datepicker-prev-hover {
-            left: 3px;
-        }
-
-        .ui-datepicker .ui-datepicker-next-hover {
-            right: 3px;
-        }
-    </style>
+    <script src="~/js/Member/Login.js" asp-append-version="true"></script>
+    <link rel="stylesheet" href="~/css/Member/Login.css" asp-append-version="true" />
 </head>
 <body style="height: 100% !important">
     <div class="login_background">
@@ -309,7 +37,7 @@
                 <input class="input_login" type="text" placeholder="請輸入密碼" id="password" autocomplete="off" maxlength="100">
             </div>
 
-            <!--忘記密碼-->
+            <!--忘記密碼 todo -->
             <div id="forgotPassword" class="forgotPassword">
                 <input class="btn_forgotPassword" type="button" value="忘記密碼?" onclick="Common.Popup('forgotPassword')">
                 <div class="popLayer"></div>
@@ -425,34 +153,6 @@
                     </div>
                 </div>
             </div>
-            @*<div id="PopupError">
-                    <div class="popLayer"></div>
-                    <div class="popBox Error">
-                        <a class="ErrorText" id="ErrorText"></a>
-                        <div class="btn_div">
-                            <input class="btn_Error" type="button" value="確認" onclick="Common.ClosePopup('PopupError')">
-                        </div>
-                    </div>
-                </div>*@
-            <div id="PopupInfo">
-                <div class="popLayer"></div>
-                <div class="popBox Info">
-                    <a class="InfoText" id="InfoText"></a>
-                    <div class="btn_div">
-                        <input class="btn_info" type="button" value="確認">
-                    </div>
-                </div>
-            </div>
-            @*<div id="MailError">
-                    <div class="popLayer"></div>
-                    <div class="popBox Error">
-                        <a class="ErrorText">請輸入電子郵件!</a>
-                        <div class="btn_div">
-                            <input class="btn_Error" type="button" value="確認" onclick="Common.ClosePopup('MailError')">
-                        </div>
-                    </div>
-                </div>*@
-
             <!--會員資料填寫-->
             <div class="btn_div" id="MemberInfo">
                 <div><input class="btn_loginPage" type="button" value="會員資料POPTest" onclick="Common.Popup('MemberInfo')"></div>
@@ -473,7 +173,7 @@
                             <input type="text" id="month" autocomplete="off" class="DateInput" disabled="disabled"><a class="DateText">月</a>
                             <input type="text" id="day" autocomplete="off" class="DateInput" disabled="disabled"><a class="DateText">日</a>
                             <div class="DateIcon">
-                                <input type="button" id="datepicker">
+                                <input type="button" id="birthday_datepicker">
                                 <img src="/images/date.png">
                             </div>
                             <div><img onclick="InfoIconToggle(this)" class="svg InfoIcon" src="/images/InfoPublic.png" MemberPublicInfoFlag="1"></div>
@@ -521,130 +221,3 @@
     </div>
 </body>
 </html>
-
-<script type="text/javascript">
-    $(function () {
-
-        // 日期選擇元件
-        Common.DatepickerInit();
-
-        // 控制 SVG CSS
-        Common.ControllSVG();
-
-        $('#account').keyup((e) => Common.RemoveErrorInput(e.target));
-        $('#password').keyup((e) => Common.RemoveErrorInput(e.target));
-
-        $('#singup_name').keyup((e) => Common.RemoveErrorInput(e.target));
-        $('#singup_account').keyup((e) => Common.RemoveErrorInput(e.target));
-        $('#singup_password').keyup((e) => Common.RemoveErrorInput(e.target));
-        $('#singup_passwordCheck').keyup((e) => Common.RemoveErrorInput(e.target));
-        $('#singup_mail').keyup((e) => Common.RemoveErrorInput(e.target));
-        $('#singup_vCode').keyup((e) => Common.RemoveErrorInput(e.target));
-    });
-
-    function Login() {
-        let errorMsg = {
-            account: '請輸入帳號',
-            password: '請輸入密碼'
-        };
-
-        let error = Common.Validate(errorMsg);
-
-        if (error) {
-            Common.SweetAlertError(error);
-            return;
-        }
-
-        let model = new LoginReqViewModel($('#account').val(), $('#password').val());
-        let successFuc = () => {
-            window.location.href = "/Home/Index";
-        };
-        let errorFuc = (res) => { };
-        LoginAPI("登入中", model, successFuc, errorFuc);
-    }
-
-    function SendVCode() {
-        let model = new SendVCodeReqViewModel($('#singup_mail').val());
-        let successFuc = (res) => { };
-        let errorFuc = (res) => {
-            $('#singup_mail').addClass('input-error');
-        };
-
-        SendVCodeAPI("寄送驗證碼中", model, successFuc, errorFuc);
-    }
-
-    function Singup() {
-        let errorMsg = {
-            singup_name: '您尚未填寫 會員名稱',
-            singup_account: '您尚未填寫 會員帳號',
-            singup_password: '您尚未填寫 會員密碼',
-            singup_passwordCheck: '您尚未填寫 確認密碼',
-            singup_mail: '您尚未填寫 電子郵件',
-            singup_vCode: '您尚未填寫 驗證碼'
-        };
-
-        let error = Common.Validate(errorMsg);
-
-        // 驗證特殊邏輯
-        if (!error) {
-            let regexAccountValidation = new RegExp('^.[A-Za-z0-9]+$');
-            if ($("#singup_account").val().length < 6 || !regexAccountValidation.test($("#singup_account").val())) {
-                error = '會員帳號需至少為6碼的英數字';
-                $('#singup_account').addClass('input-error');
-            }
-            else if ($("#singup_password").val() != $("#singup_passwordCheck").val()) {
-                error = '會員密碼與確認密碼不相符';
-                $('#singup_password').addClass('input-error');
-                $('#singup_passwordCheck').addClass('input-error');
-            }
-        }
-
-        if (error) {
-            Common.SweetAlertError(error);
-            return;
-        }
-
-        let model = new SignupReqViewModel(
-            $("#singup_name").val(),
-            $("#singup_account").val(),
-            $("#singup_password").val(),
-            $("#singup_passwordCheck").val(),
-            $("#singup_mail").val(),
-            $("#singup_vCode").val()
-        );
-        let successFuc = (res) => {
-            Common.Popup('MemberInfo');
-        };
-        let errorFuc = (res) => { };
-
-        SignupAPI("註冊中", model, successFuc, errorFuc);
-    }
-
-    function UpdateMemberPublicInfo() {
-        let birthday = $('#datepicker').val();
-
-        let memberPublicInfo = 0;
-
-        $('.InfoIcon').each(function (i) {
-            if (this.src.includes('InfoPublic')) {
-                memberPublicInfo += Number($(this).attr('memberpublicinfoflag'));
-            }
-        });
-
-        let model = new UpdateMemberPublicInfoReqViewModel(birthday, $('#infoInternest').val(), $('#infoJob').val(), $('#infoEducation').val(), memberPublicInfo);
-        let successFuc = (res) => {
-            window.location.href = "/Home/Index";
-        };
-        let errorFuc = (res) => {};
-
-        UpdateMemberPublicInfoAPI("更新會員資訊中", model, successFuc, errorFuc);
-    }
-
-    /*會員資料公開或隱藏*/
-    function InfoIconToggle(e) {
-        var hideImage = "/images/InfoHide.png";
-        var publicImage = "/images/InfoPublic.png";
-        e.src = e.src.includes(publicImage) ? hideImage : publicImage;
-    }
-
-</script>

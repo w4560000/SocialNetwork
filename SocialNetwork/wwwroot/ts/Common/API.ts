@@ -11,7 +11,7 @@ function BaseAPI<T>(loadingMsg: string, api: string, model: T, successFunc?: Fun
         contentType: "application/json",
         success: (res: ResponseViewModel<object>) => {
             if (res.Status == ResponseStatusEnum.Success) {
-                Common.SweetAlertSuccess(res.Message, successFunc);
+                    Common.SweetAlertSuccess(res.Message, successFunc);
             }
             else {
                 Common.SweetAlertError(res.Message, errorFunc);

@@ -4,15 +4,7 @@
     "inputFile": "wwwroot/css/Common/Common.scss"
   },
   {
-    "outputFile": "gulpfile.es5.js",
-    "inputFile": "gulpfile.js"
-  },
-  {
-    "outputFile": "wwwroot/lib/sweetalert2/dist/sweetalert2.es5.js",
-    "inputFile": "wwwroot/lib/sweetalert2/dist/sweetalert2.js"
-  },
-  {
-    "outputFile": "wwwroot/js/Common/Common.es5.js",
-    "inputFile": "wwwroot/js/Common/Common.js"
+    "outputFile": "wwwroot/css/Member/Login.css",
+    "inputFile": "wwwroot/css/Member/Login.scss"
   }
 ]
