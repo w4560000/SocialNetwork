@@ -2,246 +2,218 @@
 
 @{
     ViewBag.Title = "IKKON";
-    Layout = null;
+    Layout = "_MemberLayout";
 }
-<!DOCTYPE html>
-<html>
-<head>
-    <script src="~/lib/jquery/jquery.min.js" asp-append-version="true"></script>
-    <script src="~/lib/jqueryui/jquery-ui.min.js" asp-append-version="true"></script>
-    <script src="~/lib/sweetalert2/dist/sweetalert2.min.js" asp-append-version="true"></script>
-    <link rel="stylesheet" href="~/lib/sweetalert2/dist/sweetalert2.min.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/lib/jqueryui/jquery-ui.min.css" asp-append-version="true" />
+<script src="~/js/Member/Login.js" asp-append-version="true"></script>
+<link rel="stylesheet" href="~/css/Member/Login.css" asp-append-version="true" />
 
-    <environment include="Development">
-        <script src="~/js/Common/Common.js" asp-append-version="true"></script>
-        <script src="~/js/Common/API.js" asp-append-version="true"></script>
-        <link rel="stylesheet" href="~/css/Common/Common.css" asp-append-version="true" />
-    </environment>
-    <environment exclude="Development">
-        <script src="~/js/bundle/Common.min.js" asp-append-version="true"></script>
-        <link rel="stylesheet" href="~/css/bundle/Common.min.css" asp-append-version="true" />
-    </environment>
+<div class="inputbox">
+    <input class="input_login" type="text" placeholder="請輸入帳號" id="login_account" autocomplete="off" maxlength="20">
+</div>
+<div class="inputbox">
+    <input class="input_login" type="password" placeholder="請輸入密碼" id="login_password" autocomplete="off" maxlength="100">
+</div>
 
-    <script src="~/js/Member/Login.js" asp-append-version="true"></script>
-    <link rel="stylesheet" href="~/css/Member/Login.css" asp-append-version="true" />
-</head>
-<body style="height: 100% !important">
-    <div class="login_background">
-        <div class="loginBox">
-            <a class="logo">I K K O N</a>
-            <div class="inputbox">
-                <input class="input_login" type="text" placeholder="請輸入帳號" id="account" autocomplete="off" maxlength="20">
-            </div>
-            <div class="inputbox">
-                <input class="input_login" type="text" placeholder="請輸入密碼" id="password" autocomplete="off" maxlength="100">
-            </div>
-
-            <!--忘記密碼 todo -->
-            <div id="forgotPassword" class="forgotPassword">
-                <input class="btn_forgotPassword" type="button" value="忘記密碼?" onclick="Common.Popup('forgotPassword')">
-                <div class="popLayer"></div>
-                <div class="popBox forgotPasswordWindow">
-                    <div class="topBar">
-                        <div class="popTitle"><a>忘記密碼</a></div>
-                        <div onclick="Common.ClosePopup('forgotPassword')"><img class="svg closeIcon" src="/images/Close.svg"></div>
-                    </div>
-                    <div class="singupContent">
-                        <div class="singupInputText">
-                            <div class="singupTextBackground">
-                                <a class="singupText">會員帳號</a>
-                            </div>
-                        </div>
-                        <div>
-                            <input class="input_sinup" type="text" placeholder="請設定登入帳號" id="forgotPassword_account" autocomplete="off" maxlength="30">
-                        </div>
-                    </div>
-                    <div class="singupContent">
-                        <div class="singupInputText">
-                            <div class="singupTextBackground">
-                                <a class="singupText">電子郵件</a>
-                            </div>
-                        </div>
-                        <div>
-                            <input class="input_sinup" type="text" placeholder="請輸入有效電子郵件" id="forgotPassword_mail" autocomplete="off" maxlength="30">
-                        </div>
-                    </div>
-                    <div class="btn_div">
-                        <div><input class="btn_forgotPassword_submit" type="button" value="變更密碼" onclick="ForgotPassword()"></div>
-                    </div>
-
+<!--忘記密碼 todo -->
+<div id="forgotPassword" class="forgotPassword">
+    <input class="btn_forgotPassword" type="button" value="忘記密碼?" onclick="Common.Popup('forgotPassword')">
+    <div class="popLayer"></div>
+    <div class="popBox forgotPasswordWindow">
+        <div class="topBar">
+            <div class="popTitle"><a>忘記密碼</a></div>
+            <div onclick="Common.ClosePopup('forgotPassword')"><img class="svg closeIcon" src="/images/Close.svg"></div>
+        </div>
+        <div class="singupContent">
+            <div class="singupInputText">
+                <div class="singupTextBackground">
+                    <a class="singupText">會員帳號</a>
                 </div>
             </div>
-
-            <!--登入-->
-            <div class="btn_div">
-                <div><input class="btn_loginPage" type="button" value="登入" onclick="Login()"></div>
-            </div>
-            <div id="loginError">
-                <div class="popLayer"></div>
-                <div class="popBox Error">
-                    <a class="ErrorText">帳號或密碼錯誤<br>請重新輸入</a>
-                    <div class="btn_div">
-                        <input class="btn_Error" type="button" value="確認" onclick="Common.ClosePopup('loginError')">
-                    </div>
-                </div>
-            </div>
-
-            <!--Google帳號登入-->
-            <div class="btn_div">
-                <div><input class="btn_loginPage" type="button" value="Google帳號登入" onclick=""></div>
-            </div>
-
-            <!--分隔線-->
-            <div class="linediv">
-                <div class="lineStyle" style="margin-top: 20px;"></div>
-            </div>
-
-            <!--註冊-->
-            <div class="btn_div" id="signup">
-                <div><input class="btn_loginPage" type="button" value="新會員註冊" onclick="Common.Popup('signup')"></div>
-                <div class="popLayer"></div>
-                <div class="popBox signupStyle">
-                    <div class="topBar">
-                        <div class="popTitle"><a>新會員註冊</a></div>
-                        <div onclick="Common.ClosePopup('signup')"><img class="svg closeIcon" src="/images/Close.svg"></div>
-                    </div>
-                    <div class="singupContent">
-                        <div class="singupInputText">
-                            <div class="singupTextBackground">
-                                <a class="singupText">會員名稱</a>
-                            </div>
-                        </div>
-                        <div>
-                            <input class="input_sinup" type="text" placeholder="限制字數30字" id="singup_name" autocomplete="off" maxlength="30" ">
-                        </div>
-                    </div>
-                    <div class="singupContent">
-                        <div class="singupInputText" style="margin-bottom: 15px">
-                            <div class="singupTextBackground">
-                                <a class="singupText">會員帳號</a>
-                            </div>
-                        </div>
-                        <div>
-                            <input class="input_sinup" type="text" placeholder="請輸入會員帳號" id="singup_account" autocomplete="off" maxlength="20" style="margin-bottom:5px">
-                            <br>
-                            <a class="PromptText">限制設定至少6碼的英數字</a>
-                        </div>
-                    </div>
-                    <div class="singupContent">
-                        <div class="singupInputText">
-                            <div class="singupTextBackground">
-                                <a class="singupText">會員密碼</a>
-                            </div>
-                        </div>
-                        <div>
-                            <input class="input_sinup" type="text" placeholder="請輸入會員密碼" id="singup_password" autocomplete="off" maxlength="20">
-                        </div>
-                    </div>
-                    <div class="singupContent">
-                        <div class="singupInputText">
-                            <div class="singupTextBackground">
-                                <a class="singupText">確認密碼</a>
-                            </div>
-                        </div>
-                        <div>
-                            <input class="input_sinup" type="text" placeholder="請再次輸入密碼" id="singup_passwordCheck" autocomplete="off" maxlength="20">
-                        </div>
-                    </div>
-                    <div class="singupContent">
-                        <div class="singupInputText">
-                            <div class="singupTextBackground">
-                                <a class="singupText">電子郵件</a>
-                            </div>
-                        </div>
-                        <div style="display:flex; align-items:center;">
-                            <input class="input_sinup" type="text" placeholder="請輸入有效電子郵件" id="singup_mail" autocomplete="off" maxlength="100" style="width: 310px; margin-right:5px;">
-                            <input class="btn_Verification" type="button" value="取得驗證碼" onclick="SendVCode()">
-                        </div>
-                    </div>
-                    <div class="linediv"><div class="lineStyle"></div></div>
-                    <div class="singupContent">
-                        <div class="singupInputText" style="margin-bottom: 15px">
-                            <div class="singupTextBackground">
-                                <a class="singupText">驗 證 碼</a>
-                            </div>
-                        </div>
-                        <div>
-                            <input class="input_sinup" type="text" placeholder="請輸入驗證碼" id="singup_vCode" autocomplete="off" maxlength="4" style="margin-bottom:5px" oninput="value=value.replace(/[^\d]/g,'')">
-                            <br>
-                            <a class="PromptText">請至電子郵件收取信件，取得驗證碼以完成註冊。</a>
-                        </div>
-                    </div>
-                    <div class="btn_div">
-                        <div><input class="btn_singup" type="button" value="註冊" onclick="Singup()"></div>
-                    </div>
-                </div>
-            </div>
-            <!--會員資料填寫-->
-            <div class="btn_div" id="MemberInfo">
-                <div><input class="btn_loginPage" type="button" value="會員資料POPTest" onclick="Common.Popup('MemberInfo')"></div>
-                <div class="popLayer"></div>
-                <div class="popBox InfoStyle">
-                    <div class="topBar">
-                        <div class="popTitle"><a>填寫會員資訊</a></div>
-                        <div onclick="Common.ClosePopup('MemberInfo')"><img class="svg closeIcon" src="/images/Close.svg"></div>
-                    </div>
-                    <div class="singupContent">
-                        <div class="InfoInputText">
-                            <div class="InfoTextBackground">
-                                <a class="singupText">生日</a>
-                            </div>
-                        </div>
-                        <div class="InfoInputdiv">
-                            <input type="text" id="year" autocomplete="off" class="DateInput" disabled="disabled"><a class="DateText">年</a>
-                            <input type="text" id="month" autocomplete="off" class="DateInput" disabled="disabled"><a class="DateText">月</a>
-                            <input type="text" id="day" autocomplete="off" class="DateInput" disabled="disabled"><a class="DateText">日</a>
-                            <div class="DateIcon">
-                                <input type="button" id="birthday_datepicker">
-                                <img src="/images/date.png">
-                            </div>
-                            <div><img onclick="InfoIconToggle(this)" class="svg InfoIcon" src="/images/InfoPublic.png" MemberPublicInfoFlag="1"></div>
-                        </div>
-                    </div>
-                    <div class="singupContent">
-                        <div class="InfoInputText" style="margin-bottom: 15px">
-                            <div class="InfoTextBackground">
-                                <a class="singupText">興趣</a>
-                            </div>
-                        </div>
-                        <div class="InfoInputdiv">
-                            <input id="infoInternest" class="input_sinup" type="text" autocomplete="off" maxlength="20">
-                            <div><img onclick="InfoIconToggle(this)" class="svg InfoIcon" src="/images/InfoPublic.png" MemberPublicInfoFlag="2"></div>
-                        </div>
-                    </div>
-                    <div class="singupContent">
-                        <div class="InfoInputText">
-                            <div class="InfoTextBackground">
-                                <a class="singupText">工作</a>
-                            </div>
-                        </div>
-                        <div class="InfoInputdiv">
-                            <input id="infoJob" class="input_sinup" type="text" autocomplete="off" maxlength="100">
-                            <div><img onclick="InfoIconToggle(this)" class="svg InfoIcon" src="/images/InfoPublic.png" MemberPublicInfoFlag="4"></div>
-                        </div>
-                    </div>
-                    <div class="singupContent">
-                        <div class="InfoInputText">
-                            <div class="InfoTextBackground">
-                                <a class="singupText">學歷</a>
-                            </div>
-                        </div>
-                        <div class="InfoInputdiv">
-                            <input id="infoEducation" class="input_sinup" type="text" autocomplete="off" maxlength="100">
-                            <div><img onclick="InfoIconToggle(this)" class="svg InfoIcon" src="/images/InfoPublic.png" MemberPublicInfoFlag="8"></div>
-                        </div>
-                    </div>
-                    <div class="btn_div">
-                        <div><input class="btn_singup" type="button" value="完成" onclick="UpdateMemberPublicInfo()"></div>
-                    </div>
-                </div>
+            <div>
+                <input class="input_sinup" type="text" placeholder="請輸入帳號" id="forgotPassword_account" autocomplete="off" maxlength="30">
             </div>
         </div>
+        <div class="singupContent">
+            <div class="singupInputText">
+                <div class="singupTextBackground">
+                    <a class="singupText">電子郵件</a>
+                </div>
+            </div>
+            <div>
+                <input class="input_sinup" type="text" placeholder="請輸入有效電子郵件" id="forgotPassword_mail" autocomplete="off" maxlength="30">
+            </div>
+        </div>
+        <div class="btn_div">
+            <div><input class="btn_sm_submit" type="button" value="變更密碼" onclick="ResetPassword()"></div>
+        </div>
     </div>
-</body>
-</html>
+</div>
+
+<!--登入-->
+<div class="btn_div">
+    <div><input class="btn_loginPage" type="button" value="登入" onclick="Login()"></div>
+</div>
+<div id="loginError">
+    <div class="popLayer"></div>
+    <div class="popBox Error">
+        <a class="ErrorText">帳號或密碼錯誤<br>請重新輸入</a>
+        <div class="btn_div">
+            <input class="btn_Error" type="button" value="確認" onclick="Common.ClosePopup('loginError')">
+        </div>
+    </div>
+</div>
+
+<!--Google帳號登入-->
+<div class="btn_div">
+    <div><input class="btn_loginPage" type="button" value="Google帳號登入" onclick=""></div>
+</div>
+
+<!--分隔線-->
+<div class="linediv">
+    <div class="lineStyle" style="margin-top: 20px;"></div>
+</div>
+
+<!--註冊-->
+<div class="btn_div" id="signup">
+    <div><input class="btn_loginPage" type="button" value="新會員註冊" onclick="Common.Popup('signup')"></div>
+    <div class="popLayer"></div>
+    <div class="popBox signupStyle">
+        <div class="topBar">
+            <div class="popTitle"><a>新會員註冊</a></div>
+            <div onclick="Common.ClosePopup('signup')"><img class="svg closeIcon" src="/images/Close.svg"></div>
+        </div>
+        <div class="singupContent">
+            <div class="singupInputText">
+                <div class="singupTextBackground">
+                    <a class="singupText">會員名稱</a>
+                </div>
+            </div>
+            <div>
+                <input class="input_sinup" type="text" placeholder="限制字數30字" id="singup_name" autocomplete="off" maxlength="30" ">
+            </div>
+        </div>
+        <div class="singupContent">
+            <div class="singupInputText" style="margin-bottom: 15px">
+                <div class="singupTextBackground">
+                    <a class="singupText">會員帳號</a>
+                </div>
+            </div>
+            <div>
+                <input class="input_sinup" type="text" placeholder="請輸入會員帳號" id="singup_account" autocomplete="off" maxlength="20" style="margin-bottom:5px">
+                <br>
+                <a class="PromptText">限制設定至少6碼的英數字</a>
+            </div>
+        </div>
+        <div class="singupContent">
+            <div class="singupInputText">
+                <div class="singupTextBackground">
+                    <a class="singupText">會員密碼</a>
+                </div>
+            </div>
+            <div>
+                <input class="input_sinup" type="password" placeholder="請輸入會員密碼" id="singup_password" autocomplete="off" maxlength="20">
+            </div>
+        </div>
+        <div class="singupContent">
+            <div class="singupInputText">
+                <div class="singupTextBackground">
+                    <a class="singupText">確認密碼</a>
+                </div>
+            </div>
+            <div>
+                <input class="input_sinup" type="password" placeholder="請再次輸入密碼" id="singup_passwordCheck" autocomplete="off" maxlength="20">
+            </div>
+        </div>
+        <div class="singupContent">
+            <div class="singupInputText">
+                <div class="singupTextBackground">
+                    <a class="singupText">電子郵件</a>
+                </div>
+            </div>
+            <div style="display:flex; align-items:center;">
+                <input class="input_sinup" type="text" placeholder="請輸入有效電子郵件" id="singup_mail" autocomplete="off" maxlength="100" style="width: 310px; margin-right:5px;">
+                <input class="btn_Verification" type="button" value="取得驗證碼" onclick="SendVCode()">
+            </div>
+        </div>
+        <div class="linediv"><div class="lineStyle"></div></div>
+        <div class="singupContent">
+            <div class="singupInputText" style="margin-bottom: 15px">
+                <div class="singupTextBackground">
+                    <a class="singupText">驗 證 碼</a>
+                </div>
+            </div>
+            <div>
+                <input class="input_sinup" type="text" placeholder="請輸入驗證碼" id="singup_vCode" autocomplete="off" maxlength="4" style="margin-bottom:5px" oninput="value=value.replace(/[^\d]/g,'')">
+                <br>
+                <a class="PromptText">請至電子郵件收取信件，取得驗證碼以完成註冊。</a>
+            </div>
+        </div>
+        <div class="btn_div">
+            <div><input class="btn_singup" type="button" value="註冊" onclick="Singup()"></div>
+        </div>
+    </div>
+</div>
+<!--會員資料填寫-->
+<div class="btn_div" id="MemberInfo">
+    <div><input class="btn_loginPage" type="button" value="會員資料POPTest" onclick="Common.Popup('MemberInfo')"></div>
+    <div class="popLayer"></div>
+    <div class="popBox InfoStyle">
+        <div class="topBar">
+            <div class="popTitle"><a>填寫會員資訊</a></div>
+            <div onclick="Common.ClosePopup('MemberInfo')"><img class="svg closeIcon" src="/images/Close.svg"></div>
+        </div>
+        <div class="singupContent">
+            <div class="InfoInputText">
+                <div class="InfoTextBackground">
+                    <a class="singupText">生日</a>
+                </div>
+            </div>
+            <div class="InfoInputdiv">
+                <input type="text" id="year" autocomplete="off" class="DateInput" disabled="disabled"><a class="DateText">年</a>
+                <input type="text" id="month" autocomplete="off" class="DateInput" disabled="disabled"><a class="DateText">月</a>
+                <input type="text" id="day" autocomplete="off" class="DateInput" disabled="disabled"><a class="DateText">日</a>
+                <div class="DateIcon">
+                    <input type="button" id="birthday_datepicker">
+                    <img src="/images/date.png">
+                </div>
+                <div><img onclick="InfoIconToggle(this)" class="svg InfoIcon" src="/images/InfoPublic.png" MemberPublicInfoFlag="1"></div>
+            </div>
+        </div>
+        <div class="singupContent">
+            <div class="InfoInputText" style="margin-bottom: 15px">
+                <div class="InfoTextBackground">
+                    <a class="singupText">興趣</a>
+                </div>
+            </div>
+            <div class="InfoInputdiv">
+                <input id="infoInternest" class="input_sinup" type="text" autocomplete="off" maxlength="20">
+                <div><img onclick="InfoIconToggle(this)" class="svg InfoIcon" src="/images/InfoPublic.png" MemberPublicInfoFlag="2"></div>
+            </div>
+        </div>
+        <div class="singupContent">
+            <div class="InfoInputText">
+                <div class="InfoTextBackground">
+                    <a class="singupText">工作</a>
+                </div>
+            </div>
+            <div class="InfoInputdiv">
+                <input id="infoJob" class="input_sinup" type="text" autocomplete="off" maxlength="100">
+                <div><img onclick="InfoIconToggle(this)" class="svg InfoIcon" src="/images/InfoPublic.png" MemberPublicInfoFlag="4"></div>
+            </div>
+        </div>
+        <div class="singupContent">
+            <div class="InfoInputText">
+                <div class="InfoTextBackground">
+                    <a class="singupText">學歷</a>
+                </div>
+            </div>
+            <div class="InfoInputdiv">
+                <input id="infoEducation" class="input_sinup" type="text" autocomplete="off" maxlength="100">
+                <div><img onclick="InfoIconToggle(this)" class="svg InfoIcon" src="/images/InfoPublic.png" MemberPublicInfoFlag="8"></div>
+            </div>
+        </div>
+        <div class="btn_div">
+            <div><input class="btn_singup" type="button" value="完成" onclick="UpdateMemberPublicInfo()"></div>
+        </div>
+    </div>
+</div>

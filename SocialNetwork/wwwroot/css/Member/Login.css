@@ -1,22 +1,4 @@
 ﻿@charset "UTF-8";
-.login_background {
-  width: 500px;
-  height: 100%;
-  background-color: #FFFFFF;
-  margin: 0px auto; }
-
-.loginBox {
-  padding-top: 35%; }
-
-.logo {
-  font-size: 40pt;
-  margin: auto;
-  display: flex;
-  justify-content: center;
-  padding-top: 8%;
-  padding-bottom: 3%;
-  color: #f2a1a1; }
-
 .inputbox {
   width: 350px;
   height: 50px;
@@ -138,16 +120,6 @@
 
 .btn_forgotPassword:hover {
   color: #D68D8D; }
-
-.btn_forgotPassword_submit {
-  width: 130px;
-  height: 50px;
-  font-size: 15pt;
-  border-radius: 5px;
-  background-color: #F2A1A1;
-  color: #FFFFFF;
-  font-weight: 700;
-  outline: 0; }
 
 .btn_Verification {
   height: 48px;

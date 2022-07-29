@@ -26,7 +26,7 @@ namespace SocialNetwork.Repository
         public string Password { get; set; }
 
         /// <summary>
-        /// 會員密碼
+        /// 會員密碼確認
         /// </summary>
         [Required(ErrorMessage = "請輸入會員密碼確認")]
         public string PasswordCheck { get; set; }

@@ -6,8 +6,8 @@
     // 控制 SVG CSS
     Common.ControllSVG();
 
-    $('#account').keyup((e) => Common.RemoveErrorInput(e.target));
-    $('#password').keyup((e) => Common.RemoveErrorInput(e.target));
+    $('#login_account').keyup((e) => Common.RemoveErrorInput(e.target));
+    $('#login_password').keyup((e) => Common.RemoveErrorInput(e.target));
 
     $('#singup_name').keyup((e) => Common.RemoveErrorInput(e.target));
     $('#singup_account').keyup((e) => Common.RemoveErrorInput(e.target));
@@ -20,8 +20,8 @@
 /** 登入 */
 function Login() {
     let errorMsg = {
-        account: '請輸入帳號',
-        password: '請輸入密碼'
+        login_account: '請輸入帳號',
+        login_password: '請輸入密碼'
     };
 
     let error = Common.Validate(errorMsg);
@@ -31,7 +31,7 @@ function Login() {
         return;
     }
 
-    let model = new LoginReqViewModel($('#account').val() as string, $('#password').val() as string);
+    let model = new LoginReqViewModel($('#login_account').val() as string, $('#login_password').val() as string);
     let successFuc = () => {
         window.location.href = "/Home/Index";
     };

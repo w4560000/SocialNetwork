@@ -37,6 +37,7 @@ namespace SocialNetwork.Service
         ResponseViewModel UpdateMemberPublicInfo(UpdateMemberPublicInfoReqViewModel model);
 
         /// <summary>
+        /// 重設密碼 Step1
         /// 申請重設密碼、建立重設密碼URL
         /// </summary>
         /// <param name="model">重設密碼 Step1 Req ViewModel</param>
@@ -49,5 +50,13 @@ namespace SocialNetwork.Service
         /// <param name="guid">重設密碼Guid</param>
         /// <returns>檢查結果</returns>
         bool CheckResetPasswordGuid(string guid);
+
+        /// <summary>
+        /// 重設密碼 Step2
+        /// </summary>
+        /// <param name="model">重設密碼 Step2 Req ViewModel</param>
+        /// <returns>重設結果</returns>
+        ResponseViewModel ResetPasswordConfirm(ResetPasswordConfirmReqViewModel model);
+
     }
 }

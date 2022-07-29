@@ -21,7 +21,17 @@ a {
     text-decoration: none;
 }
 
-input[type="text"] {
+.logo {
+    font-size: 40pt;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    padding-top: 8%;
+    padding-bottom: 3%;
+    color: #f2a1a1;
+}
+
+input[type="text"], input[type="password"] {
     height: 50px;
     border-radius: 5px;
     border: 1px solid #FCD4D5;
@@ -31,9 +41,10 @@ input[type="text"] {
     padding-left: 15px;
 }
 
-input[type="text"]:focus {
+input[type="text"]:focus, input[type="password"]:focus {
     border: 1px solid #F2A1A1;
 }
+
 
 input[type="button"] {
     border: none;
@@ -58,6 +69,17 @@ input[type="date"]:focus {
 input[type="date"]::-webkit-calendar-picker-indicator {
     background-image: url('/Image/date.png');
     background-repeat: no-repeat;
+}
+
+.member_layout_background {
+    width: 500px;
+    height: 100%;
+    background-color: #FFFFFF;
+    margin: 0px auto;
+}
+
+.member_layout_Box {
+    padding-top: 35%;
 }
 
 /*POP背景遮罩*/
@@ -239,4 +261,46 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .ui-datepicker .ui-datepicker-next-hover {
     right: 3px;
+}
+
+
+.inputContent {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    margin: 3% 9%;
+
+    .inputContentText {
+        width: 100px;
+        height: 30px;
+
+        .inputTextBackground {
+            width: 90%;
+            height: 70%;
+            background-color: #ffe9e9;
+            border-radius: 25px;
+            position: relative;
+            top: 20%;
+
+            .inputText {
+                font-size: 16pt;
+                color: #4E4E4E;
+                position: relative;
+                bottom: 50%;
+                right: 5%;
+                font-weight: 600;
+            }
+        }
+    }
+}
+
+.btn_sm_submit {
+    width: 130px;
+    height: 50px;
+    font-size: 15pt;
+    border-radius: 5px;
+    background-color: #F2A1A1;
+    color: #FFFFFF;
+    font-weight: 700;
+    outline: 0;
 }

@@ -175,6 +175,7 @@ namespace SocialNetwork.Service
         }
 
         /// <summary>
+        /// 重設密碼 Step1
         /// 申請重設密碼、建立重設密碼URL
         /// </summary>
         /// <param name="model">重設密碼 Step1 Req ViewModel</param>
@@ -234,11 +235,33 @@ outline: 0;";
         /// <returns>檢查結果</returns>
         public bool CheckResetPasswordGuid(string guid)
         {
-            var fotgotPassword = this.ForgotPasswordRepository.GetList("WHERE Guid = @guid", new { guid }).FirstOrDefault();
-
-            return fotgotPassword != null;
+            return this.ForgotPasswordRepository.RecordCount("WHERE Guid = @guid", new { guid }) > 0;
         }
 
+        /// <summary>
+        /// 重設密碼 Step2
+        /// </summary>
+        /// <param name="model">重設密碼 Step2 Req ViewModel</param>
+        /// <returns>重設結果</returns>
+
+        public ResponseViewModel ResetPasswordConfirm(ResetPasswordConfirmReqViewModel model)
+        {
+            var fotgotPassword = this.ForgotPasswordRepository.GetList("WHERE Guid = @Guid", new { model.Guid }).FirstOrDefault();
+
+            if (fotgotPassword == null)
+                return CommonExtension.AsSystemFailResponse();
+
+            var member = this.MemberRepository.GetList("WHERE MemberID = @MemberID", new { fotgotPassword.MemberID }).FirstOrDefault();
+
+            if (member == null)
+                return CommonExtension.AsSystemFailResponse();
+
+            member.Password = model.Password;
+            this.MemberRepository.Update(member);
+            this.ForgotPasswordRepository.Delete(fotgotPassword);
+
+            return "重設成功!".AsSuccessResponse();
+        }
 
         /// <summary>
         /// 登入流程

@@ -3,8 +3,8 @@ $(function () {
     Common.DatepickerInit($('#birthday_datepicker'));
     // 控制 SVG CSS
     Common.ControllSVG();
-    $('#account').keyup(function (e) { return Common.RemoveErrorInput(e.target); });
-    $('#password').keyup(function (e) { return Common.RemoveErrorInput(e.target); });
+    $('#login_account').keyup(function (e) { return Common.RemoveErrorInput(e.target); });
+    $('#login_password').keyup(function (e) { return Common.RemoveErrorInput(e.target); });
     $('#singup_name').keyup(function (e) { return Common.RemoveErrorInput(e.target); });
     $('#singup_account').keyup(function (e) { return Common.RemoveErrorInput(e.target); });
     $('#singup_password').keyup(function (e) { return Common.RemoveErrorInput(e.target); });
@@ -15,15 +15,15 @@ $(function () {
 /** 登入 */
 function Login() {
     var errorMsg = {
-        account: '請輸入帳號',
-        password: '請輸入密碼'
+        login_account: '請輸入帳號',
+        login_password: '請輸入密碼'
     };
     var error = Common.Validate(errorMsg);
     if (error) {
         Common.SweetAlertError(error);
         return;
     }
-    var model = new LoginReqViewModel($('#account').val(), $('#password').val());
+    var model = new LoginReqViewModel($('#login_account').val(), $('#login_password').val());
     var successFuc = function () {
         window.location.href = "/Home/Index";
     };

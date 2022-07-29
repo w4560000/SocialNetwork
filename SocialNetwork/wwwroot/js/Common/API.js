@@ -35,6 +35,9 @@ function UpdateMemberPublicInfoAPI(loadingMsg, model, successFunc, errorFunc) {
 function ResetPasswordAPI(loadingMsg, model, successFunc, errorFunc) {
     BaseAPI(loadingMsg, "/MemberApi/ResetPassword", model, successFunc, errorFunc);
 }
+function ResetPasswordConfirmAPI(loadingMsg, model, successFunc, errorFunc) {
+    BaseAPI(loadingMsg, "/MemberApi/ResetPasswordConfirm", model, successFunc, errorFunc);
+}
 /// <summary>
 /// 共用回應 ViewModel
 /// </summary>
@@ -84,6 +87,14 @@ var ResetPasswordReqViewModel = /** @class */ (function () {
         this.Mail = mail;
     }
     return ResetPasswordReqViewModel;
+}());
+var ResetPasswordConfirmReqViewModel = /** @class */ (function () {
+    function ResetPasswordConfirmReqViewModel(password, passwordCheck, guid) {
+        this.Password = password;
+        this.PasswordCheck = passwordCheck;
+        this.Guid = guid;
+    }
+    return ResetPasswordConfirmReqViewModel;
 }());
 var ResponseStatusEnum;
 (function (ResponseStatusEnum) {

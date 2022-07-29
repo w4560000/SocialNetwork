@@ -44,6 +44,10 @@ function ResetPasswordAPI(loadingMsg: string, model: ResetPasswordReqViewModel, 
     BaseAPI<ResetPasswordReqViewModel>(loadingMsg, "/MemberApi/ResetPassword", model, successFunc, errorFunc);
 }
 
+function ResetPasswordConfirmAPI(loadingMsg: string, model: ResetPasswordConfirmReqViewModel, successFunc: Function, errorFunc: Function): void {
+    BaseAPI<ResetPasswordConfirmReqViewModel>(loadingMsg, "/MemberApi/ResetPasswordConfirm", model, successFunc, errorFunc);
+}
+
 /// <summary>
 /// 共用回應 ViewModel
 /// </summary>
@@ -125,6 +129,18 @@ class ResetPasswordReqViewModel {
     constructor(account: string, mail: string) {
         this.Account = account;
         this.Mail = mail;
+    }
+}
+
+class ResetPasswordConfirmReqViewModel {
+    Password: string;
+    PasswordCheck: string;
+    Guid: string;
+
+    constructor(password: string, passwordCheck: string, guid: string) {
+        this.Password = password;
+        this.PasswordCheck = passwordCheck;
+        this.Guid = guid;
     }
 }
 
