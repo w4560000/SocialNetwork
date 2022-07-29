@@ -32,6 +32,9 @@ function SignupAPI(loadingMsg, model, successFunc, errorFunc) {
 function UpdateMemberPublicInfoAPI(loadingMsg, model, successFunc, errorFunc) {
     BaseAPI(loadingMsg, "/MemberApi/UpdateMemberPublicInfo", model, successFunc, errorFunc);
 }
+function ResetPasswordAPI(loadingMsg, model, successFunc, errorFunc) {
+    BaseAPI(loadingMsg, "/MemberApi/ResetPassword", model, successFunc, errorFunc);
+}
 /// <summary>
 /// 共用回應 ViewModel
 /// </summary>
@@ -74,6 +77,13 @@ var UpdateMemberPublicInfoReqViewModel = /** @class */ (function () {
         this.MemberPublicInfo = memberPublicInfo;
     }
     return UpdateMemberPublicInfoReqViewModel;
+}());
+var ResetPasswordReqViewModel = /** @class */ (function () {
+    function ResetPasswordReqViewModel(account, mail) {
+        this.Account = account;
+        this.Mail = mail;
+    }
+    return ResetPasswordReqViewModel;
 }());
 var ResponseStatusEnum;
 (function (ResponseStatusEnum) {

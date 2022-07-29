@@ -10,9 +10,10 @@ namespace SocialNetwork.Helper
         /// <summary>
         /// Mail發送
         /// </summary>
+        /// <param name="subject">標題</param>
         /// <param name="mailAddress">電子郵件</param>
         /// <param name="mailBody">信件內容</param>
-        public static void MailSend(string mailAddress, string mailBody)
+        public static void MailSend(string subject, string mailAddress, string mailBody)
         {
             //檢查是否輸入空值
             if (string.IsNullOrEmpty(mailAddress))
@@ -30,7 +31,7 @@ namespace SocialNetwork.Helper
                 mail.Priority = MailPriority.Normal;
 
                 //標題
-                mail.Subject = "IKKON 註冊驗證";
+                mail.Subject = $"IKKON {subject}";
 
                 //Mail內容
                 mail.Body = mailBody;

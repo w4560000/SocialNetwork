@@ -127,8 +127,8 @@
   justify-content: center; }
 
 .forgotPasswordWindow {
-  width: 300px;
-  height: 300px; }
+  width: 700px;
+  height: 330px; }
 
 .btn_forgotPassword {
   background: none;
@@ -138,6 +138,16 @@
 
 .btn_forgotPassword:hover {
   color: #D68D8D; }
+
+.btn_forgotPassword_submit {
+  width: 130px;
+  height: 50px;
+  font-size: 15pt;
+  border-radius: 5px;
+  background-color: #F2A1A1;
+  color: #FFFFFF;
+  font-weight: 700;
+  outline: 0; }
 
 .btn_Verification {
   height: 48px;

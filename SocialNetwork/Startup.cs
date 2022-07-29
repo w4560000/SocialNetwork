@@ -69,6 +69,7 @@ namespace SocialNetwork
             services.AddScoped<ITestPostgreSQLRepository, TestPostgreSQLRepository>();
             services.AddScoped<IMemberRepository, MemberRepository>();
             services.AddScoped<IVerificationCodeRepository, VerificationCodeRepository>();
+            services.AddScoped<IForgotPasswordRepository, ForgotPasswordRepository>();
 
             // DIµù¥U Service
             services.AddScoped<IMemberService, MemberService>();

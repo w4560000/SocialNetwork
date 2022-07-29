@@ -40,6 +40,10 @@ function UpdateMemberPublicInfoAPI(loadingMsg: string, model: UpdateMemberPublic
     BaseAPI<UpdateMemberPublicInfoReqViewModel>(loadingMsg, "/MemberApi/UpdateMemberPublicInfo", model, successFunc, errorFunc);
 }
 
+function ResetPasswordAPI(loadingMsg: string, model: ResetPasswordReqViewModel, successFunc: Function, errorFunc: Function): void {
+    BaseAPI<ResetPasswordReqViewModel>(loadingMsg, "/MemberApi/ResetPassword", model, successFunc, errorFunc);
+}
+
 /// <summary>
 /// 共用回應 ViewModel
 /// </summary>
@@ -111,6 +115,16 @@ class UpdateMemberPublicInfoReqViewModel {
         this.Job = job;
         this.Education = education;
         this.MemberPublicInfo = memberPublicInfo;
+    }
+}
+
+class ResetPasswordReqViewModel {
+    Account: string;
+    Mail: string;
+
+    constructor(account: string, mail: string) {
+        this.Account = account;
+        this.Mail = mail;
     }
 }
 

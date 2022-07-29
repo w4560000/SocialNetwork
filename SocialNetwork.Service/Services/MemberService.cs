@@ -22,6 +22,11 @@ namespace SocialNetwork.Service
         private readonly IVerificationCodeRepository VerificationCodeRepository;
 
         /// <summary>
+        /// IForgotPasswordRepository
+        /// </summary>
+        private readonly IForgotPasswordRepository ForgotPasswordRepository;
+
+        /// <summary>
         /// HttpContext
         /// </summary>
         private readonly HttpContext HttpContext;
@@ -40,20 +45,23 @@ namespace SocialNetwork.Service
         /// Constructor
         /// </summary>
         /// <param name="memberRepository">IMemberRepository</param>
-        /// <param name="verificationCode">IVerificationCodeRepository</param>
+        /// <param name="verificationCodeRepository">IVerificationCodeRepository</param>
+        /// <param name="forgotPasswordRepository">IForgotPasswordRepository</param>
         /// <param name="httpContextAccessor">IHttpContextAccessor</param>
         /// <param name="jwtHelper">JwtHelper</param>
         /// <param name="userContext">IUserContext</param>
         public MemberService(
             IMemberRepository memberRepository,
-            IVerificationCodeRepository verificationCode,
+            IVerificationCodeRepository verificationCodeRepository,
+            IForgotPasswordRepository forgotPasswordRepository,
             IHttpContextAccessor httpContextAccessor,
             JwtHelper jwtHelper,
             IUserContext userContext)
 
         {
             this.MemberRepository = memberRepository;
-            this.VerificationCodeRepository = verificationCode;
+            this.VerificationCodeRepository = verificationCodeRepository;
+            this.ForgotPasswordRepository = forgotPasswordRepository;
             this.HttpContext = httpContextAccessor.HttpContext;
             this.JwtHelper = jwtHelper;
             this.UserContext = userContext;
@@ -117,7 +125,7 @@ namespace SocialNetwork.Service
             string mailBody = $"<h1>驗證碼:{vCode}</h1>";
 
             // 寄送驗證碼
-            MailHelper.MailSend(model.Mail, mailBody);
+            MailHelper.MailSend("註冊驗證", model.Mail, mailBody);
             this.VerificationCodeRepository.DeleteList("WHERE Mail = @mail", new { mail = model.Mail });
             this.VerificationCodeRepository.Add<int>(new VerificationCode()
             {
@@ -165,6 +173,72 @@ namespace SocialNetwork.Service
 
             return "更新成功!".AsSuccessResponse();
         }
+
+        /// <summary>
+        /// 申請重設密碼、建立重設密碼URL
+        /// </summary>
+        /// <param name="model">重設密碼 Step1 Req ViewModel</param>
+        /// <returns>申請結果</returns>
+        public ResponseViewModel ResetPassword(ResetPasswordReqViewModel model)
+        {
+            ResponseViewModel result = $"我們寄了一封重設密碼的說明到 {model.Mail}，請檢查您的收件夾或垃圾信件。".AsSuccessResponse();
+            var member = this.MemberRepository.GetList("WHERE Account = @Account AND Mail = @Mail", new { model.Account, model.Mail })
+                                              .FirstOrDefault();
+
+            if (member == null)
+                return result;
+
+            var guid = Guid.NewGuid().ToString();
+            var forgotPassword = new ForgotPassword()
+            {
+                MemberID = member.MemberID,
+                Guid = guid
+            };
+
+            this.ForgotPasswordRepository.Add<int>(forgotPassword);
+
+            string forgorPasswordSubmitStyle = @"
+display: table-cell;
+text-align: center;
+vertical-align :middle;
+cursor: pointer;
+border-radius: 4px;
+text-decoration: none;
+width: 130px;
+height: 40px;
+font-size: 15pt;
+border-radius: 5px;
+background-color: #F2A1A1;
+color: #FFFFFF;
+font-weight: 700;
+outline: 0;";
+            string mailBody = $@"
+<body>
+    <h2>嗨 {member.NickName}</h2>
+    <p>您可點選底下的連結來重設 IKKON 密碼。若您未曾要求過重設密碼，請忽略本電子郵件。</p>
+    <a href='https://localhost:44371/ResetPassword/{guid}' style='{forgorPasswordSubmitStyle}'>
+        重設密碼
+    </a>
+</body>";
+
+            // 寄送重設密碼郵件
+            MailHelper.MailSend("重設密碼", model.Mail, mailBody);
+
+            return result;
+        }
+
+        /// <summary>
+        /// 檢查重設密碼Guid是否有效
+        /// </summary>
+        /// <param name="guid">重設密碼Guid</param>
+        /// <returns>檢查結果</returns>
+        public bool CheckResetPasswordGuid(string guid)
+        {
+            var fotgotPassword = this.ForgotPasswordRepository.GetList("WHERE Guid = @guid", new { guid }).FirstOrDefault();
+
+            return fotgotPassword != null;
+        }
+
 
         /// <summary>
         /// 登入流程

@@ -114,5 +114,25 @@ namespace SocialNetwork.Controllers
                 return CommonExtension.AsSystemFailResponse();
             }
         }
+
+        /// <summary>
+        /// 申請重設密碼、建立重設密碼URL
+        /// </summary>
+        /// <param name="model">忘記密碼 Step1 Req ViewModel</param>
+        /// <returns>申請結果</returns>
+        [HttpPost(nameof(ResetPassword))]
+        [AllowAnonymous]
+        public ResponseViewModel ResetPassword(ResetPasswordReqViewModel model)
+        {
+            try
+            {
+                return this.MemberService.ResetPassword(model);
+            }
+            catch (Exception ex)
+            {
+                this.Logger.LogCritical(ex, $"申請重設密碼失敗，{ex.GetExceptionMessage()}");
+                return CommonExtension.AsSystemFailResponse();
+            }
+        }
     }
 }

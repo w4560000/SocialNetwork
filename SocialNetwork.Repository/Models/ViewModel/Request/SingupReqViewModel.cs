@@ -32,9 +32,10 @@ namespace SocialNetwork.Repository
         public string PasswordCheck { get; set; }
 
         /// <summary>
-        /// 會員信箱
+        /// 電子郵件
         /// </summary>
-        [Required(ErrorMessage = "請輸入會員信箱")]
+        [Required(ErrorMessage = "請輸入電子郵件")]
+        [EmailAddress(ErrorMessage = "電子郵件格式錯誤")]
         public string Mail { get; set; }
 
         /// <summary>

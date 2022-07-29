@@ -25,8 +25,8 @@ namespace SocialNetwork.Sample
 		public virtual int FriendID { get; set; }
 		public virtual DateTime CreatedAt { get; set; }
 		public virtual int CreatedBy { get; set; }
-		public virtual DateTime? UpdatedAt { get; set; }
-		public virtual int? UpdatedBy { get; set; }
+		public virtual DateTime UpdatedAt { get; set; }
+		public virtual int UpdatedBy { get; set; }
 	}
 
     /// <summary>
@@ -49,8 +49,8 @@ namespace SocialNetwork.Sample
 		public virtual int Status { get; set; }
 		public virtual DateTime CreatedAt { get; set; }
 		public virtual int CreatedBy { get; set; }
-		public virtual DateTime? UpdatedAt { get; set; }
-		public virtual int? UpdatedBy { get; set; }
+		public virtual DateTime UpdatedAt { get; set; }
+		public virtual int UpdatedBy { get; set; }
 	}
 
     /// <summary>
@@ -68,8 +68,8 @@ namespace SocialNetwork.Sample
 		public virtual int Status { get; set; }
 		public virtual DateTime CreatedAt { get; set; }
 		public virtual int CreatedBy { get; set; }
-		public virtual DateTime? UpdatedAt { get; set; }
-		public virtual int? UpdatedBy { get; set; }
+		public virtual DateTime UpdatedAt { get; set; }
+		public virtual int UpdatedBy { get; set; }
 	}
 
     /// <summary>
@@ -86,8 +86,8 @@ namespace SocialNetwork.Sample
 		public virtual string MsgImage { get; set; }
 		public virtual DateTime CreatedAt { get; set; }
 		public virtual int CreatedBy { get; set; }
-		public virtual DateTime? UpdatedAt { get; set; }
-		public virtual int? UpdatedBy { get; set; }
+		public virtual DateTime UpdatedAt { get; set; }
+		public virtual int UpdatedBy { get; set; }
 	}
 
     /// <summary>
@@ -104,8 +104,34 @@ namespace SocialNetwork.Sample
 		public virtual DateTime? VerificationDate { get; set; }
 		public virtual DateTime CreatedAt { get; set; }
 		public virtual int CreatedBy { get; set; }
-		public virtual DateTime? UpdatedAt { get; set; }
-		public virtual int? UpdatedBy { get; set; }
+		public virtual DateTime UpdatedAt { get; set; }
+		public virtual int UpdatedBy { get; set; }
+	}
+
+    /// <summary>
+    /// A class which represents the ForgotPassword table.
+    /// </summary>
+	[Table("ForgotPassword")]
+	public partial class ForgotPassword
+	{
+		[Key]
+		public virtual int Key { get; set; }
+		public virtual string ForgotPasswordUrl { get; set; }
+		public virtual int MemberID { get; set; }
+		public virtual DateTime CreatedAt { get; set; }
+		public virtual int CreatedBy { get; set; }
+		public virtual DateTime UpdatedAt { get; set; }
+		public virtual int UpdatedBy { get; set; }
+	}
+
+    /// <summary>
+    /// A class which represents the __RefactorLog table.
+    /// </summary>
+	[Table("__RefactorLog")]
+	public partial class RefactorLog
+	{
+		[Key]
+		public virtual Guid OperationKey { get; set; }
 	}
 
 }

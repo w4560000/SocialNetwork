@@ -131,5 +131,6 @@
     <Build Include="Security\leo_1.sql" />
     <Build Include="Security\RoleMemberships.sql" />
     <Build Include="Security\Permissions.sql" />
+    <Build Include="dbo\Tables\ForgotPassword.sql" />
   </ItemGroup>
 </Project>

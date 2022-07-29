@@ -136,3 +136,26 @@ function InfoIconToggle(e: HTMLImageElement) {
     var publicImage = "/images/InfoPublic.png";
     e.src = e.src.includes(publicImage) ? hideImage : publicImage;
 }
+
+/** 忘記密碼 申請重設密碼*/
+function ResetPassword() {
+    let errorMsg = {
+        forgotPassword_account: '您尚未填寫 會員帳號',
+        forgotPassword_mail: '您尚未填寫 電子郵件'
+    };
+
+    let error = Common.Validate(errorMsg);
+
+    if (error) {
+        Common.SweetAlertError(error);
+        return;
+    }
+
+    let model = new ResetPasswordReqViewModel(
+        $('#forgotPassword_account').val() as string,
+        $('#forgotPassword_mail').val() as string);
+    let successFuc = (res) => { };
+    let errorFuc = (res) => { };
+
+    ResetPasswordAPI("寄送重設密碼郵件中", model, successFuc, errorFuc);
+}

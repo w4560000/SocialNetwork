@@ -3,9 +3,9 @@
 namespace SocialNetwork.Repository
 {
     /// <summary>
-    /// 登入 Request ViewModel
+    /// 重設密碼 Step1 Req ViewModel
     /// </summary>
-    public class LoginReqViewModel
+    public class ResetPasswordReqViewModel
     {
         /// <summary>
         /// 會員帳號
@@ -14,9 +14,10 @@ namespace SocialNetwork.Repository
         public string Account { get; set; }
 
         /// <summary>
-        /// 會員密碼
+        /// 電子郵件
         /// </summary>
-        [Required(ErrorMessage = "請輸入會員密碼")]
-        public string Password { get; set; }
+        [Required(ErrorMessage = "請輸入電子郵件")]
+        [EmailAddress(ErrorMessage = "電子郵件格式錯誤")]
+        public string Mail { get; set; }
     }
 }

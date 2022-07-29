@@ -46,6 +46,30 @@
                         <div class="popTitle"><a>忘記密碼</a></div>
                         <div onclick="Common.ClosePopup('forgotPassword')"><img class="svg closeIcon" src="/images/Close.svg"></div>
                     </div>
+                    <div class="singupContent">
+                        <div class="singupInputText">
+                            <div class="singupTextBackground">
+                                <a class="singupText">會員帳號</a>
+                            </div>
+                        </div>
+                        <div>
+                            <input class="input_sinup" type="text" placeholder="請設定登入帳號" id="forgotPassword_account" autocomplete="off" maxlength="30">
+                        </div>
+                    </div>
+                    <div class="singupContent">
+                        <div class="singupInputText">
+                            <div class="singupTextBackground">
+                                <a class="singupText">電子郵件</a>
+                            </div>
+                        </div>
+                        <div>
+                            <input class="input_sinup" type="text" placeholder="請輸入有效電子郵件" id="forgotPassword_mail" autocomplete="off" maxlength="30">
+                        </div>
+                    </div>
+                    <div class="btn_div">
+                        <div><input class="btn_forgotPassword_submit" type="button" value="變更密碼" onclick="ForgotPassword()"></div>
+                    </div>
+
                 </div>
             </div>
 
