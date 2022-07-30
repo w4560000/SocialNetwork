@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Linq;
+using System.Reflection;
 
 namespace SocialNetwork.Helper
 {
@@ -96,6 +97,24 @@ namespace SocialNetwork.Helper
                 Message = message,
                 Data = data
             };
+        }
+
+        /// <summary>
+        /// 轉成 Http Method Get 的參數
+        /// </summary>
+        /// <typeparam name="T">typeof(param)</typeparam>
+        /// <param name="param">參數物件</param>
+        /// <returns>參數字串</returns>
+        public static string ConvertToGetMethodUrlParam<T>(this T param)
+        {
+            string result = string.Empty;
+
+            foreach (PropertyInfo prop in typeof(T).GetProperties())
+            {
+                result += $"{prop.Name.ToLowerCamel()}={prop.GetValue(param)}&";
+            }
+
+            return result.TrimEnd('&');
         }
     }
 }

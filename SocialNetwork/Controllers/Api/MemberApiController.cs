@@ -26,14 +26,21 @@ namespace SocialNetwork.Controllers
         private readonly IMemberService MemberService;
 
         /// <summary>
+        /// HttpClientHelper
+        /// </summary>
+        private readonly HttpClientHelper HttpClientHelper;
+
+        /// <summary>
         /// Constructor
         /// </summary>
         public MemberApiController(
             ILogger<MemberApiController> logger,
-            IMemberService memberService)
+            IMemberService memberService,
+            HttpClientHelper httpClientHelper)
         {
             this.Logger = logger;
             this.MemberService = memberService;
+            this.HttpClientHelper = httpClientHelper;
         }
 
         /// <summary>
@@ -52,6 +59,38 @@ namespace SocialNetwork.Controllers
             catch (Exception ex)
             {
                 this.Logger.LogCritical(ex, $"登入失敗，{ex.GetExceptionMessage()}");
+                return CommonExtension.AsSystemFailResponse();
+            }
+        }
+
+        /// <summary>
+        /// Google 第三方登入
+        /// </summary>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [HttpPost(nameof(GoogleLogin))]
+        public ResponseViewModel GoogleLogin(GoogleLoginReqViewModel model)
+        {
+            try
+            {
+                GoogleOAuth_GetTokenFromCodeRequest request = new GoogleOAuth_GetTokenFromCodeRequest()
+                {
+                    grant_type = "authorization_code",
+                    code = model.Code,
+                    client_id = "303901313937-vtppba8h2st6brqtcpgm0ti380890a5o.apps.googleusercontent.com",
+                    client_secret = AzureHelper.GetAzureSecretVaule("SocialNetwork-GoogleOAuth-Secret"),//"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",
+                    redirect_uri = "https://localhost:44371"
+                };
+
+                var accessToken = this.HttpClientHelper.GetGoogleAccessToken(request);
+
+                var googleUserInfo = this.HttpClientHelper.GetGoogleUserInfo(accessToken);
+
+                return MemberService.GoogleLogin(googleUserInfo);
+            }
+            catch (Exception ex)
+            {
+                this.Logger.LogCritical(ex, $"Google 第三方登入失敗，{ex.GetExceptionMessage()}");
                 return CommonExtension.AsSystemFailResponse();
             }
         }

@@ -30,6 +30,13 @@ namespace SocialNetwork.Service
         ResponseViewModel Login(LoginReqViewModel model);
 
         /// <summary>
+        /// Google 第三方登入
+        /// </summary>
+        /// <param name="model">登入 Req ViewModel</param>
+        /// <returns>登入結果</returns>
+        ResponseViewModel GoogleLogin(GoogleOAuth_UserInfoResult model);
+
+        /// <summary>
         /// 更新會員公開資訊
         /// </summary>
         /// <param name="model">更新會員公開資訊 Req viewModel</param>

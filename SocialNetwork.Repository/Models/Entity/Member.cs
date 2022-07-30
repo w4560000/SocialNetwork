@@ -37,6 +37,16 @@ namespace SocialNetwork.Repository
         public virtual string Mail { get; set; }
 
         /// <summary>
+        /// 大頭貼路徑
+        /// </summary>
+        public virtual string ProfilePhotoURL { get; set; }
+
+        /// <summary>
+        /// 背景圖路徑
+        /// </summary>
+        public virtual string BackgoundPhotoURL { get; set; }
+
+        /// <summary>
         /// 生日
         /// </summary>
         public virtual DateTime? Birthday { get; set; }

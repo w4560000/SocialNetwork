@@ -11,7 +11,7 @@ namespace SocialNetwork.Helper
         /// <summary>
         /// IConfiguration
         /// </summary>
-        private readonly IConfiguration _configuration;
+        private readonly IConfiguration Configuration;
 
         /// <summary>
         /// ctor
@@ -19,7 +19,7 @@ namespace SocialNetwork.Helper
         public ConfigHelper(
             IConfiguration configuration)
         {
-            _configuration = configuration;
+            Configuration = configuration;
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace SocialNetwork.Helper
         /// <returns>設定值內容</returns>
         public string Get(string key, string defaultValue = null)
         {
-            return _configuration.GetValue<string>(key) ?? defaultValue;
+            return Configuration.GetValue<string>(key) ?? defaultValue;
         }
 
         /// <summary>

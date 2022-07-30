@@ -24,20 +24,37 @@ function Login() {
         return;
     }
     var model = new LoginReqViewModel($('#login_account').val(), $('#login_password').val());
-    var successFuc = function () {
-        window.location.href = "/Home/Index";
+    var successFunc = function () {
+        Common.SweetAlertRedirect("/Home/Index", "首頁");
     };
-    var errorFuc = function (res) { };
-    LoginAPI("登入中", model, successFuc, errorFuc);
+    var errorFunc = function (res) { };
+    LoginAPI("登入中", model, successFunc, errorFunc);
+}
+/** Google 第三方登入 */
+function GoogleLogin() {
+    var client = google.accounts.oauth2.initCodeClient({
+        client_id: '303901313937-vtppba8h2st6brqtcpgm0ti380890a5o.apps.googleusercontent.com',
+        scope: 'profile email',
+        ux_mode: 'popup',
+        callback: function (response) {
+            var successFuc = function () {
+                Common.SweetAlertRedirect("/Home/Index", "首頁");
+            };
+            var errorFunc = function (res) { };
+            var model = new GoogleLoginReqViewModel(response.code);
+            GoogleLoginAPI("登入中", model, successFuc, errorFunc);
+        },
+    });
+    client.requestCode();
 }
 /** 寄送驗證碼 */
 function SendVCode() {
     var model = new SendVCodeReqViewModel($('#singup_mail').val());
-    var successFuc = function (res) { };
-    var errorFuc = function (res) {
+    var successFunc = function (res) { };
+    var errorFunc = function (res) {
         $('#singup_mail').addClass('input-error');
     };
-    SendVCodeAPI("寄送驗證碼中", model, successFuc, errorFuc);
+    SendVCodeAPI("寄送驗證碼中", model, successFunc, errorFunc);
 }
 /** 註冊 */
 function Singup() {
@@ -68,11 +85,11 @@ function Singup() {
         return;
     }
     var model = new SignupReqViewModel($("#singup_name").val(), $("#singup_account").val(), $("#singup_password").val(), $("#singup_passwordCheck").val(), $("#singup_mail").val(), $("#singup_vCode").val());
-    var successFuc = function (res) {
+    var successFunc = function (res) {
         Common.Popup('MemberInfo');
     };
-    var errorFuc = function (res) { };
-    SignupAPI("註冊中", model, successFuc, errorFuc);
+    var errorFunc = function (res) { };
+    SignupAPI("註冊中", model, successFunc, errorFunc);
 }
 /** 更新會員公開資訊 */
 function UpdateMemberPublicInfo() {
@@ -87,11 +104,11 @@ function UpdateMemberPublicInfo() {
         return;
     }
     var model = new UpdateMemberPublicInfoReqViewModel(new Date($('#birthday_datepicker').val()), $('#infoInternest').val(), $('#infoJob').val(), $('#infoEducation').val(), memberPublicInfo);
-    var successFuc = function (res) {
+    var successFunc = function (res) {
         Common.SweetAlertRedirect('/Home/Index', '首頁');
     };
-    var errorFuc = function (res) { };
-    UpdateMemberPublicInfoAPI("更新會員資訊中", model, successFuc, errorFuc);
+    var errorFunc = function (res) { };
+    UpdateMemberPublicInfoAPI("更新會員資訊中", model, successFunc, errorFunc);
 }
 /**
  * 會員資料公開或隱藏
@@ -114,7 +131,7 @@ function ResetPassword() {
         return;
     }
     var model = new ResetPasswordReqViewModel($('#forgotPassword_account').val(), $('#forgotPassword_mail').val());
-    var successFuc = function (res) { };
-    var errorFuc = function (res) { };
-    ResetPasswordAPI("寄送重設密碼郵件中", model, successFuc, errorFuc);
+    var successFunc = function (res) { };
+    var errorFunc = function (res) { };
+    ResetPasswordAPI("寄送重設密碼郵件中", model, successFunc, errorFunc);
 }

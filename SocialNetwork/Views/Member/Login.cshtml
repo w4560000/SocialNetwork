@@ -5,6 +5,7 @@
     Layout = "_MemberLayout";
 }
 <script src="~/js/Member/Login.js" asp-append-version="true"></script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <link rel="stylesheet" href="~/css/Member/Login.css" asp-append-version="true" />
 
 <div class="inputbox">
@@ -65,7 +66,7 @@
 
 <!--Google帳號登入-->
 <div class="btn_div">
-    <div><input class="btn_loginPage" type="button" value="Google帳號登入" onclick=""></div>
+    <div><input class="btn_loginPage" type="button" value="Google帳號登入" onclick="GoogleLogin()"></div>
 </div>
 
 <!--分隔線-->

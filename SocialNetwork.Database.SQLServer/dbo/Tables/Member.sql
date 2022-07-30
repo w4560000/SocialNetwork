@@ -1,9 +1,11 @@
 ﻿CREATE TABLE [dbo].[Member] (
     [MemberID]   INT            IDENTITY (1, 1) NOT NULL,
-    [Account]    NVARCHAR (20)  NOT NULL,
+    [Account]    NVARCHAR (100)  NOT NULL,
     [NickName]   NVARCHAR (100) NOT NULL,
     [Password]   NVARCHAR (500) NOT NULL,
     [Mail]       NVARCHAR (100) NOT NULL,
+    [ProfilePhotoURL] NVARCHAR(500) NOT NULL,
+    [BackgoundPhotoURL] NVARCHAR(500) NOT NULL,
     [Birthday]   DATE           NULL,
     [Interest]   NVARCHAR (300) NULL,
     [Job]        NVARCHAR (300) NULL,
@@ -39,6 +41,11 @@ EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'密碼', @l
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'信箱', @level0type = N'SCHEMA', @level0name = N'dbo', @level1type = N'TABLE', @level1name = N'Member', @level2type = N'COLUMN', @level2name = N'Mail';
 
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'大頭貼路徑', @level0type = N'SCHEMA', @level0name = N'dbo', @level1type = N'TABLE', @level1name = N'Member', @level2type = N'COLUMN', @level2name = N'ProfilePhotoURL';
+
+GO
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'背景圖路徑', @level0type = N'SCHEMA', @level0name = N'dbo', @level1type = N'TABLE', @level1name = N'Member', @level2type = N'COLUMN', @level2name = N'BackgoundPhotoURL';
 
 GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'生日', @level0type = N'SCHEMA', @level0name = N'dbo', @level1type = N'TABLE', @level1name = N'Member', @level2type = N'COLUMN', @level2name = N'Birthday';

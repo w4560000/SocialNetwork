@@ -30,30 +30,6 @@ namespace SocialNetwork.Sample
 	}
 
     /// <summary>
-    /// A class which represents the Member table.
-    /// </summary>
-	[Table("Member")]
-	public partial class Member
-	{
-		[Key]
-		public virtual int MemberID { get; set; }
-		public virtual string Account { get; set; }
-		public virtual string NickName { get; set; }
-		public virtual string Password { get; set; }
-		public virtual string Mail { get; set; }
-		public virtual DateTime? Birthday { get; set; }
-		public virtual string Interest { get; set; }
-		public virtual string Job { get; set; }
-		public virtual string Education { get; set; }
-		public virtual int InfoStatus { get; set; }
-		public virtual int Status { get; set; }
-		public virtual DateTime CreatedAt { get; set; }
-		public virtual int CreatedBy { get; set; }
-		public virtual DateTime UpdatedAt { get; set; }
-		public virtual int UpdatedBy { get; set; }
-	}
-
-    /// <summary>
     /// A class which represents the Post table.
     /// </summary>
 	[Table("Post")]
@@ -116,7 +92,7 @@ namespace SocialNetwork.Sample
 	{
 		[Key]
 		public virtual int Key { get; set; }
-		public virtual string ForgotPasswordUrl { get; set; }
+		public virtual string Guid { get; set; }
 		public virtual int MemberID { get; set; }
 		public virtual DateTime CreatedAt { get; set; }
 		public virtual int CreatedBy { get; set; }
@@ -132,6 +108,32 @@ namespace SocialNetwork.Sample
 	{
 		[Key]
 		public virtual Guid OperationKey { get; set; }
+	}
+
+    /// <summary>
+    /// A class which represents the Member table.
+    /// </summary>
+	[Table("Member")]
+	public partial class Member
+	{
+		[Key]
+		public virtual int MemberID { get; set; }
+		public virtual string Account { get; set; }
+		public virtual string NickName { get; set; }
+		public virtual string Password { get; set; }
+		public virtual string Mail { get; set; }
+		public virtual string ProfilePhotoURL { get; set; }
+		public virtual string BackgoundPhotoURL { get; set; }
+		public virtual DateTime? Birthday { get; set; }
+		public virtual string Interest { get; set; }
+		public virtual string Job { get; set; }
+		public virtual string Education { get; set; }
+		public virtual int InfoStatus { get; set; }
+		public virtual int Status { get; set; }
+		public virtual DateTime CreatedAt { get; set; }
+		public virtual int CreatedBy { get; set; }
+		public virtual DateTime UpdatedAt { get; set; }
+		public virtual int UpdatedBy { get; set; }
 	}
 
 }

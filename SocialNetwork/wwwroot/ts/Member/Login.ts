@@ -32,22 +32,40 @@ function Login() {
     }
 
     let model = new LoginReqViewModel($('#login_account').val() as string, $('#login_password').val() as string);
-    let successFuc = () => {
-        window.location.href = "/Home/Index";
+    let successFunc = () => {
+        Common.SweetAlertRedirect("/Home/Index", "首頁");
     };
-    let errorFuc = (res) => { };
-    LoginAPI("登入中", model, successFuc, errorFuc);
+    let errorFunc = (res) => { };
+    LoginAPI("登入中", model, successFunc, errorFunc);
+}
+
+/** Google 第三方登入 */
+function GoogleLogin() {
+    const client = google.accounts.oauth2.initCodeClient({
+        client_id: '303901313937-vtppba8h2st6brqtcpgm0ti380890a5o.apps.googleusercontent.com',
+        scope: 'profile email',
+        ux_mode: 'popup',
+        callback: (response: any) => {
+            let successFuc = () => {
+                Common.SweetAlertRedirect("/Home/Index", "首頁");
+            };
+            let errorFunc = (res) => { };
+            let model = new GoogleLoginReqViewModel(response.code);
+            GoogleLoginAPI("登入中", model, successFuc, errorFunc);
+        },
+    });
+    client.requestCode();
 }
 
 /** 寄送驗證碼 */
 function SendVCode() {
     let model = new SendVCodeReqViewModel($('#singup_mail').val() as string);
-    let successFuc = (res) => { };
-    let errorFuc = (res) => {
+    let successFunc = (res) => { };
+    let errorFunc = (res) => {
         $('#singup_mail').addClass('input-error');
     };
 
-    SendVCodeAPI("寄送驗證碼中", model, successFuc, errorFuc);
+    SendVCodeAPI("寄送驗證碼中", model, successFunc, errorFunc);
 }
 
 /** 註冊 */
@@ -90,12 +108,12 @@ function Singup() {
         $("#singup_mail").val() as string,
         $("#singup_vCode").val() as string
     );
-    let successFuc = (res) => {
+    let successFunc = (res) => {
         Common.Popup('MemberInfo');
     };
-    let errorFuc = (res) => { };
+    let errorFunc = (res) => { };
 
-    SignupAPI("註冊中", model, successFuc, errorFuc);
+    SignupAPI("註冊中", model, successFunc, errorFunc);
 }
 
 /** 更新會員公開資訊 */
@@ -119,12 +137,12 @@ function UpdateMemberPublicInfo() {
         $('#infoJob').val() as string,
         $('#infoEducation').val() as string,
         memberPublicInfo);
-    let successFuc = (res) => {
+    let successFunc = (res) => {
         Common.SweetAlertRedirect('/Home/Index', '首頁');
     };
-    let errorFuc = (res) => { };
+    let errorFunc = (res) => { };
 
-    UpdateMemberPublicInfoAPI("更新會員資訊中", model, successFuc, errorFuc);
+    UpdateMemberPublicInfoAPI("更新會員資訊中", model, successFunc, errorFunc);
 }
 
 /**
@@ -154,8 +172,8 @@ function ResetPassword() {
     let model = new ResetPasswordReqViewModel(
         $('#forgotPassword_account').val() as string,
         $('#forgotPassword_mail').val() as string);
-    let successFuc = (res) => { };
-    let errorFuc = (res) => { };
+    let successFunc = (res) => { };
+    let errorFunc = (res) => { };
 
-    ResetPasswordAPI("寄送重設密碼郵件中", model, successFuc, errorFuc);
+    ResetPasswordAPI("寄送重設密碼郵件中", model, successFunc, errorFunc);
 }

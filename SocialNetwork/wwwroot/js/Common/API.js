@@ -23,6 +23,9 @@ function BaseAPI(loadingMsg, api, model, successFunc, errorFunc) {
 function LoginAPI(loadingMsg, model, successFunc, errorFunc) {
     BaseAPI(loadingMsg, "/MemberApi/Login", model, successFunc, errorFunc);
 }
+function GoogleLoginAPI(loadingMsg, model, successFunc, errorFunc) {
+    BaseAPI(loadingMsg, "/MemberApi/GoogleLogin", model, successFunc, errorFunc);
+}
 function SendVCodeAPI(loadingMsg, model, successFunc, errorFunc) {
     BaseAPI(loadingMsg, "/MemberApi/SendVCode", model, successFunc, errorFunc);
 }
@@ -53,6 +56,12 @@ var LoginReqViewModel = /** @class */ (function () {
         this.Password = password;
     }
     return LoginReqViewModel;
+}());
+var GoogleLoginReqViewModel = /** @class */ (function () {
+    function GoogleLoginReqViewModel(code) {
+        this.Code = code;
+    }
+    return GoogleLoginReqViewModel;
 }());
 var SendVCodeReqViewModel = /** @class */ (function () {
     function SendVCodeReqViewModel(mail) {

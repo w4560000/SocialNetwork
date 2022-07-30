@@ -80,6 +80,7 @@ namespace SocialNetwork
             services.AddSingleton<IConfigHelper, ConfigHelper>();
             services.AddSingleton<ICacheHelper, RedisCacheHelper>();
             services.AddSingleton<JwtHelper>();
+            services.AddSingleton<HttpClientHelper>();
 
             // ≈Á√“ JWT
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -147,6 +148,7 @@ namespace SocialNetwork
 
             services.AddHttpContextAccessor();
             services.AddControllersWithViews();
+            services.AddHttpClient();
         }
 
         /// <summary>

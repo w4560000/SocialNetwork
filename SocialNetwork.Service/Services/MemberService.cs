@@ -99,6 +99,8 @@ namespace SocialNetwork.Service
                 NickName = model.NickName,
                 Password = model.Password,
                 Mail = model.Mail,
+                ProfilePhotoURL = SystemHelper.DefaultProfilePhoto,
+                BackgoundPhotoURL = SystemHelper.DefaultBackgoundPhoto,
                 InfoStatus = MemberPublicInfoEnum.全部不公開,
                 Status = MemberStatusEnum.離線
             });
@@ -150,6 +152,47 @@ namespace SocialNetwork.Service
                 return  "帳號或密碼錯誤!".AsFailResponse();
 
             LoginProcess(new UserInfo() { MemberID = member.MemberID, Account = member.Account, NickName = member.NickName });
+
+            return "登入成功!".AsSuccessResponse();
+        }
+
+        /// <summary>
+        /// Google 第三方登入
+        /// </summary>
+        /// <param name="model">登入 Req ViewModel</param>
+        /// <returns>登入結果</returns>
+        public ResponseViewModel GoogleLogin(GoogleOAuth_UserInfoResult model)
+        {
+            string account = model.id + "@google";
+
+            var isMailExist = this.MemberRepository.RecordCount("WHERE Account <> @account AND Mail = @email ", new { account, model.email }) > 0;
+
+            if (isMailExist)
+                return "該 Google 信箱已有人使用，無法註冊!".AsFailResponse();
+
+            var member = this.MemberRepository.GetList("WHERE Account = @account ", new { account }).FirstOrDefault();
+
+            // 若是第一次 Google第三方登入 => 自動註冊
+            if (member == null)
+            {
+                member = new Member()
+                {
+                    Account = account,
+                    NickName = model.name,
+                    Password = string.Empty,
+                    Mail = model.email,
+                    ProfilePhotoURL = model.picture,
+                    BackgoundPhotoURL = SystemHelper.DefaultBackgoundPhoto,
+                    InfoStatus = MemberPublicInfoEnum.全部不公開,
+                    Status = MemberStatusEnum.離線
+                };
+                // 註冊
+                var memberID = this.MemberRepository.Add<int>(member);
+                member.MemberID = memberID;
+            }
+
+            // 寫入登入 Cookie
+            this.LoginProcess(new UserInfo() { MemberID = member.MemberID, Account = member.Account, NickName = member.NickName });
 
             return "登入成功!".AsSuccessResponse();
         }

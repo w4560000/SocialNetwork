@@ -27,6 +27,10 @@ function BaseAPI<T>(loadingMsg: string, api: string, model: T, successFunc?: Fun
 function LoginAPI(loadingMsg: string, model: LoginReqViewModel, successFunc: Function, errorFunc: Function): void {
     BaseAPI<LoginReqViewModel>(loadingMsg, "/MemberApi/Login", model, successFunc, errorFunc);
 }
+
+function GoogleLoginAPI(loadingMsg: string, model: GoogleLoginReqViewModel, successFunc: Function, errorFunc: Function): void {
+    BaseAPI<GoogleLoginReqViewModel>(loadingMsg, "/MemberApi/GoogleLogin", model, successFunc, errorFunc);
+}
     
 function SendVCodeAPI(loadingMsg: string, model: SendVCodeReqViewModel, successFunc: Function, errorFunc: Function): void {
     BaseAPI<SendVCodeReqViewModel>(loadingMsg, "/MemberApi/SendVCode", model, successFunc, errorFunc);
@@ -77,6 +81,14 @@ class LoginReqViewModel {
     constructor(account: string, password: string) {
         this.Account = account;
         this.Password = password;
+    }
+}
+
+class GoogleLoginReqViewModel {
+    Code: string;
+
+    constructor(code: string) {
+        this.Code = code;
     }
 }
 
