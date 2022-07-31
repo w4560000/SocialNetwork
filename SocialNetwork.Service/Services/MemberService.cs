@@ -108,7 +108,7 @@ namespace SocialNetwork.Service
             // 寫入登入 Cookie
             this.LoginProcess(new UserInfo() { MemberID = memberID, Account = model.Account, NickName = model.NickName });
 
-            return "註冊成功!".AsSuccessResponse();
+            return $"{model.NickName} 註冊成功!".AsSuccessResponse();
         }
 
         /// <summary>
@@ -151,9 +151,9 @@ namespace SocialNetwork.Service
             if (member == null)
                 return  "帳號或密碼錯誤!".AsFailResponse();
 
-            LoginProcess(new UserInfo() { MemberID = member.MemberID, Account = member.Account, NickName = member.NickName });
+            LoginProcess(new UserInfo() { MemberID = member.MemberID, Account = member.Account, NickName = member.NickName, ProfilePhotoUrl = member.ProfilePhotoURL });
 
-            return "登入成功!".AsSuccessResponse();
+            return $"{member.NickName} 登入成功!".AsSuccessResponse();
         }
 
         /// <summary>
@@ -192,9 +192,9 @@ namespace SocialNetwork.Service
             }
 
             // 寫入登入 Cookie
-            this.LoginProcess(new UserInfo() { MemberID = member.MemberID, Account = member.Account, NickName = member.NickName });
+            this.LoginProcess(new UserInfo() { MemberID = member.MemberID, Account = member.Account, NickName = member.NickName, ProfilePhotoUrl = member.ProfilePhotoURL });
 
-            return "登入成功!".AsSuccessResponse();
+            return $"{member.NickName} 登入成功!".AsSuccessResponse();
         }
 
         /// <summary>

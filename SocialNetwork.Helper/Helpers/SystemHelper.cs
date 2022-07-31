@@ -8,7 +8,7 @@
         /// <summary>
         /// 預設大頭貼
         /// </summary>
-        public static string DefaultProfilePhoto => "/images/default_profilePhoto.png";
+        public static string DefaultProfilePhoto => "/images/default_profilePhoto.svg";
 
         /// <summary>
         /// 預設背景圖

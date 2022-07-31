@@ -19,5 +19,10 @@
         /// 暱稱
         /// </summary>
         public string NickName { get; set; }
+
+        /// <summary>
+        /// 個人大頭貼路徑
+        /// </summary>
+        public string ProfilePhotoUrl { get; set; }
     }
 }

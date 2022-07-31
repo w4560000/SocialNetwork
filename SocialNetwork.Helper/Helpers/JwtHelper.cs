@@ -56,6 +56,7 @@ namespace SocialNetwork.Helper
             claims.Add(new Claim(nameof(UserInfo.MemberID), userInfo.MemberID.ToString()));
             claims.Add(new Claim(nameof(UserInfo.Account), userInfo.Account));
             claims.Add(new Claim(nameof(UserInfo.NickName), userInfo.NickName));
+            claims.Add(new Claim(nameof(UserInfo.ProfilePhotoUrl), userInfo.ProfilePhotoUrl ?? string.Empty));
 
             // 網路上常看到的這個 NameId 設定是多餘的
             //claims.Add(new Claim(JwtRegisteredClaimNames.NameId, userName));
@@ -112,7 +113,8 @@ namespace SocialNetwork.Helper
             {
                 MemberID = int.TryParse(jsonToken.Claims.FirstOrDefault(p => p.Type == nameof(UserInfo.MemberID))?.Value, out int memberID) ? memberID : 0,
                 Account = jsonToken.Claims.FirstOrDefault(p => p.Type == nameof(UserInfo.Account))?.Value,
-                NickName = jsonToken.Claims.FirstOrDefault(p => p.Type == nameof(UserInfo.NickName))?.Value
+                NickName = jsonToken.Claims.FirstOrDefault(p => p.Type == nameof(UserInfo.NickName))?.Value,
+                ProfilePhotoUrl = jsonToken.Claims.FirstOrDefault(p => p.Type == nameof(UserInfo.ProfilePhotoUrl))?.Value
             };
 
             return userInfo;

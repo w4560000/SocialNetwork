@@ -78,7 +78,7 @@ namespace SocialNetwork.Controllers
                     grant_type = "authorization_code",
                     code = model.Code,
                     client_id = "303901313937-vtppba8h2st6brqtcpgm0ti380890a5o.apps.googleusercontent.com",
-                    client_secret = AzureHelper.GetAzureSecretVaule("SocialNetwork-GoogleOAuth-Secret"),//"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",
+                    client_secret = AzureHelper.GetAzureSecretVaule("SocialNetwork-GoogleOAuth-Secret"),
                     redirect_uri = "https://localhost:44371"
                 };
 
