@@ -85,7 +85,7 @@ var Common = {
         var timerInterval;
         Swal.fire({
             html: "<b></b> \u79D2\u5F8C \u8DF3\u8F49\u56DE".concat(pathName),
-            timer: 5000,
+            timer: 3000,
             timerProgressBar: true,
             showConfirmButton: false,
             didOpen: function () {

@@ -90,7 +90,7 @@ const Common = {
         let timerInterval;
         Swal.fire({
             html: `<b></b> 秒後 跳轉回${pathName}`,
-            timer: 5000,
+            timer: 3000,
             timerProgressBar: true,
             showConfirmButton: false,
             didOpen: () => {

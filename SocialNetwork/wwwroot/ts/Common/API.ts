@@ -1,5 +1,25 @@
 ﻿
-function BaseAPI<T>(loadingMsg: string, api: string, model: T, successFunc?: Function, errorFunc?: Function) {
+function BaseGetAPI(loadingMsg: string, api: string, successFunc?: Function, errorFunc?: Function) {
+    if (loadingMsg)
+        Common.SweetAlertLoading(loadingMsg);
+
+    $.ajax({
+        method: "Get",
+        url: api,
+        success: (res: ResponseViewModel<object>) => {
+            if (res.Status == ResponseStatusEnum.Success) {
+                Common.SweetAlertSuccess(res.Message, successFunc);
+            }
+            else {
+                Common.SweetAlertError(res.Message, errorFunc);
+            }
+        },
+        error: (e) => {
+            Common.SweetAlertError("伺服器異常", errorFunc);
+        }
+    });
+}
+function BasePostAPI<T>(loadingMsg: string, api: string, model: T, successFunc?: Function, errorFunc?: Function) {
     if (loadingMsg)
         Common.SweetAlertLoading(loadingMsg);
     
@@ -25,32 +45,37 @@ function BaseAPI<T>(loadingMsg: string, api: string, model: T, successFunc?: Fun
 
 
 function LoginAPI(loadingMsg: string, model: LoginReqViewModel, successFunc: Function, errorFunc: Function): void {
-    BaseAPI<LoginReqViewModel>(loadingMsg, "/MemberApi/Login", model, successFunc, errorFunc);
+    BasePostAPI<LoginReqViewModel>(loadingMsg, "/MemberApi/Login", model, successFunc, errorFunc);
 }
 
 function GoogleLoginAPI(loadingMsg: string, model: GoogleLoginReqViewModel, successFunc: Function, errorFunc: Function): void {
-    BaseAPI<GoogleLoginReqViewModel>(loadingMsg, "/MemberApi/GoogleLogin", model, successFunc, errorFunc);
+    BasePostAPI<GoogleLoginReqViewModel>(loadingMsg, "/MemberApi/GoogleLogin", model, successFunc, errorFunc);
 }
     
 function SendVCodeAPI(loadingMsg: string, model: SendVCodeReqViewModel, successFunc: Function, errorFunc: Function): void {
-    BaseAPI<SendVCodeReqViewModel>(loadingMsg, "/MemberApi/SendVCode", model, successFunc, errorFunc);
+    BasePostAPI<SendVCodeReqViewModel>(loadingMsg, "/MemberApi/SendVCode", model, successFunc, errorFunc);
 }
 
 function SignupAPI(loadingMsg: string, model: SignupReqViewModel, successFunc: Function, errorFunc: Function): void {
-    BaseAPI<SignupReqViewModel>(loadingMsg, "/MemberApi/Signup", model, successFunc, errorFunc);
+    BasePostAPI<SignupReqViewModel>(loadingMsg, "/MemberApi/Signup", model, successFunc, errorFunc);
 }
 
 function UpdateMemberPublicInfoAPI(loadingMsg: string, model: UpdateMemberPublicInfoReqViewModel, successFunc: Function, errorFunc: Function): void {
-    BaseAPI<UpdateMemberPublicInfoReqViewModel>(loadingMsg, "/MemberApi/UpdateMemberPublicInfo", model, successFunc, errorFunc);
+    BasePostAPI<UpdateMemberPublicInfoReqViewModel>(loadingMsg, "/MemberApi/UpdateMemberPublicInfo", model, successFunc, errorFunc);
 }
 
 function ResetPasswordAPI(loadingMsg: string, model: ResetPasswordReqViewModel, successFunc: Function, errorFunc: Function): void {
-    BaseAPI<ResetPasswordReqViewModel>(loadingMsg, "/MemberApi/ResetPassword", model, successFunc, errorFunc);
+    BasePostAPI<ResetPasswordReqViewModel>(loadingMsg, "/MemberApi/ResetPassword", model, successFunc, errorFunc);
 }
 
 function ResetPasswordConfirmAPI(loadingMsg: string, model: ResetPasswordConfirmReqViewModel, successFunc: Function, errorFunc: Function): void {
-    BaseAPI<ResetPasswordConfirmReqViewModel>(loadingMsg, "/MemberApi/ResetPasswordConfirm", model, successFunc, errorFunc);
+    BasePostAPI<ResetPasswordConfirmReqViewModel>(loadingMsg, "/MemberApi/ResetPasswordConfirm", model, successFunc, errorFunc);
 }
+
+function LogoutAPI(loadingMsg: string, successFunc: Function, errorFunc: Function): void {
+    BaseGetAPI(loadingMsg, "/MemberApi/Logout", successFunc, errorFunc);
+}
+
 
 /// <summary>
 /// 共用回應 ViewModel

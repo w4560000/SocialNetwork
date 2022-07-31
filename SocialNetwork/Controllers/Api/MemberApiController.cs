@@ -194,5 +194,23 @@ namespace SocialNetwork.Controllers
                 return CommonExtension.AsSystemFailResponse();
             }
         }
+
+        /// <summary>
+        /// 登出
+        /// </summary>
+        /// <returns>登出結果</returns>
+        [HttpGet(nameof(Logout))]
+        public ResponseViewModel Logout()
+        {
+            try
+            {
+                return this.MemberService.Logout();
+            }
+            catch (Exception ex)
+            {
+                this.Logger.LogCritical(ex, $"登出失敗，{ex.GetExceptionMessage()}");
+                return CommonExtension.AsSystemFailResponse();
+            }
+        }
     }
 }

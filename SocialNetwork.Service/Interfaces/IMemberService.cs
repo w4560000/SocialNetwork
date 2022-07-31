@@ -65,5 +65,12 @@ namespace SocialNetwork.Service
         /// <returns>重設結果</returns>
         ResponseViewModel ResetPasswordConfirm(ResetPasswordConfirmReqViewModel model);
 
+        /// <summary>
+        /// 登出
+        /// </summary>
+        /// <returns>登出結果</returns>
+
+        ResponseViewModel Logout();
+
     }
 }

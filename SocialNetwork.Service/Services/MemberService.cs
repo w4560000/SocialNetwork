@@ -307,6 +307,24 @@ outline: 0;";
         }
 
         /// <summary>
+        /// 登出
+        /// </summary>
+        /// <returns>登出結果</returns>
+
+        public ResponseViewModel Logout()
+        {
+            if (this.MemberRepository.TryGetEntity(this.UserContext.User.MemberID, out Member member))
+            {
+                member.Status = MemberStatusEnum.離線;
+                this.MemberRepository.Update(member);
+            }
+
+            this.HttpContext.Response.Cookies.ExpireCookies();
+
+            return "登出成功!".AsSuccessResponse();
+        }
+
+        /// <summary>
         /// 登入流程
         /// 1. 設定 UserInfo 轉為 Jwt 存至 Cookie 中
         /// 2. 更新會員狀態

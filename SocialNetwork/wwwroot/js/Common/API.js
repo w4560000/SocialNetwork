@@ -1,4 +1,23 @@
-function BaseAPI(loadingMsg, api, model, successFunc, errorFunc) {
+function BaseGetAPI(loadingMsg, api, successFunc, errorFunc) {
+    if (loadingMsg)
+        Common.SweetAlertLoading(loadingMsg);
+    $.ajax({
+        method: "Get",
+        url: api,
+        success: function (res) {
+            if (res.Status == ResponseStatusEnum.Success) {
+                Common.SweetAlertSuccess(res.Message, successFunc);
+            }
+            else {
+                Common.SweetAlertError(res.Message, errorFunc);
+            }
+        },
+        error: function (e) {
+            Common.SweetAlertError("伺服器異常", errorFunc);
+        }
+    });
+}
+function BasePostAPI(loadingMsg, api, model, successFunc, errorFunc) {
     if (loadingMsg)
         Common.SweetAlertLoading(loadingMsg);
     $.ajax({
@@ -21,25 +40,28 @@ function BaseAPI(loadingMsg, api, model, successFunc, errorFunc) {
     });
 }
 function LoginAPI(loadingMsg, model, successFunc, errorFunc) {
-    BaseAPI(loadingMsg, "/MemberApi/Login", model, successFunc, errorFunc);
+    BasePostAPI(loadingMsg, "/MemberApi/Login", model, successFunc, errorFunc);
 }
 function GoogleLoginAPI(loadingMsg, model, successFunc, errorFunc) {
-    BaseAPI(loadingMsg, "/MemberApi/GoogleLogin", model, successFunc, errorFunc);
+    BasePostAPI(loadingMsg, "/MemberApi/GoogleLogin", model, successFunc, errorFunc);
 }
 function SendVCodeAPI(loadingMsg, model, successFunc, errorFunc) {
-    BaseAPI(loadingMsg, "/MemberApi/SendVCode", model, successFunc, errorFunc);
+    BasePostAPI(loadingMsg, "/MemberApi/SendVCode", model, successFunc, errorFunc);
 }
 function SignupAPI(loadingMsg, model, successFunc, errorFunc) {
-    BaseAPI(loadingMsg, "/MemberApi/Signup", model, successFunc, errorFunc);
+    BasePostAPI(loadingMsg, "/MemberApi/Signup", model, successFunc, errorFunc);
 }
 function UpdateMemberPublicInfoAPI(loadingMsg, model, successFunc, errorFunc) {
-    BaseAPI(loadingMsg, "/MemberApi/UpdateMemberPublicInfo", model, successFunc, errorFunc);
+    BasePostAPI(loadingMsg, "/MemberApi/UpdateMemberPublicInfo", model, successFunc, errorFunc);
 }
 function ResetPasswordAPI(loadingMsg, model, successFunc, errorFunc) {
-    BaseAPI(loadingMsg, "/MemberApi/ResetPassword", model, successFunc, errorFunc);
+    BasePostAPI(loadingMsg, "/MemberApi/ResetPassword", model, successFunc, errorFunc);
 }
 function ResetPasswordConfirmAPI(loadingMsg, model, successFunc, errorFunc) {
-    BaseAPI(loadingMsg, "/MemberApi/ResetPasswordConfirm", model, successFunc, errorFunc);
+    BasePostAPI(loadingMsg, "/MemberApi/ResetPasswordConfirm", model, successFunc, errorFunc);
+}
+function LogoutAPI(loadingMsg, successFunc, errorFunc) {
+    BaseGetAPI(loadingMsg, "/MemberApi/Logout", successFunc, errorFunc);
 }
 /// <summary>
 /// 共用回應 ViewModel

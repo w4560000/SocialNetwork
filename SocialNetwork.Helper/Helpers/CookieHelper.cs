@@ -25,6 +25,14 @@ namespace SocialNetwork.Helper
         }
 
         /// <summary>
+        /// 刪除 Cookie
+        /// </summary>
+        public static void ExpireCookies(this IResponseCookies cookies)
+        {
+            cookies.Delete("X-Access-Token");
+        }
+
+        /// <summary>
         /// 從 cookie 取得 JWT token
         /// </summary>
         /// <param name="cookies">HttpCookieCollection</param>
