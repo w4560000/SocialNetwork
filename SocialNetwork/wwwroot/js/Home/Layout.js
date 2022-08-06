@@ -13,13 +13,9 @@ var User = /** @class */ (function () {
 }());
 var user;
 $(function () {
-    //$("ul").children('.index_status_select').html($(this).html());
     // 控制 SVG CSS
     Common.ControllSVG();
-    //$("body").on("click", function (event) {
-    //    debugger
-    //    alert(event.target.id);
-    //});
+    // 點選其他 element 時 自動隱藏展開的會員狀態
     $("body").click(function (event) {
         var currentElemetClass = ($(event.target).attr('class'));
         if (currentElemetClass !== 'index_status_select') {
@@ -32,22 +28,34 @@ $(function () {
         $(this).closest("ul").children('li').toggle();
     });
     $(".index_status").on("click", "li", function () {
+        var _a;
         var allOptions = $("ul").children('li');
         allOptions.removeClass('selected');
         $(this).addClass('selected');
         $("ul").children('.index_status_select').html($(this).html());
+        debugger;
+        var currentSelectStatus = (_a = $(this).attr('id')) === null || _a === void 0 ? void 0 : _a.split('_')[1];
+        var model = new UpdateMemberStatusReqViewModel(parseInt(currentSelectStatus));
+        var successFunc = function () { };
+        var errorFunc = function () { };
+        UpdateMemberStatus(model, successFunc, errorFunc);
         allOptions.toggle();
     });
+    // 載入會員狀態
     $("ul").children('.index_status_select').html($('#memberStatus_' + user.Status).html());
 });
-/** 登入 */
+/** 登出 */
 function Logout() {
     var successFunc = function () {
         Common.SweetAlertRedirect("/Member/Login", "登入頁");
     };
-    var errorFunc = function (res) { };
-    LogoutAPI("登出中", successFunc, errorFunc);
+    var errorFunc = function () { };
+    LogoutAPI("登出中", successFunc, errorFunc, '確定是否登出?');
 }
+/**
+ * 載入會員資料
+ * @param _user 會員資料
+ */
 function UserInit(_user) {
     user = new User().Init(_user);
 }

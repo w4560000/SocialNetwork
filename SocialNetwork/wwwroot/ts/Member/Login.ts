@@ -35,7 +35,7 @@ function Login() {
     let successFunc = () => {
         Common.SweetAlertRedirect("/Home/Index", "首頁");
     };
-    let errorFunc = (res) => { };
+    let errorFunc = () => { };
     LoginAPI("登入中", model, successFunc, errorFunc);
 }
 
@@ -49,7 +49,7 @@ function GoogleLogin() {
             let successFuc = () => {
                 Common.SweetAlertRedirect("/Home/Index", "首頁");
             };
-            let errorFunc = (res) => { };
+            let errorFunc = () => { };
             let model = new GoogleLoginReqViewModel(response.code);
             GoogleLoginAPI("登入中", model, successFuc, errorFunc);
         },
@@ -60,8 +60,8 @@ function GoogleLogin() {
 /** 寄送驗證碼 */
 function SendVCode() {
     let model = new SendVCodeReqViewModel($('#singup_mail').val() as string);
-    let successFunc = (res) => { };
-    let errorFunc = (res) => {
+    let successFunc = () => { };
+    let errorFunc = () => {
         $('#singup_mail').addClass('input-error');
     };
 
@@ -108,10 +108,10 @@ function Singup() {
         $("#singup_mail").val() as string,
         $("#singup_vCode").val() as string
     );
-    let successFunc = (res) => {
+    let successFunc = () => {
         Common.Popup('MemberInfo');
     };
-    let errorFunc = (res) => { };
+    let errorFunc = () => { };
 
     SignupAPI("註冊中", model, successFunc, errorFunc);
 }
@@ -137,10 +137,10 @@ function UpdateMemberPublicInfo() {
         $('#infoJob').val() as string,
         $('#infoEducation').val() as string,
         memberPublicInfo);
-    let successFunc = (res) => {
+    let successFunc = () => {
         Common.SweetAlertRedirect('/Home/Index', '首頁');
     };
-    let errorFunc = (res) => { };
+    let errorFunc = () => { };
 
     UpdateMemberPublicInfoAPI("更新會員資訊中", model, successFunc, errorFunc);
 }
@@ -172,8 +172,8 @@ function ResetPassword() {
     let model = new ResetPasswordReqViewModel(
         $('#forgotPassword_account').val() as string,
         $('#forgotPassword_mail').val() as string);
-    let successFunc = (res) => { };
-    let errorFunc = (res) => { };
+    let successFunc = () => { };
+    let errorFunc = () => { };
 
     ResetPasswordAPI("寄送重設密碼郵件中", model, successFunc, errorFunc);
 }

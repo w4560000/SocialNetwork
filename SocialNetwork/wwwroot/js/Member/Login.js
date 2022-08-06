@@ -27,7 +27,7 @@ function Login() {
     var successFunc = function () {
         Common.SweetAlertRedirect("/Home/Index", "首頁");
     };
-    var errorFunc = function (res) { };
+    var errorFunc = function () { };
     LoginAPI("登入中", model, successFunc, errorFunc);
 }
 /** Google 第三方登入 */
@@ -40,7 +40,7 @@ function GoogleLogin() {
             var successFuc = function () {
                 Common.SweetAlertRedirect("/Home/Index", "首頁");
             };
-            var errorFunc = function (res) { };
+            var errorFunc = function () { };
             var model = new GoogleLoginReqViewModel(response.code);
             GoogleLoginAPI("登入中", model, successFuc, errorFunc);
         },
@@ -50,8 +50,8 @@ function GoogleLogin() {
 /** 寄送驗證碼 */
 function SendVCode() {
     var model = new SendVCodeReqViewModel($('#singup_mail').val());
-    var successFunc = function (res) { };
-    var errorFunc = function (res) {
+    var successFunc = function () { };
+    var errorFunc = function () {
         $('#singup_mail').addClass('input-error');
     };
     SendVCodeAPI("寄送驗證碼中", model, successFunc, errorFunc);
@@ -85,10 +85,10 @@ function Singup() {
         return;
     }
     var model = new SignupReqViewModel($("#singup_name").val(), $("#singup_account").val(), $("#singup_password").val(), $("#singup_passwordCheck").val(), $("#singup_mail").val(), $("#singup_vCode").val());
-    var successFunc = function (res) {
+    var successFunc = function () {
         Common.Popup('MemberInfo');
     };
-    var errorFunc = function (res) { };
+    var errorFunc = function () { };
     SignupAPI("註冊中", model, successFunc, errorFunc);
 }
 /** 更新會員公開資訊 */
@@ -104,10 +104,10 @@ function UpdateMemberPublicInfo() {
         return;
     }
     var model = new UpdateMemberPublicInfoReqViewModel(new Date($('#birthday_datepicker').val()), $('#infoInternest').val(), $('#infoJob').val(), $('#infoEducation').val(), memberPublicInfo);
-    var successFunc = function (res) {
+    var successFunc = function () {
         Common.SweetAlertRedirect('/Home/Index', '首頁');
     };
-    var errorFunc = function (res) { };
+    var errorFunc = function () { };
     UpdateMemberPublicInfoAPI("更新會員資訊中", model, successFunc, errorFunc);
 }
 /**
@@ -131,7 +131,7 @@ function ResetPassword() {
         return;
     }
     var model = new ResetPasswordReqViewModel($('#forgotPassword_account').val(), $('#forgotPassword_mail').val());
-    var successFunc = function (res) { };
-    var errorFunc = function (res) { };
+    var successFunc = function () { };
+    var errorFunc = function () { };
     ResetPasswordAPI("寄送重設密碼郵件中", model, successFunc, errorFunc);
 }

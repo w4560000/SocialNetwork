@@ -110,3 +110,14 @@ class ResetPasswordConfirmReqViewModel {
         this.Guid = guid;
     }
 }
+
+/**
+ * 更新會員狀態 Request ViewModel
+ * */
+class UpdateMemberStatusReqViewModel {
+    Status: MemberStatusEnum;
+
+    constructor(status: MemberStatusEnum) {
+        this.Status = status;
+    }
+}

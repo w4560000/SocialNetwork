@@ -5,7 +5,8 @@
  * @param successFunc 回應成功 Func
  * @param errorFunc 回應失敗 Func
  */
-function BaseGetAPI(loadingMsg, api, successFunc, errorFunc) {
+function BaseGetAPI(loadingMsg, api, successFunc, errorFunc, isNotification) {
+    if (isNotification === void 0) { isNotification = false; }
     if (loadingMsg)
         Common.SweetAlertLoading(loadingMsg);
     $.ajax({
@@ -13,10 +14,16 @@ function BaseGetAPI(loadingMsg, api, successFunc, errorFunc) {
         url: api,
         success: function (res) {
             if (res.Status == ResponseStatusEnum.Success) {
-                Common.SweetAlertSuccess(res.Message, successFunc);
+                if (isNotification)
+                    Common.SweetAlertNotification(true, res.Message);
+                else
+                    Common.SweetAlertSuccess(res.Message, successFunc);
             }
             else {
-                Common.SweetAlertError(res.Message, errorFunc);
+                if (isNotification)
+                    Common.SweetAlertNotification(false, res.Message);
+                else
+                    Common.SweetAlertError(res.Message, errorFunc);
             }
         },
         error: function (e) {
@@ -32,7 +39,8 @@ function BaseGetAPI(loadingMsg, api, successFunc, errorFunc) {
  * @param successFunc 回應成功 Func
  * @param errorFunc 回應失敗 Func
  */
-function BasePostAPI(loadingMsg, api, model, successFunc, errorFunc) {
+function BasePostAPI(loadingMsg, api, model, successFunc, errorFunc, isNotification) {
+    if (isNotification === void 0) { isNotification = false; }
     if (loadingMsg)
         Common.SweetAlertLoading(loadingMsg);
     $.ajax({
@@ -43,10 +51,16 @@ function BasePostAPI(loadingMsg, api, model, successFunc, errorFunc) {
         contentType: "application/json",
         success: function (res) {
             if (res.Status == ResponseStatusEnum.Success) {
-                Common.SweetAlertSuccess(res.Message, successFunc);
+                if (isNotification)
+                    Common.SweetAlertNotification(true, res.Message);
+                else
+                    Common.SweetAlertSuccess(res.Message, successFunc);
             }
             else {
-                Common.SweetAlertError(res.Message, errorFunc);
+                if (isNotification)
+                    Common.SweetAlertNotification(false, res.Message);
+                else
+                    Common.SweetAlertError(res.Message, errorFunc);
             }
         },
         error: function (e) {
@@ -100,6 +114,13 @@ function ResetPasswordConfirmAPI(loadingMsg, model, successFunc, errorFunc) {
 /**
  * 登出 API
  */
-function LogoutAPI(loadingMsg, successFunc, errorFunc) {
-    BaseGetAPI(loadingMsg, "/MemberApi/Logout", successFunc, errorFunc);
+function LogoutAPI(loadingMsg, successFunc, errorFunc, confirmTitle) {
+    Common.SweetAlertConfirm(confirmTitle, function () { return BaseGetAPI(loadingMsg, "/MemberApi/Logout", successFunc, errorFunc); });
+}
+/**
+ * 更新會員狀態 API
+ */
+function UpdateMemberStatus(model, successFunc, errorFunc) {
+    var isNotification = true;
+    BasePostAPI('', "/MemberApi/UpdateMemberStatus", model, successFunc, errorFunc, isNotification);
 }

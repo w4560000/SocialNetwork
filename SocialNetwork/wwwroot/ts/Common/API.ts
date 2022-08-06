@@ -5,7 +5,7 @@
  * @param successFunc 回應成功 Func
  * @param errorFunc 回應失敗 Func
  */
-function BaseGetAPI(loadingMsg: string, api: string, successFunc?: Function, errorFunc?: Function) {
+function BaseGetAPI(loadingMsg: string, api: string, successFunc?: Function, errorFunc?: Function, isNotification: boolean = false) {
     if (loadingMsg)
         Common.SweetAlertLoading(loadingMsg);
 
@@ -14,9 +14,15 @@ function BaseGetAPI(loadingMsg: string, api: string, successFunc?: Function, err
         url: api,
         success: (res: ResponseViewModel<object>) => {
             if (res.Status == ResponseStatusEnum.Success) {
-                Common.SweetAlertSuccess(res.Message, successFunc);
+                if (isNotification)
+                    Common.SweetAlertNotification(true, res.Message);
+                else
+                    Common.SweetAlertSuccess(res.Message, successFunc);
             }
             else {
+                if (isNotification)
+                    Common.SweetAlertNotification(false, res.Message);
+                else
                 Common.SweetAlertError(res.Message, errorFunc);
             }
         },
@@ -34,7 +40,7 @@ function BaseGetAPI(loadingMsg: string, api: string, successFunc?: Function, err
  * @param successFunc 回應成功 Func
  * @param errorFunc 回應失敗 Func
  */
-function BasePostAPI<T>(loadingMsg: string, api: string, model: T, successFunc?: Function, errorFunc?: Function) {
+function BasePostAPI<T>(loadingMsg: string, api: string, model: T, successFunc?: Function, errorFunc?: Function, isNotification: boolean = false) {
     if (loadingMsg)
         Common.SweetAlertLoading(loadingMsg);
     
@@ -46,10 +52,16 @@ function BasePostAPI<T>(loadingMsg: string, api: string, model: T, successFunc?:
         contentType: "application/json",
         success: (res: ResponseViewModel<object>) => {
             if (res.Status == ResponseStatusEnum.Success) {
+                if (isNotification)
+                    Common.SweetAlertNotification(true, res.Message);
+                else
                     Common.SweetAlertSuccess(res.Message, successFunc);
             }
             else {
-                Common.SweetAlertError(res.Message, errorFunc);
+                if (isNotification)
+                    Common.SweetAlertNotification(false, res.Message);
+                else
+                    Common.SweetAlertError(res.Message, errorFunc);
             }
         },
         error: (e) => {
@@ -111,6 +123,15 @@ function ResetPasswordConfirmAPI(loadingMsg: string, model: ResetPasswordConfirm
 /**
  * 登出 API
  */
-function LogoutAPI(loadingMsg: string, successFunc: Function, errorFunc: Function): void {
-    BaseGetAPI(loadingMsg, "/MemberApi/Logout", successFunc, errorFunc);
+function LogoutAPI(loadingMsg: string, successFunc: Function, errorFunc: Function, confirmTitle: string): void {
+    Common.SweetAlertConfirm(confirmTitle,
+        () => BaseGetAPI(loadingMsg, "/MemberApi/Logout", successFunc, errorFunc));
+}
+
+/**
+ * 更新會員狀態 API
+ */
+function UpdateMemberStatus(model: UpdateMemberStatusReqViewModel, successFunc: Function, errorFunc: Function): void {
+    var isNotification = true;
+    BasePostAPI<UpdateMemberStatusReqViewModel>('', "/MemberApi/UpdateMemberStatus", model, successFunc, errorFunc, isNotification);
 }

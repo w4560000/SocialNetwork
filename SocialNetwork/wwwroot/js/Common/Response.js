@@ -82,3 +82,12 @@ var ResetPasswordConfirmReqViewModel = /** @class */ (function () {
     }
     return ResetPasswordConfirmReqViewModel;
 }());
+/**
+ * 更新會員狀態 Request ViewModel
+ * */
+var UpdateMemberStatusReqViewModel = /** @class */ (function () {
+    function UpdateMemberStatusReqViewModel(status) {
+        this.Status = status;
+    }
+    return UpdateMemberStatusReqViewModel;
+}());

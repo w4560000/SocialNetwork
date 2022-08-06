@@ -137,6 +137,22 @@ var Common = {
             }
         });
     },
+    SweetAlertConfirm: function (title, confirmFunc) {
+        Swal.fire({
+            title: title,
+            showCancelButton: true,
+            confirmButtonText: '確定',
+            cancelButtonText: '取消'
+        }).then(function (result) {
+            if (result.isConfirmed)
+                confirmFunc();
+        });
+    },
+    SweetAlertNotification: function (IsSuccess, title) {
+        Toast.fire({
+            icon: IsSuccess ? 'success' : 'error', title: title
+        });
+    },
     /**
      * 頁面註冊 Datepicker
      * @param e
@@ -200,3 +216,21 @@ var Common = {
         });
     }
 };
+var Toast = Swal.mixin({
+    toast: true,
+    position: 'top-right',
+    showConfirmButton: false,
+    showClass: {
+        popup: 'animate__animated animate__fadeInRight'
+    },
+    hideClass: {
+        popup: 'animate__animated animate__fadeOutRight'
+    },
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: function (toast) {
+        toast.addEventListener('mouseenter', Swal.stopTimer);
+        toast.addEventListener('mouseleave', Swal.resumeTimer);
+    },
+    showCloseButton: true
+});

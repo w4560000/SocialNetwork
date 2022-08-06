@@ -184,6 +184,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   font-size: 1.5em !important;
   font-weight: 600 !important; }
 
+.swal2-styled.swal2-cancel {
+  width: 130px !important;
+  height: 50px !important;
+  font-size: 15pt !important;
+  border-radius: 5px !important; }
+
 /* 客製化 JQuery DatePicker*/
 .ui-widget-content {
   background: #FFFFFF;

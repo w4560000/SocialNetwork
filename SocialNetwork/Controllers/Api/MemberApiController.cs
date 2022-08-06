@@ -170,7 +170,7 @@ namespace SocialNetwork.Controllers
             }
             catch (Exception ex)
             {
-                this.Logger.LogCritical(ex, $"申請重設密碼失敗，{ex.GetExceptionMessage()}");
+                this.Logger.LogCritical(ex, $"重設密碼 Step1 失敗，{ex.GetExceptionMessage()}");
                 return CommonExtension.AsSystemFailResponse();
             }
         }
@@ -190,7 +190,7 @@ namespace SocialNetwork.Controllers
             }
             catch (Exception ex)
             {
-                this.Logger.LogCritical(ex, $"申請重設密碼失敗，{ex.GetExceptionMessage()}");
+                this.Logger.LogCritical(ex, $"重設密碼 Step2 失敗，{ex.GetExceptionMessage()}");
                 return CommonExtension.AsSystemFailResponse();
             }
         }
@@ -209,6 +209,25 @@ namespace SocialNetwork.Controllers
             catch (Exception ex)
             {
                 this.Logger.LogCritical(ex, $"登出失敗，{ex.GetExceptionMessage()}");
+                return CommonExtension.AsSystemFailResponse();
+            }
+        }
+
+        /// <summary>
+        /// 更新會員狀態
+        /// </summary>
+        /// <param name="model">更新會員狀態 Req ViewModel</param>
+        /// <returns>更新結果</returns>
+        [HttpPost(nameof(UpdateMemberStatus))]
+        public ResponseViewModel UpdateMemberStatus(UpdateMemberStatusReqViewModel model)
+        {
+            try
+            {
+                return this.MemberService.UpdateMemberStatus(model);
+            }
+            catch (Exception ex)
+            {
+                this.Logger.LogCritical(ex, $"更新會員狀態失敗，{ex.GetExceptionMessage()}");
                 return CommonExtension.AsSystemFailResponse();
             }
         }

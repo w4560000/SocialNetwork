@@ -142,6 +142,22 @@ const Common = {
             }
         })
     },
+    SweetAlertConfirm: (title: string | undefined, confirmFunc: Function) => {
+        Swal.fire({
+            title: title,
+            showCancelButton: true,
+            confirmButtonText: '確定',
+            cancelButtonText: '取消'
+        }).then((result) => {
+            if (result.isConfirmed)
+                confirmFunc();
+        });
+    },
+    SweetAlertNotification: (IsSuccess: boolean, title: string | undefined) => {
+        Toast.fire({
+            icon: IsSuccess? 'success' : 'error', title: title
+        });
+    },
     /**
      * 頁面註冊 Datepicker
      * @param e
@@ -206,8 +222,26 @@ const Common = {
 
                 // Replace image with new SVG
                 $img.replaceWith($svg);
-
             }, 'xml');
         });
     }
-}
+};
+
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-right',
+    showConfirmButton: false,
+    showClass: {
+        popup: 'animate__animated animate__fadeInRight'
+    },
+    hideClass: {
+        popup: 'animate__animated animate__fadeOutRight'
+    },
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: toast => {
+        toast.addEventListener('mouseenter', Swal.stopTimer);
+        toast.addEventListener('mouseleave', Swal.resumeTimer);
+    },
+    showCloseButton: true
+});

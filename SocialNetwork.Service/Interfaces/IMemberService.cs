@@ -69,8 +69,14 @@ namespace SocialNetwork.Service
         /// 登出
         /// </summary>
         /// <returns>登出結果</returns>
-
         ResponseViewModel Logout();
+
+        /// <summary>
+        /// 更新會員狀態
+        /// </summary>
+        /// <param name="model">更新會員狀態 Req ViewModel</param>
+        /// <returns>更新結果</returns>
+        ResponseViewModel UpdateMemberStatus(UpdateMemberStatusReqViewModel model);
 
     }
 }

@@ -106,16 +106,9 @@ namespace SocialNetwork.Service
             };
             var memberID = this.MemberRepository.Add<int>(memberEntity);
 
-            // 寫入登入 Cookie
-            this.LoginProcess(
-                new UserInfo()
-                {
-                    MemberID = memberID,
-                    Account = memberEntity.Account,
-                    NickName = memberEntity.NickName,
-                    ProfilePhotoUrl = memberEntity.ProfilePhotoURL,
-                    Status = memberEntity.Status
-                });
+            // 更新會員狀態、寫入 Cookie
+            this.SetMemberStatusForCookie(memberID, MemberStatusEnum.在線);
+
             return $"{model.NickName} 註冊成功!".AsSuccessResponse();
         }
 
@@ -159,16 +152,8 @@ namespace SocialNetwork.Service
             if (member == null)
                 return  "帳號或密碼錯誤!".AsFailResponse();
 
-            // 寫入登入 Cookie
-            this.LoginProcess(
-                new UserInfo()
-                {
-                    MemberID = member.MemberID,
-                    Account = member.Account,
-                    NickName = member.NickName,
-                    ProfilePhotoUrl = member.ProfilePhotoURL,
-                    Status = member.Status
-                });
+            // 更新會員狀態、寫入 Cookie
+            this.SetMemberStatusForCookie(member.MemberID, MemberStatusEnum.在線);
 
             return $"{member.NickName} 登入成功!".AsSuccessResponse();
         }
@@ -208,16 +193,8 @@ namespace SocialNetwork.Service
                 member.MemberID = memberID;
             }
 
-            // 寫入登入 Cookie
-            this.LoginProcess(
-                new UserInfo() 
-                { 
-                    MemberID = member.MemberID, 
-                    Account = member.Account, 
-                    NickName = member.NickName, 
-                    ProfilePhotoUrl = member.ProfilePhotoURL,
-                    Status = member.Status
-                });
+            // 更新會員狀態、寫入 Cookie
+            this.SetMemberStatusForCookie(member.MemberID, MemberStatusEnum.在線);
 
             return $"{member.NickName} 登入成功!".AsSuccessResponse();
         }
@@ -350,23 +327,45 @@ outline: 0;";
         }
 
         /// <summary>
-        /// 登入流程
+        /// 更新會員狀態
+        /// </summary>
+        /// <param name="model">更新會員狀態 Req ViewModel</param>
+        /// <returns>更新結果</returns>
+        public ResponseViewModel UpdateMemberStatus(UpdateMemberStatusReqViewModel model)
+        {
+            this.SetMemberStatusForCookie(this.UserContext.User.MemberID, model.Status);
+
+            return "更新狀態成功!".AsSuccessResponse();
+        }
+
+        /// <summary>
+        /// 更新會員狀態
         /// 1. 設定 UserInfo 轉為 Jwt 存至 Cookie 中
         /// 2. 更新會員狀態
         /// </summary>
-        /// <param name="userInfo">使用者資訊</param>
-        private void LoginProcess(UserInfo userInfo)
+        /// <param name="memberID">會員編號</param>
+        /// <param name="status">會員狀態</param>
+        private void SetMemberStatusForCookie(int memberID, MemberStatusEnum status)
         {
-            if (this.MemberRepository.TryGetEntity(userInfo.MemberID, out Member member))
+            if (this.MemberRepository.TryGetEntity(memberID, out Member member))
             {
-                member.Status = MemberStatusEnum.在線;
+                member.Status = status;
                 this.MemberRepository.Update(member);
+
+                var userInfo = new UserInfo()
+                {
+                    MemberID = member.MemberID,
+                    Account = member.Account,
+                    NickName = member.NickName,
+                    ProfilePhotoUrl = member.ProfilePhotoURL,
+                    Status = member.Status
+                };
+
+                var token = this.JwtHelper.GenerateToken(userInfo);
+                this.HttpContext.Response.Cookies.AddJwtTokenToCookie(token);
+
+                // todo 會員在線狀態 存入 Redis
             }
-
-            var token = this.JwtHelper.GenerateToken(userInfo);
-            this.HttpContext.Response.Cookies.AddJwtTokenToCookie(token);
-
-            // todo 會員在線狀態 存入 Redis
         }
     }
 }

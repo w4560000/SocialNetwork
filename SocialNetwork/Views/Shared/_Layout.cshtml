@@ -41,9 +41,8 @@
 
             <div class="index_nickName">@UserContext.User.NickName</div>
             <ul class="index_status list-unstyled">
-                <div class="index_status_select">SELECT</div>
+                <div class="index_status_select"></div>
 
-                @*<img src="~/images/arrow_down.svg" />*@
                 <li id="memberStatus_@((int)MemberStatusEnum.在線)">
                     <span class="index_online"></span>
                     @MemberStatusEnum.在線.ToString()
