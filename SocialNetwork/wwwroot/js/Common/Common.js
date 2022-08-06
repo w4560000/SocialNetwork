@@ -3,6 +3,10 @@
 ////    return !this;
 ////}
 var Common = {
+    /**
+     * 刪除錯誤輸入框提示
+     * @param e element
+     */
     RemoveErrorInput: function (e) { return $(e).removeClass('input-error'); },
     Popup: function (containerID, func) {
         var popBox = $('#' + containerID + '> .popBox')[0];
@@ -11,6 +15,11 @@ var Common = {
         if (func !== undefined)
             func;
     },
+    /**
+     * 關閉彈窗
+     * @param containerID containerID
+     * @param func func
+     */
     ClosePopup: function (containerID, func) {
         var popBox = $('#' + containerID + '> .popBox')[0];
         var popLayer = $('#' + containerID + '> .popLayer')[0];
@@ -18,6 +27,10 @@ var Common = {
         if (func !== undefined)
             func;
     },
+    /**
+     * 驗證輸入框
+     * @param errorMsg 錯誤提示字
+     */
     Validate: function (errorMsg) {
         var error = '';
         Object.keys(errorMsg).forEach(function (key) {
@@ -29,6 +42,11 @@ var Common = {
         });
         return error;
     },
+    /**
+     * SweetAlert 成功彈窗
+     * @param msg 訊息
+     * @param confirmFunc 確認Func
+     */
     SweetAlertSuccess: function (msg, confirmFunc) {
         if (confirmFunc != null) {
             Swal.fire({
@@ -49,6 +67,11 @@ var Common = {
             });
         }
     },
+    /**
+     * SweetAlert 失敗彈窗
+     * @param error 訊息
+     * @param confirmFunc 確認Func
+     */
     SweetAlertError: function (error, confirmFunc) {
         if (confirmFunc != null) {
             Swal.fire({
@@ -71,6 +94,10 @@ var Common = {
             });
         }
     },
+    /**
+     * SweetAlert Loading 彈窗
+     * @param msg 訊息
+     */
     SweetAlertLoading: function (msg) {
         Swal.fire({
             title: msg,
@@ -81,6 +108,11 @@ var Common = {
             }
         });
     },
+    /**
+     * SweetAlert 轉導
+     * @param path 路徑
+     * @param pathName 頁面名稱
+     */
     SweetAlertRedirect: function (path, pathName) {
         var timerInterval;
         Swal.fire({
@@ -105,6 +137,10 @@ var Common = {
             }
         });
     },
+    /**
+     * 頁面註冊 Datepicker
+     * @param e
+     */
     DatepickerInit: function (e) {
         e.datepicker({
             changeMonth: true,
@@ -132,8 +168,10 @@ var Common = {
         };
         $.datepicker.setDefaults($.datepicker.regional["zh-TW"]);
     },
+    /**
+     * SVG 元素控制
+     * */
     ControllSVG: function () {
-        /*SVG元素控制*/
         jQuery('img.svg').each(function () {
             var $img = jQuery(this);
             var imgID = $img.attr('id');

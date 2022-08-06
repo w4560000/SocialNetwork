@@ -1,4 +1,4 @@
-﻿namespace SocialNetwork.Repository
+﻿namespace SocialNetwork.Helper
 {
     /// <summary>
     /// 會員狀態

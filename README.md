@@ -24,3 +24,6 @@ docker-compose up -d
 | pgadmin4  | localhost:5050 |
 
 
+## 開發注意事項
+
+- 若有更新 bundleconfig.json，記得重 build Gulp 才會 bundle .js、.css

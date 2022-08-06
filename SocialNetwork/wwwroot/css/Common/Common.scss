@@ -415,13 +415,13 @@ input[type="date"]::-webkit-calendar-picker-indicator {
         width: 120px;
         border: 1px solid #E8E8E8;
         font-size: 14pt;
-        padding: 10px;
         text-align: center;
         z-index: 2;
         float: left;
         display: none;
-        background: #E8E8E8;
+        background: white;
         padding: 5px 0px;
+        cursor: pointer;
     }
 
     li: hover, li:selected {
@@ -441,6 +441,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     .index_status_select {
         cursor: pointer;
         padding: 5px 0px;
+        width: 100%;
     }
 }
 
@@ -452,6 +453,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     background-color: #8AD98A;
     border: 1px solid #E8E8E8;
     margin-right: 5px;
+    margin-left: -20px;
 }
 
 .index_offline {
@@ -462,6 +464,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     background-color: white;
     border: 1px solid #E8E8E8;
     margin-right: 5px;
+    margin-left: -20px;
 }
 
 .index_buzy {
@@ -472,6 +475,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     background-color: red;
     border: 1px solid #E8E8E8;
     margin-right: 5px;
+    margin-left: -20px;
 }
 
 .index_menu {

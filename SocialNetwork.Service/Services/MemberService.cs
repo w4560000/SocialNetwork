@@ -93,7 +93,7 @@ namespace SocialNetwork.Service
             this.VerificationCodeRepository.Update(vCode);
 
             // 註冊
-            var memberID = this.MemberRepository.Add<int>(new Member()
+            var memberEntity = new Member()
             {
                 Account = model.Account,
                 NickName = model.NickName,
@@ -103,11 +103,19 @@ namespace SocialNetwork.Service
                 BackgoundPhotoURL = SystemHelper.DefaultBackgoundPhoto,
                 InfoStatus = MemberPublicInfoEnum.全部不公開,
                 Status = MemberStatusEnum.離線
-            });
+            };
+            var memberID = this.MemberRepository.Add<int>(memberEntity);
 
             // 寫入登入 Cookie
-            this.LoginProcess(new UserInfo() { MemberID = memberID, Account = model.Account, NickName = model.NickName });
-
+            this.LoginProcess(
+                new UserInfo()
+                {
+                    MemberID = memberID,
+                    Account = memberEntity.Account,
+                    NickName = memberEntity.NickName,
+                    ProfilePhotoUrl = memberEntity.ProfilePhotoURL,
+                    Status = memberEntity.Status
+                });
             return $"{model.NickName} 註冊成功!".AsSuccessResponse();
         }
 
@@ -151,7 +159,16 @@ namespace SocialNetwork.Service
             if (member == null)
                 return  "帳號或密碼錯誤!".AsFailResponse();
 
-            LoginProcess(new UserInfo() { MemberID = member.MemberID, Account = member.Account, NickName = member.NickName, ProfilePhotoUrl = member.ProfilePhotoURL });
+            // 寫入登入 Cookie
+            this.LoginProcess(
+                new UserInfo()
+                {
+                    MemberID = member.MemberID,
+                    Account = member.Account,
+                    NickName = member.NickName,
+                    ProfilePhotoUrl = member.ProfilePhotoURL,
+                    Status = member.Status
+                });
 
             return $"{member.NickName} 登入成功!".AsSuccessResponse();
         }
@@ -192,7 +209,15 @@ namespace SocialNetwork.Service
             }
 
             // 寫入登入 Cookie
-            this.LoginProcess(new UserInfo() { MemberID = member.MemberID, Account = member.Account, NickName = member.NickName, ProfilePhotoUrl = member.ProfilePhotoURL });
+            this.LoginProcess(
+                new UserInfo() 
+                { 
+                    MemberID = member.MemberID, 
+                    Account = member.Account, 
+                    NickName = member.NickName, 
+                    ProfilePhotoUrl = member.ProfilePhotoURL,
+                    Status = member.Status
+                });
 
             return $"{member.NickName} 登入成功!".AsSuccessResponse();
         }
@@ -332,14 +357,14 @@ outline: 0;";
         /// <param name="userInfo">使用者資訊</param>
         private void LoginProcess(UserInfo userInfo)
         {
-            var token = this.JwtHelper.GenerateToken(userInfo);
-            this.HttpContext.Response.Cookies.AddJwtTokenToCookie(token);
-
             if (this.MemberRepository.TryGetEntity(userInfo.MemberID, out Member member))
             {
                 member.Status = MemberStatusEnum.在線;
                 this.MemberRepository.Update(member);
             }
+
+            var token = this.JwtHelper.GenerateToken(userInfo);
+            this.HttpContext.Response.Cookies.AddJwtTokenToCookie(token);
 
             // todo 會員在線狀態 存入 Redis
         }

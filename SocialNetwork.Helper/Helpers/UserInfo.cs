@@ -24,5 +24,10 @@
         /// 個人大頭貼路徑
         /// </summary>
         public string ProfilePhotoUrl { get; set; }
+
+        /// <summary>
+        /// 會員狀態
+        /// </summary>
+        public MemberStatusEnum Status { get; set; }
     }
 }

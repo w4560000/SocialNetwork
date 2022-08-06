@@ -4,6 +4,10 @@
 ////}
 
 const Common = {
+    /**
+     * 刪除錯誤輸入框提示
+     * @param e element
+     */
     RemoveErrorInput: (e: any) => $(e).removeClass('input-error'),
     Popup: (containerID: string, func: void) => {
         var popBox = $('#' + containerID + '> .popBox')[0];
@@ -13,6 +17,11 @@ const Common = {
         if (func !== undefined)
             func
     },
+    /**
+     * 關閉彈窗
+     * @param containerID containerID
+     * @param func func
+     */
     ClosePopup: (containerID: string, func: void) => {
         var popBox = $('#' + containerID + '> .popBox')[0];
         var popLayer = $('#' + containerID + '> .popLayer')[0];
@@ -21,6 +30,10 @@ const Common = {
         if (func !== undefined)
             func
     },
+    /**
+     * 驗證輸入框
+     * @param errorMsg 錯誤提示字
+     */
     Validate: (errorMsg: any) => {
         let error = '';
         Object.keys(errorMsg).forEach(key => {
@@ -34,6 +47,11 @@ const Common = {
 
         return error;
     },
+    /**
+     * SweetAlert 成功彈窗
+     * @param msg 訊息
+     * @param confirmFunc 確認Func
+     */
     SweetAlertSuccess: (msg: string | undefined, confirmFunc?: Function) => {
         if (confirmFunc != null) {
             Swal.fire({
@@ -54,6 +72,11 @@ const Common = {
             });
         }
     },
+    /**
+     * SweetAlert 失敗彈窗
+     * @param error 訊息
+     * @param confirmFunc 確認Func
+     */
     SweetAlertError: (error: string | undefined, confirmFunc?: Function) => {
         if (confirmFunc != null) {
             Swal.fire({
@@ -76,6 +99,10 @@ const Common = {
             });
         }
     },
+    /**
+     * SweetAlert Loading 彈窗
+     * @param msg 訊息
+     */
     SweetAlertLoading: (msg: string) => {
         Swal.fire({
             title: msg,
@@ -86,6 +113,11 @@ const Common = {
             }
         });
     },
+    /**
+     * SweetAlert 轉導
+     * @param path 路徑
+     * @param pathName 頁面名稱
+     */
     SweetAlertRedirect: (path: string, pathName: string) => {
         let timerInterval;
         Swal.fire({
@@ -110,6 +142,10 @@ const Common = {
             }
         })
     },
+    /**
+     * 頁面註冊 Datepicker
+     * @param e
+     */
     DatepickerInit: (e: JQuery<HTMLElement>) => {
         e.datepicker({
             changeMonth: true,
@@ -137,8 +173,10 @@ const Common = {
         };
         $.datepicker.setDefaults($.datepicker.regional["zh-TW"]);
     },
+    /**
+     * SVG 元素控制
+     * */
     ControllSVG: () => {
-        /*SVG元素控制*/
         jQuery('img.svg').each(function () {
             var $img = jQuery(this);
             var imgID = $img.attr('id');
