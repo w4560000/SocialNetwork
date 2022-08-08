@@ -9,6 +9,11 @@ const Common = {
      * @param e element
      */
     RemoveErrorInput: (e: any) => $(e).removeClass('input-error'),
+    /**
+     * 彈窗
+     * @param containerID containerID
+     * @param func func
+     */
     Popup: (containerID: string, func: void) => {
         var popBox = $('#' + containerID + '> .popBox')[0];
         var popLayer = $('#' + containerID + '> .popLayer')[0];

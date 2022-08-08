@@ -274,7 +274,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .div_content {
   height: 100%;
   position: absolute;
-  left: 22%;
+  left: 21%;
   right: 28.5%; }
 
 .div_right {
@@ -299,16 +299,19 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .div_mypost {
   background-color: #ffffff;
-  width: 100%;
-  height: 50px;
+  border-radius: 5px;
   margin-top: 30px;
-  border-radius: 5px; }
+  width: 100%;
+  /*height: 70px;*/
+  display: flex;
+  align-items: center;
+  padding-left: 20px; }
 
 .div_post {
   background-color: #ffffff;
   width: 100%;
   height: 85px;
-  margin-top: 30px;
+  margin-top: 25px;
   border-radius: 5px; }
 
 .logo_index {

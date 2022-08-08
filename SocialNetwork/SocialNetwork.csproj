@@ -31,7 +31,6 @@
     <Folder Include="Helpers\" />
     <Folder Include="Models\" />
     <Folder Include="wwwroot\css\bundle\" />
-    <Folder Include="wwwroot\css\Home\" />
     <Folder Include="wwwroot\js\bundle\" />
   </ItemGroup>
 

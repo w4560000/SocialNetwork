@@ -3,11 +3,29 @@
     Layout = "_Layout";
 }
 
+<script src="~/js/Home/Index.js" asp-append-version="true"></script>
+<link rel="stylesheet" href="~/css/Home/Index.css" asp-append-version="true" />
+
 <div class="div_content">
     <div class="div_mypost">
-        <a>mypost</a>
+        <div class="post_content">分享今天的好心情...</div>
+        <div id="post_content_detail" class="post_content_detail_hide">
+            <div class="post_content_detail_topBar">
+                <span class="deploy_post_title">發佈貼文</span>
+                <input id="deploy_post_cancel" type="button" value="取消" />
+                <input id="deploy_post" type="button" value="發佈" />
+            </div>
+        </div>
     </div>
     <div class="div_post">
         <a>content</a>
     </div>
 </div>
+
+@*<div class="popLayer"></div>
+    <div class="popBox signupStyle">
+        <div class="topBar">
+            <div class="popTitle"><a>新會員註冊</a></div>
+            <div onclick="Common.ClosePopup('signup')"><img class="svg closeIcon" src="/images/Close.svg"></div>
+        </div>
+    </div>*@
