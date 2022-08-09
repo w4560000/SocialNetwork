@@ -7,7 +7,8 @@ body {
   font-family: Arial,"Microsoft JhengHei";
   background-color: #FCD4D5;
   height: 100%;
-  margin: 0; }
+  margin: 0;
+  font-weight: 600; }
 
 .btn_div {
   display: flex;
@@ -26,6 +27,9 @@ a {
   padding-top: 8%;
   padding-bottom: 3%;
   color: #f2a1a1; }
+
+input {
+  font-weight: 600; }
 
 input[type="text"], input[type="password"] {
   height: 50px;
@@ -297,23 +301,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   height: 74.5%;
   border-radius: 5px; }
 
-.div_mypost {
-  background-color: #ffffff;
-  border-radius: 5px;
-  margin-top: 30px;
-  width: 100%;
-  /*height: 70px;*/
-  display: flex;
-  align-items: center;
-  padding-left: 20px; }
-
-.div_post {
-  background-color: #ffffff;
-  width: 100%;
-  height: 85px;
-  margin-top: 25px;
-  border-radius: 5px; }
-
 .logo_index {
   font-size: 25pt;
   display: flex;
@@ -347,8 +334,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   padding: 20px 0 20px 0; }
 
 .index_status {
-  height: 40px;
-  width: 120px;
+  height: 35px;
+  width: 100px;
   border: 1px solid #E8E8E8;
   border-radius: 50px;
   font-size: 14pt;
@@ -357,6 +344,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   align-items: center;
   flex-direction: column;
   justify-content: flex-start;
+  padding-left: 10px;
+  list-style: none;
   li: hover, li; }
   .index_status li {
     height: 40px;
@@ -385,33 +374,33 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .index_online {
   display: inline-block;
-  width: 0.7em;
-  height: 0.7em;
+  width: 1em;
+  height: 1em;
   border-radius: 50%;
   background-color: #8AD98A;
   border: 1px solid #E8E8E8;
-  margin-right: 5px;
-  margin-left: -20px; }
+  vertical-align: middle;
+  margin: 0 5px 5px -20px; }
 
 .index_offline {
   display: inline-block;
-  width: 0.7em;
-  height: 0.7em;
+  width: 1em;
+  height: 1em;
   border-radius: 50%;
-  background-color: white;
+  background-color: #E8E8E8;
   border: 1px solid #E8E8E8;
-  margin-right: 5px;
-  margin-left: -20px; }
+  vertical-align: middle;
+  margin: 0 5px 5px -20px; }
 
 .index_buzy {
   display: inline-block;
-  width: 0.7em;
-  height: 0.7em;
+  width: 1em;
+  height: 1em;
   border-radius: 50%;
   background-color: red;
   border: 1px solid #E8E8E8;
-  margin-right: 5px;
-  margin-left: -20px; }
+  vertical-align: middle;
+  margin: 0 5px 5px -20px; }
 
 .index_menu {
   display: flex;

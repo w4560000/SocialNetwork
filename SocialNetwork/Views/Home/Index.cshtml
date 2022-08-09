@@ -2,6 +2,8 @@
     ViewBag.Title = "Index";
     Layout = "_Layout";
 }
+@using SocialNetwork.Helper
+@inject IUserContext UserContext
 
 <script src="~/js/Home/Index.js" asp-append-version="true"></script>
 <link rel="stylesheet" href="~/css/Home/Index.css" asp-append-version="true" />
@@ -14,6 +16,17 @@
                 <span class="deploy_post_title">發佈貼文</span>
                 <input id="deploy_post_cancel" type="button" value="取消" />
                 <input id="deploy_post" type="button" value="發佈" />
+            </div>
+            <div class="write_post_container">
+                <textarea class="write_post" placeholder="@UserContext.User.NickName，在想些甚麼呢？"></textarea>
+            </div>
+            <div class="photo_post">
+                <div id="photo1">
+
+                </div>
+                <div id="photo2">
+
+                </div>
             </div>
         </div>
     </div>

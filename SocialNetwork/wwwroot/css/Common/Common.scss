@@ -8,6 +8,7 @@ body {
     background-color: #FCD4D5;
     height: 100%;
     margin: 0;
+    font-weight: 600;
 }
 
 .btn_div {
@@ -31,6 +32,10 @@ a {
     color: #f2a1a1;
 }
 
+input {
+    font-weight: 600;
+}
+
 input[type="text"], input[type="password"] {
     height: 50px;
     border-radius: 5px;
@@ -44,7 +49,6 @@ input[type="text"], input[type="password"] {
 input[type="text"]:focus, input[type="password"]:focus {
     border: 1px solid #F2A1A1;
 }
-
 
 input[type="button"] {
     border: none;
@@ -270,7 +274,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     right: 3px;
 }
 
-
 .inputContent {
     display: flex;
     align-items: center;
@@ -351,25 +354,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     border-radius: 5px;
 }
 
-.div_mypost {
-    background-color: #ffffff;
-    border-radius: 5px;
-    margin-top: 30px;
-    width: 100%;
-    /*height: 70px;*/
-    display: flex;
-    align-items: center;
-    padding-left: 20px;
-}
-
-.div_post {
-    background-color: #ffffff;
-    width: 100%;
-    height: 85px;
-    margin-top: 25px;
-    border-radius: 5px;
-}
-
 .logo_index {
     font-size: 25pt;
     display: flex;
@@ -392,7 +376,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     margin-top: 50%;
 }
 
-
 .index_profilePhoto {
     border-radius: 50%;
     border: 1px #f2a1a1 solid;
@@ -409,8 +392,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .index_status {
-    height: 40px;
-    width: 120px;
+    height: 35px;
+    width: 100px;
     border: 1px solid #E8E8E8;
     border-radius: 50px;
     font-size: 14pt;
@@ -419,6 +402,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     align-items: center;
     flex-direction: column;
     justify-content: flex-start;
+    padding-left: 10px;
+    list-style: none;
 
     li {
         height: 40px;
@@ -457,35 +442,35 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .index_online {
     display: inline-block;
-    width: 0.7em;
-    height: 0.7em;
+    width: 1em;
+    height: 1em;
     border-radius: 50%;
     background-color: #8AD98A;
     border: 1px solid #E8E8E8;
-    margin-right: 5px;
-    margin-left: -20px;
+    vertical-align: middle;
+    margin: 0 5px 5px -20px;
 }
 
 .index_offline {
     display: inline-block;
-    width: 0.7em;
-    height: 0.7em;
+    width: 1em;
+    height: 1em;
     border-radius: 50%;
-    background-color: white;
+    background-color: #E8E8E8;
     border: 1px solid #E8E8E8;
-    margin-right: 5px;
-    margin-left: -20px;
+    vertical-align: middle;
+    margin: 0 5px 5px -20px;
 }
 
 .index_buzy {
     display: inline-block;
-    width: 0.7em;
-    height: 0.7em;
+    width: 1em;
+    height: 1em;
     border-radius: 50%;
     background-color: red;
     border: 1px solid #E8E8E8;
-    margin-right: 5px;
-    margin-left: -20px;
+    vertical-align: middle;
+    margin: 0 5px 5px -20px;
 }
 
 .index_menu {
