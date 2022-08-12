@@ -21,7 +21,19 @@
       ]
     },
     {
-      "library": "jqueryui@1.12.1",
+      "provider": "jsdelivr",
+      "library": "lightslider@1.1.6",
+      "destination": "wwwroot/lib/lightslider/",
+      "files": [
+        "dist/js/lightslider.min.js",
+        "dist/css/lightslider.css",
+        "dist/css/lightslider.min.css",
+        "dist/img/controls.png",
+        "dist/js/lightslider.js"
+      ]
+    },
+    {
+      "library": "jqueryui@1.13.2",
       "destination": "wwwroot/lib/jqueryui/"
     }
   ]
