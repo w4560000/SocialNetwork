@@ -329,6 +329,23 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     position: absolute;
     left: 22%;
     right: 28.5%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+//捲軸底色
+.div_content::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #ffc0cb;
+}
+//捲軸寬度
+.div_content::-webkit-scrollbar {
+    width: 6px;
+    background-color: black;
+}
+//捲軸本體顏色
+.div_content::-webkit-scrollbar-thumb {
+    background-color: #bb6573;
 }
 
 .div_right {

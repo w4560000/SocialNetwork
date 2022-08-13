@@ -279,7 +279,20 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   height: 100%;
   position: absolute;
   left: 22%;
-  right: 28.5%; }
+  right: 28.5%;
+  overflow-x: hidden;
+  overflow-y: auto; }
+
+.div_content::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #ffc0cb; }
+
+.div_content::-webkit-scrollbar {
+  width: 6px;
+  background-color: black; }
+
+.div_content::-webkit-scrollbar-thumb {
+  background-color: #bb6573; }
 
 .div_right {
   width: 25%;
