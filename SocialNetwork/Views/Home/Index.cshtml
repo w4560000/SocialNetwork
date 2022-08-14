@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="~/css/Home/Index.css" asp-append-version="true" />
 <script>
     $(function () {
-        $("#example").lightSlider({
+        $(".example").lightSlider({
             gallery: true, // 相本模式
             item: 1, // 顯示數量
             loop: false, // 無限循環
@@ -20,104 +20,9 @@
     });
 </script>
 <div class="div_content">
-    <div class="div_mypost">
-        <div class="post_content">分享今天的好心情...</div>
-        <div id="post_content_detail" class="post_content_detail_hide">
-            <div class="post_content_detail_topBar">
-                <span class="deploy_post_title">發佈貼文</span>
-                <input id="deploy_post_cancel" type="button" value="取消" />
-                <input id="deploy_post" type="button" value="發佈" />
-            </div>
-            <div class="write_post_container">
-                <textarea class="write_post" placeholder="@UserContext.User.NickName，在想些甚麼呢？"></textarea>
-            </div>
-            <div class="photo_post">
-                <div id="photo1">
-                </div>
-                <div id="photo2">
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="div_post">
-        <div class="div_post_content">
-            <div class="post_content_topBar">
-                <div class="postPhoto_container">
-                    <img class="svg postPhoto" src="@UserContext.User.ProfilePhotoUrl">
-                </div>
-                <div class="postProfile">
-                    <span>Leo Zheng</span>
-                    <span class="time">1分鐘前</span>
-                </div>
-                <div class="postAction">⋮</div>
-            </div>
-
-            <div class="post_body">
-                <span>
-                    哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉
-                </span>
-                <div id="wrapper">
-                    <ul id="example">
-                        <li data-thumb="https://image.shutterstock.com/image-vector/tropical-flowers-palm-leaves-jungle-600w-622250576.jpg" data-src="https://6666design.com/pic/it2018/example/1@320x200.jpg">
-                            <img src="https://image.shutterstock.com/image-vector/tropical-flowers-palm-leaves-jungle-600w-622250576.jpg" />
-                        </li>
-                        <li data-thumb="https://image.shutterstock.com/image-vector/tropical-flowers-palm-leaves-jungle-600w-622250576.jpg" data-src="https://6666design.com/pic/it2018/example/1@320x200.jpg">
-                            <img src="https://image.shutterstock.com/image-vector/tropical-flowers-palm-leaves-jungle-600w-622250576.jpg" />
-                        </li>
-                        <li data-thumb="https://image.shutterstock.com/image-vector/tropical-flowers-palm-leaves-jungle-600w-622250576.jpg" data-src="https://6666design.com/pic/it2018/example/1@320x200.jpg">
-                            <img src="https://image.shutterstock.com/image-vector/tropical-flowers-palm-leaves-jungle-600w-622250576.jpg" />
-                        </li>
-                        <li data-thumb="https://image.shutterstock.com/image-vector/tropical-flowers-palm-leaves-jungle-600w-622250576.jpg" data-src="https://6666design.com/pic/it2018/example/1@320x200.jpg">
-                            <img src="https://image.shutterstock.com/image-vector/tropical-flowers-palm-leaves-jungle-600w-622250576.jpg" />
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="post_footerBar">
-                <div class="post_footer_container">
-                    <div class="post_footer_img">
-                        <img class="svg postLike" src="/images/post/thumb_up_black_24dp.svg" />
-                    </div>
-                    <span class="post_footer_number">15</span>
-                </div>
-                <div class="post_footer_container">
-                    <div class="post_footer_img">
-                        <img class="svg postMsg" src="/images/post/textsms_black_24dp.svg" />
-                    </div>
-                    <span class="post_footer_number">20</span>
-                </div>
-                <div class="post_footer_container">
-                    <img class="svg postShare" src="/images/post/share_black_24dp.svg" />
-                </div>
-            </div>
-        </div>
-        <div class="div_post_msg_send">
-            <div class="post_msgPhoto_container">
-                <img class="svg post_msgPhoto" src="@UserContext.User.ProfilePhotoUrl">
-            </div>
-            <div class="post_msg_comment">
-                <textarea class="msgComment" placeholder="留言..."></textarea>
-            </div>
-            <div class="post_msg_submit">
-                <img class="svg msgSend" src="/images/post/send_black_24dp.svg">
-            </div>
-        </div>
-
-        <div class="div_post_msg">
-            <div class="post_msgPhoto_container">
-                <img class="svg post_msgPhoto" src="@UserContext.User.ProfilePhotoUrl">
-            </div>
-            <div class="postMsgProfile">
-                <span>Leo Zheng</span>
-                <span class="time">1分鐘前</span>
-            </div>
-            <span class="postMsgComment">
-                你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好
-                你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好
-                你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好
-            </span>
-        </div>
-    </div>
+    <partial name="~/Views/Shared/Templates/_PushlishPost.cshtml" />
+    <partial name="~/Views/Shared/Templates/_Post.cshtml" />
+    <partial name="~/Views/Shared/Templates/_Post.cshtml" />
 
     <div class="div_post">
     </div>

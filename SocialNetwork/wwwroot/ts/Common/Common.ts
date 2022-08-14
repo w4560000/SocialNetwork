@@ -5,10 +5,17 @@
 
 const Common = {
     /**
+     * 驗證上傳圖檔的附檔名
+     * @param fileName 上傳圖檔
+     */
+    ValidateUploadPhotoExtension: (fileName: string) => /\.(jpg|jpeg|png|webp|svg|gif)$/.test(fileName),
+
+    /**
      * 刪除錯誤輸入框提示
      * @param e element
      */
     RemoveErrorInput: (e: any) => $(e).removeClass('input-error'),
+
     /**
      * 彈窗
      * @param containerID containerID
@@ -22,6 +29,7 @@ const Common = {
         if (func !== undefined)
             func
     },
+
     /**
      * 關閉彈窗
      * @param containerID containerID
@@ -35,6 +43,7 @@ const Common = {
         if (func !== undefined)
             func
     },
+
     /**
      * 驗證輸入框
      * @param errorMsg 錯誤提示字
@@ -52,9 +61,10 @@ const Common = {
 
         return error;
     },
+
     /**
      * SweetAlert 成功彈窗
-     * @param msg 訊息
+     * @param msg 成功訊息
      * @param confirmFunc 確認Func
      */
     SweetAlertSuccess: (msg: string | undefined, confirmFunc?: Function) => {
@@ -62,7 +72,8 @@ const Common = {
             Swal.fire({
                 icon: 'success',
                 text: msg,
-                confirmButtonText: '確認'
+                confirmButtonText: '確認',
+                allowOutsideClick: false,
             }).then((result) => {
                 if (result.isConfirmed) {
                     confirmFunc();
@@ -77,9 +88,10 @@ const Common = {
             });
         }
     },
+
     /**
      * SweetAlert 失敗彈窗
-     * @param error 訊息
+     * @param error 錯誤訊息
      * @param confirmFunc 確認Func
      */
     SweetAlertError: (error: string | undefined, confirmFunc?: Function) => {
@@ -88,6 +100,7 @@ const Common = {
                 icon: 'error',
                 text: error,
                 confirmButtonText: '確認',
+                allowOutsideClick: false,
                 focusConfirm: false
             }).then((result) => {
                 if (result.isConfirmed) {
@@ -104,6 +117,7 @@ const Common = {
             });
         }
     },
+
     /**
      * SweetAlert Loading 彈窗
      * @param msg 訊息
@@ -118,6 +132,7 @@ const Common = {
             }
         });
     },
+
     /**
      * SweetAlert 轉導
      * @param path 路徑
@@ -130,6 +145,7 @@ const Common = {
             timer: 3000,
             timerProgressBar: true,
             showConfirmButton: false,
+            allowOutsideClick: false,
             didOpen: () => {
                 Swal.showLoading();
                 const b = (Swal.getHtmlContainer() as HTMLElement).querySelector('b') as HTMLElement;
@@ -147,6 +163,12 @@ const Common = {
             }
         })
     },
+
+    /**
+     * SweetAlert 確認彈窗
+     * @param title 標題
+     * @param confirmFunc 確認Func
+     */
     SweetAlertConfirm: (title: string | undefined, confirmFunc: Function) => {
         Swal.fire({
             title: title,
@@ -158,11 +180,18 @@ const Common = {
                 confirmFunc();
         });
     },
+
+    /**
+     * SweetAlert 通知快顯
+     * @param IsSuccess 是否操作成功
+     * @param title 標題
+     */
     SweetAlertNotification: (IsSuccess: boolean, title: string | undefined) => {
         Toast.fire({
             icon: IsSuccess? 'success' : 'error', title: title
         });
     },
+
     /**
      * 頁面註冊 Datepicker
      * @param e
@@ -194,6 +223,7 @@ const Common = {
         };
         $.datepicker.setDefaults($.datepicker.regional["zh-TW"]);
     },
+
     /**
      * SVG 元素控制
      * */
@@ -203,6 +233,7 @@ const Common = {
             var imgID = $img.attr('id');
             var imgClass = $img.attr('class');
             var imgURL = $img.attr('src');
+            var imgClick = $img.attr('onclick');
 
             jQuery.get(imgURL as string, function (data) {
                 // Get the SVG tag, ignore the rest
@@ -217,6 +248,9 @@ const Common = {
                     $svg = $svg.attr('class', imgClass + ' replaced-svg');
                 }
 
+                if (typeof imgClick !== 'undefined') {
+                    $svg = $svg.attr('onclick', imgClick);
+                }
                 // Remove any invalid XML tags as per http://validator.w3.org
                 $svg = $svg.removeAttr('xmlns:a');
 
@@ -232,6 +266,7 @@ const Common = {
     }
 };
 
+/** SweetAlert 快顯 */
 const Toast = Swal.mixin({
     toast: true,
     position: 'top-right',

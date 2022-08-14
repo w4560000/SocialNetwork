@@ -1,0 +1,129 @@
+﻿.div_mypost {
+    background-color: #ffffff;
+    border-radius: 5px;
+    margin-top: 30px;
+    width: 100%;
+}
+
+.post_content {
+    opacity: 30%;
+    font-size: 14pt;
+    padding: 15px
+}
+
+.post_content_detail_hide {
+    display: none;
+}
+
+.post_content_detail {
+    width: 100%;
+
+    .photo_post {
+        width: 100%;
+        padding: 10px;
+        display: flex;
+
+        .photoPreviewContainer {
+            position: relative;
+        }
+
+        .photoPreview {
+            display: flex;
+
+            > div {
+                width: 80px;
+                height: 80px;
+                background-color: black;
+                margin-right: 15px;
+                border-radius: 5px;
+            }
+        }
+
+        .photoPreview .photoDelete {
+            position: absolute;
+            right: -8px;
+            top: -8px;
+            fill: #F2A1A1;
+            border: 1px solid #F2A1A1;
+            border-radius: 50%;
+            background: white;
+            width: 15px;
+            height: 15px;
+            cursor: pointer;
+        }
+
+        .photoPreviewImg {
+            width: 80px;
+            height: 80px;
+        }
+    }
+}
+
+.post_content_detail_topBar {
+    height: 30px;
+    width: 100%;
+    padding: 10px;
+
+    .deploy_post_title {
+        color: #D68D8D;
+        font-size: 16pt;
+        position: relative;
+        left: 0;
+    }
+
+    #deploy_post_cancel {
+        width: 55px;
+        height: 30px;
+        position: absolute;
+        right: 9%;
+        cursor: pointer;
+        border-radius: 50px;
+        font-size: 12pt;
+    }
+
+    #deploy_post {
+        width: 55px;
+        height: 30px;
+        position: absolute;
+        right: 2%;
+        cursor: pointer;
+        border-radius: 50px;
+        background-color: #f2a1a1;
+        color: white;
+        font-size: 12pt;
+    }
+}
+
+.write_post_container {
+    padding-left: 30px;
+
+    .write_post {
+        min-height: 50px;
+        max-height: 300px;
+        border: none;
+        overflow: hidden;
+        outline: none;
+        box-shadow: none;
+        resize: none;
+        font-size: 24px;
+        width: 80%;
+    }
+}
+
+#uploadPhoto {
+    display: none;
+}
+
+.uploadPhoto_container {
+    width: 80px;
+    height: 80px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid #f2a1a1;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    font-size: 26pt;
+    color: #f2a1a1;
+}

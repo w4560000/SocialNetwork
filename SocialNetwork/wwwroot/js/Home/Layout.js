@@ -20,20 +20,19 @@ $(function () {
         var currentElemetClass = ($(event.target).attr('class'));
         if (currentElemetClass !== 'index_status_select') {
             if ($('#memberStatus_1').is(':visible')) {
-                $("ul").children('li').toggle();
+                $(".meunContent > ul").children('li').toggle();
             }
         }
     });
     $(".index_status").on("click", ".index_status_select", function () {
-        $(this).closest("ul").children('li').toggle();
+        $(this).closest(".meunContent > ul").children('li').toggle();
     });
     $(".index_status").on("click", "li", function () {
         var _a;
-        var allOptions = $("ul").children('li');
+        var allOptions = $(".meunContent > ul").children('li');
         allOptions.removeClass('selected');
         $(this).addClass('selected');
-        $("ul").children('.index_status_select').html($(this).html());
-        debugger;
+        $(".meunContent > ul").children('.index_status_select').html($(this).html());
         var currentSelectStatus = (_a = $(this).attr('id')) === null || _a === void 0 ? void 0 : _a.split('_')[1];
         var model = new UpdateMemberStatusReqViewModel(parseInt(currentSelectStatus));
         var successFunc = function () { };

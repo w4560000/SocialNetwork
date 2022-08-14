@@ -1,93 +1,7 @@
-﻿.div_mypost {
-    background-color: #ffffff;
-    border-radius: 5px;
-    margin-top: 30px;
-    width: 100%;
-}
-
-.div_post {
+﻿.div_post {
     width: 100%;
     margin-top: 25px;
     border-radius: 5px;
-}
-
-.post_content {
-    opacity: 30%;
-    font-size: 14pt;
-    padding: 15px
-}
-
-.post_content_detail_hide {
-    display: none;
-}
-
-.post_content_detail {
-    width: 100%;
-}
-
-.post_content_detail_topBar {
-    height: 30px;
-    width: 100%;
-    padding: 10px;
-
-    .deploy_post_title {
-        color: #D68D8D;
-        font-size: 16pt;
-        position: relative;
-        left: 0;
-    }
-
-    #deploy_post_cancel {
-        width: 55px;
-        height: 30px;
-        position: absolute;
-        right: 9%;
-        cursor: pointer;
-        border-radius: 50px;
-        font-size: 12pt;
-    }
-
-    #deploy_post {
-        width: 55px;
-        height: 30px;
-        position: absolute;
-        right: 2%;
-        cursor: pointer;
-        border-radius: 50px;
-        background-color: #f2a1a1;
-        color: white;
-        font-size: 12pt;
-    }
-}
-
-.write_post_container {
-    padding-left: 30px;
-
-    .write_post {
-        min-height: 50px;
-        max-height: 300px;
-        border: none;
-        overflow: hidden;
-        outline: none;
-        box-shadow: none;
-        resize: none;
-        font-size: 24px;
-        width: 80%;
-    }
-}
-
-.photo_post {
-    display: inline;
-    width: 100%;
-    padding: 10px;
-
-    > div {
-        width: 80px;
-        height: 80px;
-        background-color: black;
-        display: inline-block;
-        margin-right: 10px;
-    }
 }
 
 .postPhoto_container {
@@ -266,7 +180,6 @@
         fill: #D68D8D;
     }
 }
-
 
 .div_post_msg {
     background-color: #ffffff;

@@ -10,5 +10,9 @@
   {
     "outputFile": "wwwroot/css/Home/Index.css",
     "inputFile": "wwwroot/css/Home/Index.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/Template/PushlishPost.css",
+    "inputFile": "wwwroot/css/Template/PushlishPost.scss"
   }
 ]

@@ -4,6 +4,11 @@
 ////}
 var Common = {
     /**
+     * 驗證上傳圖檔的附檔名
+     * @param fileName 上傳圖檔
+     */
+    ValidateUploadPhotoExtension: function (fileName) { return /\.(jpg|jpeg|png|webp|svg|gif)$/.test(fileName); },
+    /**
      * 刪除錯誤輸入框提示
      * @param e element
      */
@@ -49,7 +54,7 @@ var Common = {
     },
     /**
      * SweetAlert 成功彈窗
-     * @param msg 訊息
+     * @param msg 成功訊息
      * @param confirmFunc 確認Func
      */
     SweetAlertSuccess: function (msg, confirmFunc) {
@@ -57,7 +62,8 @@ var Common = {
             Swal.fire({
                 icon: 'success',
                 text: msg,
-                confirmButtonText: '確認'
+                confirmButtonText: '確認',
+                allowOutsideClick: false,
             }).then(function (result) {
                 if (result.isConfirmed) {
                     confirmFunc();
@@ -74,7 +80,7 @@ var Common = {
     },
     /**
      * SweetAlert 失敗彈窗
-     * @param error 訊息
+     * @param error 錯誤訊息
      * @param confirmFunc 確認Func
      */
     SweetAlertError: function (error, confirmFunc) {
@@ -83,6 +89,7 @@ var Common = {
                 icon: 'error',
                 text: error,
                 confirmButtonText: '確認',
+                allowOutsideClick: false,
                 focusConfirm: false
             }).then(function (result) {
                 if (result.isConfirmed) {
@@ -125,6 +132,7 @@ var Common = {
             timer: 3000,
             timerProgressBar: true,
             showConfirmButton: false,
+            allowOutsideClick: false,
             didOpen: function () {
                 Swal.showLoading();
                 var b = Swal.getHtmlContainer().querySelector('b');
@@ -142,6 +150,11 @@ var Common = {
             }
         });
     },
+    /**
+     * SweetAlert 確認彈窗
+     * @param title 標題
+     * @param confirmFunc 確認Func
+     */
     SweetAlertConfirm: function (title, confirmFunc) {
         Swal.fire({
             title: title,
@@ -153,6 +166,11 @@ var Common = {
                 confirmFunc();
         });
     },
+    /**
+     * SweetAlert 通知快顯
+     * @param IsSuccess 是否操作成功
+     * @param title 標題
+     */
     SweetAlertNotification: function (IsSuccess, title) {
         Toast.fire({
             icon: IsSuccess ? 'success' : 'error', title: title
@@ -198,6 +216,7 @@ var Common = {
             var imgID = $img.attr('id');
             var imgClass = $img.attr('class');
             var imgURL = $img.attr('src');
+            var imgClick = $img.attr('onclick');
             jQuery.get(imgURL, function (data) {
                 // Get the SVG tag, ignore the rest
                 var $svg = jQuery(data).find('svg');
@@ -208,6 +227,9 @@ var Common = {
                 // Add replaced image's classes to the new SVG
                 if (typeof imgClass !== 'undefined') {
                     $svg = $svg.attr('class', imgClass + ' replaced-svg');
+                }
+                if (typeof imgClick !== 'undefined') {
+                    $svg = $svg.attr('onclick', imgClick);
                 }
                 // Remove any invalid XML tags as per http://validator.w3.org
                 $svg = $svg.removeAttr('xmlns:a');
@@ -221,6 +243,7 @@ var Common = {
         });
     }
 };
+/** SweetAlert 快顯 */
 var Toast = Swal.mixin({
     toast: true,
     position: 'top-right',
