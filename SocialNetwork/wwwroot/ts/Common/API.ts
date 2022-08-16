@@ -39,8 +39,16 @@ function BaseGetAPI(loadingMsg: string, api: string, successFunc?: Function, err
  * @param model 傳送參數 Model
  * @param successFunc 回應成功 Func
  * @param errorFunc 回應失敗 Func
+ * @param isNotification 是否顯示快顯
  */
-function BasePostAPI<T>(loadingMsg: string, api: string, model: T, successFunc?: Function, errorFunc?: Function, isNotification: boolean = false) {
+function BasePostAPI<T>(
+    loadingMsg: string,
+    api: string,
+    model: T,
+    successFunc?: Function,
+    errorFunc?: Function,
+    isNotification: boolean = false) {
+
     if (loadingMsg)
         Common.SweetAlertLoading(loadingMsg);
     
@@ -50,6 +58,53 @@ function BasePostAPI<T>(loadingMsg: string, api: string, model: T, successFunc?:
         data: JSON.stringify(model),
         dataType: "json",
         contentType: "application/json",
+        success: (res: ResponseViewModel<object>) => {
+            if (res.Status == ResponseStatusEnum.Success) {
+                if (isNotification)
+                    Common.SweetAlertNotification(true, res.Message);
+                else
+                    Common.SweetAlertSuccess(res.Message, successFunc);
+            }
+            else {
+                if (isNotification)
+                    Common.SweetAlertNotification(false, res.Message);
+                else
+                    Common.SweetAlertError(res.Message, errorFunc);
+            }
+        },
+        error: (e) => {
+            Common.SweetAlertError("伺服器異常", errorFunc);
+        }
+    });
+}
+
+/**
+ * 封裝基礎 Http Post By FormData
+ * @param loadingMsg Loading 顯示文字
+ * @param api api 路徑
+ * @param formData 傳送參數 FormData
+ * @param successFunc 回應成功 Func
+ * @param errorFunc 回應失敗 Func
+ * @param isNotification 是否顯示快顯
+ */
+function BasePostAPIByFormData(
+    loadingMsg: string,
+    api: string,
+    formData: FormData,
+    successFunc?: Function,
+    errorFunc?: Function,
+    isNotification: boolean = false) {
+    debugger
+    if (loadingMsg)
+        Common.SweetAlertLoading(loadingMsg);
+
+    $.ajax({
+        method: "POST",
+        url: api,
+        data: formData,
+        dataType: "json",
+        processData: false,
+        contentType: false,
         success: (res: ResponseViewModel<object>) => {
             if (res.Status == ResponseStatusEnum.Success) {
                 if (isNotification)
@@ -131,7 +186,17 @@ function LogoutAPI(loadingMsg: string, successFunc: Function, errorFunc: Functio
 /**
  * 更新會員狀態 API
  */
-function UpdateMemberStatus(model: UpdateMemberStatusReqViewModel, successFunc: Function, errorFunc: Function): void {
+function UpdateMemberStatusAPI(model: UpdateMemberStatusReqViewModel, successFunc: Function, errorFunc: Function): void {
     var isNotification = true;
     BasePostAPI<UpdateMemberStatusReqViewModel>('', "/MemberApi/UpdateMemberStatus", model, successFunc, errorFunc, isNotification);
+}
+
+// Post
+
+/**
+ * 發佈貼文 API
+ */
+function PublishPostAPI(loadingMsg: string, formData: FormData, successFunc: Function, errorFunc: Function, confirmTitle: string): void {
+    Common.SweetAlertConfirm(confirmTitle,
+        () => BasePostAPIByFormData(loadingMsg, "/PostApi/PublishPost", formData, successFunc, errorFunc));
 }

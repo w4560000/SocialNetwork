@@ -37,7 +37,7 @@ $(function () {
         var model = new UpdateMemberStatusReqViewModel(parseInt(currentSelectStatus));
         var successFunc = function () { };
         var errorFunc = function () { };
-        UpdateMemberStatus(model, successFunc, errorFunc);
+        UpdateMemberStatusAPI(model, successFunc, errorFunc);
         allOptions.toggle();
     });
     // 載入會員狀態

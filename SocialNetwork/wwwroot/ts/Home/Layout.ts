@@ -46,7 +46,7 @@ $(function () {
         let model = new UpdateMemberStatusReqViewModel(parseInt(currentSelectStatus) as MemberStatusEnum);
         let successFunc = () => { };
         let errorFunc = () => { };
-        UpdateMemberStatus(model, successFunc, errorFunc);
+        UpdateMemberStatusAPI(model, successFunc, errorFunc);
         allOptions.toggle();
     });
 
