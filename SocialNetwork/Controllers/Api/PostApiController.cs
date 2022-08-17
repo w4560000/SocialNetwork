@@ -1,12 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SocialNetwork.Helper;
 using SocialNetwork.Repository;
+using SocialNetwork.Service;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SocialNetwork.Controllers
@@ -24,12 +21,19 @@ namespace SocialNetwork.Controllers
         private readonly ILogger<PostApiController> Logger;
 
         /// <summary>
+        /// IPostService
+        /// </summary>
+        private readonly IPostService PostService;
+
+        /// <summary>
         /// Constructor
         /// </summary>
         public PostApiController(
-            ILogger<PostApiController> logger)
+            ILogger<PostApiController> logger,
+            IPostService postService)
         {
             this.Logger = logger;
+            this.PostService = postService;
         }
 
         /// <summary>
@@ -38,11 +42,11 @@ namespace SocialNetwork.Controllers
         /// <param name="model">發佈貼文 Req ViewModel</param>
         /// <returns>發佈結果</returns>
         [HttpPost(nameof(PublishPost))]
-        public ResponseViewModel PublishPost([FromForm] PublishPostReqViewModel model)
+        public async Task<ResponseViewModel> PublishPost([FromForm] PublishPostReqViewModel model)
         {
             try
             {
-                return new ResponseViewModel();
+                return await PostService.PublishPost(model);
             }
             catch (Exception ex)
             {

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -70,9 +71,11 @@ namespace SocialNetwork
             services.AddScoped<IMemberRepository, MemberRepository>();
             services.AddScoped<IVerificationCodeRepository, VerificationCodeRepository>();
             services.AddScoped<IForgotPasswordRepository, ForgotPasswordRepository>();
+            services.AddScoped<IPostRepository, PostRepository>();
 
             // DI註冊 Service
             services.AddScoped<IMemberService, MemberService>();
+            services.AddScoped<IPostService, PostService>();
             services.AddScoped<ITestService, TestService>();
 
             services.AddSingleton<IUserContext, UserContext>();
@@ -144,6 +147,11 @@ namespace SocialNetwork
             {
                 // 關閉驗證失敗時自動 HTTP 400 回應
                 options.SuppressModelStateInvalidFilter = true;
+            });
+
+            services.Configure<FormOptions>(options =>
+            {
+                options.ValueCountLimit = int.MaxValue;
             });
 
             services.AddHttpContextAccessor();

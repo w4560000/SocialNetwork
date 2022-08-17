@@ -8,7 +8,13 @@ const Common = {
      * 驗證上傳圖檔的附檔名
      * @param fileName 上傳圖檔
      */
-    ValidateUploadPhotoExtension: (fileName: string) => /\.(jpg|jpeg|png|webp|svg|gif)$/.test(fileName),
+    ValidateUploadPhotoExtension: (file: File) => /\.(jpg|jpeg|png|webp|svg|gif)$/.test(file.name),
+
+    /**
+     * 驗證上傳圖檔的大小 (限制 5 MB)
+     * @param fileName 上傳圖檔
+     */
+    ValidateUploadPhotoSize: (file: File) => file.size <= 5 * 1024 * 1024,
 
     /**
      * 刪除錯誤輸入框提示
@@ -174,7 +180,8 @@ const Common = {
             title: title,
             showCancelButton: true,
             confirmButtonText: '確定',
-            cancelButtonText: '取消'
+            cancelButtonText: '取消',
+            reverseButtons: true
         }).then((result) => {
             if (result.isConfirmed)
                 confirmFunc();

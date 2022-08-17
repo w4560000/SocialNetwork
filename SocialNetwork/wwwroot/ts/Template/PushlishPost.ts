@@ -30,11 +30,21 @@ function UploadPhoto_Change(e: HTMLInputElement) {
     if (e.files) {
         var fileList = Array.from(e.files);
 
-        var isValidateExtension = fileList.every(e => Common.ValidateUploadPhotoExtension(e.name));
+        if (fileList.length > 10) {
+            e.files = null;
+            Common.SweetAlertError('單筆貼文圖片限定最多上傳 10 張');
+            return;
+        }
 
-        if (isValidateExtension === false) {
+        if (fileList.every(e => Common.ValidateUploadPhotoExtension(e)) === false) {
             e.files = null;
             Common.SweetAlertError('圖片僅限上傳 .jpg、.jpeg、.png、.webp、.svg、.gif');
+            return;
+        }
+
+        if (fileList.every(e => Common.ValidateUploadPhotoSize(e) === false)) {
+            e.files = null;
+            Common.SweetAlertError('單張圖片大小不得超過 5 MB');
             return;
         }
 
@@ -68,7 +78,6 @@ function PhotoDelete(e: HTMLImageElement) {
  *  發佈貼文 
  * */
 function PublishPost() {
-    debugger
     let post = $(".write_post").val() as string;
 
     if (post.length === 0) {
@@ -79,9 +88,17 @@ function PublishPost() {
     var formData = new FormData();
     formData.append('Post', post);
     TempFileList.forEach(f => formData.append('PhotoFiles', f));
+    
+    var successFunc = function () {
+        // 成功發佈貼文後 清空圖片、貼文
+        $('.photoPreview').empty();
+        TempFileList = [];
+        $(".write_post").val('');
 
-    var successFunc = function () {};
+        $('#deploy_post_cancel').click();
+
+        // todo reload PostMsg
+    };
     var errorFunc = function () {};
     PublishPostAPI("發佈貼文中", formData, successFunc, errorFunc, '確定是否發佈?');
-
 }

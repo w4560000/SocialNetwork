@@ -25,10 +25,19 @@ function CancelPublishPostContent(e) {
 function UploadPhoto_Change(e) {
     if (e.files) {
         var fileList = Array.from(e.files);
-        var isValidateExtension = fileList.every(function (e) { return Common.ValidateUploadPhotoExtension(e.name); });
-        if (isValidateExtension === false) {
+        if (fileList.length > 10) {
+            e.files = null;
+            Common.SweetAlertError('單筆貼文圖片限定最多上傳 10 張');
+            return;
+        }
+        if (fileList.every(function (e) { return Common.ValidateUploadPhotoExtension(e); }) === false) {
             e.files = null;
             Common.SweetAlertError('圖片僅限上傳 .jpg、.jpeg、.png、.webp、.svg、.gif');
+            return;
+        }
+        if (fileList.every(function (e) { return Common.ValidateUploadPhotoSize(e) === false; })) {
+            e.files = null;
+            Common.SweetAlertError('單張圖片大小不得超過 5 MB');
             return;
         }
         for (var i = 0; i < fileList.length; i++) {
@@ -55,7 +64,6 @@ function PhotoDelete(e) {
  *  發佈貼文
  * */
 function PublishPost() {
-    debugger;
     var post = $(".write_post").val();
     if (post.length === 0) {
         Common.SweetAlertError('請輸入貼文內容');
@@ -64,7 +72,14 @@ function PublishPost() {
     var formData = new FormData();
     formData.append('Post', post);
     TempFileList.forEach(function (f) { return formData.append('PhotoFiles', f); });
-    var successFunc = function () { };
+    var successFunc = function () {
+        // 成功發佈貼文後 清空圖片、貼文
+        $('.photoPreview').empty();
+        TempFileList = [];
+        $(".write_post").val('');
+        $('#deploy_post_cancel').click();
+        // todo reload PostMsg
+    };
     var errorFunc = function () { };
     PublishPostAPI("發佈貼文中", formData, successFunc, errorFunc, '確定是否發佈?');
 }

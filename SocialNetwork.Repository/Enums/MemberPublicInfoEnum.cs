@@ -3,7 +3,7 @@
 namespace SocialNetwork.Repository
 {
     /// <summary>
-    /// 會員公開資訊狀態
+    /// 會員公開資訊狀態列舉
     /// </summary>
     [Flags]
     public enum MemberPublicInfoEnum

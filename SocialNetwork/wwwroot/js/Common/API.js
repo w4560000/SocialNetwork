@@ -27,6 +27,7 @@ function BaseGetAPI(loadingMsg, api, successFunc, errorFunc, isNotification) {
             }
         },
         error: function (e) {
+            console.log(e);
             Common.SweetAlertError("伺服器異常", errorFunc);
         }
     });
@@ -65,6 +66,7 @@ function BasePostAPI(loadingMsg, api, model, successFunc, errorFunc, isNotificat
             }
         },
         error: function (e) {
+            console.log(e);
             Common.SweetAlertError("伺服器異常", errorFunc);
         }
     });
@@ -80,7 +82,6 @@ function BasePostAPI(loadingMsg, api, model, successFunc, errorFunc, isNotificat
  */
 function BasePostAPIByFormData(loadingMsg, api, formData, successFunc, errorFunc, isNotification) {
     if (isNotification === void 0) { isNotification = false; }
-    debugger;
     if (loadingMsg)
         Common.SweetAlertLoading(loadingMsg);
     $.ajax({
@@ -105,6 +106,7 @@ function BasePostAPIByFormData(loadingMsg, api, formData, successFunc, errorFunc
             }
         },
         error: function (e) {
+            console.log(e);
             Common.SweetAlertError("伺服器異常", errorFunc);
         }
     });

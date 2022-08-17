@@ -27,6 +27,7 @@ function BaseGetAPI(loadingMsg: string, api: string, successFunc?: Function, err
             }
         },
         error: (e) => {
+            console.log(e);
             Common.SweetAlertError("伺服器異常", errorFunc);
         }
     });
@@ -73,6 +74,7 @@ function BasePostAPI<T>(
             }
         },
         error: (e) => {
+            console.log(e);
             Common.SweetAlertError("伺服器異常", errorFunc);
         }
     });
@@ -94,7 +96,6 @@ function BasePostAPIByFormData(
     successFunc?: Function,
     errorFunc?: Function,
     isNotification: boolean = false) {
-    debugger
     if (loadingMsg)
         Common.SweetAlertLoading(loadingMsg);
 
@@ -120,6 +121,7 @@ function BasePostAPIByFormData(
             }
         },
         error: (e) => {
+            console.log(e);
             Common.SweetAlertError("伺服器異常", errorFunc);
         }
     });

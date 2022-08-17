@@ -36,10 +36,10 @@ namespace SocialNetwork.Sample
 	public partial class Post
 	{
 		[Key]
-		public virtual int PostNumber { get; set; }
-		public virtual int MeberID { get; set; }
+		public virtual int PostKey { get; set; }
+		public virtual int MemberID { get; set; }
 		public virtual string PostContent { get; set; }
-		public virtual string PostImage { get; set; }
+		public virtual string PostImageUrl { get; set; }
 		public virtual int GoodQuantity { get; set; }
 		public virtual int Status { get; set; }
 		public virtual DateTime CreatedAt { get; set; }
@@ -55,11 +55,10 @@ namespace SocialNetwork.Sample
 	public partial class PostMsg
 	{
 		[Key]
-		public virtual int MsgNumber { get; set; }
-		public virtual int PostNumber { get; set; }
+		public virtual int MsgKey { get; set; }
+		public virtual int PostKey { get; set; }
 		public virtual int MemberID { get; set; }
 		public virtual string MsgContent { get; set; }
-		public virtual string MsgImage { get; set; }
 		public virtual DateTime CreatedAt { get; set; }
 		public virtual int CreatedBy { get; set; }
 		public virtual DateTime UpdatedAt { get; set; }

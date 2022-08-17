@@ -77,7 +77,7 @@ namespace SocialNetwork.Service
             bool isMemberExist = this.MemberRepository.RecordCount("WHERE Account = @Account OR Mail = @Mail", new { model.Account, model.Mail }) > 0;
 
             if (isMemberExist)
-                return "會員帳號或信箱已被註冊!".AsFailResponse();
+                return "會員帳號或信箱已被註冊".AsFailResponse();
 
             DateTime expiryDate = DateTime.Now.AddMinutes(-10);
             VerificationCode vCode = this.VerificationCodeRepository
@@ -85,7 +85,7 @@ namespace SocialNetwork.Service
                                             new { mail = model.Mail, status = VerificationEnum.NotAuth, expiryDate, vCode = model.VCode }).FirstOrDefault();
 
             if (vCode == null)
-                return "驗證碼錯誤!".AsFailResponse();
+                return "驗證碼錯誤".AsFailResponse();
 
             // 更新驗證碼狀態
             vCode.Status = VerificationEnum.AuthSuccess;
@@ -109,7 +109,7 @@ namespace SocialNetwork.Service
             // 更新會員狀態、寫入 Cookie
             this.SetMemberStatusForCookie(memberID, MemberStatusEnum.在線);
 
-            return $"{model.NickName} 註冊成功!".AsSuccessResponse();
+            return $"{model.NickName} 註冊成功".AsSuccessResponse();
         }
 
         /// <summary>
@@ -122,7 +122,7 @@ namespace SocialNetwork.Service
             bool isMemberExist = this.MemberRepository.RecordCount("WHERE Mail = @mail", new { mail = model.Mail }) > 0;
 
             if (isMemberExist)
-                return "此電子郵件已被註冊!".AsFailResponse();
+                return "此電子郵件已被註冊".AsFailResponse();
 
             string vCode = new Random().Next(10000).ToString();
             string mailBody = $"<h1>驗證碼:{vCode}</h1>";
@@ -137,7 +137,7 @@ namespace SocialNetwork.Service
                 Status = VerificationEnum.NotAuth
             });
 
-            return "寄送驗證碼成功!".AsSuccessResponse();
+            return "寄送驗證碼成功".AsSuccessResponse();
         }
 
         /// <summary>
@@ -150,12 +150,12 @@ namespace SocialNetwork.Service
             var member = this.MemberRepository.GetList("WHERE Account = @Account AND Password = @Password", new { model.Account, model.Password }).FirstOrDefault();
 
             if (member == null)
-                return  "帳號或密碼錯誤!".AsFailResponse();
+                return  "帳號或密碼錯誤".AsFailResponse();
 
             // 更新會員狀態、寫入 Cookie
             this.SetMemberStatusForCookie(member.MemberID, MemberStatusEnum.在線);
 
-            return $"{member.NickName} 登入成功!".AsSuccessResponse();
+            return $"{member.NickName} 登入成功".AsSuccessResponse();
         }
 
         /// <summary>
@@ -170,7 +170,7 @@ namespace SocialNetwork.Service
             var isMailExist = this.MemberRepository.RecordCount("WHERE Account <> @account AND Mail = @email ", new { account, model.email }) > 0;
 
             if (isMailExist)
-                return "該 Google 信箱已有人使用，無法註冊!".AsFailResponse();
+                return "該 Google 信箱已有人使用，無法註冊".AsFailResponse();
 
             var member = this.MemberRepository.GetList("WHERE Account = @account ", new { account }).FirstOrDefault();
 
@@ -196,7 +196,7 @@ namespace SocialNetwork.Service
             // 更新會員狀態、寫入 Cookie
             this.SetMemberStatusForCookie(member.MemberID, MemberStatusEnum.在線);
 
-            return $"{member.NickName} 登入成功!".AsSuccessResponse();
+            return $"{member.NickName} 登入成功".AsSuccessResponse();
         }
 
         /// <summary>
@@ -216,7 +216,7 @@ namespace SocialNetwork.Service
             member.Education = model.Education;
             this.MemberRepository.Update(member);
 
-            return "更新成功!".AsSuccessResponse();
+            return "更新成功".AsSuccessResponse();
         }
 
         /// <summary>
@@ -305,7 +305,7 @@ outline: 0;";
             this.MemberRepository.Update(member);
             this.ForgotPasswordRepository.Delete(fotgotPassword);
 
-            return "重設成功!".AsSuccessResponse();
+            return "重設成功".AsSuccessResponse();
         }
 
         /// <summary>
@@ -323,7 +323,7 @@ outline: 0;";
 
             this.HttpContext.Response.Cookies.ExpireCookies();
 
-            return "登出成功!".AsSuccessResponse();
+            return "登出成功".AsSuccessResponse();
         }
 
         /// <summary>
@@ -335,7 +335,7 @@ outline: 0;";
         {
             this.SetMemberStatusForCookie(this.UserContext.User.MemberID, model.Status);
 
-            return "更新狀態成功!".AsSuccessResponse();
+            return "更新狀態成功".AsSuccessResponse();
         }
 
         /// <summary>
