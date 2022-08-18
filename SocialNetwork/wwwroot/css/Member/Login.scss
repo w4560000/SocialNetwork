@@ -1,8 +1,9 @@
-﻿.inputbox {
+﻿@import '../Common/Base.scss';
+
+.inputbox {
     width: 350px;
     height: 50px;
-    background-color: #FFFFFF;
-    color: #acacac;
+    background-color: $Color_W1;
     border-radius: 5px;
     margin: auto;
     margin-top: 3%;
@@ -19,14 +20,14 @@
     height: 40px;
     font-size: 15pt;
     border-radius: 5px;
-    background-color: #F2A1A1;
-    color: #FFFFFF;
+    background-color: $Color_PK2;
+    color: $Color_W1;
     font-weight: 600;
     outline: 0;
 }
 
 .btn_loginPage:hover {
-    background-color: #D68D8D;
+    background-color: $Color_PK1;
 }
 
 .btn_singup, .btn_info {
@@ -34,22 +35,14 @@
     height: 50px;
     font-size: 15pt;
     border-radius: 5px;
-    background-color: #F2A1A1;
-    color: #FFFFFF;
+    background-color: $Color_PK2;
+    color: $Color_W1;
     font-weight: 700;
     outline: 0;
 }
 
 .btn_singup:hover, .btn_info:hover {
-    border: 1px solid #FFFFFF;
-}
-
-.btn_login_text {
-    color: #be5959;
-    font-size: 18pt;
-    text-align: center;
-    line-height: 50px;
-    font-weight: 800;
+    border: 1px solid $Color_W1;
 }
 
 .input_login {
@@ -67,7 +60,7 @@
 
 .singupText {
     font-size: 16pt;
-    color: #4E4E4E;
+    color: $Color_B1;
     position: relative;
     bottom: 50%;
     right: 5%;
@@ -77,7 +70,7 @@
 .singupTextBackground {
     width: 90%;
     height: 70%;
-    background-color: #ffe9e9;
+    background-color: $Color_PK3;
     border-radius: 25px;
     position: relative;
     top: 20%;
@@ -86,7 +79,7 @@
 .InfoTextBackground {
     width: 50px;
     height: 70%;
-    background-color: #ffe9e9;
+    background-color: $Color_PK3;
     border-radius: 25px;
     position: relative;
     top: 20%;
@@ -118,7 +111,7 @@
 .lineStyle {
     width: 80%;
     height: 1px;
-    background-color: #dadada;
+    background-color: $Color_G1;
 }
 
 .forgotPassword {
@@ -133,27 +126,27 @@
 
 .btn_forgotPassword {
     background: none;
-    color: #F2A1A1;
+    color: $Color_PK2;
     font-size: 14pt;
     margin-top: 3%;
 }
 
 .btn_forgotPassword:hover {
-    color: #D68D8D;
+    color: $Color_PK1;
 }
 
 .btn_Verification {
     height: 48px;
     font-size: 16pt;
     border-radius: 5px;
-    background-color: #F2A1A1;
-    color: #FFFFFF;
+    background-color: $Color_PK2;
+    color: $Color_W1;
     font-weight: 600;
     outline: 0;
 }
 
 .btn_Verification:hover {
-    background-color: #D68D8D;
+    background-color: $Color_PK1;
 }
 
 .subTitle {

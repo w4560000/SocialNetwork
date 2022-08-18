@@ -1,5 +1,5 @@
 ﻿.div_mypost {
-  background-color: #ffffff;
+  background-color: #FFFFFF;
   border-radius: 5px;
   margin-top: 30px;
   width: 100%; }
@@ -67,7 +67,7 @@
     right: 2%;
     cursor: pointer;
     border-radius: 50px;
-    background-color: #f2a1a1;
+    background-color: #F2A1A1;
     color: white;
     font-size: 12pt; }
 
@@ -92,10 +92,10 @@
   height: 80px;
   border-radius: 5px;
   cursor: pointer;
-  border: 1px solid #f2a1a1;
+  border: 1px solid #F2A1A1;
   display: flex;
   align-items: center;
   text-align: center;
   justify-content: center;
   font-size: 26pt;
-  color: #f2a1a1; }
+  color: #F2A1A1; }

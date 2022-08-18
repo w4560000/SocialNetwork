@@ -1,4 +1,6 @@
-﻿.div_post {
+﻿@import '../Common/Base.scss';
+
+.div_post {
     width: 100%;
     margin-top: 25px;
     border-radius: 5px;
@@ -11,7 +13,7 @@
 
 .postPhoto {
     border-radius: 50%;
-    border: 1px #f2a1a1 solid;
+    border: 1px $Color_PK2 solid;
     width: 100%;
     height: 100%;
 }
@@ -31,7 +33,7 @@
         justify-content: center;
 
         .time {
-            color: gray;
+            color: $Color_G2;
             font-size: 10pt;
         }
     }
@@ -45,7 +47,7 @@
         border-radius: 50px;
         font-size: 24pt;
         text-align: center;
-        color: gray;
+        color: $Color_G2;
     }
 }
 
@@ -62,7 +64,7 @@
 
 .div_post_content {
     margin: 5px auto;
-    background-color: #ffffff;
+    background-color: $Color_W1;
     border-radius: 5px;
 }
 
@@ -92,23 +94,23 @@
         .postLike, .postMsg {
             width: 30px;
             height: 30px;
-            fill: #B2BABB;
+            fill: $Color_G4;
             cursor: pointer;
         }
 
         .postLike:hover, .postMsg:hover {
-            fill: #99A3A4;
+            fill: $Color_G5;
         }
 
         .postShare {
             width: 30px;
             height: 30px;
-            fill: #F2A1A1;
+            fill: $Color_PK2;
             cursor: pointer;
         }
 
         .postShare:hover {
-            fill: #D68D8D;
+            fill: $Color_PK1;
         }
     }
 }
@@ -120,16 +122,16 @@
 
 .post_msgPhoto {
     border-radius: 50%;
-    border: 1px #f2a1a1 solid;
+    border: 1px $Color_PK2 solid;
     width: 100%;
     height: 100%;
 }
 
 .div_post_msg_send {
-    background-color: #ffffff;
+    background-color: $Color_W1;
     border-radius: 5px;
     display: flex;
-    border-left: 8px solid #D68D8D;
+    border-left: 8px solid $Color_PK1;
     height: 100%;
     padding: 5px;
     align-items: center;
@@ -150,7 +152,7 @@
             resize: none;
             font-size: 20px;
             border-radius: 10px;
-            border: 1px solid #F2A1A1;
+            border: 1px solid $Color_PK2;
             width: 100%;
             height: 50px;
             padding-left: 10px;
@@ -159,8 +161,8 @@
 
     .msgComment:focus {
         outline: none !important;
-        border: 1px solid #D68D8D;
-        box-shadow: 0 0 5px #D68D8D;
+        border: 1px solid $Color_PK1;
+        box-shadow: 0 0 5px $Color_PK1;
     }
 }
 
@@ -172,20 +174,20 @@
     .msgSend {
         width: 30px;
         height: 30px;
-        fill: #F2A1A1;
+        fill: $Color_PK2;
         cursor: pointer;
     }
 
     .msgSend:hover {
-        fill: #D68D8D;
+        fill: $Color_PK1;
     }
 }
 
 .div_post_msg {
-    background-color: #ffffff;
+    background-color: $Color_W1;
     border-radius: 5px;
     display: flex;
-    border-left: 8px solid #F2A1A1;
+    border-left: 8px solid $Color_PK2;
     height: 100%;
     padding: 5px;
     align-items: center;
@@ -201,7 +203,7 @@
         width: 12%;
 
         .time {
-            color: gray;
+            color: $Color_G2;
             font-size: 10pt;
         }
     }

@@ -9,7 +9,7 @@
 
 .postPhoto {
   border-radius: 50%;
-  border: 1px #f2a1a1 solid;
+  border: 1px #F2A1A1 solid;
   width: 100%;
   height: 100%; }
 
@@ -26,7 +26,7 @@
     flex-direction: column;
     justify-content: center; }
     .post_content_topBar .postProfile .time {
-      color: gray;
+      color: #BFBFBF;
       font-size: 10pt; }
   .post_content_topBar .postAction {
     width: 50px;
@@ -37,7 +37,7 @@
     border-radius: 50px;
     font-size: 24pt;
     text-align: center;
-    color: gray; }
+    color: #BFBFBF; }
 
 .post_body {
   padding: 0 30px 10px 75px;
@@ -50,7 +50,7 @@
 
 .div_post_content {
   margin: 5px auto;
-  background-color: #ffffff;
+  background-color: #FFFFFF;
   border-radius: 5px; }
 
 .post_footerBar {
@@ -91,12 +91,12 @@
 
 .post_msgPhoto {
   border-radius: 50%;
-  border: 1px #f2a1a1 solid;
+  border: 1px #F2A1A1 solid;
   width: 100%;
   height: 100%; }
 
 .div_post_msg_send {
-  background-color: #ffffff;
+  background-color: #FFFFFF;
   border-radius: 5px;
   display: flex;
   border-left: 8px solid #D68D8D;
@@ -138,7 +138,7 @@
     fill: #D68D8D; }
 
 .div_post_msg {
-  background-color: #ffffff;
+  background-color: #FFFFFF;
   border-radius: 5px;
   display: flex;
   border-left: 8px solid #F2A1A1;
@@ -155,7 +155,7 @@
     justify-content: center;
     width: 12%; }
     .div_post_msg .postMsgProfile .time {
-      color: gray;
+      color: #BFBFBF;
       font-size: 10pt; }
   .div_post_msg .postMsgComment {
     padding: 0 10px;

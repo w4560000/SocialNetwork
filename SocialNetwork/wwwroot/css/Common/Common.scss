@@ -1,11 +1,13 @@
-﻿html {
+﻿@import 'Base.scss';
+
+html {
     height: 100%;
     margin: 0;
 }
 
 body {
     font-family: Arial,"Microsoft JhengHei";
-    background-color: #FCD4D5;
+    background-color: $Color_PK0;
     height: 100%;
     margin: 0;
     font-weight: 600;
@@ -16,7 +18,7 @@ body {
 //捲軸底色
 body::-webkit-scrollbar-track {
     /*-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);*/
-    background-color: #E8E8E8;
+    background-color: $Color_G1;
 }
 //捲軸寬度
 body::-webkit-scrollbar {
@@ -46,7 +48,7 @@ a {
     justify-content: center;
     padding-top: 8%;
     padding-bottom: 3%;
-    color: #f2a1a1;
+    color: $Color_PK2;
 }
 
 input {
@@ -56,7 +58,7 @@ input {
 input[type="text"], input[type="password"] {
     height: 50px;
     border-radius: 5px;
-    border: 1px solid #FCD4D5;
+    border: 1px solid $Color_PK0;
     font-size: 15pt;
     margin-top: 2px;
     outline: 0;
@@ -64,7 +66,7 @@ input[type="text"], input[type="password"] {
 }
 
 input[type="text"]:focus, input[type="password"]:focus {
-    border: 1px solid #F2A1A1;
+    border: 1px solid $Color_PK2;
 }
 
 input[type="button"] {
@@ -75,7 +77,7 @@ input[type="button"] {
 input[type="date"] {
     height: 45px;
     border-radius: 5px;
-    border: 1px solid #FCD4D5;
+    border: 1px solid $Color_PK0;
     font-size: 15pt;
     margin-top: 2px;
     outline: 0;
@@ -84,7 +86,7 @@ input[type="date"] {
 }
 
 input[type="date"]:focus {
-    border: 1px solid #F2A1A1;
+    border: 1px solid $Color_PK2;
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
@@ -95,7 +97,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .member_layout_background {
     width: 500px;
     height: 100%;
-    background-color: #FFFFFF;
+    background-color: $Color_W1;
     margin: 0px auto;
 }
 
@@ -106,7 +108,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 /*POP背景遮罩*/
 .popLayer {
     display: none;
-    background-color: rgba(#000000, 0.32);
+    background-color: rgba($Color_B1, 0.32);
     position: absolute;
     top: 0;
     right: 0;
@@ -117,8 +119,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 /*POP彈窗樣式*/
 .popBox {
     display: none;
-    background-color: #FFFFFF;
-    border: 1px solid #D68D8D;
+    background-color: $Color_W1;
+    border: 1px solid $Color_PK1;
     border-radius: 10px;
     position: fixed;
     top: 0;
@@ -143,18 +145,18 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .closeIcon {
     width: 50px;
     height: 50px;
-    fill: #F2A1A1;
+    filter: $Color_PK2_Filter;
     position: absolute;
     right: 0px;
     cursor: pointer;
 }
 
 .closeIcon:hover {
-    fill: #D68D8D;
+    filter: $Color_PK1_Filter;
 }
 
 .popTitle {
-    color: #D68D8D;
+    color: $Color_PK1;
     font-size: 25pt;
     font-weight: 700;
     position: absolute;
@@ -171,14 +173,14 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     height: 50px;
     font-size: 15pt;
     border-radius: 5px;
-    background-color: #F2A1A1;
-    color: #FFFFFF;
+    background-color: $Color_PK2;
+    color: $Color_W1;
     font-weight: 700;
     outline: 0;
 }
 
 .btn_Error:hover {
-    border: 1px solid #FFFFFF;
+    border: 1px solid $Color_W1;
 }
 
 .ErrorText {
@@ -186,7 +188,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     justify-content: center;
     margin-top: 10%;
     font-size: 15pt;
-    color: #FF5A5A;
+    color: $Color_R1;
     font-weight: 600;
     text-align: center;
     height: 80px;
@@ -206,7 +208,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .PromptText {
-    color: #BFBFBF;
+    color: $Color_G2;
     font-size: 12pt;
 }
 
@@ -220,8 +222,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     height: 50px !important;
     font-size: 15pt !important;
     border-radius: 5px !important;
-    background-color: #F2A1A1 !important;
-    color: #FFFFFF !important;
+    background-color: $Color_PK2 !important;
+    color: $Color_W1 !important;
     font-weight: 700 !important;
     border: none !important;
 }
@@ -244,26 +246,26 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 /* 客製化 JQuery DatePicker*/
 .ui-widget-content {
-    background: #FFFFFF;
+    background: $Color_W1;
     border: none;
-    box-shadow: 1px 1px 3px 1px #F2A1A1;
+    box-shadow: 1px 1px 3px 1px $Color_PK2;
 }
 
 .ui-widget-header {
     border: none;
-    background: #FCD4D5;
+    background: $Color_PK0;
 }
 
 .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
-    background: #FFF3F3;
+    background: $Color_PK4;
     border: none;
     border-radius: 3px;
     text-align: center;
 }
 
 .ui-state-default:hover {
-    background: #f2a1a1;
-    color: #FFFFFF;
+    background: $Color_PK2;
+    color: $Color_W1;
 }
 
 .ui-datepicker select.ui-datepicker-month, .ui-datepicker select.ui-datepicker-year {
@@ -279,7 +281,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {
     border: none;
-    background: #f2a1a180;
+    background: $Color_PK2;
     top: 3px;
 }
 
@@ -304,14 +306,14 @@ input[type="date"]::-webkit-calendar-picker-indicator {
         .inputTextBackground {
             width: 90%;
             height: 70%;
-            background-color: #ffe9e9;
+            background-color: $Color_PK3;
             border-radius: 25px;
             position: relative;
             top: 20%;
 
             .inputText {
                 font-size: 16pt;
-                color: #4E4E4E;
+                color: $Color_B1;
                 position: relative;
                 bottom: 50%;
                 right: 5%;
@@ -326,14 +328,14 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     height: 50px;
     font-size: 15pt;
     border-radius: 5px;
-    background-color: #F2A1A1;
-    color: #FFFFFF;
+    background-color: $Color_PK2;
+    color: $Color_W1;
     font-weight: 700;
     outline: 0;
 }
 
 .div_menu {
-    background-color: #ffffff;
+    background-color: $Color_W1;
     width: 20%;
     height: 100%;
     position: fixed;
@@ -357,17 +359,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .div_banner {
-    background-color: #ffffff;
+    background-color: $Color_W1;
     width: 100%;
     height: 150px;
     margin: 30px auto;
-    border-radius: 5px;
-}
-
-.div_friend {
-    background-color: #ffffff;
-    width: 100%;
-    height: 74.5%;
     border-radius: 5px;
 }
 
@@ -377,41 +372,32 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     justify-content: center;
     padding-top: 8%;
     padding-bottom: 10%;
-    color: #f2a1a1;
+    color: $Color_PK2;
 }
 
 .meunContent {
     padding-left: 15%;
 }
 
-.btn_singout {
-    color: #808080;
-    font-size: 12pt;
-    text-align: left;
-    padding: 0px;
-    display: flex;
-    margin-top: 50%;
-}
-
 .index_profilePhoto {
     border-radius: 50%;
-    border: 1px #f2a1a1 solid;
+    border: 1px $Color_PK2 solid;
     display: flex;
     width: 40%;
     height: 50%;
-    fill: #f2a1a1;
+    filter: $Color_PK2_Filter;
 }
 
 .index_nickName {
     font-size: 20pt;
-    color: #f2a1a1;
+    color: $Color_PK2;
     padding: 20px 0 20px 0;
 }
 
 .index_status {
     height: 35px;
     width: 100px;
-    border: 1px solid #E8E8E8;
+    border: 1px solid $Color_G1;
     border-radius: 50px;
     font-size: 14pt;
     text-align: center;
@@ -425,7 +411,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     li {
         height: 40px;
         width: 120px;
-        border: 1px solid #E8E8E8;
+        border: 1px solid $Color_G1;
         font-size: 14pt;
         text-align: center;
         z-index: 2;
@@ -437,7 +423,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     }
 
     li: hover, li:selected {
-        background: #FCD4D5;
+        background: $Color_PK0;
     }
 
     li:nth-child(2) {
@@ -462,8 +448,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     width: 1em;
     height: 1em;
     border-radius: 50%;
-    background-color: #8AD98A;
-    border: 1px solid #E8E8E8;
+    background-color: $Color_GN1;
+    border: 1px solid $Color_G1;
     vertical-align: middle;
     margin: 0 5px 5px -20px;
 }
@@ -473,8 +459,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     width: 1em;
     height: 1em;
     border-radius: 50%;
-    background-color: #E8E8E8;
-    border: 1px solid #E8E8E8;
+    background-color: $Color_G1;
+    border: 1px solid $Color_G1;
     vertical-align: middle;
     margin: 0 5px 5px -20px;
 }
@@ -485,7 +471,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     height: 1em;
     border-radius: 50%;
     background-color: red;
-    border: 1px solid #E8E8E8;
+    border: 1px solid $Color_G1;
     vertical-align: middle;
     margin: 0 5px 5px -20px;
 }
@@ -498,7 +484,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
     input {
         font-size: 16pt;
-        color: #4E4E4E;
+        color: $Color_B1;
         position: relative;
         bottom: 50%;
         right: 5%;
@@ -515,7 +501,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     .index_menuTextBackground {
         width: 90%;
         height: 70%;
-        background-color: #ffe9e9;
+        background-color: $Color_PK3;
         border-radius: 25px;
         position: relative;
         top: 20%;
@@ -523,7 +509,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
     .index_menuText {
         font-size: 16pt;
-        color: #4E4E4E;
+        color: $Color_B1;
         position: relative;
         bottom: 50%;
         right: 5%;
@@ -534,16 +520,61 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .lSAction > .lSPrev {
     background-position: -2px -4px;
     left: 10px;
-    background-color: #f3a1a1;
+    background-color: $Color_PK2;
     border-radius: 50%;
     box-sizing: border-box;
-    border: 4px solid #f3a1a1;
+    border: 4px solid $Color_PK2;
 }
+
 .lSAction > .lSNext {
     background-position: -38px -4px;
     right: 10px;
-    background-color: #f3a1a1;
+    background-color: $Color_PK2;
     border-radius: 50%;
     box-sizing: border-box;
-    border: 4px solid #f3a1a1;
+    border: 4px solid $Color_PK2;
+}
+
+/*----------------------------------- 好友列表 -----------------------------------*/
+.div_friend {
+    background-color: $Color_W1;
+    width: 100%;
+    height: 74.5%;
+    border-radius: 5px;
+
+    .friend_container {
+        padding: 20px 30px;
+        height: 100%;
+
+        .friend_search_container {
+            overflow: hidden;
+            border-radius: 50px;
+            border: 1px solid $Color_G2;
+            width: 100%;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .friend_search {
+                font-size: 17px;
+                border: none;
+                width: 85%;
+                height: 100%;
+                font-weight: 400;
+                padding-left: 0 !important;
+            }
+
+            .SearchIcon {
+                filter: $Color_PK2_Filter;
+                height: 25px;
+            }
+        }
+
+        .friend_search_container:focus {
+            outline: none !important;
+            border: 1px solid $Color_G2;
+            box-shadow: 0 0 5px $Color_G2;
+        }
+    }
 }

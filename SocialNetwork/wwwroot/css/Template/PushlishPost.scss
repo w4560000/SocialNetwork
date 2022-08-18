@@ -1,5 +1,7 @@
-﻿.div_mypost {
-    background-color: #ffffff;
+﻿@import '../Common/Base.scss';
+
+.div_mypost {
+    background-color: $Color_W1;
     border-radius: 5px;
     margin-top: 30px;
     width: 100%;
@@ -43,8 +45,8 @@
             position: absolute;
             right: -8px;
             top: -8px;
-            fill: #F2A1A1;
-            border: 1px solid #F2A1A1;
+            fill: $Color_PK2;
+            border: 1px solid $Color_PK2;
             border-radius: 50%;
             background: white;
             width: 15px;
@@ -65,7 +67,7 @@
     padding: 10px;
 
     .deploy_post_title {
-        color: #D68D8D;
+        color: $Color_PK1;
         font-size: 16pt;
         position: relative;
         left: 0;
@@ -88,7 +90,7 @@
         right: 2%;
         cursor: pointer;
         border-radius: 50px;
-        background-color: #f2a1a1;
+        background-color: $Color_PK2;
         color: white;
         font-size: 12pt;
     }
@@ -119,11 +121,11 @@
     height: 80px;
     border-radius: 5px;
     cursor: pointer;
-    border: 1px solid #f2a1a1;
+    border: 1px solid $Color_PK2;
     display: flex;
     align-items: center;
     text-align: center;
     justify-content: center;
     font-size: 26pt;
-    color: #f2a1a1;
+    color: $Color_PK2;
 }

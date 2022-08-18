@@ -11,10 +11,12 @@ var User = /** @class */ (function () {
     };
     return User;
 }());
+$(document).ready(function () {
+});
 var user;
 $(function () {
     // 控制 SVG CSS
-    Common.ControllSVG();
+    // Common.ControllSVG();
     // 點選其他 element 時 自動隱藏展開的會員狀態
     $("body").click(function (event) {
         var currentElemetClass = ($(event.target).attr('class'));

@@ -16,11 +16,14 @@
     }
 }
 
+$(document).ready(function () {
+
+});
 var user;
 $(function () {
 
-    // 控制 SVG CSS
-    Common.ControllSVG();
+        // 控制 SVG CSS
+   // Common.ControllSVG();
 
     // 點選其他 element 時 自動隱藏展開的會員狀態
     $("body").click((event) => {
