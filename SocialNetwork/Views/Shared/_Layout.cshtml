@@ -44,12 +44,11 @@
     <div class="div_menu">
         <div class="logo_index"><a>I K K O N</a></div>
         <div class="meunContent">
-            <img class="svg index_profilePhoto" src="@UserContext.User.ProfilePhotoUrl">
+            <img class="index_profilePhoto" src="@UserContext.User.ProfilePhotoUrl">
 
             <div class="index_nickName">@UserContext.User.NickName</div>
             <ul class="index_status list-unstyled">
                 <div class="index_status_select"></div>
-
                 <li id="memberStatus_@((int)MemberStatusEnum.在線)">
                     <span class="index_online"></span>
                     @MemberStatusEnum.在線.ToString()
@@ -104,7 +103,25 @@
             <div class="friend_container">
                 <div class="friend_search_container">
                     <input type="text" class="friend_search svg" placeholder="搜尋好友" maxlength="30" />
-                    <img class="svg SearchIcon" src="/images/search.svg">
+                    <img class="SearchIcon" src="/images/search.svg">
+                </div>
+                <div class="friend_content">
+                    <div class="friend">
+                        <div class="friend_img_container">
+                            <img class="friend_img" src="@UserContext.User.ProfilePhotoUrl">
+                        </div>
+                        <div class="friend_name">
+                            Leo Zheng
+                        </div>
+                    </div>
+                    <div class="friend">
+                        <div class="friend_img_container">
+                            <img class="friend_img" src="@UserContext.User.ProfilePhotoUrl">
+                        </div>
+                        <div class="friend_name">
+                            Leo Zheng2
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

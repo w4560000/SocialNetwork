@@ -1,8 +1,6 @@
 $(function () {
     // 日期選擇元件
     Common.DatepickerInit($('#birthday_datepicker'));
-    // 控制 SVG CSS
-    Common.ControllSVG();
     $('#login_account').keyup(function (e) { return Common.RemoveErrorInput(e.target); });
     $('#login_password').keyup(function (e) { return Common.RemoveErrorInput(e.target); });
     $('#singup_name').keyup(function (e) { return Common.RemoveErrorInput(e.target); });

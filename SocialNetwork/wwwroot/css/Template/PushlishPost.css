@@ -7,7 +7,8 @@
 .post_content {
   opacity: 30%;
   font-size: 14pt;
-  padding: 15px; }
+  padding: 15px;
+  cursor: pointer; }
 
 .post_content_detail_hide {
   display: none; }
@@ -32,7 +33,7 @@
       position: absolute;
       right: -8px;
       top: -8px;
-      fill: #F2A1A1;
+      filter: invert(95%) sepia(69%) saturate(1835%) hue-rotate(293deg) brightness(99%) contrast(91%);
       border: 1px solid #F2A1A1;
       border-radius: 50%;
       background: white;
@@ -46,7 +47,8 @@
 .post_content_detail_topBar {
   height: 30px;
   width: 100%;
-  padding: 10px; }
+  padding: 10px;
+  display: flex; }
   .post_content_detail_topBar .deploy_post_title {
     color: #D68D8D;
     font-size: 16pt;

@@ -16,8 +16,7 @@
 .post_content_topBar {
   width: 100%;
   padding: 10px;
-  display: flex;
-  justify-content: flex-start; }
+  display: flex; }
   .post_content_topBar .postProfile {
     height: 50px;
     margin-left: 15px;
@@ -73,17 +72,17 @@
     .post_footerBar .post_footer_container .postLike, .post_footerBar .post_footer_container .postMsg {
       width: 30px;
       height: 30px;
-      fill: #B2BABB;
+      filter: invert(91%) sepia(6%) saturate(218%) hue-rotate(138deg) brightness(82%) contrast(85%);
       cursor: pointer; }
     .post_footerBar .post_footer_container .postLike:hover, .post_footerBar .post_footer_container .postMsg:hover {
-      fill: #99A3A4; }
+      filter: invert(75%) sepia(18%) saturate(105%) hue-rotate(137deg) brightness(83%) contrast(90%); }
     .post_footerBar .post_footer_container .postShare {
       width: 30px;
       height: 30px;
-      fill: #F2A1A1;
+      filter: invert(95%) sepia(69%) saturate(1835%) hue-rotate(293deg) brightness(99%) contrast(91%);
       cursor: pointer; }
     .post_footerBar .post_footer_container .postShare:hover {
-      fill: #D68D8D; }
+      filter: invert(88%) sepia(50%) saturate(878%) hue-rotate(294deg) brightness(93%) contrast(79%); }
 
 .post_msgPhoto_container {
   width: 40px;
@@ -132,10 +131,10 @@
   .post_msg_submit .msgSend {
     width: 30px;
     height: 30px;
-    fill: #F2A1A1;
+    filter: invert(95%) sepia(69%) saturate(1835%) hue-rotate(293deg) brightness(99%) contrast(91%);
     cursor: pointer; }
   .post_msg_submit .msgSend:hover {
-    fill: #D68D8D; }
+    filter: invert(88%) sepia(50%) saturate(878%) hue-rotate(294deg) brightness(93%) contrast(79%); }
 
 .div_post_msg {
   background-color: #FFFFFF;

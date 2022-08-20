@@ -3,9 +3,6 @@
     // 日期選擇元件
     Common.DatepickerInit($('#birthday_datepicker'));
 
-    // 控制 SVG CSS
-    Common.ControllSVG();
-
     $('#login_account').keyup((e) => Common.RemoveErrorInput(e.target));
     $('#login_password').keyup((e) => Common.RemoveErrorInput(e.target));
 

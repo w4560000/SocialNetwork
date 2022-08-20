@@ -10,10 +10,10 @@ body {
   margin: 0;
   font-weight: 600;
   overflow-x: hidden;
-  overflow-y: auto; }
+  overflow-y: auto;
+  user-select: none; }
 
 body::-webkit-scrollbar-track {
-  /*-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);*/
   background-color: #E8E8E8; }
 
 body::-webkit-scrollbar {
@@ -43,6 +43,9 @@ a {
 
 input {
   font-weight: 600; }
+
+span, input[type="text"], input[type="password"] {
+  user-select: text; }
 
 input[type="text"], input[type="password"] {
   height: 50px;
@@ -321,7 +324,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .index_profilePhoto {
   border-radius: 50%;
-  border: 1px #F2A1A1 solid;
+  border: 1px solid;
   display: flex;
   width: 40%;
   height: 50%;
@@ -334,7 +337,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .index_status {
   height: 35px;
-  width: 100px;
+  width: 120px;
   border: 1px solid #E8E8E8;
   border-radius: 50px;
   font-size: 14pt;
@@ -343,9 +346,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   align-items: center;
   flex-direction: column;
   justify-content: flex-start;
-  padding-left: 10px;
-  list-style: none;
-  li: hover, li; }
+  padding-left: 0px;
+  list-style: none; }
   .index_status li {
     height: 40px;
     width: 120px;
@@ -358,8 +360,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     background: white;
     padding: 5px 0px;
     cursor: pointer; }
-  .index_status :selected {
-    background: #FCD4D5; }
   .index_status li:nth-child(2) {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px; }
@@ -368,8 +368,19 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     border-bottom-right-radius: 10px; }
   .index_status .index_status_select {
     cursor: pointer;
-    padding: 5px 0px;
+    margin: 5px 0 0 0;
     width: 100%; }
+    .index_status .index_status_select:after {
+      display: inline-block;
+      position: absolute;
+      content: "";
+      width: 20px;
+      height: 22px;
+      background-image: url("../../images/arrow_drop_down.svg");
+      background-size: 30px;
+      filter: invert(91%) sepia(6%) saturate(218%) hue-rotate(138deg) brightness(82%) contrast(85%); }
+  .index_status .index_status_select_up:after {
+    background-image: url("../../images/arrow_drop_up.svg") !important; }
 
 .index_online {
   display: inline-block;
@@ -453,7 +464,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .div_friend {
   background-color: #FFFFFF;
   width: 100%;
-  height: 74.5%;
+  height: 75%;
   border-radius: 5px; }
   .div_friend .friend_container {
     padding: 20px 30px;
@@ -466,7 +477,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
       height: 30px;
       display: flex;
       justify-content: center;
-      align-items: center; }
+      align-items: center;
+      margin-bottom: 5px; }
       .div_friend .friend_container .friend_search_container .friend_search {
         font-size: 17px;
         border: none;
@@ -477,7 +489,40 @@ input[type="date"]::-webkit-calendar-picker-indicator {
       .div_friend .friend_container .friend_search_container .SearchIcon {
         filter: invert(95%) sepia(69%) saturate(1835%) hue-rotate(293deg) brightness(99%) contrast(91%);
         height: 25px; }
-    .div_friend .friend_container .friend_search_container:focus {
-      outline: none !important;
-      border: 1px solid #BFBFBF;
-      box-shadow: 0 0 5px #BFBFBF; }
+    .div_friend .friend_container .friend_content {
+      width: 100%;
+      height: 90%;
+      overflow-x: hidden;
+      overflow-y: auto;
+      margin: 10px 0; }
+      .div_friend .friend_container .friend_content::-webkit-scrollbar-track {
+        background-color: #E8E8E8;
+        border-radius: 10px; }
+      .div_friend .friend_container .friend_content::-webkit-scrollbar {
+        width: 10px; }
+      .div_friend .friend_container .friend_content::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0, 0.2);
+        border-radius: 10px; }
+      .div_friend .friend_container .friend_content .friend {
+        display: flex;
+        align-content: center;
+        padding: 5px 10px;
+        cursor: pointer;
+        transition: all 0.2s linear;
+        border-radius: 10px; }
+        .div_friend .friend_container .friend_content .friend:hover {
+          background: #E8E8E8;
+          transition: all 0.2s linear; }
+        .div_friend .friend_container .friend_content .friend .friend_img_container {
+          width: 35px;
+          height: 35px; }
+          .div_friend .friend_container .friend_content .friend .friend_img_container .friend_img {
+            border-radius: 50%;
+            border: 1px #F2A1A1 solid;
+            width: 100%;
+            height: 100%; }
+        .div_friend .friend_container .friend_content .friend .friend_name {
+          font-size: 12pt;
+          display: flex;
+          align-items: center;
+          padding-left: 15px; }

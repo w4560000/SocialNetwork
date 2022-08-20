@@ -18,7 +18,7 @@ namespace SocialNetwork.Helper
             {
                 Secure = true,
                 HttpOnly = true,
-                SameSite = SameSiteMode.Lax
+                SameSite = SameSiteMode.Strict
             };
 
             cookies.Append("X-Access-Token", token, cookieOptions);

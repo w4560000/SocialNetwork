@@ -10,7 +10,8 @@
 .post_content {
     opacity: 30%;
     font-size: 14pt;
-    padding: 15px
+    padding: 15px;
+    cursor: pointer;
 }
 
 .post_content_detail_hide {
@@ -45,7 +46,7 @@
             position: absolute;
             right: -8px;
             top: -8px;
-            fill: $Color_PK2;
+            filter: $Color_PK2_Filter;
             border: 1px solid $Color_PK2;
             border-radius: 50%;
             background: white;
@@ -65,6 +66,7 @@
     height: 30px;
     width: 100%;
     padding: 10px;
+    display: flex;
 
     .deploy_post_title {
         color: $Color_PK1;

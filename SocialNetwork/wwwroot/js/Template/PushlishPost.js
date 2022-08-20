@@ -42,12 +42,11 @@ function UploadPhoto_Change(e) {
         }
         for (var i = 0; i < fileList.length; i++) {
             $('.photoPreview').append("<div class=\"photoPreviewContainer\">" +
-                "<img class=\"svg photoDelete\" src=\"/images/Close.svg\" onclick='PhotoDelete(this)' id=\"".concat(fileList[i].name, "\"/>") +
+                "<img class=\"photoDelete\" src=\"/images/Close.svg\" onclick='PhotoDelete(this)' id=\"".concat(fileList[i].name, "\"/>") +
                 "<img class=\"photoPreviewImg\" src=\"".concat(URL.createObjectURL(fileList[i]), "\" />") +
                 '</div>');
             TempFileList.push(fileList[i]);
         }
-        Common.ControllSVG();
     }
 }
 /**

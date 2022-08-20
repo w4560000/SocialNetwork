@@ -22,20 +22,19 @@ $(document).ready(function () {
 var user;
 $(function () {
 
-        // 控制 SVG CSS
-   // Common.ControllSVG();
-
     // 點選其他 element 時 自動隱藏展開的會員狀態
     $("body").click((event) => {
-        var currentElemetClass = ($(event.target).attr('class'));
-        if (currentElemetClass !== 'index_status_select') {
+        var currentElemetClass = ($(event.target).attr('class')) as string;
+        if (!currentElemetClass.includes('index_status_select')) {
             if ($('#memberStatus_1').is(':visible')) {
-                $(".meunContent > ul").children('li').toggle();
+                $('.meunContent > ul').children('li').toggle();
+                $('.index_status_select').toggleClass('index_status_select_up');
             }
         }
     });
 
     $(".index_status").on("click", ".index_status_select", function () {
+        $(this).toggleClass('index_status_select_up');
         $(this).closest(".meunContent > ul").children('li').toggle();
     });
 
@@ -44,6 +43,7 @@ $(function () {
         allOptions.removeClass('selected');
         $(this).addClass('selected');
         $(".meunContent > ul").children('.index_status_select').html($(this).html());
+        $('.index_status_select').toggleClass('index_status_select_up');
 
         let currentSelectStatus = $(this).attr('id')?.split('_')[1] as string;
         let model = new UpdateMemberStatusReqViewModel(parseInt(currentSelectStatus) as MemberStatusEnum);
@@ -55,6 +55,15 @@ $(function () {
 
     // 載入會員狀態
     $("ul").children('.index_status_select').html($('#memberStatus_' + user.Status).html());
+
+    for (var i = 0; i < 20; i++) {
+        $('.friend_content').append(
+            `<div class="friend">` +
+                `<div class="friend_img_container">` +
+                    `<img class="friend_img" src="${user.ProfilePhotoUrl}"/>` +
+                `</div>` +
+                `<div class="friend_name">QQ123</div>`);
+    }
 });
 
 /** 登出 */

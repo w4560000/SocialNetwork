@@ -22,7 +22,6 @@
     width: 100%;
     padding: 10px;
     display: flex;
-    justify-content: flex-start;
 
     .postProfile {
         height: 50px;
@@ -94,23 +93,23 @@
         .postLike, .postMsg {
             width: 30px;
             height: 30px;
-            fill: $Color_G4;
+            filter: $Color_G4_Filter;
             cursor: pointer;
         }
 
         .postLike:hover, .postMsg:hover {
-            fill: $Color_G5;
+            filter: $Color_G5_Filter;
         }
 
         .postShare {
             width: 30px;
             height: 30px;
-            fill: $Color_PK2;
+            filter: $Color_PK2_Filter;
             cursor: pointer;
         }
 
         .postShare:hover {
-            fill: $Color_PK1;
+            filter: $Color_PK1_Filter;
         }
     }
 }
@@ -174,12 +173,12 @@
     .msgSend {
         width: 30px;
         height: 30px;
-        fill: $Color_PK2;
+        filter: $Color_PK2_Filter;
         cursor: pointer;
     }
 
     .msgSend:hover {
-        fill: $Color_PK1;
+        filter: $Color_PK1_Filter;
     }
 }
 
