@@ -427,8 +427,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   .index_menu .index_menuLink {
     width: 100px;
     height: 30px;
-    margin: 5px 0;
-    cursor: pointer; }
+    margin: 5px 0; }
   .index_menu .index_menuTextBackground {
     width: 90%;
     height: 70%;
@@ -442,7 +441,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     position: relative;
     bottom: 50%;
     right: 5%;
-    font-weight: 600; }
+    font-weight: 600;
+    display: block;
+    cursor: pointer; }
 
 .lSAction > .lSPrev {
   background-position: -2px -4px;

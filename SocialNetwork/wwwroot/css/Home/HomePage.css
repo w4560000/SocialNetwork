@@ -1,0 +1,52 @@
+﻿.div_profile {
+  background-color: #FFFFFF;
+  border-radius: 5px;
+  margin-top: 30px;
+  width: 100%;
+  height: 40%; }
+  .div_profile .profile_background_container {
+    width: 100%;
+    height: 50%; }
+    .div_profile .profile_background_container .profile_background {
+      width: 100%;
+      height: 100%; }
+  .div_profile .profile_name {
+    color: #F2A1A1;
+    background-color: #FFE5E5;
+    font-size: 24pt;
+    text-align: center;
+    height: 10%; }
+  .div_profile .profile_detail {
+    height: 40%; }
+    .div_profile .profile_detail .profile_detail_row {
+      display: flex;
+      align-items: center;
+      justify-content: left;
+      height: 50%; }
+      .div_profile .profile_detail .profile_detail_row .profile_detail_title_container {
+        width: 50%;
+        height: 50%;
+        display: flex;
+        align-items: center; }
+        .div_profile .profile_detail .profile_detail_row .profile_detail_title_container .profile_detail_title_content {
+          width: 70px;
+          height: 30px;
+          display: flex;
+          padding-left: 25%; }
+          .div_profile .profile_detail .profile_detail_row .profile_detail_title_container .profile_detail_title_content .profile_detail_title_background {
+            width: 90%;
+            height: 70%;
+            background-color: #FFE5E5;
+            border-radius: 25px;
+            position: relative;
+            top: 30%; }
+            .div_profile .profile_detail .profile_detail_row .profile_detail_title_container .profile_detail_title_content .profile_detail_title_background .profile_detail_title {
+              font-size: 18pt;
+              color: #000000;
+              position: relative;
+              bottom: 50%;
+              right: 5%;
+              font-weight: 600; }
+        .div_profile .profile_detail .profile_detail_row .profile_detail_title_container .profile_detail_content {
+          font-size: 18pt;
+          padding-left: 5%; }

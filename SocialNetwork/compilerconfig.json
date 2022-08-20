@@ -14,5 +14,9 @@
   {
     "outputFile": "wwwroot/css/Template/PushlishPost.css",
     "inputFile": "wwwroot/css/Template/PushlishPost.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/Home/HomePage.css",
+    "inputFile": "wwwroot/css/Home/HomePage.scss"
   }
 ]

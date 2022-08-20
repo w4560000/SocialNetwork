@@ -1,0 +1,88 @@
+﻿@{
+    ViewBag.Title = "HomePage";
+    Layout = "_Layout";
+}
+@using SocialNetwork.Helper
+@inject IUserContext UserContext
+
+<script src="~/js/Home/Index.js" asp-append-version="true"></script>
+<link rel="stylesheet" href="~/css/Home/Index.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/Home/HomePage.css" asp-append-version="true" />
+<script>
+    $(function () {
+        $(".example").lightSlider({
+            gallery: true, // 相本模式
+            item: 1, // 顯示數量
+            loop: false, // 無限循環
+            slideMargin: 10, // 間隔寬度
+            enableDrag: true, // 當左右拖曳時，則切換上/下項目
+            speed: 500
+        });
+    });
+</script>
+<div class="div_content">
+    <div class="div_profile">
+        <div class="profile_background_container">
+            <img class="profile_background" src="~/images/default_backgroundPhoto.jpg" />
+        </div>
+        <div class="profile_name">
+            @UserContext.User.NickName
+        </div>
+        <div class="profile_detail">
+            <div class="profile_detail_row">
+                <div class="profile_detail_title_container">
+                    <div class="profile_detail_title_content">
+                        <div class="profile_detail_title_background">
+                            <a class="profile_detail_title">生日</a>
+                        </div>
+                    </div>
+                    <div class="profile_detail_content">
+                        <span>1995 年 6 月 15 日</span>
+                    </div>
+                </div>
+
+                <div class="profile_detail_title_container">
+                    <div class="profile_detail_title_content">
+                        <div class="profile_detail_title_background">
+                            <a class="profile_detail_title">工作</a>
+                        </div>
+                    </div>
+                    <div class="profile_detail_content">
+                        <span>UI設計師</span>
+                    </div>
+
+                </div>
+            </div>
+            <div class="profile_detail_row">
+                <div class="profile_detail_title_container">
+                    <div class="profile_detail_title_content">
+                        <div class="profile_detail_title_background">
+                            <a class="profile_detail_title">興趣</a>
+                        </div>
+                    </div>
+                    <div class="profile_detail_content">
+                        <span>畫圖、爬山</span>
+                    </div>
+
+                </div>
+                <div class="profile_detail_title_container">
+                    <div class="profile_detail_title_content">
+                        <div class="profile_detail_title_background">
+                            <a class="profile_detail_title">學歷</a>
+                        </div>
+                    </div>
+                    <div class="profile_detail_content">
+                        <span>碩士</span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <partial name="~/Views/Shared/Templates/_PushlishPost.cshtml" />
+    <partial name="~/Views/Shared/Templates/_Post.cshtml" />
+    <partial name="~/Views/Shared/Templates/_Post.cshtml" />
+
+    <div class="div_post">
+    </div>
+</div>

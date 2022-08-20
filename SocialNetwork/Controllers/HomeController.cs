@@ -43,5 +43,32 @@ namespace SocialNetwork.Controllers
         {
             return View();
         }
+
+        /// <summary>
+        /// 個人主頁
+        /// </summary>
+        /// <returns>個人主頁</returns>
+        public IActionResult HomePage()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 帳號設定頁
+        /// </summary>
+        /// <returns>帳號設定頁</returns>
+        public IActionResult MemberSetting()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 好友管理頁
+        /// </summary>
+        /// <returns>好友管理頁</returns>
+        public IActionResult FriendManagement()
+        {
+            return View();
+        }
     }
 }
