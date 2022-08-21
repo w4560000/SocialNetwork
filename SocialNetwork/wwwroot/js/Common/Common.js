@@ -184,20 +184,17 @@ var Common = {
     },
     /**
      * 頁面註冊 Datepicker
-     * @param e
+     * @param e HTMLElement
+     * @param onSelectFunc SeleteFunc
      */
-    DatepickerInit: function (e) {
+    DatepickerInit: function (e, onSelectFunc) {
         e.datepicker({
             changeMonth: true,
             changeYear: true,
             showMonthAfterYear: true,
             yearRange: '1950:2022',
             dateFormat: 'yy-mm-dd',
-            onSelect: function (dateText, inst) {
-                $("#year").val(inst.selectedYear);
-                $("#month").val(inst.selectedMonth + 1);
-                $("#day").val(inst.selectedDay);
-            }
+            onSelect: onSelectFunc
         });
         $("#datepicker").on('change', function () {
             $(this).val("");
@@ -213,6 +210,15 @@ var Common = {
         };
         $.datepicker.setDefaults($.datepicker.regional["zh-TW"]);
     },
+    /**
+     * 會員資料公開或隱藏
+     * @param e HTMLImageElement
+     */
+    InfoIconToggle: function (e) {
+        var hideImage = "/images/InfoHide.png";
+        var publicImage = "/images/InfoPublic.png";
+        e.src = e.src.includes(publicImage) ? hideImage : publicImage;
+    }
     ///**
     // * SVG 元素控制 (目前已移除)
     // * */

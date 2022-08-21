@@ -72,6 +72,19 @@ namespace SocialNetwork.Helper
         }
 
         /// <summary>
+        /// AsSystemFailResponse
+        /// </summary>
+        /// <returns>SystemFailResponse</returns>
+        public static ResponseViewModel<T> AsSystemFailResponse<T>()
+        {
+            return new ResponseViewModel<T>
+            {
+                Status = ResponseStatusEnum.Error,
+                Message = "伺服器異常"
+            };
+        }
+
+        /// <summary>
         /// AsFailResponse
         /// </summary>
         /// <param name="modelState">ModelStateDictionary</param>

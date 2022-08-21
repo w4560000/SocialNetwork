@@ -78,5 +78,11 @@ namespace SocialNetwork.Service
         /// <returns>更新結果</returns>
         ResponseViewModel UpdateMemberStatus(UpdateMemberStatusReqViewModel model);
 
+        /// <summary>
+        /// 取得會員資訊
+        /// </summary>
+        /// <param name="memberID">會員編號</param>
+        /// <returns>會員資訊</returns>
+        ResponseViewModel<GetMemberInfoResViewModel> GetMemberInfo(int memberID);
     }
 }

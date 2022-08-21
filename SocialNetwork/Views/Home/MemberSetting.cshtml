@@ -7,6 +7,9 @@
 
 <script src="~/js/Home/Index.js" asp-append-version="true"></script>
 <link rel="stylesheet" href="~/css/Home/Index.css" asp-append-version="true" />
+
+<script src="~/js/Home/MemberSetting.js" asp-append-version="true"></script>
+<link rel="stylesheet" href="~/css/Home/MemberSetting.css" asp-append-version="true" />
 <script>
     $(function () {
         $(".example").lightSlider({
@@ -20,11 +23,102 @@
     });
 </script>
 <div class="div_content">
-    MemberSetting
-    <partial name="~/Views/Shared/Templates/_PushlishPost.cshtml" />
-    <partial name="~/Views/Shared/Templates/_Post.cshtml" />
-    <partial name="~/Views/Shared/Templates/_Post.cshtml" />
-
-    <div class="div_post">
+    <div class="div_save_topBar">
+        個人主頁設定
+        <input class="SaveButton" type="button" value="儲存變更" onclick="SaveProfile()" />
+    </div>
+    <div class="div_profile">
+        <div class="profile_background_container">
+            <img class="profile_background" src="~/images/default_backgroundPhoto.jpg" />
+        </div>
+        <div class="profile_name">
+            @UserContext.User.NickName
+        </div>
+        <div class="profile_detail">
+            <div class="profileContent">
+                <div class="InfoInputText">
+                    <div class="InfoTextBackground">
+                        <a class="InfoText">生日</a>
+                    </div>
+                </div>
+                <div class="InfoInputdiv">
+                    <input id="infoBrithday" class="input_profile" type="text" autocomplete="off" disabled="disabled">
+                    <div class="DateIcon">
+                        <input type="button" id="brithday_datepicker">
+                        <img src="/images/date.png">
+                    </div>
+                    <div><img onclick="Common.InfoIconToggle(this)" class="InfoIcon" src="/images/InfoPublic.png" MemberPublicInfoFlag="1"></div>
+                </div>
+            </div>
+            <div class="profileContent">
+                <div class="InfoInputText">
+                    <div class="InfoTextBackground">
+                        <a class="InfoText">興趣</a>
+                    </div>
+                </div>
+                <div class="InfoInputdiv">
+                    <input id="infoInternest" class="input_profile" type="text" autocomplete="off" maxlength="100">
+                    <div><img onclick="Common.InfoIconToggle(this)" class="InfoIcon" src="/images/InfoPublic.png" MemberPublicInfoFlag="2"></div>
+                </div>
+            </div>
+            <div class="profileContent">
+                <div class="InfoInputText">
+                    <div class="InfoTextBackground">
+                        <a class="InfoText">工作</a>
+                    </div>
+                </div>
+                <div class="InfoInputdiv">
+                    <input id="infoJob" class="input_profile" type="text" autocomplete="off" maxlength="100">
+                    <div><img onclick="Common.InfoIconToggle(this)" class="InfoIcon" src="/images/InfoPublic.png" MemberPublicInfoFlag="4"></div>
+                </div>
+            </div>
+            <div class="profileContent">
+                <div class="InfoInputText">
+                    <div class="InfoTextBackground">
+                        <a class="InfoText">學歷</a>
+                    </div>
+                </div>
+                <div class="InfoInputdiv">
+                    <input id="infoEducation" class="input_profile" type="text" autocomplete="off" maxlength="100">
+                    <div><img onclick="Common.InfoIconToggle(this)" class="InfoIcon" src="/images/InfoPublic.png" MemberPublicInfoFlag="8"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="div_save_topBar" style="margin-top: 30px;">
+        密碼變更
+        <input class="SaveButton" type="button" value="儲存變更" onclick="SaveProfile()" />
+    </div>
+    <div class="div_password_change">
+        <div class="passwordChangeContent">
+            <div class="InfoInputText">
+                <div class="InfoTextBackground" style="width: 105px;">
+                    <a class="InfoText">舊密碼</a>
+                </div>
+            </div>
+            <div class="InfoInputdiv">
+                <input class="input_password" type="password" autocomplete="new-password" maxlength="20" placeholder="請輸入目前的密碼">
+            </div>
+        </div>
+        <div class="passwordChangeContent">
+            <div class="InfoInputText">
+                <div class="InfoTextBackground" style="width: 105px;">
+                    <a class="InfoText">新密碼</a>
+                </div>
+            </div>
+            <div class="InfoInputdiv">
+                <input class="input_password" type="password" autocomplete="new-password" maxlength="20" placeholder="請輸入欲更換的密碼">
+            </div>
+        </div>
+        <div class="passwordChangeContent">
+            <div class="InfoInputText">
+                <div class="InfoTextBackground" style="width: 105px;">
+                    <a class="InfoText">密碼確認</a>
+                </div>
+            </div>
+            <div class="InfoInputdiv">
+                <input class="input_password" type="password" autocomplete="new-password" maxlength="20" placeholder="請再輸入一次">
+            </div>
+        </div>
     </div>
 </div>

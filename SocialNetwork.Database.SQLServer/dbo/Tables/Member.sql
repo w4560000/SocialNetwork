@@ -5,11 +5,11 @@
     [Password]   NVARCHAR (500) NOT NULL,
     [Mail]       NVARCHAR (100) NOT NULL,
     [ProfilePhotoURL] NVARCHAR(500) NOT NULL,
-    [BackgoundPhotoURL] NVARCHAR(500) NOT NULL,
-    [Birthday]   DATE           NULL,
+    [BackgroundPhotoURL] NVARCHAR(500) NOT NULL,
+    [Brithday]   DATE           NULL,
     [Interest]   NVARCHAR (300) NULL,
     [Job]        NVARCHAR (300) NULL,
-    [Education]  NVARCHAR (20)  NULL,
+    [Education]  NVARCHAR (300)  NULL,
     [InfoStatus] INT            NOT NULL,
     [Status]     INT            NOT NULL,
     [CreatedAt]  DATETIME       NOT NULL,
@@ -45,10 +45,10 @@ GO
 EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'大頭貼路徑', @level0type = N'SCHEMA', @level0name = N'dbo', @level1type = N'TABLE', @level1name = N'Member', @level2type = N'COLUMN', @level2name = N'ProfilePhotoURL';
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'背景圖路徑', @level0type = N'SCHEMA', @level0name = N'dbo', @level1type = N'TABLE', @level1name = N'Member', @level2type = N'COLUMN', @level2name = N'BackgoundPhotoURL';
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'背景圖路徑', @level0type = N'SCHEMA', @level0name = N'dbo', @level1type = N'TABLE', @level1name = N'Member', @level2type = N'COLUMN', @level2name = N'BackgroundPhotoURL';
 
 GO
-EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'生日', @level0type = N'SCHEMA', @level0name = N'dbo', @level1type = N'TABLE', @level1name = N'Member', @level2type = N'COLUMN', @level2name = N'Birthday';
+EXECUTE sp_addextendedproperty @name = N'MS_Description', @value = N'生日', @level0type = N'SCHEMA', @level0name = N'dbo', @level1type = N'TABLE', @level1name = N'Member', @level2type = N'COLUMN', @level2name = N'Brithday';
 
 
 GO

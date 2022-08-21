@@ -9,13 +9,18 @@
     height: 50%; }
     .div_profile .profile_background_container .profile_background {
       width: 100%;
-      height: 100%; }
+      height: 100%;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px; }
   .div_profile .profile_name {
     color: #F2A1A1;
     background-color: #FFE5E5;
     font-size: 24pt;
     text-align: center;
-    height: 10%; }
+    height: 12%;
+    display: flex;
+    align-items: center;
+    justify-content: center; }
   .div_profile .profile_detail {
     height: 40%; }
     .div_profile .profile_detail .profile_detail_row {

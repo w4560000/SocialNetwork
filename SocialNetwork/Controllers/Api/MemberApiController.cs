@@ -231,5 +231,24 @@ namespace SocialNetwork.Controllers
                 return CommonExtension.AsSystemFailResponse();
             }
         }
+
+        /// <summary>
+        /// 取得會員資訊
+        /// </summary>
+        /// <param name="memberID">會員編號</param>
+        /// <returns>會員資訊</returns>
+        [HttpGet(nameof(GetMemberInfo) + "/{memberID}")]
+        public ResponseViewModel<GetMemberInfoResViewModel> GetMemberInfo(int memberID)
+        {
+            try
+            {
+                return this.MemberService.GetMemberInfo(memberID);
+            }
+            catch (Exception ex)
+            {
+                this.Logger.LogCritical(ex, $"取得會員資訊失敗，{ex.GetExceptionMessage()}");
+                return CommonExtension.AsSystemFailResponse<GetMemberInfoResViewModel>();
+            }
+        }
     }
 }

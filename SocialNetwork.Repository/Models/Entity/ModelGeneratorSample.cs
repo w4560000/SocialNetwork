@@ -122,8 +122,8 @@ namespace SocialNetwork.Sample
 		public virtual string Password { get; set; }
 		public virtual string Mail { get; set; }
 		public virtual string ProfilePhotoURL { get; set; }
-		public virtual string BackgoundPhotoURL { get; set; }
-		public virtual DateTime? Birthday { get; set; }
+		public virtual string BackgroundPhotoURL { get; set; }
+		public virtual DateTime? Brithday { get; set; }
 		public virtual string Interest { get; set; }
 		public virtual string Job { get; set; }
 		public virtual string Education { get; set; }

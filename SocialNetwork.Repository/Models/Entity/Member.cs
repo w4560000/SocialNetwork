@@ -45,12 +45,12 @@ namespace SocialNetwork.Repository
         /// <summary>
         /// 背景圖路徑
         /// </summary>
-        public virtual string BackgoundPhotoURL { get; set; }
+        public virtual string BackgroundPhotoURL { get; set; }
 
         /// <summary>
         /// 生日
         /// </summary>
-        public virtual DateTime? Birthday { get; set; }
+        public virtual DateTime? Brithday { get; set; }
 
         /// <summary>
         /// 興趣

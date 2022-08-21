@@ -431,10 +431,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   .index_menu .index_menuTextBackground {
     width: 90%;
     height: 70%;
-    background-color: #FFE5E5;
     border-radius: 25px;
     position: relative;
     top: 20%; }
+  .index_menu .index_menuTextBackground_color {
+    background-color: #FFE5E5; }
   .index_menu .index_menuText {
     font-size: 16pt;
     color: #000000;

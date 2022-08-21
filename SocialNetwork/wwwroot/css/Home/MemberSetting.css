@@ -1,0 +1,108 @@
+﻿#brithday_datepicker {
+  width: 45px;
+  height: 45px;
+  text-indent: -999px;
+  overflow: hidden;
+  background: none;
+  margin: auto;
+  position: absolute; }
+
+.DateIcon {
+  padding: 0 10px; }
+
+.div_save_topBar {
+  margin-top: 10px;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  font-size: 22pt;
+  color: #D68D8D; }
+  .div_save_topBar .SaveButton {
+    width: 105px;
+    height: 35px;
+    position: absolute;
+    right: 0%;
+    cursor: pointer;
+    border-radius: 50px;
+    background-color: #F2A1A1;
+    color: white;
+    font-size: 15pt; }
+
+.InfoInputText {
+  height: 30px; }
+  .InfoInputText .InfoTextBackground {
+    width: 50px;
+    height: 70%;
+    background-color: #FFE5E5;
+    border-radius: 25px;
+    position: relative; }
+    .InfoInputText .InfoTextBackground .InfoText {
+      font-size: 16pt;
+      color: #000000;
+      position: relative;
+      bottom: 50%;
+      right: 5%;
+      font-weight: 600;
+      height: auto !important; }
+
+.div_profile {
+  background-color: #FFFFFF;
+  border-radius: 5px;
+  width: 100%;
+  height: 55%; }
+  .div_profile .profile_background_container {
+    width: 100%;
+    height: 45%; }
+    .div_profile .profile_background_container .profile_background {
+      width: 100%;
+      height: 100%;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px; }
+  .div_profile .profile_name {
+    color: #F2A1A1;
+    background-color: #FFE5E5;
+    font-size: 24pt;
+    text-align: center;
+    height: 12%;
+    display: flex;
+    align-items: center;
+    justify-content: center; }
+  .div_profile .profile_detail {
+    height: 50%; }
+    .div_profile .profile_detail .profileContent {
+      display: flex;
+      align-items: center;
+      justify-content: left;
+      margin: 2% 50px;
+      height: 12%; }
+      .div_profile .profile_detail .profileContent .InfoInputdiv {
+        display: contents; }
+        .div_profile .profile_detail .profileContent .InfoInputdiv .input_profile {
+          height: 35px !important;
+          width: 80%;
+          margin-left: 20px; }
+        .div_profile .profile_detail .profileContent .InfoInputdiv .InfoIcon {
+          width: 90px;
+          margin-left: 10px;
+          right: 0px;
+          cursor: pointer; }
+
+.div_password_change {
+  background-color: #FFFFFF;
+  border-radius: 5px;
+  width: 100%;
+  height: 25%;
+  padding-top: 2%; }
+  .div_password_change .passwordChangeContent {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    margin: 3% 50px;
+    height: 15%; }
+    .div_password_change .passwordChangeContent .InfoInputdiv {
+      display: contents; }
+      .div_password_change .passwordChangeContent .InfoInputdiv .input_password {
+        height: 35px !important;
+        width: 80%;
+        margin-left: 20px; }

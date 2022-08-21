@@ -10,7 +10,7 @@ namespace SocialNetwork.Repository
         /// <summary>
         /// 生日
         /// </summary>
-        public DateTime Birthday { get; set; }
+        public DateTime Brithday { get; set; }
 
         /// <summary>
         /// 興趣

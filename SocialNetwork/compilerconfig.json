@@ -18,5 +18,9 @@
   {
     "outputFile": "wwwroot/css/Home/HomePage.css",
     "inputFile": "wwwroot/css/Home/HomePage.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/Home/MemberSetting.css",
+    "inputFile": "wwwroot/css/Home/MemberSetting.scss"
   }
 ]

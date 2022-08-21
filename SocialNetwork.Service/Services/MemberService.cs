@@ -100,7 +100,7 @@ namespace SocialNetwork.Service
                 Password = model.Password,
                 Mail = model.Mail,
                 ProfilePhotoURL = SystemHelper.DefaultProfilePhoto,
-                BackgoundPhotoURL = SystemHelper.DefaultBackgoundPhoto,
+                BackgroundPhotoURL = SystemHelper.DefaultBackgoundPhoto,
                 InfoStatus = MemberPublicInfoEnum.全部不公開,
                 Status = MemberStatusEnum.離線
             };
@@ -150,7 +150,7 @@ namespace SocialNetwork.Service
             var member = this.MemberRepository.GetList("WHERE Account = @Account AND Password = @Password", new { model.Account, model.Password }).FirstOrDefault();
 
             if (member == null)
-                return  "帳號或密碼錯誤".AsFailResponse();
+                return "帳號或密碼錯誤".AsFailResponse();
 
             // 更新會員狀態、寫入 Cookie
             this.SetMemberStatusForCookie(member.MemberID, MemberStatusEnum.在線);
@@ -184,7 +184,7 @@ namespace SocialNetwork.Service
                     Password = string.Empty,
                     Mail = model.email,
                     ProfilePhotoURL = model.picture,
-                    BackgoundPhotoURL = SystemHelper.DefaultBackgoundPhoto,
+                    BackgroundPhotoURL = SystemHelper.DefaultBackgoundPhoto,
                     InfoStatus = MemberPublicInfoEnum.全部不公開,
                     Status = MemberStatusEnum.離線
                 };
@@ -210,7 +210,7 @@ namespace SocialNetwork.Service
                 return CommonExtension.AsSystemFailResponse();
 
             member.InfoStatus = model.MemberPublicInfo;
-            member.Birthday = model.Birthday;
+            member.Brithday = model.Brithday;
             member.Interest = model.Interest;
             member.Job = model.Job;
             member.Education = model.Education;
@@ -336,6 +336,33 @@ outline: 0;";
             this.SetMemberStatusForCookie(this.UserContext.User.MemberID, model.Status);
 
             return "更新狀態成功".AsSuccessResponse();
+        }
+
+        /// <summary>
+        /// 取得會員資訊
+        /// </summary>
+        /// <param name="memberID">會員編號</param>
+        /// <returns>會員資訊</returns>
+        public ResponseViewModel<GetMemberInfoResViewModel> GetMemberInfo(int memberID)
+        {
+            if (!this.MemberRepository.TryGetEntity(memberID, out Member member))
+                return CommonExtension.AsSystemFailResponse<GetMemberInfoResViewModel>();
+
+            var memberInfo = new GetMemberInfoResViewModel()
+            {
+                MemberID = member.MemberID,
+                NickName = member.NickName,
+                ProfilePhotoURL = member.ProfilePhotoURL,
+                BackgroundPhotoURL = member.BackgroundPhotoURL,
+                Brithday = member.InfoStatus.HasFlag(MemberPublicInfoEnum.公開生日) ? (member.Brithday ?? DateTime.MinValue) : DateTime.MinValue,
+                Interest = member.InfoStatus.HasFlag(MemberPublicInfoEnum.公開興趣) ? member.Interest : string.Empty,
+                Job = member.InfoStatus.HasFlag(MemberPublicInfoEnum.公開工作) ? member.Job : string.Empty,
+                Education = member.InfoStatus.HasFlag(MemberPublicInfoEnum.公開學歷) ? member.Education : string.Empty,
+                InfoStatus = member.InfoStatus,
+                IsOriginalMember = member.Account.Split("@").Last() != "google"
+            };
+
+            return CommonExtension.AsSuccessResponse<GetMemberInfoResViewModel>("取得會員資訊成功", memberInfo);
         }
 
         /// <summary>

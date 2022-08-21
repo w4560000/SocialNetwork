@@ -159,6 +159,7 @@
     width: 90px;
     margin-left: 10px;
     right: 0px;
+    cursor: pointer;
 }
 
 .InfoInputdiv {
@@ -166,7 +167,7 @@
 }
 
 /*隱藏時間選擇按鈕文字*/
-#birthday_datepicker {
+#brithday_datepicker {
     width: 45px;
     height: 45px;
     text-indent: -999px;

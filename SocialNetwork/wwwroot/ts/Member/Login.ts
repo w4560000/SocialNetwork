@@ -1,7 +1,12 @@
 ﻿$(function () {
-
     // 日期選擇元件
-    Common.DatepickerInit($('#birthday_datepicker'));
+    Common.DatepickerInit(
+        $('#brithday_datepicker'),
+        (dateText: string, inst: any) => {
+            $("#year").val(inst.selectedYear);
+            $("#month").val(inst.selectedMonth + 1);
+            $("#day").val(inst.selectedDay);
+        });
 
     $('#login_account').keyup((e) => Common.RemoveErrorInput(e.target));
     $('#login_password').keyup((e) => Common.RemoveErrorInput(e.target));
@@ -123,13 +128,13 @@ function UpdateMemberPublicInfo() {
         }
     });
 
-    if (!$('#birthday_datepicker').val()) {
+    if (!$('#brithday_datepicker').val()) {
         Common.SweetAlertError('請選擇生日');
         return;
     }
 
     let model = new UpdateMemberPublicInfoReqViewModel(
-        new Date($('#birthday_datepicker').val() as string),
+        new Date($('#brithday_datepicker').val() as string),
         $('#infoInternest').val() as string,
         $('#infoJob').val() as string,
         $('#infoEducation').val() as string,
