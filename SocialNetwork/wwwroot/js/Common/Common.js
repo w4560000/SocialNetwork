@@ -59,40 +59,40 @@ var Common = {
     },
     /**
      * SweetAlert 成功彈窗
-     * @param msg 成功訊息
+     * @param res 共用回應 ViewModel
      * @param confirmFunc 確認Func
      */
-    SweetAlertSuccess: function (msg, confirmFunc) {
+    SweetAlertSuccess: function (res, confirmFunc) {
         if (confirmFunc != null) {
             Swal.fire({
                 icon: 'success',
-                text: msg,
+                text: res.Message,
                 confirmButtonText: '確認',
                 allowOutsideClick: false,
             }).then(function (result) {
                 if (result.isConfirmed) {
-                    confirmFunc();
+                    confirmFunc(res);
                 }
             });
         }
         else {
             Swal.fire({
                 icon: 'success',
-                text: msg,
+                text: res.Message,
                 confirmButtonText: '確認'
             });
         }
     },
     /**
      * SweetAlert 失敗彈窗
-     * @param error 錯誤訊息
+     * @param res 共用回應 ViewModel
      * @param confirmFunc 確認Func
      */
-    SweetAlertError: function (error, confirmFunc) {
+    SweetAlertError: function (res, confirmFunc) {
         if (confirmFunc != null) {
             Swal.fire({
                 icon: 'error',
-                text: error,
+                text: res.Message,
                 confirmButtonText: '確認',
                 allowOutsideClick: false,
                 focusConfirm: false
@@ -105,7 +105,35 @@ var Common = {
         else {
             Swal.fire({
                 icon: 'error',
-                text: error,
+                text: res.Message,
+                confirmButtonText: '確認',
+                focusConfirm: false
+            });
+        }
+    },
+    /**
+     * SweetAlert 失敗彈窗
+     * @param msg 錯誤訊息
+     * @param confirmFunc 確認Func
+     */
+    SweetAlertErrorMsg: function (msg, confirmFunc) {
+        if (confirmFunc != null) {
+            Swal.fire({
+                icon: 'error',
+                text: msg,
+                confirmButtonText: '確認',
+                allowOutsideClick: false,
+                focusConfirm: false
+            }).then(function (result) {
+                if (result.isConfirmed) {
+                    confirmFunc();
+                }
+            });
+        }
+        else {
+            Swal.fire({
+                icon: 'error',
+                text: msg,
                 confirmButtonText: '確認',
                 focusConfirm: false
             });
@@ -218,42 +246,52 @@ var Common = {
         var hideImage = "/images/InfoHide.png";
         var publicImage = "/images/InfoPublic.png";
         e.src = e.src.includes(publicImage) ? hideImage : publicImage;
+    },
+    /**
+     * 判斷傳入的enum值是否包含特定的列舉項目(僅供enum flag使用)
+     * @param {object} targetEnum 欲判定的列舉flags欄位
+     * @param {object} checkEnum 特定的列舉項目
+     * @return {boolean} true: 有包含特定的列舉項目 / false: 無包含特定列舉項目
+     */
+    HasFlag: function (targetEnum, checkEnum) {
+        var result = (targetEnum & checkEnum) === checkEnum;
+        return result;
+    },
+    /**
+     * SVG 元素控制
+     * */
+    ControllSVG: function () {
+        jQuery('img.svg').each(function () {
+            var $img = jQuery(this);
+            var imgID = $img.attr('id');
+            var imgClass = $img.attr('class');
+            var imgURL = $img.attr('src');
+            var imgClick = $img.attr('onclick');
+            jQuery.get(imgURL, function (data) {
+                // Get the SVG tag, ignore the rest
+                var $svg = jQuery(data).find('svg');
+                // Add replaced image's ID to the new SVG
+                if (typeof imgID !== 'undefined') {
+                    $svg = $svg.attr('id', imgID);
+                }
+                // Add replaced image's classes to the new SVG
+                if (typeof imgClass !== 'undefined') {
+                    $svg = $svg.attr('class', imgClass + ' replaced-svg');
+                }
+                if (typeof imgClick !== 'undefined') {
+                    $svg = $svg.attr('onclick', imgClick);
+                }
+                // Remove any invalid XML tags as per http://validator.w3.org
+                $svg = $svg.removeAttr('xmlns:a');
+                // Check if the viewport is set, if the viewport is not set the SVG wont't scale.
+                if (!$svg.attr('viewBox') && $svg.attr('height') && $svg.attr('width')) {
+                    $svg.attr('viewBox', '0 0 ' + $svg.attr('height') + ' ' + $svg.attr('width'));
+                }
+                // Replace image with new SVG
+                $img.replaceWith($svg);
+            }, 'xml');
+        });
     }
-    ///**
-    // * SVG 元素控制 (目前已移除)
-    // * */
-    //ControllSVG: () => {
-    //    jQuery('img.svg').each(function () {
-    //        var $img = jQuery(this);
-    //        var imgID = $img.attr('id');
-    //        var imgClass = $img.attr('class');
-    //        var imgURL = $img.attr('src');
-    //        var imgClick = $img.attr('onclick');
-    //        jQuery.get(imgURL as string, function (data) {
-    //            // Get the SVG tag, ignore the rest
-    //            var $svg = jQuery(data).find('svg');
-    //            // Add replaced image's ID to the new SVG
-    //            if (typeof imgID !== 'undefined') {
-    //                $svg = $svg.attr('id', imgID);
-    //            }
-    //            // Add replaced image's classes to the new SVG
-    //            if (typeof imgClass !== 'undefined') {
-    //                $svg = $svg.attr('class', imgClass + ' replaced-svg');
-    //            }
-    //            if (typeof imgClick !== 'undefined') {
-    //                $svg = $svg.attr('onclick', imgClick);
-    //            }
-    //            // Remove any invalid XML tags as per http://validator.w3.org
-    //            $svg = $svg.removeAttr('xmlns:a');
-    //            // Check if the viewport is set, if the viewport is not set the SVG wont't scale.
-    //            if (!$svg.attr('viewBox') && $svg.attr('height') && $svg.attr('width')) {
-    //                $svg.attr('viewBox', '0 0 ' + $svg.attr('height') + ' ' + $svg.attr('width'))
-    //            }
-    //            // Replace image with new SVG
-    //            $img.replaceWith($svg);
-    //        }, 'xml');
-    //    });
-    //}
 };
 /** SweetAlert 快顯 */
 var Toast = Swal.mixin({

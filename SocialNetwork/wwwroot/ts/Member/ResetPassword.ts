@@ -22,7 +22,7 @@ function ResetPasswordConfirm() {
     }
 
     if (error) {
-        Common.SweetAlertError(error);
+        Common.SweetAlertErrorMsg(error);
         return;
     }
 

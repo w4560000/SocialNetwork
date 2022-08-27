@@ -27,7 +27,7 @@ function BaseGetAPI<Res>(
                         if (isNotification)
                             Common.SweetAlertNotification(true, res.Message);
                         else
-                            Common.SweetAlertSuccess(res.Message, successFunc);
+                            Common.SweetAlertSuccess(res, successFunc);
                     }
                     resolve(res.Data as Res);
                 }
@@ -35,13 +35,13 @@ function BaseGetAPI<Res>(
                     if (isNotification)
                         Common.SweetAlertNotification(false, res.Message);
                     else
-                        Common.SweetAlertError(res.Message, errorFunc);
+                        Common.SweetAlertError(res, errorFunc);
                 }
                 reject('error');
             },
             error: (e) => {
                 console.log(e);
-                Common.SweetAlertError("伺服器異常", errorFunc);
+                Common.SweetAlertErrorMsg("伺服器異常", errorFunc);
                 reject(e)
             }
         });
@@ -83,7 +83,7 @@ function BasePostAPI<T, Res>(
                         if (isNotification)
                             Common.SweetAlertNotification(true, res.Message);
                         else
-                            Common.SweetAlertSuccess(res.Message, successFunc);
+                            Common.SweetAlertSuccess(res, successFunc);
                     }
 
                     resolve(res.Data);
@@ -92,14 +92,14 @@ function BasePostAPI<T, Res>(
                     if (isNotification)
                         Common.SweetAlertNotification(false, res.Message);
                     else
-                        Common.SweetAlertError(res.Message, errorFunc);
+                        Common.SweetAlertError(res, errorFunc);
 
                     reject('error');
                 }
             },
             error: (e) => {
                 console.log(e);
-                Common.SweetAlertError("伺服器異常", errorFunc);
+                Common.SweetAlertErrorMsg("伺服器異常", errorFunc);
                 reject(e)
             }
         });
@@ -139,19 +139,19 @@ function BasePostAPIWithVoid<T>(
                     if (isNotification)
                         Common.SweetAlertNotification(true, res.Message);
                     else
-                        Common.SweetAlertSuccess(res.Message, successFunc);
+                        Common.SweetAlertSuccess(res, successFunc);
                 }
             }
             else {
                 if (isNotification)
                     Common.SweetAlertNotification(false, res.Message);
                 else
-                    Common.SweetAlertError(res.Message, errorFunc);
+                    Common.SweetAlertError(res, errorFunc);
             }
         },
         error: (e) => {
             console.log(e);
-            Common.SweetAlertError("伺服器異常", errorFunc);
+            Common.SweetAlertErrorMsg("伺服器異常", errorFunc);
         }
     });
 }
@@ -187,18 +187,18 @@ function BasePostAPIByFormData(
                 if (isNotification)
                     Common.SweetAlertNotification(true, res.Message);
                 else
-                    Common.SweetAlertSuccess(res.Message, successFunc);
+                    Common.SweetAlertSuccess(res, successFunc);
             }
             else {
                 if (isNotification)
                     Common.SweetAlertNotification(false, res.Message);
                 else
-                    Common.SweetAlertError(res.Message, errorFunc);
+                    Common.SweetAlertError(res, errorFunc);
             }
         },
         error: (e) => {
             console.log(e);
-            Common.SweetAlertError("伺服器異常", errorFunc);
+            Common.SweetAlertErrorMsg("伺服器異常", errorFunc);
         }
     });
 }
@@ -265,8 +265,16 @@ function LogoutAPI(loadingMsg: string, successFunc: Function, errorFunc: Functio
  * 更新會員狀態 API
  */
 function UpdateMemberStatusAPI(model: UpdateMemberStatusReqViewModel, successFunc: Function, errorFunc: Function): void {
+    BasePostAPIWithVoid<UpdateMemberStatusReqViewModel>('', "/MemberApi/UpdateMemberStatus", model, successFunc, errorFunc);
+}
+
+/**
+ * 取得當前會員資訊 API
+ */
+async function GetCurrentMemberInfoAPI(successFunc: Function, errorFunc: Function): Promise<GetMemberInfoResViewModel> {
     let isNotification = false;
-    BasePostAPIWithVoid<UpdateMemberStatusReqViewModel>('', "/MemberApi/UpdateMemberStatus", model, successFunc, errorFunc, isNotification,);
+    let isShowSuccessMsg = false;
+    return await BaseGetAPI<GetMemberInfoResViewModel>('', "/MemberApi/GetCurrentMemberInfo", successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 
 /**
@@ -276,6 +284,14 @@ async function GetMemberInfoAPI(memberID: number, successFunc: Function, errorFu
     let isNotification = false;
     let isShowSuccessMsg = false;
     return await BaseGetAPI<GetMemberInfoResViewModel>('', `/MemberApi/GetMemberInfo/${memberID}`, successFunc, errorFunc, isNotification, isShowSuccessMsg);
+}
+
+/**
+ * 密碼變更 API
+ */
+function ChangePasswordAPI(loadingMsg: string, model: ChangePasswordReqViewModel, successFunc: Function, errorFunc: Function, confirmTitle: string): void {
+    Common.SweetAlertConfirm(confirmTitle, () =>
+        BasePostAPIWithVoid<ChangePasswordReqViewModel>(loadingMsg, "/MemberApi/ChangePassword", model, successFunc, errorFunc));
 }
 
 // Post

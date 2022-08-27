@@ -4,19 +4,23 @@
     NickName: string;
     ProfilePhotoUrl: string;
     Status: MemberStatusEnum;
+    IsOriginalMember: boolean;
 
-    public Init(user): User {
+    public Init(user: User): User {
         this.MemberID = user.MemberID;
         this.Account = user.Account;
         this.NickName = user.NickName;
         this.ProfilePhotoUrl = user.ProfilePhotoUrl;
         this.Status = user.Status;
 
+        let oAuthList = ["google"];
+        this.IsOriginalMember = oAuthList.every(a => a != user.Account.split('@').pop());
+
         return this;
     }
 }
 
-var user;
+var user: User;
 $(function () {
     // 點選其他 element 時 自動隱藏展開的會員狀態
     $("body").click((event) => {
@@ -54,9 +58,6 @@ $(function () {
     // 載入會員狀態
     $("ul").children('.index_status_select').html($('#memberStatus_' + user.Status).html());
 
-    // 設定 Menu 底色 (根據當前頁面)
-    SetMenuColor();
-
     // 假資料
     for (var i = 0; i < 20; i++) {
         $('.friend_content').append(
@@ -66,6 +67,17 @@ $(function () {
             `</div>` +
             `<div class="friend_name">QQ123</div>`);
     }
+
+
+    // 當照片是預設圖時，加上 svg filter
+    $('img').each(function () {
+        if (($(this).attr('src') as string).includes('default_profilePhoto'))
+            $(this).addClass('index_profilePhotoDefault');
+    });
+
+    // 設定 Menu 底色 (根據當前頁面)
+    SetMenuColor();
+
 });
 
 /** 登出 */

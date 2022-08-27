@@ -42,20 +42,53 @@ $(function () {
                 case 0:
                     // 日期選擇元件
                     Common.DatepickerInit($('#brithday_datepicker'), function (dateText, inst) {
-                        debugger;
                         var date = "".concat(inst.selectedYear, " \u5E74 ").concat(inst.selectedMonth + 1, " \u6708 ").concat(inst.selectedDay, " \u65E5");
                         $("#infoBrithday").val(date);
                     });
                     successFunc = function () { };
                     errorFunc = function () { };
-                    return [4 /*yield*/, GetMemberInfoAPI(5, successFunc, errorFunc)];
+                    return [4 /*yield*/, GetCurrentMemberInfoAPI(successFunc, errorFunc)];
                 case 1:
                     memberInfo = _a.sent();
-                    console.log(memberInfo.Brithday);
-                    $('#brithday_datepicker').datepicker('setDate', new Date(memberInfo.Brithday));
+                    // 初始化 會員公開資訊
+                    $('.InfoIcon').each(function () {
+                        var memberPublicInfoFlag = Number($(this).attr('memberpublicinfoflag'));
+                        var src = Common.HasFlag(memberInfo.InfoStatus, memberPublicInfoFlag) ? "/images/InfoPublic.png" : "/images/InfoHide.png";
+                        $(this).attr("src", src);
+                    });
+                    $('#brithday_datepicker').datepicker('setDate', memberInfo.Brithday);
                     $('.ui-datepicker-current-day').click();
+                    $('#infoInternest').val(memberInfo.Interest);
+                    $('#infoJob').val(memberInfo.Job);
+                    $('#infoEducation').val(memberInfo.Education);
+                    // 非原生帳號 隱藏變更密碼版面
+                    if (user.IsOriginalMember === false) {
+                        $('.div_save_topBar').remove();
+                        $('.div_password_change').remove();
+                    }
                     return [2 /*return*/];
             }
         });
     });
 });
+/** 變更密碼 */
+function ChangePassword() {
+    var errorMsg = {
+        oldPassword: '請輸入舊密碼',
+        newPassword: '請輸入新密碼',
+        newPasswordCheck: '請輸入新密碼確認'
+    };
+    var error = Common.Validate(errorMsg);
+    if (error) {
+        Common.SweetAlertErrorMsg(error);
+        return;
+    }
+    var model = new ChangePasswordReqViewModel($('#oldPassword').val(), $('#newPassword').val(), $('#newPasswordCheck').val());
+    var successFunc = function () {
+        $('#oldPassword').val('');
+        $('#newPassword').val('');
+        $('#newPasswordCheck').val('');
+    };
+    var errorFunc = function () { };
+    ChangePasswordAPI("變更密碼中", model, successFunc, errorFunc, "確定是否執行變更密碼?");
+}

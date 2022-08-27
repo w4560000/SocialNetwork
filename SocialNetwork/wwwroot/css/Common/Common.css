@@ -324,10 +324,13 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .index_profilePhoto {
   border-radius: 50%;
-  border: 1px solid;
+  border: 1px #F2A1A1 solid;
   display: flex;
   width: 40%;
-  height: 50%;
+  height: 50%; }
+
+.index_profilePhotoDefault {
+  border: 1px solid !important;
   filter: invert(95%) sepia(69%) saturate(1835%) hue-rotate(293deg) brightness(99%) contrast(91%); }
 
 .index_nickName {

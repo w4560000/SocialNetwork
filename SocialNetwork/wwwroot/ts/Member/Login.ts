@@ -29,7 +29,7 @@ function Login() {
     let error = Common.Validate(errorMsg);
 
     if (error) {
-        Common.SweetAlertError(error);
+        Common.SweetAlertErrorMsg(error);
         return;
     }
 
@@ -48,7 +48,14 @@ function GoogleLogin() {
         scope: 'profile email',
         ux_mode: 'popup',
         callback: (response: any) => {
-            let successFuc = () => {
+            let successFuc = (res: ResponseViewModel<GoogleLoginResViewModel>) => {
+
+                // 首次第三方登入 才需要設定個人公開資訊
+                if (res.Data?.IsFirstLogin === true) {
+                    Common.Popup('MemberInfo');
+                    return;
+                }
+
                 Common.SweetAlertRedirect("/Home/Index", "首頁");
             };
             let errorFunc = () => { };
@@ -98,7 +105,7 @@ function Singup() {
     }
 
     if (error) {
-        Common.SweetAlertError(error);
+        Common.SweetAlertErrorMsg(error);
         return;
     }
 
@@ -120,16 +127,16 @@ function Singup() {
 
 /** 更新會員公開資訊 */
 function UpdateMemberPublicInfo() {
-    let memberPublicInfo = 0;
+    let infoStatus = 0;
 
     $('.InfoIcon').each(function (i) {
         if ((<HTMLImageElement>this).src.includes('InfoPublic')) {
-            memberPublicInfo += Number($(this).attr('memberpublicinfoflag'));
+            infoStatus += Number($(this).attr('memberpublicinfoflag'));
         }
     });
 
     if (!$('#brithday_datepicker').val()) {
-        Common.SweetAlertError('請選擇生日');
+        Common.SweetAlertErrorMsg('請選擇生日');
         return;
     }
 
@@ -138,7 +145,7 @@ function UpdateMemberPublicInfo() {
         $('#infoInternest').val() as string,
         $('#infoJob').val() as string,
         $('#infoEducation').val() as string,
-        memberPublicInfo);
+        infoStatus);
     let successFunc = () => {
         Common.SweetAlertRedirect('/Home/Index', '首頁');
     };
@@ -167,7 +174,7 @@ function ResetPassword() {
     let error = Common.Validate(errorMsg);
 
     if (error) {
-        Common.SweetAlertError(error);
+        Common.SweetAlertErrorMsg(error);
         return;
     }
 

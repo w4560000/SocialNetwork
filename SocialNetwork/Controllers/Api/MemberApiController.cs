@@ -69,7 +69,7 @@ namespace SocialNetwork.Controllers
         /// <returns></returns>
         [AllowAnonymous]
         [HttpPost(nameof(GoogleLogin))]
-        public ResponseViewModel GoogleLogin(GoogleLoginReqViewModel model)
+        public ResponseViewModel<GoogleLoginResViewModel> GoogleLogin(GoogleLoginReqViewModel model)
         {
             try
             {
@@ -91,7 +91,7 @@ namespace SocialNetwork.Controllers
             catch (Exception ex)
             {
                 this.Logger.LogCritical(ex, $"Google 第三方登入失敗，{ex.GetExceptionMessage()}");
-                return CommonExtension.AsSystemFailResponse();
+                return CommonExtension.AsSystemFailResponse<GoogleLoginResViewModel>();
             }
         }
 
@@ -233,6 +233,24 @@ namespace SocialNetwork.Controllers
         }
 
         /// <summary>
+        /// 取得當前會員資訊
+        /// </summary>
+        /// <returns>當前會員資訊</returns>
+        [HttpGet(nameof(GetCurrentMemberInfo))]
+        public ResponseViewModel<GetMemberInfoResViewModel> GetCurrentMemberInfo()
+        {
+            try
+            {
+                return this.MemberService.GetCurrentMemberInfo();
+            }
+            catch (Exception ex)
+            {
+                this.Logger.LogCritical(ex, $"取得當前會員資訊失敗，{ex.GetExceptionMessage()}");
+                return CommonExtension.AsSystemFailResponse<GetMemberInfoResViewModel>();
+            }
+        }
+
+        /// <summary>
         /// 取得會員資訊
         /// </summary>
         /// <param name="memberID">會員編號</param>
@@ -248,6 +266,25 @@ namespace SocialNetwork.Controllers
             {
                 this.Logger.LogCritical(ex, $"取得會員資訊失敗，{ex.GetExceptionMessage()}");
                 return CommonExtension.AsSystemFailResponse<GetMemberInfoResViewModel>();
+            }
+        }
+
+        /// <summary>
+        /// 密碼變更
+        /// </summary>
+        /// <param name="model">密碼變更 Req ViewModel</param>
+        /// <returns>變更結果</returns>
+        [HttpPost(nameof(ChangePassword))]
+        public ResponseViewModel ChangePassword(ChangePasswordReqViewModel model)
+        {
+            try
+            {
+                return this.MemberService.ChangePassword(model);
+            }
+            catch (Exception ex)
+            {
+                this.Logger.LogCritical(ex, $"密碼變更失敗，{ex.GetExceptionMessage()}");
+                return CommonExtension.AsSystemFailResponse();
             }
         }
     }

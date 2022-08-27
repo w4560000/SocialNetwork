@@ -30,6 +30,6 @@ namespace SocialNetwork.Repository
         /// <summary>
         /// 會員公開資訊狀態
         /// </summary>
-        public MemberPublicInfoEnum MemberPublicInfo { get; set; }
+        public MemberPublicInfoEnum InfoStatus { get; set; }
     }
 }

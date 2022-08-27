@@ -18,7 +18,7 @@ function ResetPasswordConfirm() {
         }
     }
     if (error) {
-        Common.SweetAlertError(error);
+        Common.SweetAlertErrorMsg(error);
         return;
     }
     var model = new ResetPasswordConfirmReqViewModel($("#resetPassword_password").val(), $("#resetPassword_confirmPassword").val(), $("#resetPassword_guid").val());

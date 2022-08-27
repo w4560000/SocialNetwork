@@ -2,7 +2,8 @@
  * 共用回應 ViewModel
  * */
 var ResponseViewModel = /** @class */ (function () {
-    function ResponseViewModel() {
+    function ResponseViewModel(msg) {
+        this.Message = msg;
     }
     return ResponseViewModel;
 }());
@@ -90,4 +91,15 @@ var UpdateMemberStatusReqViewModel = /** @class */ (function () {
         this.Status = status;
     }
     return UpdateMemberStatusReqViewModel;
+}());
+/**
+ * 密碼變更 Request ViewModel
+ * */
+var ChangePasswordReqViewModel = /** @class */ (function () {
+    function ChangePasswordReqViewModel(oldPassword, newPassword, newPasswordCheck) {
+        this.OldPassword = oldPassword;
+        this.NewPassword = newPassword;
+        this.NewPasswordCheck = newPasswordCheck;
+    }
+    return ChangePasswordReqViewModel;
 }());

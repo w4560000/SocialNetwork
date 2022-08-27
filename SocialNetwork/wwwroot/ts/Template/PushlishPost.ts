@@ -1,5 +1,8 @@
 ﻿var TempFileList: File[] = [];
 
+$(function () {
+});
+
 /**
  * 顯示發佈貼文區塊
  * @param e HTMLElement
@@ -32,31 +35,33 @@ function UploadPhoto_Change(e: HTMLInputElement) {
 
         if (fileList.length > 10) {
             e.files = null;
-            Common.SweetAlertError('單筆貼文圖片限定最多上傳 10 張');
+            Common.SweetAlertErrorMsg('單筆貼文圖片限定最多上傳 10 張');
             return;
         }
 
         if (fileList.every(e => Common.ValidateUploadPhotoExtension(e)) === false) {
             e.files = null;
-            Common.SweetAlertError('圖片僅限上傳 .jpg、.jpeg、.png、.webp、.svg、.gif');
+            Common.SweetAlertErrorMsg('圖片僅限上傳 .jpg、.jpeg、.png、.webp、.svg、.gif');
             return;
         }
 
         if (fileList.every(e => Common.ValidateUploadPhotoSize(e) === false)) {
             e.files = null;
-            Common.SweetAlertError('單張圖片大小不得超過 5 MB');
+            Common.SweetAlertErrorMsg('單張圖片大小不得超過 5 MB');
             return;
         }
 
         for (var i = 0; i < fileList.length; i++) {
             $('.photoPreview').append(
                 `<div class="photoPreviewContainer">` +
-                    `<img class="photoDelete" src="/images/Close.svg" onclick='PhotoDelete(this)' id="${fileList[i].name}"/>` +
-                    `<img class="photoPreviewImg" src="${URL.createObjectURL(fileList[i])}" />` +
+                    `<img class="svg photoDelete" src="/images/Close.svg" onclick='PhotoDelete(this)' id="${fileList[i].name}"/>` +
+                    `<img class="svg photoPreviewImg" src="${URL.createObjectURL(fileList[i])}" />` +
                 '</div>');
 
             TempFileList.push(fileList[i]);
         }
+
+        Common.ControllSVG();
     }
 }
 
@@ -79,7 +84,7 @@ function PublishPost() {
     let post = $(".write_post").val() as string;
 
     if (post.length === 0) {
-        Common.SweetAlertError('請輸入貼文內容');
+        Common.SweetAlertErrorMsg('請輸入貼文內容');
         return;
     }
 

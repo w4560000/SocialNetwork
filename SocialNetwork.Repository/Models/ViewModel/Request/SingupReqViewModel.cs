@@ -17,6 +17,8 @@ namespace SocialNetwork.Repository
         /// 會員帳號
         /// </summary>
         [Required(ErrorMessage = "請輸入會員帳號")]
+        [RegularExpression("^.[A-Za-z0-9]+$", ErrorMessage = "會員帳號需至少為6碼的英數字")]
+        [MinLength(6, ErrorMessage = "會員帳號需至少為6碼的英數字")]
         public string Account { get; set; }
 
         /// <summary>

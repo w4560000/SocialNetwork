@@ -6,6 +6,10 @@ class ResponseViewModel<T>
     Status: ResponseStatusEnum | undefined;
     Message: string | undefined;
     Data: T | undefined;
+
+    constructor(msg: string) {
+        this.Message = msg;
+    }
 }
 
 /**
@@ -119,5 +123,23 @@ class UpdateMemberStatusReqViewModel {
 
     constructor(status: MemberStatusEnum) {
         this.Status = status;
+    }
+}
+
+/**
+ * 密碼變更 Request ViewModel
+ * */
+class ChangePasswordReqViewModel {
+    OldPassword: string;
+    NewPassword: string;
+    NewPasswordCheck: string;
+
+    constructor(
+        oldPassword: string,
+        newPassword: string,
+        newPasswordCheck: string) {
+        this.OldPassword = oldPassword;
+        this.NewPassword = newPassword;
+        this.NewPasswordCheck = newPasswordCheck;
     }
 }

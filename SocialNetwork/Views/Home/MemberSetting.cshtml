@@ -87,37 +87,37 @@
     </div>
     <div class="div_save_topBar" style="margin-top: 30px;">
         密碼變更
-        <input class="SaveButton" type="button" value="儲存變更" onclick="SaveProfile()" />
+        <input class="SaveButton" type="button" value="儲存變更" onclick="ChangePassword()" />
     </div>
     <div class="div_password_change">
         <div class="passwordChangeContent">
             <div class="InfoInputText">
-                <div class="InfoTextBackground" style="width: 105px;">
+                <div class="InfoTextBackground" style="width: 110px;">
                     <a class="InfoText">舊密碼</a>
                 </div>
             </div>
             <div class="InfoInputdiv">
-                <input class="input_password" type="password" autocomplete="new-password" maxlength="20" placeholder="請輸入目前的密碼">
+                <input class="input_password" id="oldPassword" type="password" autocomplete="new-password" maxlength="20" placeholder="請輸入目前的密碼">
             </div>
         </div>
         <div class="passwordChangeContent">
             <div class="InfoInputText">
-                <div class="InfoTextBackground" style="width: 105px;">
+                <div class="InfoTextBackground" style="width: 110px;">
                     <a class="InfoText">新密碼</a>
                 </div>
             </div>
             <div class="InfoInputdiv">
-                <input class="input_password" type="password" autocomplete="new-password" maxlength="20" placeholder="請輸入欲更換的密碼">
+                <input class="input_password" id="newPassword" type="password" autocomplete="new-password" maxlength="20" placeholder="請輸入欲更換的密碼">
             </div>
         </div>
         <div class="passwordChangeContent">
             <div class="InfoInputText">
-                <div class="InfoTextBackground" style="width: 105px;">
-                    <a class="InfoText">密碼確認</a>
+                <div class="InfoTextBackground" style="width: 110px;">
+                    <a class="InfoText">新密碼確認</a>
                 </div>
             </div>
             <div class="InfoInputdiv">
-                <input class="input_password" type="password" autocomplete="new-password" maxlength="20" placeholder="請再輸入一次">
+                <input class="input_password" id="newPasswordCheck" type="password" autocomplete="new-password" maxlength="20" placeholder="請再輸入一次新密碼">
             </div>
         </div>
     </div>

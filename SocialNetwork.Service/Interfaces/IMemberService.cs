@@ -34,7 +34,7 @@ namespace SocialNetwork.Service
         /// </summary>
         /// <param name="model">登入 Req ViewModel</param>
         /// <returns>登入結果</returns>
-        ResponseViewModel GoogleLogin(GoogleOAuth_UserInfoResult model);
+        ResponseViewModel<GoogleLoginResViewModel> GoogleLogin(GoogleOAuth_UserInfoResult model);
 
         /// <summary>
         /// 更新會員公開資訊
@@ -79,10 +79,23 @@ namespace SocialNetwork.Service
         ResponseViewModel UpdateMemberStatus(UpdateMemberStatusReqViewModel model);
 
         /// <summary>
+        /// 取得當前會員資訊
+        /// </summary>
+        /// <returns>當前會員資訊</returns>
+        ResponseViewModel<GetMemberInfoResViewModel> GetCurrentMemberInfo();
+
+        /// <summary>
         /// 取得會員資訊
         /// </summary>
         /// <param name="memberID">會員編號</param>
         /// <returns>會員資訊</returns>
         ResponseViewModel<GetMemberInfoResViewModel> GetMemberInfo(int memberID);
+
+        /// <summary>
+        /// 密碼變更
+        /// </summary>
+        /// <param name="model">密碼變更 Req viewModel</param>
+        /// <returns>密碼變更結果</returns>
+        ResponseViewModel ChangePassword(ChangePasswordReqViewModel model);
     }
 }

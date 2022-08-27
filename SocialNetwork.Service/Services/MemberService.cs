@@ -2,6 +2,7 @@
 using SocialNetwork.Helper;
 using SocialNetwork.Repository;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SocialNetwork.Service
@@ -74,6 +75,9 @@ namespace SocialNetwork.Service
         /// <returns>註冊結果</returns>
         public ResponseViewModel Signup(SingupReqViewModel model)
         {
+            if (model.Password != model.PasswordCheck)
+                return "會員密碼與確認密碼不相符".AsFailResponse();
+
             bool isMemberExist = this.MemberRepository.RecordCount("WHERE Account = @Account OR Mail = @Mail", new { model.Account, model.Mail }) > 0;
 
             if (isMemberExist)
@@ -163,14 +167,15 @@ namespace SocialNetwork.Service
         /// </summary>
         /// <param name="model">登入 Req ViewModel</param>
         /// <returns>登入結果</returns>
-        public ResponseViewModel GoogleLogin(GoogleOAuth_UserInfoResult model)
+        public ResponseViewModel<GoogleLoginResViewModel> GoogleLogin(GoogleOAuth_UserInfoResult model)
         {
+            var res = new GoogleLoginResViewModel();
             string account = model.id + "@google";
 
             var isMailExist = this.MemberRepository.RecordCount("WHERE Account <> @account AND Mail = @email ", new { account, model.email }) > 0;
 
             if (isMailExist)
-                return "該 Google 信箱已有人使用，無法註冊".AsFailResponse();
+                return "該 Google 信箱已有人使用，無法註冊".AsFailResponse(res);
 
             var member = this.MemberRepository.GetList("WHERE Account = @account ", new { account }).FirstOrDefault();
 
@@ -191,12 +196,13 @@ namespace SocialNetwork.Service
                 // 註冊
                 var memberID = this.MemberRepository.Add<int>(member);
                 member.MemberID = memberID;
+                res.IsFirstLogin = true;
             }
 
             // 更新會員狀態、寫入 Cookie
             this.SetMemberStatusForCookie(member.MemberID, MemberStatusEnum.在線);
 
-            return $"{member.NickName} 登入成功".AsSuccessResponse();
+            return $"{member.NickName} 登入成功".AsSuccessResponse(res);
         }
 
         /// <summary>
@@ -209,7 +215,7 @@ namespace SocialNetwork.Service
             if (!this.MemberRepository.TryGetEntity(UserContext.User.MemberID, out Member member))
                 return CommonExtension.AsSystemFailResponse();
 
-            member.InfoStatus = model.MemberPublicInfo;
+            member.InfoStatus = model.InfoStatus;
             member.Brithday = model.Brithday;
             member.Interest = model.Interest;
             member.Job = model.Job;
@@ -339,6 +345,32 @@ outline: 0;";
         }
 
         /// <summary>
+        /// 取得當前會員資訊
+        /// </summary>
+        /// <returns>當前會員資訊</returns>
+        public ResponseViewModel<GetMemberInfoResViewModel> GetCurrentMemberInfo()
+        {
+            if (!this.MemberRepository.TryGetEntity(this.UserContext.User.MemberID, out Member member))
+                return CommonExtension.AsSystemFailResponse<GetMemberInfoResViewModel>();
+
+            var memberInfo = new GetMemberInfoResViewModel()
+            {
+                MemberID = member.MemberID,
+                NickName = member.NickName,
+                ProfilePhotoURL = member.ProfilePhotoURL,
+                BackgroundPhotoURL = member.BackgroundPhotoURL,
+                Brithday = member.Brithday ?? DateTime.MinValue,
+                Interest = member.Interest,
+                Job = member.Job,
+                Education = member.Education,
+                InfoStatus = member.InfoStatus,
+                IsOriginalMember = member.Account.Split("@").Last() != "google"
+            };
+
+            return CommonExtension.AsSuccessResponse("取得當前會員資訊成功", memberInfo);
+        }
+
+        /// <summary>
         /// 取得會員資訊
         /// </summary>
         /// <param name="memberID">會員編號</param>
@@ -347,6 +379,8 @@ outline: 0;";
         {
             if (!this.MemberRepository.TryGetEntity(memberID, out Member member))
                 return CommonExtension.AsSystemFailResponse<GetMemberInfoResViewModel>();
+
+            List<string> oAuthList = new List<string>() { "google" };
 
             var memberInfo = new GetMemberInfoResViewModel()
             {
@@ -359,10 +393,32 @@ outline: 0;";
                 Job = member.InfoStatus.HasFlag(MemberPublicInfoEnum.公開工作) ? member.Job : string.Empty,
                 Education = member.InfoStatus.HasFlag(MemberPublicInfoEnum.公開學歷) ? member.Education : string.Empty,
                 InfoStatus = member.InfoStatus,
-                IsOriginalMember = member.Account.Split("@").Last() != "google"
+                IsOriginalMember = oAuthList.All(a => a != member.Account.Split("@").Last())
             };
 
-            return CommonExtension.AsSuccessResponse<GetMemberInfoResViewModel>("取得會員資訊成功", memberInfo);
+            return CommonExtension.AsSuccessResponse("取得會員資訊成功", memberInfo);
+        }
+
+        /// <summary>
+        /// 密碼變更
+        /// </summary>
+        /// <param name="model">密碼變更 Req viewModel</param>
+        /// <returns>密碼變更結果</returns>
+        public ResponseViewModel ChangePassword(ChangePasswordReqViewModel model)
+        {
+            if (model.NewPassword != model.NewPasswordCheck)
+                return "新密碼與新密碼確認不相符".AsFailResponse();
+
+            if (!this.MemberRepository.TryGetEntity(UserContext.User.MemberID, out Member member))
+                return CommonExtension.AsSystemFailResponse();
+
+            if (member.Password != model.OldPassword)
+                return "舊密碼錯誤".AsFailResponse();
+
+            member.Password = model.NewPassword;
+            this.MemberRepository.Update(member);
+
+            return "密碼變更成功".AsSuccessResponse();
         }
 
         /// <summary>

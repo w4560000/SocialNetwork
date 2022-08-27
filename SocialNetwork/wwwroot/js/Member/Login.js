@@ -22,7 +22,7 @@ function Login() {
     };
     var error = Common.Validate(errorMsg);
     if (error) {
-        Common.SweetAlertError(error);
+        Common.SweetAlertErrorMsg(error);
         return;
     }
     var model = new LoginReqViewModel($('#login_account').val(), $('#login_password').val());
@@ -39,7 +39,13 @@ function GoogleLogin() {
         scope: 'profile email',
         ux_mode: 'popup',
         callback: function (response) {
-            var successFuc = function () {
+            var successFuc = function (res) {
+                var _a;
+                // 首次第三方登入 才需要設定個人公開資訊
+                if (((_a = res.Data) === null || _a === void 0 ? void 0 : _a.IsFirstLogin) === true) {
+                    Common.Popup('MemberInfo');
+                    return;
+                }
                 Common.SweetAlertRedirect("/Home/Index", "首頁");
             };
             var errorFunc = function () { };
@@ -83,7 +89,7 @@ function Singup() {
         }
     }
     if (error) {
-        Common.SweetAlertError(error);
+        Common.SweetAlertErrorMsg(error);
         return;
     }
     var model = new SignupReqViewModel($("#singup_name").val(), $("#singup_account").val(), $("#singup_password").val(), $("#singup_passwordCheck").val(), $("#singup_mail").val(), $("#singup_vCode").val());
@@ -95,17 +101,17 @@ function Singup() {
 }
 /** 更新會員公開資訊 */
 function UpdateMemberPublicInfo() {
-    var memberPublicInfo = 0;
+    var infoStatus = 0;
     $('.InfoIcon').each(function (i) {
         if (this.src.includes('InfoPublic')) {
-            memberPublicInfo += Number($(this).attr('memberpublicinfoflag'));
+            infoStatus += Number($(this).attr('memberpublicinfoflag'));
         }
     });
     if (!$('#brithday_datepicker').val()) {
-        Common.SweetAlertError('請選擇生日');
+        Common.SweetAlertErrorMsg('請選擇生日');
         return;
     }
-    var model = new UpdateMemberPublicInfoReqViewModel(new Date($('#brithday_datepicker').val()), $('#infoInternest').val(), $('#infoJob').val(), $('#infoEducation').val(), memberPublicInfo);
+    var model = new UpdateMemberPublicInfoReqViewModel(new Date($('#brithday_datepicker').val()), $('#infoInternest').val(), $('#infoJob').val(), $('#infoEducation').val(), infoStatus);
     var successFunc = function () {
         Common.SweetAlertRedirect('/Home/Index', '首頁');
     };
@@ -129,7 +135,7 @@ function ResetPassword() {
     };
     var error = Common.Validate(errorMsg);
     if (error) {
-        Common.SweetAlertError(error);
+        Common.SweetAlertErrorMsg(error);
         return;
     }
     var model = new ResetPasswordReqViewModel($('#forgotPassword_account').val(), $('#forgotPassword_mail').val());

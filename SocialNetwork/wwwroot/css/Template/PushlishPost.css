@@ -33,7 +33,7 @@
       position: absolute;
       right: -8px;
       top: -8px;
-      filter: invert(95%) sepia(69%) saturate(1835%) hue-rotate(293deg) brightness(99%) contrast(91%);
+      fill: #F2A1A1;
       border: 1px solid #F2A1A1;
       border-radius: 50%;
       background: white;

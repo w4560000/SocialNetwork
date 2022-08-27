@@ -385,10 +385,14 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .index_profilePhoto {
     border-radius: 50%;
-    border: 1px solid;
+    border: 1px $Color_PK2 solid;
     display: flex;
     width: 40%;
     height: 50%;
+}
+
+.index_profilePhotoDefault {
+    border: 1px solid !important;
     filter: $Color_PK2_Filter;
 }
 
