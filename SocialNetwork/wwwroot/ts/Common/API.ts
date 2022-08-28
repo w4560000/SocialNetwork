@@ -287,6 +287,14 @@ async function GetMemberInfoAPI(memberID: number, successFunc: Function, errorFu
 }
 
 /**
+ * 更新會員資訊 API
+ */
+function UpdateMemberInfoAPI(loadingMsg: string, formData: FormData, successFunc: Function, errorFunc: Function, confirmTitle: string): void {
+    Common.SweetAlertConfirm(confirmTitle,
+        () => BasePostAPIByFormData(loadingMsg, "/MemberApi/UpdateMemberInfo", formData, successFunc, errorFunc));
+}
+
+/**
  * 密碼變更 API
  */
 function ChangePasswordAPI(loadingMsg: string, model: ChangePasswordReqViewModel, successFunc: Function, errorFunc: Function, confirmTitle: string): void {

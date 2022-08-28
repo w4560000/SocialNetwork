@@ -368,6 +368,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     height: 150px;
     margin: 30px auto;
     border-radius: 5px;
+
+    .banner_img{
+        width: 100%;
+        height: 100%;
+    }
 }
 
 .logo_index {

@@ -46,7 +46,7 @@ namespace SocialNetwork.Controllers
         {
             try
             {
-                return await PostService.PublishPost(model);
+                return await PostService.PublishPostAsync(model);
             }
             catch (Exception ex)
             {

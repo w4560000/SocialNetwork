@@ -38,6 +38,7 @@
 
   <ItemGroup>
     <Folder Include="Models\Dto\" />
+    <Folder Include="Models\ViewModel\Response\Post\" />
   </ItemGroup>
 
 </Project>

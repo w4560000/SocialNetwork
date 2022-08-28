@@ -3,9 +3,9 @@
 namespace SocialNetwork.Repository
 {
     /// <summary>
-    /// 更新會員公開資訊 Req ViewModel
+    /// 更新會員公開資訊 Request ViewModel
     /// </summary>
-    public class UpdateMemberPublicInfoReqViewModel
+    public class UpdateMemberPublicInfoReqViewModel : IUpdateMemberPublicInfoReqViewModel
     {
         /// <summary>
         /// 生日

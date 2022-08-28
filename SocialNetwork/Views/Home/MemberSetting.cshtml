@@ -10,29 +10,36 @@
 
 <script src="~/js/Home/MemberSetting.js" asp-append-version="true"></script>
 <link rel="stylesheet" href="~/css/Home/MemberSetting.css" asp-append-version="true" />
-<script>
-    $(function () {
-        $(".example").lightSlider({
-            gallery: true, // 相本模式
-            item: 1, // 顯示數量
-            loop: false, // 無限循環
-            slideMargin: 10, // 間隔寬度
-            enableDrag: true, // 當左右拖曳時，則切換上/下項目
-            speed: 500
-        });
-    });
-</script>
 <div class="div_content">
     <div class="div_save_topBar">
         個人主頁設定
-        <input class="SaveButton" type="button" value="儲存變更" onclick="SaveProfile()" />
+        <input class="SaveButton" type="button" value="儲存變更" onclick="UpdateMemberInfo()" />
     </div>
     <div class="div_profile">
         <div class="profile_background_container">
-            <img class="profile_background" src="~/images/default_backgroundPhoto.jpg" />
+            <img class="profile_background" />
+            <div class="profile_changeBackground_container">
+                <img class="profile_changeBackground_icon" src="~/images/edit.svg" />
+                <label for="profile_changeBackground">更換主頁背景</label>
+                <input type="file" id="profile_changeBackground" accept="image/*" onchange="UploadProfile_Change(this)" />
+            </div>
+            <div class="profile_photo_container">
+                <img class="profile_photo" src="@UserContext.User.ProfilePhotoUrl">
+                <div class="profile_changePhoto_container">
+                    <img class="profile_changePhoto_icon" src="~/images/edit.svg" />
+                    <label for="profile_changePhoto">更換頭像</label>
+                    <input type="file" id="profile_changePhoto" accept="image/*" onchange="UploadProfile_Change(this)" />
+                </div>
+            </div>
         </div>
         <div class="profile_name">
-            @UserContext.User.NickName
+            <span class="profile_OldName">@UserContext.User.NickName</span>
+            <input class="profile_changeName" type="text" style="display:none;" maxlength="10"/>
+            <div class="profile_changeName_container">
+                <img class="profile_changeName_icon" src="~/images/edit.svg" />
+                <label onclick="ChangeName_Click()">修改名稱</label>
+            </div>
+            <div class="profile_changeName_cancel" style="display:none;" onclick="ChangeName_Cancel()">取消</div>
         </div>
         <div class="profile_detail">
             <div class="profileContent">
@@ -85,7 +92,7 @@
             </div>
         </div>
     </div>
-    <div class="div_save_topBar" style="margin-top: 30px;">
+    <div class="div_save_topBar" id="div_password_change_bar" style="margin-top: 30px;">
         密碼變更
         <input class="SaveButton" type="button" value="儲存變更" onclick="ChangePassword()" />
     </div>

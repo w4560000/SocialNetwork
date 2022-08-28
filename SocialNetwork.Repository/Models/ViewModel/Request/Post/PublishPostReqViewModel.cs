@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 namespace SocialNetwork.Repository
 {
     /// <summary>
-    /// 發佈貼文 Req ViewModel
+    /// 發佈貼文 Request ViewModel
     /// </summary>
     public class PublishPostReqViewModel
     {

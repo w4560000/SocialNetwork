@@ -11,6 +11,7 @@ namespace SocialNetwork.Repository
         /// 會員名稱
         /// </summary>
         [Required(ErrorMessage = "請輸入會員名稱")]
+        [MaxLength(10, ErrorMessage = "會員名稱最多10碼")]
         public string NickName { get; set; }
 
         /// <summary>

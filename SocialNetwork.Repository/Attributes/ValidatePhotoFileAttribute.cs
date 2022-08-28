@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using SocialNetwork.Helper;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
@@ -20,28 +21,48 @@ namespace SocialNetwork.Repository
         protected override ValidationResult IsValid(
         object value, ValidationContext validationContext)
         {
-            List<string> _extensions = new List<string>() { ".jpg", ".jpeg", ".png", ".webp", ".svg", ".gif" };
-            long fileLengthLimit = 5 * 1024 * 1024; // 5 MB
-
-            var fileList = value as List<IFormFile>;
-
-            if (fileList.Any())
+            if (value is List<IFormFile> fileList)
             {
-                if (fileList.Count > 10)
-                    return new ValidationResult("單筆貼文圖片限定最多上傳 10 張");
-
-                foreach (var file in fileList)
+                if (fileList.Any())
                 {
-                    var extension = Path.GetExtension(file.FileName);
-                    if (!_extensions.Contains(extension.ToLower()))
-                        return new ValidationResult("圖片僅限上傳 .jpg、.jpeg、.png、.webp、.svg、.gif");
+                    if (fileList.Count > 10)
+                        return new ValidationResult("單筆貼文圖片限定最多上傳 10 張");
 
-                    if (file.Length > fileLengthLimit)
-                        return new ValidationResult("單張圖片大小不得超過 5 MB");
+                    foreach (var file in fileList)
+                    {
+                        (bool isValidateSuccess, ValidationResult result) = ValidatePhoto(file);
+
+                        if (!isValidateSuccess)
+                            return result;
+                    }
                 }
+            }
+            else if (value is IFormFile file)
+            {
+                (bool isValidateSuccess, ValidationResult result) = ValidatePhoto(file);
+
+                if (!isValidateSuccess)
+                    return result;
             }
 
             return ValidationResult.Success;
+        }
+
+        /// <summary>
+        /// 驗證圖檔
+        /// </summary>
+        /// <param name="file">圖檔</param>
+        /// <returns>(驗證是否成功, 驗證結果)</returns>
+        private (bool, ValidationResult) ValidatePhoto(IFormFile file)
+        {
+            var extension = Path.GetExtension(file.FileName);
+            if (!SystemHelper.AllowFileExtensions.Contains(extension.ToLower()))
+                return (false, new ValidationResult("圖片僅限上傳 .jpg、.jpeg、.png、.webp、.svg、.gif"));
+
+            if (file.Length > SystemHelper.FileLengthLimit)
+                return (false, new ValidationResult("單張圖片大小不得超過 5 MB"));
+
+            return (true, null);
         }
     }
 }

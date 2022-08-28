@@ -18,7 +18,7 @@ $(function () {
     // 點選其他 element 時 自動隱藏展開的會員狀態
     $("body").click(function (event) {
         var currentElemetClass = ($(event.target).attr('class'));
-        if (!currentElemetClass.includes('index_status_select')) {
+        if (currentElemetClass !== undefined && !currentElemetClass.includes('index_status_select')) {
             if ($('#memberStatus_1').is(':visible')) {
                 $('.meunContent > ul').children('li').toggle();
                 $('.index_status_select').toggleClass('index_status_select_up');
@@ -55,11 +55,8 @@ $(function () {
             "</div>" +
             "<div class=\"friend_name\">QQ123</div>");
     }
-    // 當照片是預設圖時，加上 svg filter
-    $('img').each(function () {
-        if ($(this).attr('src').includes('default_profilePhoto'))
-            $(this).addClass('index_profilePhotoDefault');
-    });
+    // 控制 Img Default Style
+    Common.ControllImgDefaultStyle();
     // 設定 Menu 底色 (根據當前頁面)
     SetMenuColor();
 });

@@ -3,7 +3,7 @@
 namespace SocialNetwork.Repository
 {
     /// <summary>
-    /// 取得會員資訊 Res ViewModel
+    /// 取得會員資訊 Response ViewModel
     /// </summary>
     public class GetMemberInfoResViewModel
     {

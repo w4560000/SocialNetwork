@@ -300,6 +300,12 @@ function GetMemberInfoAPI(memberID, successFunc, errorFunc) {
     });
 }
 /**
+ * 更新會員資訊 API
+ */
+function UpdateMemberInfoAPI(loadingMsg, formData, successFunc, errorFunc, confirmTitle) {
+    Common.SweetAlertConfirm(confirmTitle, function () { return BasePostAPIByFormData(loadingMsg, "/MemberApi/UpdateMemberInfo", formData, successFunc, errorFunc); });
+}
+/**
  * 密碼變更 API
  */
 function ChangePasswordAPI(loadingMsg, model, successFunc, errorFunc, confirmTitle) {

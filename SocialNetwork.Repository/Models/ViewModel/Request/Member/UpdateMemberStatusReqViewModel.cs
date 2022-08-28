@@ -3,7 +3,7 @@
 namespace SocialNetwork.Repository
 {
     /// <summary>
-    /// 更新會員狀態 Req ViewModel
+    /// 更新會員狀態 Request ViewModel
     /// </summary>
     public class UpdateMemberStatusReqViewModel
     {

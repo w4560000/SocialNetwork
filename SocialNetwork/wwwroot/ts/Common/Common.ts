@@ -277,6 +277,18 @@ const Common = {
     },
 
     /**
+     * 控制 Img Default Style
+     * */
+    ControllImgDefaultStyle: () => {
+        $('img').each(function () {
+            if ($(this).attr('src') !== undefined && ($(this).attr('src') as string).includes('default_profilePhoto'))
+                $(this).addClass('index_profilePhotoDefault');
+            else
+                $(this).removeClass('index_profilePhotoDefault');
+        });
+    },
+
+    /**
      * SVG 元素控制
      * */
     ControllSVG: () => {

@@ -1,4 +1,4 @@
-﻿var TempFileList: File[] = [];
+﻿var tempFileList: File[] = [];
 
 $(function () {
 });
@@ -58,7 +58,7 @@ function UploadPhoto_Change(e: HTMLInputElement) {
                     `<img class="svg photoPreviewImg" src="${URL.createObjectURL(fileList[i])}" />` +
                 '</div>');
 
-            TempFileList.push(fileList[i]);
+            tempFileList.push(fileList[i]);
         }
 
         Common.ControllSVG();
@@ -71,7 +71,7 @@ function UploadPhoto_Change(e: HTMLInputElement) {
  */
 function PhotoDelete(e: HTMLImageElement) {
     // 刪除暫存 FileList
-    TempFileList = TempFileList.filter(f => f.name !== e.id);
+    tempFileList = tempFileList.filter(f => f.name !== e.id);
 
     // 刪除 Element
     $(e).parent().remove();
@@ -90,12 +90,12 @@ function PublishPost() {
 
     var formData = new FormData();
     formData.append('Post', post);
-    TempFileList.forEach(f => formData.append('PhotoFiles', f));
+    tempFileList.forEach(f => formData.append('PhotoFiles', f));
     
     var successFunc = function () {
         // 成功發佈貼文後 清空圖片、貼文
         $('.photoPreview').empty();
-        TempFileList = [];
+        tempFileList = [];
         $(".write_post").val('');
 
         $('#deploy_post_cancel').click();

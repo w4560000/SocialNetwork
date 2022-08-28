@@ -1,5 +1,6 @@
 ﻿using SocialNetwork.Helper;
 using SocialNetwork.Repository;
+using System.Threading.Tasks;
 
 namespace SocialNetwork.Service
 {
@@ -11,43 +12,50 @@ namespace SocialNetwork.Service
         /// <summary>
         /// 註冊
         /// </summary>
-        /// <param name="model">註冊 Req ViewModel</param>
+        /// <param name="model">註冊 Request ViewModel</param>
         /// <returns>註冊結果</returns>
         ResponseViewModel Signup(SingupReqViewModel model);
 
         /// <summary>
         /// 寄送驗證碼
         /// </summary>
-        /// <param name="model">寄送驗證碼 Req ViewModel</param>
+        /// <param name="model">寄送驗證碼 Request ViewModel</param>
         /// <returns>寄送結果</returns>
         ResponseViewModel SendVCode(SendVCodeReqViewModel model);
 
         /// <summary>
         /// 登入
         /// </summary>
-        /// <param name="model">登入 Req ViewModel</param>
+        /// <param name="model">登入 Request ViewModel</param>
         /// <returns>登入結果</returns>
         ResponseViewModel Login(LoginReqViewModel model);
 
         /// <summary>
         /// Google 第三方登入
         /// </summary>
-        /// <param name="model">登入 Req ViewModel</param>
+        /// <param name="model">登入 Request ViewModel</param>
         /// <returns>登入結果</returns>
         ResponseViewModel<GoogleLoginResViewModel> GoogleLogin(GoogleOAuth_UserInfoResult model);
 
         /// <summary>
         /// 更新會員公開資訊
         /// </summary>
-        /// <param name="model">更新會員公開資訊 Req viewModel</param>
+        /// <param name="model">更新會員公開資訊 Request ViewModel</param>
+        /// <param name="nickName">暱稱</param>
+        /// <param name="backgroundPhotoURL">主頁背景URL</param>
+        /// <param name="profilePhotoURL">頭像URL</param>
         /// <returns>更新結果</returns>
-        ResponseViewModel UpdateMemberPublicInfo(UpdateMemberPublicInfoReqViewModel model);
+        ResponseViewModel UpdateMemberPublicInfo(
+            IUpdateMemberPublicInfoReqViewModel model,
+            string nickName = null,
+            string backgroundPhotoURL = null,
+            string profilePhotoURL = null);
 
         /// <summary>
         /// 重設密碼 Step1
         /// 申請重設密碼、建立重設密碼URL
         /// </summary>
-        /// <param name="model">重設密碼 Step1 Req ViewModel</param>
+        /// <param name="model">重設密碼 Step1 Request ViewModel</param>
         /// <returns>申請結果</returns>
         ResponseViewModel ResetPassword(ResetPasswordReqViewModel model);
 
@@ -61,7 +69,7 @@ namespace SocialNetwork.Service
         /// <summary>
         /// 重設密碼 Step2
         /// </summary>
-        /// <param name="model">重設密碼 Step2 Req ViewModel</param>
+        /// <param name="model">重設密碼 Step2 Request ViewModel</param>
         /// <returns>重設結果</returns>
         ResponseViewModel ResetPasswordConfirm(ResetPasswordConfirmReqViewModel model);
 
@@ -74,7 +82,7 @@ namespace SocialNetwork.Service
         /// <summary>
         /// 更新會員狀態
         /// </summary>
-        /// <param name="model">更新會員狀態 Req ViewModel</param>
+        /// <param name="model">更新會員狀態 Request ViewModel</param>
         /// <returns>更新結果</returns>
         ResponseViewModel UpdateMemberStatus(UpdateMemberStatusReqViewModel model);
 
@@ -92,9 +100,16 @@ namespace SocialNetwork.Service
         ResponseViewModel<GetMemberInfoResViewModel> GetMemberInfo(int memberID);
 
         /// <summary>
+        /// 更新會員資訊
+        /// </summary>
+        /// <param name="model">更新會員資訊 Request ViewModel</param>
+        /// <returns>更新結果</returns>
+        Task<ResponseViewModel> UpdateMemberInfoAsync(UpdateMemberInfoReqViewModel model);
+
+        /// <summary>
         /// 密碼變更
         /// </summary>
-        /// <param name="model">密碼變更 Req viewModel</param>
+        /// <param name="model">密碼變更 Request ViewModel</param>
         /// <returns>密碼變更結果</returns>
         ResponseViewModel ChangePassword(ChangePasswordReqViewModel model);
     }

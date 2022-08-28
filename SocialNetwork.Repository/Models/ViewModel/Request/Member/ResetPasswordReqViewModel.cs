@@ -3,7 +3,7 @@
 namespace SocialNetwork.Repository
 {
     /// <summary>
-    /// 重設密碼 Step1 Req ViewModel
+    /// 重設密碼 Step1 Request ViewModel
     /// </summary>
     public class ResetPasswordReqViewModel
     {

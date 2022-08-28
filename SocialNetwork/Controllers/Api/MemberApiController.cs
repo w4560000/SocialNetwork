@@ -5,6 +5,7 @@ using SocialNetwork.Helper;
 using SocialNetwork.Repository;
 using SocialNetwork.Service;
 using System;
+using System.Threading.Tasks;
 
 namespace SocialNetwork.Controllers
 {
@@ -46,7 +47,7 @@ namespace SocialNetwork.Controllers
         /// <summary>
         /// 登入
         /// </summary>
-        /// <param name="model">登入 Req ViewModel</param>
+        /// <param name="model">登入 Request ViewModel</param>
         /// <returns>登入結果</returns>
         [AllowAnonymous]
         [HttpPost(nameof(Login))]
@@ -66,7 +67,7 @@ namespace SocialNetwork.Controllers
         /// <summary>
         /// Google 第三方登入
         /// </summary>
-        /// <returns></returns>
+        /// <returns>第三方登入結果</returns>
         [AllowAnonymous]
         [HttpPost(nameof(GoogleLogin))]
         public ResponseViewModel<GoogleLoginResViewModel> GoogleLogin(GoogleLoginReqViewModel model)
@@ -98,7 +99,7 @@ namespace SocialNetwork.Controllers
         /// <summary>
         /// 註冊
         /// </summary>
-        /// <param name="model">註冊 Req ViewModel</param>
+        /// <param name="model">註冊 Request ViewModel</param>
         /// <returns>註冊結果</returns>
         [AllowAnonymous]
         [HttpPost(nameof(Signup))]
@@ -118,7 +119,7 @@ namespace SocialNetwork.Controllers
         /// <summary>
         /// 寄送驗證碼
         /// </summary>
-        /// <param name="model">寄送驗證碼 Req ViewModel</param>
+        /// <param name="model">寄送驗證碼 Request ViewModel</param>
         /// <returns>寄送結果</returns>
         [AllowAnonymous]
         [HttpPost(nameof(SendVCode))]
@@ -138,7 +139,7 @@ namespace SocialNetwork.Controllers
         /// <summary>
         /// 更新會員公開資訊
         /// </summary>
-        /// <param name="model">更新會員公開資訊 Req ViewModel</param>
+        /// <param name="model">更新會員公開資訊 Request ViewModel</param>
         /// <returns>更新結果</returns>
         [HttpPost(nameof(UpdateMemberPublicInfo))]
         public ResponseViewModel UpdateMemberPublicInfo(UpdateMemberPublicInfoReqViewModel model)
@@ -158,7 +159,7 @@ namespace SocialNetwork.Controllers
         /// 重設密碼 Step1
         /// 申請重設密碼、建立重設密碼URL
         /// </summary>
-        /// <param name="model">重設密碼 Step1 Req ViewModel</param>
+        /// <param name="model">重設密碼 Step1 Request ViewModel</param>
         /// <returns>申請結果</returns>
         [HttpPost(nameof(ResetPassword))]
         [AllowAnonymous]
@@ -178,7 +179,7 @@ namespace SocialNetwork.Controllers
         /// <summary>
         /// 重設密碼 Step2
         /// </summary>
-        /// <param name="model">重設密碼 Step2 Req ViewModel</param>
+        /// <param name="model">重設密碼 Step2 Request ViewModel</param>
         /// <returns>申請結果</returns>
         [HttpPost(nameof(ResetPasswordConfirm))]
         [AllowAnonymous]
@@ -216,7 +217,7 @@ namespace SocialNetwork.Controllers
         /// <summary>
         /// 更新會員狀態
         /// </summary>
-        /// <param name="model">更新會員狀態 Req ViewModel</param>
+        /// <param name="model">更新會員狀態 Request ViewModel</param>
         /// <returns>更新結果</returns>
         [HttpPost(nameof(UpdateMemberStatus))]
         public ResponseViewModel UpdateMemberStatus(UpdateMemberStatusReqViewModel model)
@@ -272,7 +273,7 @@ namespace SocialNetwork.Controllers
         /// <summary>
         /// 密碼變更
         /// </summary>
-        /// <param name="model">密碼變更 Req ViewModel</param>
+        /// <param name="model">密碼變更 Request ViewModel</param>
         /// <returns>變更結果</returns>
         [HttpPost(nameof(ChangePassword))]
         public ResponseViewModel ChangePassword(ChangePasswordReqViewModel model)
@@ -284,6 +285,25 @@ namespace SocialNetwork.Controllers
             catch (Exception ex)
             {
                 this.Logger.LogCritical(ex, $"密碼變更失敗，{ex.GetExceptionMessage()}");
+                return CommonExtension.AsSystemFailResponse();
+            }
+        }
+
+        /// <summary>
+        /// 更新會員資訊
+        /// </summary>
+        /// <param name="model">更新會員資訊 Request ViewModel</param>
+        /// <returns>更新結果</returns>
+        [HttpPost(nameof(UpdateMemberInfo))]
+        public async Task<ResponseViewModel> UpdateMemberInfo([FromForm] UpdateMemberInfoReqViewModel model)
+        {
+            try
+            {
+                return await this.MemberService.UpdateMemberInfoAsync(model);
+            }
+            catch (Exception ex)
+            {
+                this.Logger.LogCritical(ex, $"更新會員資訊失敗，{ex.GetExceptionMessage()}");
                 return CommonExtension.AsSystemFailResponse();
             }
         }

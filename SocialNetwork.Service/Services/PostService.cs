@@ -41,20 +41,21 @@ namespace SocialNetwork.Service
         /// </summary>
         /// <param name="model">發佈貼文 Req Model</param>
         /// <returns>發佈結果</returns>
-        public async Task<ResponseViewModel> PublishPost(PublishPostReqViewModel model)
+        public async Task<ResponseViewModel> PublishPostAsync(PublishPostReqViewModel model)
         {
             List<Task<string>> photoFileTask = model.PhotoFiles.Select(async s =>
             {
                 var photoFile = new PhotoFileDto()
                 {
-                    FileFullName = $"{this.UserContext.User.MemberID}/{Guid.NewGuid()}{Path.GetExtension(s.FileName)}",
+                    FileName = $"{this.UserContext.User.MemberID}/{Guid.NewGuid()}",
+                    FileExtension = Path.GetExtension(s.FileName),
                     FileByte = await s.GetBytes()
                 };
 
                 // 上傳 Azure Blob
                 await AzureHelper.UpLoadImageAsync(AzureBlobDirectoryEnum.PostPhoto, photoFile);
 
-                return AzureHelper.GetImage(AzureBlobDirectoryEnum.PostPhoto, photoFile.FileFullName);
+                return AzureHelper.GetImage(AzureBlobDirectoryEnum.PostPhoto, photoFile);
             }).ToList();
 
             var PhotoFileUrls = string.Join(",", await Task.WhenAll(photoFileTask));

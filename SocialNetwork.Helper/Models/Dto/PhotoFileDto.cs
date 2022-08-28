@@ -8,7 +8,12 @@
         /// <summary>
         /// 檔名
         /// </summary>
-        public string FileFullName { get; set; }
+        public string FileName { get; set; }
+
+        /// <summary>
+        /// 副檔名
+        /// </summary>
+        public string FileExtension { get; set; }
 
         /// <summary>
         /// 檔案

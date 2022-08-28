@@ -3,7 +3,9 @@ using SocialNetwork.Helper;
 using SocialNetwork.Repository;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SocialNetwork.Service
 {
@@ -71,7 +73,7 @@ namespace SocialNetwork.Service
         /// <summary>
         /// 註冊
         /// </summary>
-        /// <param name="model">註冊 Req ViewModel</param>
+        /// <param name="model">註冊 Request ViewModel</param>
         /// <returns>註冊結果</returns>
         public ResponseViewModel Signup(SingupReqViewModel model)
         {
@@ -119,7 +121,7 @@ namespace SocialNetwork.Service
         /// <summary>
         /// 寄送驗證碼
         /// </summary>
-        /// <param name="model">寄送驗證碼 Req ViewModel</param>
+        /// <param name="model">寄送驗證碼 Request ViewModel</param>
         /// <returns>寄送結果</returns>
         public ResponseViewModel SendVCode(SendVCodeReqViewModel model)
         {
@@ -147,7 +149,7 @@ namespace SocialNetwork.Service
         /// <summary>
         /// 登入
         /// </summary>
-        /// <param name="model">登入 Req ViewModel</param>
+        /// <param name="model">登入 Request ViewModel</param>
         /// <returns>登入結果</returns>
         public ResponseViewModel Login(LoginReqViewModel model)
         {
@@ -165,7 +167,7 @@ namespace SocialNetwork.Service
         /// <summary>
         /// Google 第三方登入
         /// </summary>
-        /// <param name="model">登入 Req ViewModel</param>
+        /// <param name="model">登入 Request ViewModel</param>
         /// <returns>登入結果</returns>
         public ResponseViewModel<GoogleLoginResViewModel> GoogleLogin(GoogleOAuth_UserInfoResult model)
         {
@@ -208,9 +210,16 @@ namespace SocialNetwork.Service
         /// <summary>
         /// 更新會員公開資訊
         /// </summary>
-        /// <param name="model">更新會員公開資訊 Req viewModel</param>
+        /// <param name="model">更新會員公開資訊 Request ViewModel</param>
+        /// <param name="nickName">暱稱</param>
+        /// <param name="backgroundPhotoURL">主頁背景URL</param>
+        /// <param name="profilePhotoURL">頭像URL</param>
         /// <returns>更新結果</returns>
-        public ResponseViewModel UpdateMemberPublicInfo(UpdateMemberPublicInfoReqViewModel model)
+        public ResponseViewModel UpdateMemberPublicInfo(
+            IUpdateMemberPublicInfoReqViewModel model, 
+            string nickName = null,
+            string backgroundPhotoURL = null, 
+            string profilePhotoURL = null)
         {
             if (!this.MemberRepository.TryGetEntity(UserContext.User.MemberID, out Member member))
                 return CommonExtension.AsSystemFailResponse();
@@ -220,8 +229,12 @@ namespace SocialNetwork.Service
             member.Interest = model.Interest;
             member.Job = model.Job;
             member.Education = model.Education;
+            member.NickName = string.IsNullOrEmpty(nickName) ? member.NickName : nickName;
+            member.BackgroundPhotoURL = string.IsNullOrEmpty(backgroundPhotoURL) ? member.BackgroundPhotoURL : backgroundPhotoURL;
+            member.ProfilePhotoURL = string.IsNullOrEmpty(profilePhotoURL) ? member.ProfilePhotoURL: profilePhotoURL;
             this.MemberRepository.Update(member);
 
+            this.SetMemberStatusForCookie(member.MemberID, MemberStatusEnum.在線);
             return "更新成功".AsSuccessResponse();
         }
 
@@ -229,7 +242,7 @@ namespace SocialNetwork.Service
         /// 重設密碼 Step1
         /// 申請重設密碼、建立重設密碼URL
         /// </summary>
-        /// <param name="model">重設密碼 Step1 Req ViewModel</param>
+        /// <param name="model">重設密碼 Step1 Request ViewModel</param>
         /// <returns>申請結果</returns>
         public ResponseViewModel ResetPassword(ResetPasswordReqViewModel model)
         {
@@ -292,7 +305,7 @@ outline: 0;";
         /// <summary>
         /// 重設密碼 Step2
         /// </summary>
-        /// <param name="model">重設密碼 Step2 Req ViewModel</param>
+        /// <param name="model">重設密碼 Step2 Request ViewModel</param>
         /// <returns>重設結果</returns>
 
         public ResponseViewModel ResetPasswordConfirm(ResetPasswordConfirmReqViewModel model)
@@ -318,7 +331,6 @@ outline: 0;";
         /// 登出
         /// </summary>
         /// <returns>登出結果</returns>
-
         public ResponseViewModel Logout()
         {
             if (this.MemberRepository.TryGetEntity(this.UserContext.User.MemberID, out Member member))
@@ -335,7 +347,7 @@ outline: 0;";
         /// <summary>
         /// 更新會員狀態
         /// </summary>
-        /// <param name="model">更新會員狀態 Req ViewModel</param>
+        /// <param name="model">更新會員狀態 Request ViewModel</param>
         /// <returns>更新結果</returns>
         public ResponseViewModel UpdateMemberStatus(UpdateMemberStatusReqViewModel model)
         {
@@ -402,7 +414,7 @@ outline: 0;";
         /// <summary>
         /// 密碼變更
         /// </summary>
-        /// <param name="model">密碼變更 Req viewModel</param>
+        /// <param name="model">密碼變更 Request ViewModel</param>
         /// <returns>密碼變更結果</returns>
         public ResponseViewModel ChangePassword(ChangePasswordReqViewModel model)
         {
@@ -421,6 +433,50 @@ outline: 0;";
             return "密碼變更成功".AsSuccessResponse();
         }
 
+        /// <summary>
+        /// 更新會員資訊
+        /// </summary>
+        /// <param name="model">更新會員資訊 Request ViewModel</param>
+        /// <returns>更新結果</returns>
+        public async Task<ResponseViewModel> UpdateMemberInfoAsync(UpdateMemberInfoReqViewModel model)
+        {
+            string backgroundPhotoUrl = string.Empty;
+            string profilePhotoUrl = string.Empty;
+
+            if (model.BackgroundPhoto != null)
+            {
+                // 上傳主頁背景
+                var backgroundPhotoFile = new PhotoFileDto()
+                {
+                    FileName = $"{this.UserContext.User.MemberID}_{nameof(UpdateMemberInfoReqViewModel.BackgroundPhoto)}",
+                    FileExtension = Path.GetExtension(model.BackgroundPhoto.FileName),
+                    FileByte = await model.BackgroundPhoto.GetBytes()
+                };
+
+                // 上傳 Azure Blob
+                await AzureHelper.UpLoadImageAsync(AzureBlobDirectoryEnum.BackgoundPhoto, backgroundPhotoFile);
+
+                backgroundPhotoUrl = AzureHelper.GetImage(AzureBlobDirectoryEnum.BackgoundPhoto, backgroundPhotoFile);
+            }
+
+            if (model.ProfilePhoto != null)
+            {
+                // 上傳頭像
+                var profilePhotoFile = new PhotoFileDto()
+                {
+                    FileName = $"{this.UserContext.User.MemberID}_{nameof(UpdateMemberInfoReqViewModel.ProfilePhoto)}",
+                    FileExtension = Path.GetExtension(model.ProfilePhoto.FileName),
+                    FileByte = await model.ProfilePhoto.GetBytes()
+                };
+
+                // 上傳 Azure Blob
+                await AzureHelper.UpLoadImageAsync(AzureBlobDirectoryEnum.ProfilePhoto, profilePhotoFile);
+
+                profilePhotoUrl = AzureHelper.GetImage(AzureBlobDirectoryEnum.ProfilePhoto, profilePhotoFile);
+            }
+
+            return this.UpdateMemberPublicInfo(model, model.NickName, backgroundPhotoUrl, profilePhotoUrl);
+        }
         /// <summary>
         /// 更新會員狀態
         /// 1. 設定 UserInfo 轉為 Jwt 存至 Cookie 中

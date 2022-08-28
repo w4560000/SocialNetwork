@@ -1,4 +1,4 @@
-var TempFileList = [];
+var tempFileList = [];
 $(function () {
 });
 /**
@@ -47,7 +47,7 @@ function UploadPhoto_Change(e) {
                 "<img class=\"svg photoDelete\" src=\"/images/Close.svg\" onclick='PhotoDelete(this)' id=\"".concat(fileList[i].name, "\"/>") +
                 "<img class=\"svg photoPreviewImg\" src=\"".concat(URL.createObjectURL(fileList[i]), "\" />") +
                 '</div>');
-            TempFileList.push(fileList[i]);
+            tempFileList.push(fileList[i]);
         }
         Common.ControllSVG();
     }
@@ -58,7 +58,7 @@ function UploadPhoto_Change(e) {
  */
 function PhotoDelete(e) {
     // 刪除暫存 FileList
-    TempFileList = TempFileList.filter(function (f) { return f.name !== e.id; });
+    tempFileList = tempFileList.filter(function (f) { return f.name !== e.id; });
     // 刪除 Element
     $(e).parent().remove();
 }
@@ -73,11 +73,11 @@ function PublishPost() {
     }
     var formData = new FormData();
     formData.append('Post', post);
-    TempFileList.forEach(function (f) { return formData.append('PhotoFiles', f); });
+    tempFileList.forEach(function (f) { return formData.append('PhotoFiles', f); });
     var successFunc = function () {
         // 成功發佈貼文後 清空圖片、貼文
         $('.photoPreview').empty();
-        TempFileList = [];
+        tempFileList = [];
         $(".write_post").val('');
         $('#deploy_post_cancel').click();
         // todo reload PostMsg

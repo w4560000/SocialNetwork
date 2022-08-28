@@ -46,12 +46,16 @@
       font-weight: 600;
       height: auto !important; }
 
+#profile_changeBackground, #profile_changePhoto {
+  display: none; }
+
 .div_profile {
   background-color: #FFFFFF;
   border-radius: 5px;
   width: 100%;
   height: 55%; }
   .div_profile .profile_background_container {
+    position: relative;
     width: 100%;
     height: 45%; }
     .div_profile .profile_background_container .profile_background {
@@ -59,6 +63,81 @@
       height: 100%;
       border-top-left-radius: 5px;
       border-top-right-radius: 5px; }
+    .div_profile .profile_background_container .profile_changeBackground_container {
+      position: absolute;
+      top: 10%;
+      left: 1%;
+      width: 140px;
+      height: 30px;
+      border-radius: 20px;
+      background-color: rgba(0, 0, 0, 0.3);
+      color: #FFFFFF;
+      font-weight: 400;
+      display: flex;
+      align-items: center;
+      justify-content: center; }
+      .div_profile .profile_background_container .profile_changeBackground_container .profile_changeBackground_icon {
+        filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(271deg) brightness(106%) contrast(103%);
+        height: 20px;
+        width: 20px;
+        padding-right: 5px;
+        position: absolute;
+        left: 10px; }
+      .div_profile .profile_background_container .profile_changeBackground_container label {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        padding-left: 35px;
+        cursor: pointer;
+        z-index: 999; }
+    .div_profile .profile_background_container .profile_photo_container {
+      border-radius: 50%;
+      border: 1px #F2A1A1 solid;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 20%;
+      height: 80%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #FFFFFF; }
+      .div_profile .profile_background_container .profile_photo_container .profile_photo {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%; }
+      .div_profile .profile_background_container .profile_photo_container .profile_changePhoto_container {
+        position: absolute;
+        bottom: 10%;
+        right: -30%;
+        width: 110px;
+        height: 30px;
+        border-radius: 20px;
+        background-color: rgba(0, 0, 0, 0.3);
+        color: #FFFFFF;
+        font-weight: 400;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer; }
+        .div_profile .profile_background_container .profile_photo_container .profile_changePhoto_container .profile_changePhoto_icon {
+          filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(271deg) brightness(106%) contrast(103%);
+          height: 20px;
+          width: 20px;
+          padding-right: 5px;
+          position: absolute;
+          left: 10px; }
+        .div_profile .profile_background_container .profile_photo_container .profile_changePhoto_container label {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          padding-left: 35px;
+          cursor: pointer;
+          z-index: 999; }
   .div_profile .profile_name {
     color: #F2A1A1;
     background-color: #FFE5E5;
@@ -68,6 +147,49 @@
     display: flex;
     align-items: center;
     justify-content: center; }
+    .div_profile .profile_name .profile_changeName_container {
+      position: absolute;
+      right: 2%;
+      width: 110px;
+      height: 35px;
+      border-radius: 20px;
+      background-color: rgba(0, 0, 0, 0.3);
+      color: #FFFFFF;
+      font-weight: 400;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px; }
+      .div_profile .profile_name .profile_changeName_container .profile_changeName_icon {
+        filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(271deg) brightness(106%) contrast(103%);
+        height: 20px;
+        width: 20px;
+        padding-right: 5px;
+        position: absolute;
+        left: 10px; }
+      .div_profile .profile_name .profile_changeName_container label {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        padding-left: 35px;
+        cursor: pointer;
+        z-index: 999; }
+    .div_profile .profile_name .profile_changeName_cancel {
+      position: absolute;
+      right: 2%;
+      width: 60px;
+      height: 35px;
+      border-radius: 20px;
+      background-color: rgba(0, 0, 0, 0.3);
+      color: #FFFFFF;
+      font-weight: 400;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px; }
   .div_profile .profile_detail {
     height: 50%; }
     .div_profile .profile_detail .profileContent {
