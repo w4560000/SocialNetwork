@@ -1,0 +1,99 @@
+﻿.div_firend_topBar {
+  margin-top: 10px;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  font-size: 22pt;
+  color: #D68D8D; }
+
+.div_firend_container {
+  border-radius: 5px;
+  width: 100%;
+  height: 90%; }
+  .div_firend_container .div_firend_tab {
+    width: 100%;
+    height: 7%;
+    margin-bottom: 10px;
+    border-radius: 5px; }
+    .div_firend_container .div_firend_tab .div_friend_tab_content {
+      display: flex;
+      align-content: center;
+      width: 100%;
+      height: 100%;
+      background: #FFFFFF;
+      border-radius: 5px; }
+      .div_firend_container .div_firend_tab .div_friend_tab_content .div_firend_tab_container {
+        width: 33%;
+        display: flex;
+        align-items: center;
+        justify-content: center; }
+        .div_firend_container .div_firend_tab .div_friend_tab_content .div_firend_tab_container .div_firend_tab_name_container {
+          border-radius: 25px;
+          background-color: #FFE5E5;
+          height: 38%;
+          margin-top: 10px; }
+          .div_firend_container .div_firend_tab .div_friend_tab_content .div_firend_tab_container .div_firend_tab_name_container .div_firend_tab_name {
+            font-size: 16pt;
+            color: #000000;
+            position: relative;
+            bottom: 45%;
+            right: 10%;
+            font-weight: 600;
+            display: block;
+            cursor: pointer; }
+  .div_firend_container .div_firend_content {
+    height: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    padding: 10px;
+    overflow-x: hidden;
+    overflow-y: auto; }
+    .div_firend_container .div_firend_content::-webkit-scrollbar-track {
+      background-color: #FFFFFF; }
+    .div_firend_container .div_firend_content::-webkit-scrollbar {
+      width: 10px; }
+    .div_firend_container .div_firend_content::-webkit-scrollbar-thumb {
+      background-color: rgba(0, 0, 0, 0.2);
+      border-radius: 10px; }
+    .div_firend_container .div_firend_content .div_friend_profile {
+      width: 280px;
+      margin: 10px;
+      border-radius: 5px;
+      background: #f9f9f9;
+      text-align: center;
+      padding: 10px 0; }
+      .div_firend_container .div_firend_content .div_friend_profile .div_friend_img {
+        width: 250px;
+        height: 250px; }
+      .div_firend_container .div_firend_content .div_friend_profile .div_friend_name_content {
+        font-size: 14pt;
+        display: flex;
+        align-items: center;
+        padding: 10px 0px;
+        font-weight: 700;
+        justify-content: center; }
+      .div_firend_container .div_firend_content .div_friend_profile .div_frient_button_confirm {
+        width: 90%;
+        height: 40px;
+        margin: 0 10px;
+        background: #F2A1A1;
+        font-size: 18px;
+        border-radius: 5px;
+        color: #FFFFFF;
+        font-weight: 400; }
+        .div_firend_container .div_firend_content .div_friend_profile .div_frient_button_confirm:hover {
+          background: #D68D8D; }
+      .div_firend_container .div_firend_content .div_friend_profile .div_frient_button_reject {
+        width: 90%;
+        height: 40px;
+        margin: 10px;
+        background: #bdbdbd;
+        font-size: 18px;
+        border-radius: 5px;
+        color: #FFFFFF;
+        font-weight: 400; }
+        .div_firend_container .div_firend_content .div_friend_profile .div_frient_button_reject:hover {
+          background: #99A3A4; }

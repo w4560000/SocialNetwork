@@ -7,24 +7,84 @@
 
 <script src="~/js/Home/Index.js" asp-append-version="true"></script>
 <link rel="stylesheet" href="~/css/Home/Index.css" asp-append-version="true" />
-<script>
-    $(function () {
-        $(".example").lightSlider({
-            gallery: true, // 相本模式
-            item: 1, // 顯示數量
-            loop: false, // 無限循環
-            slideMargin: 10, // 間隔寬度
-            enableDrag: true, // 當左右拖曳時，則切換上/下項目
-            speed: 500
-        });
-    });
-</script>
-<div class="div_content">
-    FriendManagement
-    <partial name="~/Views/Shared/Templates/_PushlishPost.cshtml" />
-    <partial name="~/Views/Shared/Templates/_Post.cshtml" />
-    <partial name="~/Views/Shared/Templates/_Post.cshtml" />
 
-    <div class="div_post">
+<script src="~/js/Home/FriendManagement.js" asp-append-version="true"></script>
+<link rel="stylesheet" href="~/css/Home/FriendManagement.css" asp-append-version="true" />
+
+<div class="div_content">
+    <div class="div_firend_topBar">
+        好友管理
+    </div>
+    <div class="div_firend_container">
+        <div class="div_firend_tab">
+            <div class="div_friend_tab_content">
+                <div class="div_firend_tab_container">
+                    <div class="div_firend_tab_name_container">
+                        <span class="div_firend_tab_name">
+                            我的好友
+                        </span>
+                    </div>
+                </div>
+                <div class="div_firend_tab_container">
+                    <div class="div_firend_tab_name_container">
+
+                        <span class="div_firend_tab_name">
+                            好友邀請
+                        </span>
+                    </div>
+                </div>
+                <div class="div_firend_tab_container">
+                    <div class="div_firend_tab_name_container">
+
+                        <span class="div_firend_tab_name">
+                            您送出的邀請
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="div_firend_content">
+            <div class="div_friend_profile">
+                <img class="div_friend_img" src="@UserContext.User.ProfilePhotoUrl">
+                <div class="div_friend_name_content">
+                    <span class="div_friend_name">@UserContext.User.NickName</span>
+                </div>
+                <input class="div_frient_button_confirm" type="button" value="確定" onclick="UpdateMemberInfo()" />
+                <input class="div_frient_button_reject" type="button" value="拒絕" onclick="UpdateMemberInfo()" />
+            </div>
+            <div class="div_friend_profile">
+                <img class="div_friend_img" src="@UserContext.User.ProfilePhotoUrl">
+                <div class="div_friend_name_content">
+                    <span class="div_friend_name">@UserContext.User.NickName</span>
+                </div>
+                <input class="div_frient_button_confirm" type="button" value="確定" onclick="UpdateMemberInfo()" />
+                <input class="div_frient_button_reject" type="button" value="拒絕" onclick="UpdateMemberInfo()" />
+            </div>
+            <div class="div_friend_profile">
+                <img class="div_friend_img" src="@UserContext.User.ProfilePhotoUrl">
+                <div class="div_friend_name_content">
+                    <span class="div_friend_name">@UserContext.User.NickName</span>
+                </div>
+                <input class="div_frient_button_confirm" type="button" value="確定" onclick="UpdateMemberInfo()" />
+                <input class="div_frient_button_reject" type="button" value="拒絕" onclick="UpdateMemberInfo()" />
+            </div>
+            <div class="div_friend_profile">
+                <img class="div_friend_img" src="@UserContext.User.ProfilePhotoUrl">
+                <div class="div_friend_name_content">
+                    <span class="div_friend_name">@UserContext.User.NickName</span>
+                </div>
+                <input class="div_frient_button_confirm" type="button" value="確定" onclick="UpdateMemberInfo()" />
+                <input class="div_frient_button_reject" type="button" value="拒絕" onclick="UpdateMemberInfo()" />
+            </div>
+            <div class="div_friend_profile">
+                <img class="div_friend_img" src="@UserContext.User.ProfilePhotoUrl">
+                <div class="div_friend_name_content">
+                    <span class="div_friend_name">@UserContext.User.NickName</span>
+                </div>
+                <input class="div_frient_button_confirm" type="button" value="確定" onclick="UpdateMemberInfo()" />
+                <input class="div_frient_button_reject" type="button" value="拒絕" onclick="UpdateMemberInfo()" />
+            </div>
+
+        </div>
     </div>
 </div>

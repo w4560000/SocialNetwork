@@ -22,5 +22,9 @@
   {
     "outputFile": "wwwroot/css/Home/MemberSetting.css",
     "inputFile": "wwwroot/css/Home/MemberSetting.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/Home/FriendManagement.css",
+    "inputFile": "wwwroot/css/Home/FriendManagement.scss"
   }
 ]
