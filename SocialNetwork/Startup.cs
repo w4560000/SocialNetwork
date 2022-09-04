@@ -72,11 +72,14 @@ namespace SocialNetwork
             services.AddScoped<IVerificationCodeRepository, VerificationCodeRepository>();
             services.AddScoped<IForgotPasswordRepository, ForgotPasswordRepository>();
             services.AddScoped<IPostRepository, PostRepository>();
+            services.AddScoped<IFriendRepository, FriendRepository>();
+            services.AddScoped<IFriendInvitationRepository, FriendInvitationRepository>();
 
             // DIµù¥U Service
+            services.AddScoped<ITestService, TestService>();
             services.AddScoped<IMemberService, MemberService>();
             services.AddScoped<IPostService, PostService>();
-            services.AddScoped<ITestService, TestService>();
+            services.AddScoped<IFriendService, FriendService>();
 
             services.AddSingleton<IUserContext, UserContext>();
             services.AddSingleton(provider => Configuration);
@@ -149,14 +152,15 @@ namespace SocialNetwork
                 options.SuppressModelStateInvalidFilter = true;
             });
 
-            services.Configure<FormOptions>(options =>
-            {
-                options.ValueCountLimit = int.MaxValue;
-            });
+            //services.Configure<FormOptions>(options =>
+            //{
+            //    options.ValueCountLimit = int.MaxValue;
+            //});
 
             services.AddHttpContextAccessor();
             services.AddControllersWithViews();
             services.AddHttpClient();
+            services.AddAntiforgery();
         }
 
         /// <summary>

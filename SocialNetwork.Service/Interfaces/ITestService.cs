@@ -9,6 +9,6 @@
         /// 測試
         /// </summary>
         /// <returns>testname</returns>
-        string Test();
+        public string Test();
     }
 }

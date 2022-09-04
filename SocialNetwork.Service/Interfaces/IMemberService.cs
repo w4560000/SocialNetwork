@@ -14,28 +14,28 @@ namespace SocialNetwork.Service
         /// </summary>
         /// <param name="model">註冊 Request ViewModel</param>
         /// <returns>註冊結果</returns>
-        ResponseViewModel Signup(SingupReqViewModel model);
+        public ResponseViewModel Signup(SingupReqViewModel model);
 
         /// <summary>
         /// 寄送驗證碼
         /// </summary>
         /// <param name="model">寄送驗證碼 Request ViewModel</param>
         /// <returns>寄送結果</returns>
-        ResponseViewModel SendVCode(SendVCodeReqViewModel model);
+        public ResponseViewModel SendVCode(SendVCodeReqViewModel model);
 
         /// <summary>
         /// 登入
         /// </summary>
         /// <param name="model">登入 Request ViewModel</param>
         /// <returns>登入結果</returns>
-        ResponseViewModel Login(LoginReqViewModel model);
+        public ResponseViewModel Login(LoginReqViewModel model);
 
         /// <summary>
         /// Google 第三方登入
         /// </summary>
         /// <param name="model">登入 Request ViewModel</param>
         /// <returns>登入結果</returns>
-        ResponseViewModel<GoogleLoginResViewModel> GoogleLogin(GoogleOAuth_UserInfoResult model);
+        public ResponseViewModel<GoogleLoginResViewModel> GoogleLogin(GoogleOAuth_UserInfoResult model);
 
         /// <summary>
         /// 更新會員公開資訊
@@ -45,7 +45,7 @@ namespace SocialNetwork.Service
         /// <param name="backgroundPhotoURL">主頁背景URL</param>
         /// <param name="profilePhotoURL">頭像URL</param>
         /// <returns>更新結果</returns>
-        ResponseViewModel UpdateMemberPublicInfo(
+        public ResponseViewModel UpdateMemberPublicInfo(
             IUpdateMemberPublicInfoReqViewModel model,
             string nickName = null,
             string backgroundPhotoURL = null,
@@ -57,60 +57,60 @@ namespace SocialNetwork.Service
         /// </summary>
         /// <param name="model">重設密碼 Step1 Request ViewModel</param>
         /// <returns>申請結果</returns>
-        ResponseViewModel ResetPassword(ResetPasswordReqViewModel model);
+        public ResponseViewModel ResetPassword(ResetPasswordReqViewModel model);
 
         /// <summary>
         /// 檢查重設密碼Guid是否有效
         /// </summary>
         /// <param name="guid">重設密碼Guid</param>
         /// <returns>檢查結果</returns>
-        bool CheckResetPasswordGuid(string guid);
+        public bool CheckResetPasswordGuid(string guid);
 
         /// <summary>
         /// 重設密碼 Step2
         /// </summary>
         /// <param name="model">重設密碼 Step2 Request ViewModel</param>
         /// <returns>重設結果</returns>
-        ResponseViewModel ResetPasswordConfirm(ResetPasswordConfirmReqViewModel model);
+        public ResponseViewModel ResetPasswordConfirm(ResetPasswordConfirmReqViewModel model);
 
         /// <summary>
         /// 登出
         /// </summary>
         /// <returns>登出結果</returns>
-        ResponseViewModel Logout();
+        public ResponseViewModel Logout();
 
         /// <summary>
         /// 更新會員狀態
         /// </summary>
         /// <param name="model">更新會員狀態 Request ViewModel</param>
         /// <returns>更新結果</returns>
-        ResponseViewModel UpdateMemberStatus(UpdateMemberStatusReqViewModel model);
+        public ResponseViewModel UpdateMemberStatus(UpdateMemberStatusReqViewModel model);
 
         /// <summary>
         /// 取得當前會員資訊
         /// </summary>
         /// <returns>當前會員資訊</returns>
-        ResponseViewModel<GetMemberInfoResViewModel> GetCurrentMemberInfo();
+        public ResponseViewModel<GetMemberInfoResViewModel> GetCurrentMemberInfo();
 
         /// <summary>
         /// 取得會員資訊
         /// </summary>
         /// <param name="memberID">會員編號</param>
         /// <returns>會員資訊</returns>
-        ResponseViewModel<GetMemberInfoResViewModel> GetMemberInfo(int memberID);
+        public ResponseViewModel<GetMemberInfoResViewModel> GetMemberInfo(int memberID);
 
         /// <summary>
         /// 更新會員資訊
         /// </summary>
         /// <param name="model">更新會員資訊 Request ViewModel</param>
         /// <returns>更新結果</returns>
-        Task<ResponseViewModel> UpdateMemberInfoAsync(UpdateMemberInfoReqViewModel model);
+        public Task<ResponseViewModel> UpdateMemberInfoAsync(UpdateMemberInfoReqViewModel model);
 
         /// <summary>
         /// 密碼變更
         /// </summary>
         /// <param name="model">密碼變更 Request ViewModel</param>
         /// <returns>密碼變更結果</returns>
-        ResponseViewModel ChangePassword(ChangePasswordReqViewModel model);
+        public ResponseViewModel ChangePassword(ChangePasswordReqViewModel model);
     }
 }

@@ -122,7 +122,7 @@
     <Folder Include="Security\" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="dbo\Tables\FriendList.sql" />
+    <Build Include="dbo\Tables\Friend.sql" />
     <Build Include="dbo\Tables\Member.sql" />
     <Build Include="dbo\Tables\Post.sql" />
     <Build Include="dbo\Tables\PostMsg.sql" />
@@ -132,5 +132,6 @@
     <Build Include="Security\RoleMemberships.sql" />
     <Build Include="Security\Permissions.sql" />
     <Build Include="dbo\Tables\ForgotPassword.sql" />
+    <Build Include="dbo\Tables\FriendInvitation.sql" />
   </ItemGroup>
 </Project>

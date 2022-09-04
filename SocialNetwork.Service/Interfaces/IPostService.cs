@@ -14,6 +14,6 @@ namespace SocialNetwork.Service
         /// </summary>
         /// <param name="model">發佈貼文 Req Model</param>
         /// <returns>發佈結果</returns>
-        Task<ResponseViewModel> PublishPostAsync(PublishPostReqViewModel model);
+        public Task<ResponseViewModel> PublishPostAsync(PublishPostReqViewModel model);
     }
 }

@@ -15,14 +15,56 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace SocialNetwork.Sample
 {
     /// <summary>
-    /// A class which represents the FriendList table.
+    /// A class which represents the Member table.
     /// </summary>
-	[Table("FriendList")]
-	public partial class FriendList
+	[Table("Member")]
+	public partial class Member
 	{
 		[Key]
 		public virtual int MemberID { get; set; }
-		public virtual int FriendID { get; set; }
+		public virtual string Account { get; set; }
+		public virtual string NickName { get; set; }
+		public virtual string Password { get; set; }
+		public virtual string Mail { get; set; }
+		public virtual string ProfilePhotoURL { get; set; }
+		public virtual string BackgroundPhotoURL { get; set; }
+		public virtual DateTime? Brithday { get; set; }
+		public virtual string Interest { get; set; }
+		public virtual string Job { get; set; }
+		public virtual string Education { get; set; }
+		public virtual int InfoStatus { get; set; }
+		public virtual int Status { get; set; }
+		public virtual DateTime CreatedAt { get; set; }
+		public virtual int CreatedBy { get; set; }
+		public virtual DateTime UpdatedAt { get; set; }
+		public virtual int UpdatedBy { get; set; }
+	}
+
+    /// <summary>
+    /// A class which represents the Friend table.
+    /// </summary>
+	[Table("Friend")]
+	public partial class Friend
+	{
+		[Key]
+		public virtual int MemberID { get; set; }
+		public virtual int FriendMemberID { get; set; }
+		public virtual DateTime CreatedAt { get; set; }
+		public virtual int CreatedBy { get; set; }
+		public virtual DateTime UpdatedAt { get; set; }
+		public virtual int UpdatedBy { get; set; }
+	}
+
+    /// <summary>
+    /// A class which represents the FriendInvitation table.
+    /// </summary>
+	[Table("FriendInvitation")]
+	public partial class FriendInvitation
+	{
+		[Key]
+		public virtual int Key { get; set; }
+		public virtual int SendMemberID { get; set; }
+		public virtual int ReceiveMemberID { get; set; }
 		public virtual DateTime CreatedAt { get; set; }
 		public virtual int CreatedBy { get; set; }
 		public virtual DateTime UpdatedAt { get; set; }
@@ -107,32 +149,6 @@ namespace SocialNetwork.Sample
 	{
 		[Key]
 		public virtual Guid OperationKey { get; set; }
-	}
-
-    /// <summary>
-    /// A class which represents the Member table.
-    /// </summary>
-	[Table("Member")]
-	public partial class Member
-	{
-		[Key]
-		public virtual int MemberID { get; set; }
-		public virtual string Account { get; set; }
-		public virtual string NickName { get; set; }
-		public virtual string Password { get; set; }
-		public virtual string Mail { get; set; }
-		public virtual string ProfilePhotoURL { get; set; }
-		public virtual string BackgroundPhotoURL { get; set; }
-		public virtual DateTime? Brithday { get; set; }
-		public virtual string Interest { get; set; }
-		public virtual string Job { get; set; }
-		public virtual string Education { get; set; }
-		public virtual int InfoStatus { get; set; }
-		public virtual int Status { get; set; }
-		public virtual DateTime CreatedAt { get; set; }
-		public virtual int CreatedBy { get; set; }
-		public virtual DateTime UpdatedAt { get; set; }
-		public virtual int UpdatedBy { get; set; }
 	}
 
 }
