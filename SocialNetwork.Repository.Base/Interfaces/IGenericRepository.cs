@@ -10,6 +10,14 @@ namespace SocialNetwork.Repository.Base
     public interface IGenericRepository<TEntity> where TEntity : class
     {
         /// <summary>
+        /// 查詢
+        /// </summary>
+        /// <param name="sql">查詢sql</param>
+        /// <param name="param">參數</param>
+        /// <returns>Query Result</returns>
+        List<T> Query<T>(string sql, object param);
+
+        /// <summary>
         /// 新增
         /// </summary>
         /// <param name="entity">資料庫物件</param>

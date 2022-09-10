@@ -3,9 +3,9 @@
 namespace SocialNetwork.Repository
 {
     /// <summary>
-    /// 刪除好友 Request ViewModel
+    /// 通用的 MemberViewModel
     /// </summary>
-    public class DeleteFriendReqViewModel
+    public class CommonMemberViewModel
     {
         /// <summary>
         /// 會員編號

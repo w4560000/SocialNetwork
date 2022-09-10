@@ -10,8 +10,8 @@ namespace SocialNetwork.Repository
 	/// A class which represents the FriendInvitation table.
 	/// </summary>
 	[Table("FriendInvitation")]
-	public partial class FriendInvitation
-	{
+	public partial class FriendInvitation : IEditColumn
+    {
         /// <summary>
         /// PK
         /// </summary>

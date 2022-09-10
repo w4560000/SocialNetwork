@@ -50,11 +50,71 @@ namespace SocialNetwork.Service
         }
 
         /// <summary>
+        /// 取得好友清單
+        /// </summary>
+        /// <returns>取得結果</returns>
+        public ResponseViewModel<List<GetFriendListResViewModel>> GetFriendList()
+        {
+            var querySql = @"
+                             SELECT MemberiD, NickName 
+                             FROM Member
+                             WHERE MemberID IN (
+					                             SELECT FriendMemberID FROM [SocialNetwork].[dbo].[Friend]
+					                             WHERE MemberID = @MemberID
+					                             UNION
+					                             SELECT MemberID FROM [SocialNetwork].[dbo].[Friend]
+					                             WHERE FriendMemberID = @MemberID
+				                               )";
+
+            var res = this.FriendRepository.Query<GetFriendListResViewModel>(querySql, new { this.UserContext.User.MemberID });
+
+            return "取得好友清單成功".AsSuccessResponse(res);
+        }
+
+        /// <summary>
+        /// 取得好友邀請清單
+        /// </summary>
+        /// <returns>取得結果</returns>
+        public ResponseViewModel<List<GetFriendListResViewModel>> GetFriendInvitationList()
+        {
+            var querySql = @"
+                             SELECT MemberiD, NickName 
+                             FROM Member
+                             WHERE MemberID IN (
+					                             SELECT SendMemberID FROM [SocialNetwork].[dbo].[FriendInvitation]
+					                             WHERE ReceiveMemberID = @MemberID
+				                               )";
+
+            var res = this.FriendRepository.Query<GetFriendListResViewModel>(querySql, new { this.UserContext.User.MemberID });
+
+            return "取得好友邀請清單成功".AsSuccessResponse(res);
+        }
+
+        /// <summary>
+        /// 取得您送出的好友邀請清單
+        /// </summary>
+        /// <returns>取得結果</returns>
+        public ResponseViewModel<List<GetFriendListResViewModel>> GetSendFriendInvitationList()
+        {
+            var querySql = @"
+                             SELECT MemberiD, NickName 
+                             FROM Member
+                             WHERE MemberID IN (
+					                             SELECT ReceiveMemberID FROM [SocialNetwork].[dbo].[FriendInvitation]
+					                             WHERE SendMemberID = @MemberID
+				                               )";
+
+            var res = this.FriendRepository.Query<GetFriendListResViewModel>(querySql, new { this.UserContext.User.MemberID });
+
+            return "取得您送出的好友邀請清單成功".AsSuccessResponse(res);
+        }
+
+        /// <summary>
         /// 發送好友邀請
         /// </summary>
         /// <param name="model">發送好友邀請 Request Model</param>
         /// <returns>發送結果</returns>
-        public ResponseViewModel SendFriendInvitation(SendFriendInvitationReqViewModel model)
+        public ResponseViewModel SendFriendInvitation(CommonMemberViewModel model)
         {
             if (!this.MemberRepository.TryGetEntity(model.MemberID, out _))
                 return CommonExtension.AsSystemFailResponse();
@@ -117,7 +177,7 @@ namespace SocialNetwork.Service
         /// </summary>
         /// <param name="model">收回好友邀請 Request Model</param>
         /// <returns>收回結果</returns>
-        public ResponseViewModel RevokeFriendInvitation(RevokeFriendInvitationReqViewModel model)
+        public ResponseViewModel RevokeFriendInvitation(CommonMemberViewModel model)
         {
             if (!this.MemberRepository.TryGetEntity(model.MemberID, out _))
                 return CommonExtension.AsSystemFailResponse();
@@ -139,15 +199,15 @@ namespace SocialNetwork.Service
         /// </summary>
         /// <param name="model">刪除好友 Request Model</param>
         /// <returns>刪除結果</returns>
-        public ResponseViewModel DeleteFriend(DeleteFriendReqViewModel model)
+        public ResponseViewModel DeleteFriend(CommonMemberViewModel model)
         {
             if (!this.MemberRepository.TryGetEntity(model.MemberID, out _))
                 return CommonExtension.AsSystemFailResponse();
 
-            if (!this.CheckFriendExist(this.UserContext.User.MemberID, model.MemberID, out List<Friend> friendList))
+            if (!this.CheckFriendExist(this.UserContext.User.MemberID, model.MemberID, out Friend friend))
                 return "非好友關係，無法刪除好友".AsFailResponse();
 
-            friendList.ForEach(x => this.FriendRepository.Delete(x));
+            this.FriendRepository.Delete(friend);
 
             return "刪除好友成功".AsSuccessResponse();
         }
@@ -157,14 +217,14 @@ namespace SocialNetwork.Service
         /// </summary>
         /// <param name="memberID">會員編號</param>
         /// <param name="anotherMemberID">另一個會員的編號</param>
-        /// <param name="friendList">好友關係列表</param>
+        /// <param name="friend">好友</param>
         /// <returns>確認結果</returns>
-        private bool CheckFriendExist(int memberID, int anotherMemberID, out List<Friend> friendList)
+        private bool CheckFriendExist(int memberID, int anotherMemberID, out Friend friend)
         {
-            friendList = this.FriendRepository.GetList(@"WHERE (MemberID = @memberID AND FriendMemberID = @anotherMemberID) OR
-                                                               (MemberID = @anotherMemberID AND FriendMemberID = @memberID)",
-                                                    new { memberID, anotherMemberID }).ToList();
-            return friendList.Count > 0;
+            friend = this.FriendRepository.GetList(@"WHERE (MemberID = @memberID AND FriendMemberID = @anotherMemberID) OR
+                                                           (MemberID = @anotherMemberID AND FriendMemberID = @memberID)",
+                                                    new { memberID, anotherMemberID }).FirstOrDefault();
+            return friend != null;
         }
 
         /// <summary>
@@ -176,7 +236,7 @@ namespace SocialNetwork.Service
         /// <returns>確認結果</returns>
         private bool CheckSendedFriendInvitation(int memberID, int anotherMemberID, out FriendInvitation friendInvitation)
         {
-            friendInvitation = this.FriendInvitationRepository.GetList("WHERE SendMemberID = @memberID AND ReceivMemberID = @anotherMemberID",
+            friendInvitation = this.FriendInvitationRepository.GetList("WHERE SendMemberID = @memberID AND ReceiveMemberID = @anotherMemberID",
                                                                     new { memberID, anotherMemberID }).FirstOrDefault();
             return friendInvitation != null;
         }
@@ -190,7 +250,7 @@ namespace SocialNetwork.Service
         /// <returns>確認結果</returns>
         private bool CheckFriendInvitation(int memberID, int anotherMemberID, out FriendInvitation friendInvitation)
         {
-            friendInvitation = this.FriendInvitationRepository.GetList("WHERE SendMemberID = @anotherMemberID AND ReceivMemberID = @memberID",
+            friendInvitation = this.FriendInvitationRepository.GetList("WHERE SendMemberID = @anotherMemberID AND ReceiveMemberID = @memberID",
                                                                     new { memberID, anotherMemberID }).FirstOrDefault();
             return friendInvitation != null;
         }

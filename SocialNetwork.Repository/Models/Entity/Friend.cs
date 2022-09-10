@@ -8,12 +8,17 @@ namespace SocialNetwork.Repository
     /// A class which represents the Friend table.
     /// </summary>
     [Table("Friend")]
-    public partial class Friend
+    public partial class Friend : IEditColumn
     {
+        /// <summary>
+        /// PK
+        /// </summary>
+        [Key]
+        public virtual int Key { get; set; }
+
         /// <summary>
         /// 會員編號
         /// </summary>
-        [Key]
         public virtual int MemberID { get; set; }
 
         /// <summary>

@@ -1,11 +1,12 @@
 ﻿CREATE TABLE [dbo].[Friend] (
-    [MemberID]  INT      NOT NULL,
-    [FriendMemberID]  INT      NOT NULL,
+    [Key] INT NOT NULL IDENTITY,
+    [MemberID]  INT NOT NULL,
+    [FriendMemberID]  INT NOT NULL,
     [CreatedAt] DATETIME NOT NULL,
     [CreatedBy] INT      NOT NULL,
     [UpdatedAt] DATETIME NOT NULL,
-    [UpdatedBy] INT      NOT NULL,
-    CONSTRAINT [PK_Friend] PRIMARY KEY CLUSTERED ([MemberID] ASC, [FriendMemberID] ASC)
+    [UpdatedBy] INT      NOT NULL, 
+    CONSTRAINT [PK_Friend] PRIMARY KEY ([Key]), 
 );
 
 
@@ -45,3 +46,12 @@ EXEC sp_addextendedproperty @name = N'MS_Description',
     @level1name = N'Friend',
     @level2type = N'COLUMN',
     @level2name = N'FriendMemberID'
+GO
+EXEC sp_addextendedproperty @name = N'MS_Description',
+    @value = N'PK',
+    @level0type = N'SCHEMA',
+    @level0name = N'dbo',
+    @level1type = N'TABLE',
+    @level1name = N'Friend',
+    @level2type = N'COLUMN',
+    @level2name = N'Key'

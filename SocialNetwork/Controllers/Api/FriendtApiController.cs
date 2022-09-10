@@ -4,6 +4,7 @@ using SocialNetwork.Helper;
 using SocialNetwork.Repository;
 using SocialNetwork.Service;
 using System;
+using System.Collections.Generic;
 
 namespace SocialNetwork.Controllers
 {
@@ -36,12 +37,66 @@ namespace SocialNetwork.Controllers
         }
 
         /// <summary>
+        /// 取得好友清單
+        /// </summary>
+        /// <returns>取得結果</returns>
+        [HttpPost(nameof(GetFriendList))]
+        public ResponseViewModel<List<GetFriendListResViewModel>> GetFriendList()
+        {
+            try
+            {
+                return FriendService.GetFriendList();
+            }
+            catch (Exception ex)
+            {
+                this.Logger.LogCritical(ex, $"取得好友清單失敗，{ex.GetExceptionMessage()}");
+                return CommonExtension.AsSystemFailResponse<List<GetFriendListResViewModel>>();
+            }
+        }
+
+        /// <summary>
+        /// 取得好友邀請清單
+        /// </summary>
+        /// <returns>取得結果</returns>
+        [HttpPost(nameof(GetFriendInvitationList))]
+        public ResponseViewModel<List<GetFriendListResViewModel>> GetFriendInvitationList()
+        {
+            try
+            {
+                return FriendService.GetFriendInvitationList();
+            }
+            catch (Exception ex)
+            {
+                this.Logger.LogCritical(ex, $"取得好友邀請清單失敗，{ex.GetExceptionMessage()}");
+                return CommonExtension.AsSystemFailResponse<List<GetFriendListResViewModel>>();
+            }
+        }
+
+        /// <summary>
+        /// 取得您送出的好友邀請清單
+        /// </summary>
+        /// <returns>取得結果</returns>
+        [HttpPost(nameof(GetSendFriendInvitationList))]
+        public ResponseViewModel<List<GetFriendListResViewModel>> GetSendFriendInvitationList()
+        {
+            try
+            {
+                return FriendService.GetSendFriendInvitationList();
+            }
+            catch (Exception ex)
+            {
+                this.Logger.LogCritical(ex, $"取得您送出的好友邀請清單失敗，{ex.GetExceptionMessage()}");
+                return CommonExtension.AsSystemFailResponse<List<GetFriendListResViewModel>>();
+            }
+        }
+
+        /// <summary>
         /// 發送好友邀請
         /// </summary>
         /// <param name="model">發送好友邀請 Request ViewModel</param>
         /// <returns>發送結果</returns>
         [HttpPost(nameof(SendFriendInvitation))]
-        public ResponseViewModel SendFriendInvitation(SendFriendInvitationReqViewModel model)
+        public ResponseViewModel SendFriendInvitation(CommonMemberViewModel model)
         {
             try
             {
@@ -79,7 +134,7 @@ namespace SocialNetwork.Controllers
         /// <param name="model">收回好友邀請 Request ViewModel</param>
         /// <returns>收回結果</returns>
         [HttpPost(nameof(RevokeFriendInvitation))]
-        public ResponseViewModel RevokeFriendInvitation(RevokeFriendInvitationReqViewModel model)
+        public ResponseViewModel RevokeFriendInvitation(CommonMemberViewModel model)
         {
             try
             {
@@ -98,7 +153,7 @@ namespace SocialNetwork.Controllers
         /// <param name="model">刪除好友 Request ViewModel</param>
         /// <returns>刪除結果</returns>
         [HttpPost(nameof(DeleteFriend))]
-        public ResponseViewModel DeleteFriend(DeleteFriendReqViewModel model)
+        public ResponseViewModel DeleteFriend(CommonMemberViewModel model)
         {
             try
             {
