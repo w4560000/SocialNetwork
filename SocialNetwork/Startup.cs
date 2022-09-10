@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -140,6 +140,7 @@ namespace SocialNetwork
             services.AddMvc(options =>
             {
                 // Global ActionFilter
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                 options.Filters.Add(new AuthorizeFilter(new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build()));
                 options.Filters.Add(new ValidateModelAttribute());
             }).AddJsonOptions(options =>
@@ -160,7 +161,13 @@ namespace SocialNetwork
             services.AddHttpContextAccessor();
             services.AddControllersWithViews();
             services.AddHttpClient();
-            services.AddAntiforgery();
+
+            services.AddAntiforgery(options =>
+            {
+                // 箇砞琌 false ボ Antiforgery 穦笆ネΘ X-Frame-Options SAMEORIGIN
+                // 璝 true 玥ぃ笆ネΘ
+                options.SuppressXFrameOptionsHeader = false;
+            });
         }
 
         /// <summary>
@@ -170,6 +177,16 @@ namespace SocialNetwork
         /// <param name="env">IWebHostEnvironment</param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.Use(async (context, next) =>
+            {
+                //  Iframe 礚猭更赣呼
+                // DENY = Ч礚猭更 Iframe
+                // SAMEORIGIN = 才方現郸玥更 Iframe
+                // ALLOW-FROM uri = す砛琘 URI 更 Iframe
+                context.Response.Headers.Add("X-Frame-Options", "DENY");
+                await next();
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

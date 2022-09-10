@@ -32,6 +32,9 @@
     </environment>
 </head>
 <body style="height: 100% !important">
+    @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
+    <input id="RequestVerificationToken" type="hidden" value="@Antiforgery.GetAndStoreTokens(Context).RequestToken" />
+
     <div class="member_layout_background">
         <div class="member_layout_Box">
             <a class="logo">I K K O N</a>

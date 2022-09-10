@@ -41,6 +41,9 @@
     </script>
 </head>
 <body style="height: 100% !important; background-color: #E8E8E8 !important;">
+    @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
+    <input id="RequestVerificationToken" type="hidden" value="@Antiforgery.GetAndStoreTokens(Context).RequestToken" />
+
     <div class="div_menu">
         <div class="logo_index"><a>I K K O N</a></div>
         <div class="meunContent">

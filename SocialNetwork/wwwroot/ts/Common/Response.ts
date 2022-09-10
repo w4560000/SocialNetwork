@@ -20,3 +20,13 @@ class GetMemberInfoResViewModel {
     InfoStatus: MemberPublicInfoEnum;
     IsOriginalMember: boolean;
 }
+
+/**
+ * 取得好友清單 Response ViewModel
+ * 取得好友邀請清單 Response ViewModel
+ * 取得您送出的好友邀請清單 Response ViewModel
+ * */
+class GetFriendListResViewModel {
+    MemberID: number;
+    NickName: string;
+}

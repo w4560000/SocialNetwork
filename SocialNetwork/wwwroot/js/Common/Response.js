@@ -14,3 +14,13 @@ var GetMemberInfoResViewModel = /** @class */ (function () {
     }
     return GetMemberInfoResViewModel;
 }());
+/**
+ * 取得好友清單 Response ViewModel
+ * 取得好友邀請清單 Response ViewModel
+ * 取得您送出的好友邀請清單 Response ViewModel
+ * */
+var GetFriendListResViewModel = /** @class */ (function () {
+    function GetFriendListResViewModel() {
+    }
+    return GetFriendListResViewModel;
+}());

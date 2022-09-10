@@ -69,10 +69,13 @@ function BasePostAPI<T, Res>(
     return new Promise(function (resolve, reject) {
         if (loadingMsg)
             Common.SweetAlertLoading(loadingMsg);
-
+        
         $.ajax({
             method: "POST",
             url: api,
+            headers: {
+                "RequestVerificationToken": $("#RequestVerificationToken").val() as string
+            },
             data: JSON.stringify(model),
             dataType: "json",
             contentType: "application/json",
@@ -130,6 +133,9 @@ function BasePostAPIWithVoid<T>(
     $.ajax({
         method: "POST",
         url: api,
+        headers: {
+            "RequestVerificationToken": $("#RequestVerificationToken").val() as string
+        },
         data: JSON.stringify(model),
         dataType: "json",
         contentType: "application/json",
@@ -178,6 +184,9 @@ function BasePostAPIByFormData(
     $.ajax({
         method: "POST",
         url: api,
+        headers: {
+            "RequestVerificationToken": $("#RequestVerificationToken").val() as string
+        },
         data: formData,
         dataType: "json",
         processData: false,

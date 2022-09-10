@@ -97,6 +97,9 @@ function BasePostAPI(loadingMsg, api, model, successFunc, errorFunc, isNotificat
         $.ajax({
             method: "POST",
             url: api,
+            headers: {
+                "RequestVerificationToken": $("#RequestVerificationToken").val()
+            },
             data: JSON.stringify(model),
             dataType: "json",
             contentType: "application/json",
@@ -145,6 +148,9 @@ function BasePostAPIWithVoid(loadingMsg, api, model, successFunc, errorFunc, isN
     $.ajax({
         method: "POST",
         url: api,
+        headers: {
+            "RequestVerificationToken": $("#RequestVerificationToken").val()
+        },
         data: JSON.stringify(model),
         dataType: "json",
         contentType: "application/json",
@@ -186,6 +192,9 @@ function BasePostAPIByFormData(loadingMsg, api, formData, successFunc, errorFunc
     $.ajax({
         method: "POST",
         url: api,
+        headers: {
+            "RequestVerificationToken": $("#RequestVerificationToken").val()
+        },
         data: formData,
         dataType: "json",
         processData: false,
