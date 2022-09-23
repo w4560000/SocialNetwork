@@ -38,7 +38,7 @@ services:
       - "6379:6379"
     restart: always
     volumes:
-      - //d/Lab/SocialNetworkData/RedisData:/data
+      - ./Redis/data:/data
     sysctls:
       net.core.somaxconn: '511'
   postgres:
@@ -47,7 +47,7 @@ services:
       - "5432:5432"
     image: "postgres:alpine"
     volumes:
-      - //d/Lab/SocialNetworkData/PostgreData:/var/lib/postgresql/data # persist data even if container shuts down
+      - ./PostgreSQL/data:/var/lib/postgresql/data # persist data even if container shuts down
     restart: always
     environment:
       POSTGRES_USER: superuser
