@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32106.194
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.32804.182
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocialNetwork", "SocialNetwork\SocialNetwork.csproj", "{B837AE05-DEF3-47A3-92FD-B02819E585D8}"
 EndProject
@@ -18,10 +18,26 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.dockerignore = .dockerignore
 		docker-compose.yml = docker-compose.yml
 		Dockerfile = Dockerfile
+		mssql-entrypoint.sh = mssql-entrypoint.sh
 		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SocialNetwork.Database.SQLServer", "SocialNetwork.Database.SQLServer\SocialNetwork.Database.SQLServer.sqlproj", "{31484AF8-D824-4134-9CEB-88346CC5E999}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MSSQL", "MSSQL", "{D945EF93-FB69-4AAB-9604-579CABD2A4CE}"
+	ProjectSection(SolutionItems) = preProject
+		MSSQL\entrypoint.sh = MSSQL\entrypoint.sh
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "backup", "backup", "{92A9C2DC-F383-4B49-883D-C68AE579DE2A}"
+	ProjectSection(SolutionItems) = preProject
+		MSSQL\backup\exam.bak = MSSQL\backup\exam.bak
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "script", "script", "{DF784F8E-4810-44BF-B898-6216684E71FF}"
+	ProjectSection(SolutionItems) = preProject
+		MSSQL\script\test.sql = MSSQL\script\test.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,6 +74,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{92A9C2DC-F383-4B49-883D-C68AE579DE2A} = {D945EF93-FB69-4AAB-9604-579CABD2A4CE}
+		{DF784F8E-4810-44BF-B898-6216684E71FF} = {D945EF93-FB69-4AAB-9604-579CABD2A4CE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A183403A-F2CB-4CB3-B87F-18AFBCF86967}

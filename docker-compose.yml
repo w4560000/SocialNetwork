@@ -14,12 +14,28 @@ services:
     depends_on:
       - redis
       - postgres
+      - mssql
+  mssql:
+    container_name: mssql
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+      - 2500:1433
+    volumes:
+      - ./MSSQL/entrypoint.sh:/app/entrypoint.sh
+      - ./MSSQL/data:/var/opt/mssql/data
+      - ./MSSQL/backup:/var/opt/mssql/backup
+      - ./MSSQL/script:/var/opt/mssql/script
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=mssql1Ipw
+    entrypoint: 
+      - /app/entrypoint.sh
   redis:
     container_name: redis
     image: redis:3.2.4
     entrypoint: redis-server --maxmemory "4gb" --requirepass xxx
     ports:
-      - 6379:6379
+      - "6379:6379"
     restart: always
     volumes:
       - //d/Lab/SocialNetworkData/RedisData:/data
