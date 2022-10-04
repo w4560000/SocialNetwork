@@ -49,9 +49,7 @@ $(function () {
 
         let currentSelectStatus = $(this).attr('id')?.split('_')[1] as string;
         let model = new UpdateMemberStatusReqViewModel(parseInt(currentSelectStatus) as MemberStatusEnum);
-        let successFunc = () => { };
-        let errorFunc = () => { };
-        UpdateMemberStatusAPI(model, successFunc, errorFunc);
+        UpdateMemberStatusAPI(model);
         allOptions.toggle();
     });
 

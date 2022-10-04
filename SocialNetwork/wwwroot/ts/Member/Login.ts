@@ -181,8 +181,6 @@ function ResetPassword() {
     let model = new ResetPasswordReqViewModel(
         $('#forgotPassword_account').val() as string,
         $('#forgotPassword_mail').val() as string);
-    let successFunc = () => { };
-    let errorFunc = () => { };
 
-    ResetPasswordAPI("寄送重設密碼郵件中", model, successFunc, errorFunc);
+    ResetPasswordAPI("寄送重設密碼郵件中", model);
 }

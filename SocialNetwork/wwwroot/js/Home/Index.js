@@ -34,11 +34,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var memberInfo;
 $(function () {
     return __awaiter(this, void 0, void 0, function () {
-        var successFunc, errorFunc, memberInfo, memberBrithday, brithday;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        var _a, memberBrithday, brithday;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
                 case 0:
                     // 輸入框 高度自動伸縮
                     $('.write_post, .msgComment').on("input", function () {
@@ -47,13 +48,21 @@ $(function () {
                         _this.height('auto');
                         _this.height(_this.prop('scrollHeight') + 'px');
                     });
-                    successFunc = function () { };
-                    errorFunc = function () { };
-                    return [4 /*yield*/, GetCurrentMemberInfoAPI(successFunc, errorFunc)];
+                    if (!$("#query_memberID").val()) return [3 /*break*/, 2];
+                    return [4 /*yield*/, GetMemberInfoAPI($("#query_memberID").val())];
                 case 1:
-                    memberInfo = _a.sent();
+                    _a = _b.sent();
+                    return [3 /*break*/, 4];
+                case 2: return [4 /*yield*/, GetCurrentMemberInfoAPI()];
+                case 3:
+                    _a = _b.sent();
+                    _b.label = 4;
+                case 4:
+                    // 查看別人主頁 or 個人主頁
+                    memberInfo = _a;
                     memberBrithday = new Date(memberInfo.Brithday);
                     brithday = "".concat(memberBrithday.getFullYear(), " \u5E74 ").concat(memberBrithday.getMonth() + 1, " \u6708 ").concat(memberBrithday.getDate(), " \u65E5");
+                    $('.profile_name').html(memberInfo.NickName);
                     $('.profile_detail_brithday').html(brithday);
                     $('.profile_detail_job').html(memberInfo.Job);
                     $('.profile_detail_internest').html(memberInfo.Interest);
@@ -64,3 +73,24 @@ $(function () {
         });
     });
 });
+/**
+ * 發送好友邀請
+ * */
+function SendFriendInvitation() {
+    var model = new CommonMemberViewModel(memberInfo.MemberID);
+    SendFriendInvitationAPI("發送好友邀請中", model, "\u78BA\u5B9A\u662F\u5426\u5C0D ".concat(memberInfo.NickName, " \u767C\u9001\u597D\u53CB\u9080\u8ACB?"));
+}
+/**
+ * 判斷好友邀請 (接受 or 拒絕)
+ * */
+function DecideFriendInvitation(decide) {
+    var model = new DecideFriendInvitationReqViewModel(memberInfo.MemberID, decide);
+    DecideFriendInvitationAPI("".concat(DecideFriendInvitationEnum[decide], "\u597D\u53CB\u9080\u8ACB\u4E2D"), model, "\u78BA\u5B9A\u662F\u5426".concat(DecideFriendInvitationEnum[decide], " ").concat(memberInfo.NickName, " \u7684\u597D\u53CB\u9080\u8ACB?"));
+}
+/**
+ * 收回好友邀請
+ * */
+function RevokeFriendInvitation() {
+    var model = new CommonMemberViewModel(memberInfo.MemberID);
+    RevokeFriendInvitationAPI("\u6536\u56DE\u597D\u53CB\u9080\u8ACB\u4E2D", model, "\u78BA\u5B9A\u662F\u5426\u6536\u56DE ".concat(memberInfo.NickName, "  \u7684\u597D\u53CB\u9080\u8ACB?"));
+}

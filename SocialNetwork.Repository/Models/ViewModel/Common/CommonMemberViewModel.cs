@@ -3,7 +3,7 @@
 namespace SocialNetwork.Repository
 {
     /// <summary>
-    /// 通用的 MemberViewModel
+    /// 通用的 Member ViewModel
     /// </summary>
     public class CommonMemberViewModel
     {

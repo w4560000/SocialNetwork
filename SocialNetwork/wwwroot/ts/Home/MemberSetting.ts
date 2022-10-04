@@ -10,11 +10,8 @@ $(async function () {
             $("#infoBrithday").val(date);
         });
 
-    let successFunc = () => { };
-    let errorFunc = () => { };
-
     // 取得當前會員資訊
-    var memberInfo = await GetCurrentMemberInfoAPI(successFunc, errorFunc);
+    var memberInfo = await GetCurrentMemberInfoAPI();
 
     // 載入 會員資訊
     $('.profile_background').attr('src', memberInfo.BackgroundPhotoURL);
@@ -137,7 +134,7 @@ function UpdateMemberInfo() {
     formData.append('Education', $('#infoEducation').val() as string);
     formData.append('InfoStatus', infoStatus.toString());
 
-    var successFunc = function (res: ResponseViewModel<object>) {
+    var successFunc = (res: ResponseViewModel<object>) => {
         if (res.Status == ResponseStatusEnum.Success) {
             // 更新左側 Menu 頭像
             if (tempProfilePhotoFile !== undefined)
@@ -153,7 +150,7 @@ function UpdateMemberInfo() {
             }
         }
     };
-    var errorFunc = function () { };
+    var errorFunc = () => { };
     UpdateMemberInfoAPI("更新個人資訊中", formData, successFunc, errorFunc, '確定是否更新?');
 }
 

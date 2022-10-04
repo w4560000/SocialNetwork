@@ -1,11 +1,11 @@
 /**
- * 共用回應 ViewModel
+ * 通用的 Member ViewModel
  * */
-var ResponseViewModel = /** @class */ (function () {
-    function ResponseViewModel(msg) {
-        this.Message = msg;
+var CommonMemberViewModel = /** @class */ (function () {
+    function CommonMemberViewModel(memberID) {
+        this.MemberID = memberID;
     }
-    return ResponseViewModel;
+    return CommonMemberViewModel;
 }());
 /**
  * 登入 Request ViewModel
@@ -102,4 +102,14 @@ var ChangePasswordReqViewModel = /** @class */ (function () {
         this.NewPasswordCheck = newPasswordCheck;
     }
     return ChangePasswordReqViewModel;
+}());
+/**
+ * 判斷好友邀請 Request ViewModel
+ * */
+var DecideFriendInvitationReqViewModel = /** @class */ (function () {
+    function DecideFriendInvitationReqViewModel(memberID, decision) {
+        this.MemberID = memberID;
+        this.Decision = decision;
+    }
+    return DecideFriendInvitationReqViewModel;
 }());

@@ -40,9 +40,7 @@ $(function () {
         $('.index_status_select').toggleClass('index_status_select_up');
         var currentSelectStatus = (_a = $(this).attr('id')) === null || _a === void 0 ? void 0 : _a.split('_')[1];
         var model = new UpdateMemberStatusReqViewModel(parseInt(currentSelectStatus));
-        var successFunc = function () { };
-        var errorFunc = function () { };
-        UpdateMemberStatusAPI(model, successFunc, errorFunc);
+        UpdateMemberStatusAPI(model);
         allOptions.toggle();
     });
     // 載入會員狀態

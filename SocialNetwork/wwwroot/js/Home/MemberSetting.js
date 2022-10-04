@@ -38,7 +38,7 @@ var tempBackgroundFile;
 var tempProfilePhotoFile;
 $(function () {
     return __awaiter(this, void 0, void 0, function () {
-        var successFunc, errorFunc, memberInfo;
+        var memberInfo;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -47,9 +47,7 @@ $(function () {
                         var date = "".concat(inst.selectedYear, " \u5E74 ").concat(inst.selectedMonth + 1, " \u6708 ").concat(inst.selectedDay, " \u65E5");
                         $("#infoBrithday").val(date);
                     });
-                    successFunc = function () { };
-                    errorFunc = function () { };
-                    return [4 /*yield*/, GetCurrentMemberInfoAPI(successFunc, errorFunc)];
+                    return [4 /*yield*/, GetCurrentMemberInfoAPI()];
                 case 1:
                     memberInfo = _a.sent();
                     // 載入 會員資訊

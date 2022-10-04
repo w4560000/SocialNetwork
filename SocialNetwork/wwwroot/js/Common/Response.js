@@ -1,4 +1,13 @@
 /**
+ * 共用回應 ViewModel
+ * */
+var ResponseViewModel = /** @class */ (function () {
+    function ResponseViewModel(msg) {
+        this.Message = msg;
+    }
+    return ResponseViewModel;
+}());
+/**
  * Google 第三方登入 Response ViewModel
  * */
 var GoogleLoginResViewModel = /** @class */ (function () {

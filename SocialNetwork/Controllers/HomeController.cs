@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SocialNetwork.Helper;
-using SocialNetwork.Repository;
 using SocialNetwork.Service;
 
 namespace SocialNetwork.Controllers
@@ -23,16 +21,24 @@ namespace SocialNetwork.Controllers
         private readonly IMemberService MemberService;
 
         /// <summary>
+        /// IUserContext
+        /// </summary>
+        private readonly IUserContext UserContext;
+
+        /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="logger">Logger</param>
         /// <param name="memberService">IMemberService</param>
+        /// <param name="userContext">IUserContext</param>
         public HomeController(
             ILogger<HomeController> logger,
-            IMemberService memberService)
+            IMemberService memberService,
+            IUserContext userContext)
         {
-            Logger = logger;
-            MemberService = memberService;
+            this.Logger = logger;
+            this.MemberService = memberService;
+            this.UserContext = userContext;
         }
 
         /// <summary>
@@ -47,9 +53,18 @@ namespace SocialNetwork.Controllers
         /// <summary>
         /// 個人主頁
         /// </summary>
+        /// <param name="memberIDStr">會員編號</param>
         /// <returns>個人主頁</returns>
-        public IActionResult HomePage()
+        [HttpGet("Home/HomePage/{memberIDStr}")]
+        public IActionResult HomePage(string memberIDStr)
         {
+            // memberIDStr 不為數字 則帶空
+            this.ViewBag.QueryMemberID = int.TryParse(memberIDStr, out int memberID) ? memberID.ToString() : "";
+
+            // memberIDStr 為自己 則帶空
+            if (this.UserContext.User.MemberID == memberID)
+                this.ViewBag.QueryMemberID = "";
+
             return View();
         }
 

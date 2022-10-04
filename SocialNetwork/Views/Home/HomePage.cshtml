@@ -2,8 +2,6 @@
     ViewBag.Title = "HomePage";
     Layout = "_Layout";
 }
-@using SocialNetwork.Helper
-@inject IUserContext UserContext
 
 <script src="~/js/Home/Index.js" asp-append-version="true"></script>
 <link rel="stylesheet" href="~/css/Home/Index.css" asp-append-version="true" />
@@ -20,13 +18,18 @@
         });
     });
 </script>
+<input type="text" hidden="hidden" id="query_memberID" value="@ViewBag.QueryMemberID">
 <div class="div_content">
     <div class="div_profile">
         <div class="profile_background_container">
             <img class="profile_background" />
         </div>
-        <div class="profile_name">
-            @UserContext.User.NickName
+        <div class="profile_name_container">
+            <span class="profile_name"></span>
+            <div class ="div_addFriend">
+                <img class="addFriend_icon" src="/images/addFriend.svg">
+                <input id="btn_addFriend" type="button" value="加好友" onclick="SendFriendInvitation()" />
+            </div>
         </div>
         <div class="profile_detail">
             <div class="profile_detail_row">

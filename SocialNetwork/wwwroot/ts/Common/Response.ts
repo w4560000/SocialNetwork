@@ -1,4 +1,18 @@
 ﻿/**
+ * 共用回應 ViewModel
+ * */
+class ResponseViewModel<T>
+{
+    Status: ResponseStatusEnum | undefined;
+    Message: string | undefined;
+    Data: T | undefined;
+
+    constructor(msg: string) {
+        this.Message = msg;
+    }
+}
+
+/**
  * Google 第三方登入 Response ViewModel
  * */
 class GoogleLoginResViewModel {

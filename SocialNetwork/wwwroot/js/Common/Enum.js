@@ -1,5 +1,5 @@
 /**
- * 共用 API 回應狀態列舉
+ * 共用 API 回應狀態 列舉
  * */
 var ResponseStatusEnum;
 (function (ResponseStatusEnum) {
@@ -7,7 +7,7 @@ var ResponseStatusEnum;
     ResponseStatusEnum[ResponseStatusEnum["Success"] = 1] = "Success";
 })(ResponseStatusEnum || (ResponseStatusEnum = {}));
 /**
- * 會員公開資訊列舉
+ * 會員公開資訊 列舉
  * */
 var MemberPublicInfoEnum;
 (function (MemberPublicInfoEnum) {
@@ -19,7 +19,7 @@ var MemberPublicInfoEnum;
     MemberPublicInfoEnum[MemberPublicInfoEnum["\u5168\u90E8\u516C\u958B"] = 15] = "\u5168\u90E8\u516C\u958B";
 })(MemberPublicInfoEnum || (MemberPublicInfoEnum = {}));
 /**
- * 會員狀態
+ * 會員狀態 列舉
  * */
 var MemberStatusEnum;
 (function (MemberStatusEnum) {
@@ -27,3 +27,11 @@ var MemberStatusEnum;
     MemberStatusEnum[MemberStatusEnum["\u5FD9\u788C"] = 2] = "\u5FD9\u788C";
     MemberStatusEnum[MemberStatusEnum["\u96E2\u7DDA"] = 3] = "\u96E2\u7DDA";
 })(MemberStatusEnum || (MemberStatusEnum = {}));
+/**
+ * 判斷好友邀請 列舉
+ * */
+var DecideFriendInvitationEnum;
+(function (DecideFriendInvitationEnum) {
+    DecideFriendInvitationEnum[DecideFriendInvitationEnum["\u62D2\u7D55"] = 0] = "\u62D2\u7D55";
+    DecideFriendInvitationEnum[DecideFriendInvitationEnum["\u63A5\u53D7"] = 1] = "\u63A5\u53D7";
+})(DecideFriendInvitationEnum || (DecideFriendInvitationEnum = {}));

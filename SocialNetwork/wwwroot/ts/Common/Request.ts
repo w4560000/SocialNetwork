@@ -1,14 +1,11 @@
 ﻿/**
- * 共用回應 ViewModel
+ * 通用的 Member ViewModel
  * */
-class ResponseViewModel<T>
-{
-    Status: ResponseStatusEnum | undefined;
-    Message: string | undefined;
-    Data: T | undefined;
+class CommonMemberViewModel {
+    MemberID: number;
 
-    constructor(msg: string) {
-        this.Message = msg;
+    constructor(memberID: number) {
+        this.MemberID = memberID
     }
 }
 
@@ -141,5 +138,20 @@ class ChangePasswordReqViewModel {
         this.OldPassword = oldPassword;
         this.NewPassword = newPassword;
         this.NewPasswordCheck = newPasswordCheck;
+    }
+}
+
+/**
+ * 判斷好友邀請 Request ViewModel
+ * */
+class DecideFriendInvitationReqViewModel {
+    MemberID: number;
+    Decision: DecideFriendInvitationEnum;
+
+    constructor(
+        memberID: number,
+        decision: DecideFriendInvitationEnum) {
+        this.MemberID = memberID;
+        this.Decision = decision;
     }
 }

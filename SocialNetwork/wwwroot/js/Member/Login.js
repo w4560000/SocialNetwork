@@ -139,7 +139,5 @@ function ResetPassword() {
         return;
     }
     var model = new ResetPasswordReqViewModel($('#forgotPassword_account').val(), $('#forgotPassword_mail').val());
-    var successFunc = function () { };
-    var errorFunc = function () { };
-    ResetPasswordAPI("寄送重設密碼郵件中", model, successFunc, errorFunc);
+    ResetPasswordAPI("寄送重設密碼郵件中", model);
 }

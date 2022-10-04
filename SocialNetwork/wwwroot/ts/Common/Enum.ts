@@ -1,5 +1,5 @@
 ﻿/**
- * 共用 API 回應狀態列舉 
+ * 共用 API 回應狀態 列舉 
  * */
 enum ResponseStatusEnum {
     Error = 0,
@@ -7,7 +7,7 @@ enum ResponseStatusEnum {
 }
 
 /**
- * 會員公開資訊列舉
+ * 會員公開資訊 列舉
  * */
 enum MemberPublicInfoEnum {
     全部不公開 = 0,
@@ -19,10 +19,18 @@ enum MemberPublicInfoEnum {
 }
 
 /**
- * 會員狀態
+ * 會員狀態 列舉
  * */
 enum MemberStatusEnum {
     在線 = 1,
     忙碌 = 2,
     離線 = 3
+}
+
+/**
+ * 判斷好友邀請 列舉
+ * */
+enum DecideFriendInvitationEnum {
+    拒絕 = 0,
+    接受 = 1
 }

@@ -48,7 +48,7 @@ namespace SocialNetwork.Controllers
         /// </summary>
         /// <param name="guid">guid</param>
         /// <returns>登入頁</returns>
-        [HttpGet("ResetPassword/{guid}")]
+        [HttpGet("Member/ResetPassword/{guid}")]
         [AllowAnonymous]
         public IActionResult ResetPassword(string guid)
         {

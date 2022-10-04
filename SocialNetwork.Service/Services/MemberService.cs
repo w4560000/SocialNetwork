@@ -281,7 +281,7 @@ outline: 0;";
 <body>
     <h2>嗨 {member.NickName}</h2>
     <p>您可點選底下的連結來重設 IKKON 密碼。若您未曾要求過重設密碼，請忽略本電子郵件。</p>
-    <a href='https://localhost:44371/ResetPassword/{guid}' style='{forgorPasswordSubmitStyle}'>
+    <a href='https://localhost:44371/Member/ResetPassword/{guid}' style='{forgorPasswordSubmitStyle}'>
         重設密碼
     </a>
 </body>";
