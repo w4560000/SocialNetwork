@@ -41,7 +41,7 @@ a {
     text-decoration: none;
 }
 
-.logo {
+a.logo {
     font-size: 40pt;
     margin: auto;
     display: flex;
@@ -379,7 +379,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     }
 }
 
-.logo_index {
+a.logo_index {
     font-size: 25pt;
     display: flex;
     justify-content: center;

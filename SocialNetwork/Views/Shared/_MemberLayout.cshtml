@@ -3,7 +3,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - SocialNetwork</title>
+    <title>@ViewData["Title"]</title>
+    <link rel="icon" href="/images/Logo/logo_favicon.svg" />
 
     @*JQuery*@
     <script src="~/lib/jquery/jquery.min.js" asp-append-version="true"></script>
@@ -37,7 +38,10 @@
 
     <div class="member_layout_background">
         <div class="member_layout_Box">
-            <a class="logo">I K K O N</a>
+            <div style="display:flex; justify-content:center;margin-bottom: 10%;">
+                <img src="~/images/Logo/logo.svg" style="width: 50%;" />
+            </div>
+            @*<a class="logo">I K K O N</a>*@
             @RenderBody()
         </div>
     </div>
