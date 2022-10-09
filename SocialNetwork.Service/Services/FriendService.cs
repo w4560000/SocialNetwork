@@ -110,6 +110,33 @@ namespace SocialNetwork.Service
         }
 
         /// <summary>
+        /// 取得好友狀態
+        /// </summary>
+        /// <param name="model">取得好友狀態 Request ViewModel</param>
+        /// <returns>取得結果</returns>
+        public ResponseViewModel<GetFriendStatusResViewModel> GetFriendStatus(CommonMemberViewModel model)
+        {
+            if (!this.MemberRepository.TryGetEntity(model.MemberID, out _))
+                return CommonExtension.AsSystemFailResponse<GetFriendStatusResViewModel>();
+
+            string msg = "取得好友狀態成功";
+
+            // 檢查是否為好友
+            if (this.CheckFriendExist(this.UserContext.User.MemberID, model.MemberID, out _))
+                return msg.AsSuccessResponse(new GetFriendStatusResViewModel() { FriendStatus = FriendStatusEnum.為好友 });
+
+            // 檢查是否發送過好友邀請
+            if (this.CheckSendedFriendInvitation(this.UserContext.User.MemberID, model.MemberID, out _))
+                return msg.AsSuccessResponse(new GetFriendStatusResViewModel() { FriendStatus = FriendStatusEnum.已寄送好友邀請 });
+
+            // 檢查對方是否發送過好友邀請
+            if (this.CheckFriendInvitation(this.UserContext.User.MemberID, model.MemberID, out _))
+                return msg.AsSuccessResponse(new GetFriendStatusResViewModel() { FriendStatus = FriendStatusEnum.已接收好友邀請 });
+
+            return msg.AsSuccessResponse(new GetFriendStatusResViewModel() { FriendStatus = FriendStatusEnum.非好友 });
+        }
+
+        /// <summary>
         /// 發送好友邀請
         /// </summary>
         /// <param name="model">發送好友邀請 Request Model</param>

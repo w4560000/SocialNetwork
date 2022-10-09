@@ -55,8 +55,9 @@ namespace SocialNetwork.Controllers
         /// </summary>
         /// <param name="memberIDStr">會員編號</param>
         /// <returns>個人主頁</returns>
+        [HttpGet("Home/HomePage")]
         [HttpGet("Home/HomePage/{memberIDStr}")]
-        public IActionResult HomePage(string memberIDStr)
+        public IActionResult HomePage(string memberIDStr = "")
         {
             // memberIDStr 不為數字 則帶空
             this.ViewBag.QueryMemberID = int.TryParse(memberIDStr, out int memberID) ? memberID.ToString() : "";

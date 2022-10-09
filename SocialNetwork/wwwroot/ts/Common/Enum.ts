@@ -34,3 +34,13 @@ enum DecideFriendInvitationEnum {
     拒絕 = 0,
     接受 = 1
 }
+
+/**
+ * 好友狀態 列舉
+ * */
+enum FriendStatusEnum {
+    非好友 = 0,
+    已寄送好友邀請 = 1,
+    已接收好友邀請 = 2,
+    為好友 = 3
+}

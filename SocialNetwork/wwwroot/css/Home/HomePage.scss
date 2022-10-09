@@ -1,9 +1,18 @@
 ﻿@import '../Common/Base.scss';
 
+.div_homePage_topBar {
+    margin-top: 10px;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    font-size: 22pt;
+    color: $Color_PK1;
+}
+
 .div_profile {
     background-color: $Color_W1;
     border-radius: 5px;
-    margin-top: 30px;
     width: 100%;
     height: 40%;
 
@@ -21,23 +30,115 @@
 
     .profile_name_container {
         color: $Color_PK2;
-        background-color: $Color_PK3;
         font-size: 24pt;
         text-align: center;
         height: 12%;
         display: flex;
-        align-items: center;
-        justify-content: center;
+        margin-left: 25%;
+        margin-top: 10px;
+
+        .profile_photo_container {
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 150px;
+            height: 150px;
+            position: absolute;
+            left: 12%;
+            transform: translate(-50%, -50%);
+            background-color: #FFFFFF;
+
+            .profile_photo {
+                position: relative;
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                border: 1px $Color_PK2 solid;
+            }
+        }
+
+        .div_sendMsg {
+            position: absolute;
+            right: 15%;
+            width: 80px;
+            height: 35px;
+            border-radius: 5px;
+            background-color: $Color_PK2;
+            color: $Color_W1;
+            font-weight: 400;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            img {
+                filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(271deg) brightness(106%) contrast(103%);
+                height: 20px;
+                width: 20px;
+                position: absolute;
+                left: 10px;
+            }
+
+            label {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding-left: 30px;
+                cursor: pointer;
+                z-index: 999;
+            }
+        }
+
+        .div_addFriend {
+            position: absolute;
+            right: 2%;
+            width: 100px;
+            height: 35px;
+            border-radius: 5px;
+            background-color: $Color_PK2;
+            color: $Color_W1;
+            font-weight: 400;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            img {
+                filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(271deg) brightness(106%) contrast(103%);
+                height: 20px;
+                width: 20px;
+                position: absolute;
+                left: 10px;
+            }
+
+            label {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding-left: 30px;
+                cursor: pointer;
+                z-index: 999;
+            }
+        }
     }
 
     .profile_detail {
         height: 40%;
+        margin-left: 25%;
+        margin-top: 20px;
 
         .profile_detail_row {
             display: flex;
             align-items: center;
             justify-content: left;
-            height: 50%;
+            height: 30%;
 
             .profile_detail_title_container {
                 width: 50%;
@@ -49,29 +150,28 @@
                     width: 70px;
                     height: 30px;
                     display: flex;
-                    padding-left: 25%;
 
                     .profile_detail_title_background {
-                        width: 90%;
-                        height: 70%;
+                        width: 70%;
+                        height: 60%;
                         background-color: $Color_PK3;
                         border-radius: 25px;
                         position: relative;
                         top: 30%;
 
                         .profile_detail_title {
-                            font-size: 18pt;
                             color: $Color_B1;
                             position: relative;
                             bottom: 50%;
                             right: 5%;
                             font-weight: 600;
+                            font-size: 14pt;
                         }
                     }
                 }
 
                 .profile_detail_content {
-                    font-size: 18pt;
+                    font-size: 14pt;
                     padding-left: 5%;
                 }
             }

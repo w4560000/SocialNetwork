@@ -29,6 +29,9 @@ function BaseGetAPI<Res>(
                         else
                             Common.SweetAlertSuccess(res, successFunc);
                     }
+                    else
+                        Swal.close();
+
                     resolve(res.Data as Res);
                 }
                 else {
@@ -84,6 +87,8 @@ function BasePostAPIV1<Res>(
                         else
                             Common.SweetAlertSuccess(res, successFunc);
                     }
+                    else
+                        Swal.close();
 
                     resolve(res.Data as Res);
                 }
@@ -145,6 +150,8 @@ function BasePostAPIV2<T, Res>(
                         else
                             Common.SweetAlertSuccess(res, successFunc);
                     }
+                    else
+                        Swal.close();
 
                     resolve(res.Data as Res);
                 }
@@ -204,6 +211,8 @@ function BasePostAPIV3<T>(
                     else
                         Common.SweetAlertSuccess(res, successFunc);
                 }
+                else
+                    Swal.close();
             }
             else {
                 if (isNotification)
@@ -234,7 +243,8 @@ function BasePostAPIByFormData(
     formData: FormData,
     successFunc?: Function,
     errorFunc?: Function,
-    isNotification: boolean = false) {
+    isNotification: boolean = false,
+    isShowSuccessMsg: boolean = true) {
     if (loadingMsg)
         Common.SweetAlertLoading(loadingMsg);
 
@@ -250,10 +260,14 @@ function BasePostAPIByFormData(
         contentType: false,
         success: (res: ResponseViewModel<object>) => {
             if (res.Status == ResponseStatusEnum.Success) {
-                if (isNotification)
-                    Common.SweetAlertNotification(true, res.Message);
+                if (isShowSuccessMsg) {
+                    if (isNotification)
+                        Common.SweetAlertNotification(true, res.Message);
+                    else
+                        Common.SweetAlertSuccess(res, successFunc);
+                }
                 else
-                    Common.SweetAlertSuccess(res, successFunc);
+                    Swal.close();
             }
             else {
                 if (isNotification)
@@ -429,45 +443,53 @@ async function GetSendFriendInvitationListAPI(): Promise<Array<GetFriendListResV
 }
 
 /**
- * 發送好友邀請 API
+ * 取得好友狀態 API
  */
-function SendFriendInvitationAPI(loadingMsg: string, model: CommonMemberViewModel, confirmTitle: string): void {
+async function GetFriendStatusAPI(model: CommonMemberViewModel): Promise<GetFriendStatusResViewModel> {
     let successFunc = () => { };
     let errorFunc = () => { };
 
+    let isNotification = false;
+    let isShowSuccessMsg = false;
+    return await BasePostAPIV2<CommonMemberViewModel, GetFriendStatusResViewModel>('', "/FriendApi/GetFriendStatus", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
+}
+
+/**
+ * 發送好友邀請 API
+ */
+function SendFriendInvitationAPI(model: CommonMemberViewModel, successFunc: Function, confirmTitle: string): void {
+    let errorFunc = () => { };
+
     Common.SweetAlertConfirm(confirmTitle,
-        () => BasePostAPIV3<CommonMemberViewModel>(loadingMsg, "/FriendApi/SendFriendInvitation", model, successFunc, errorFunc));
+        () => BasePostAPIV3<CommonMemberViewModel>('', "/FriendApi/SendFriendInvitation", model, successFunc, errorFunc));
 }
 
 /**
  * 判斷好友邀請 (接受 or 拒絕) API
  */
-function DecideFriendInvitationAPI(loadingMsg: string, model: DecideFriendInvitationReqViewModel, confirmTitle: string): void {
-    let successFunc = () => { };
+function DecideFriendInvitationAPI(model: DecideFriendInvitationReqViewModel, successFunc: Function, confirmTitle: string): void {
     let errorFunc = () => { };
 
     Common.SweetAlertConfirm(confirmTitle,
-        () => BasePostAPIV3<DecideFriendInvitationReqViewModel>(loadingMsg, "/FriendApi/DecideFriendInvitation", model, successFunc, errorFunc));
+        () => BasePostAPIV3<DecideFriendInvitationReqViewModel>('', "/FriendApi/DecideFriendInvitation", model, successFunc, errorFunc));
 }
 
 /**
  * 收回好友邀請 API
  */
-function RevokeFriendInvitationAPI(loadingMsg: string, model: CommonMemberViewModel, confirmTitle: string): void {
-    let successFunc = () => { };
+function RevokeFriendInvitationAPI(model: CommonMemberViewModel, successFunc: Function, confirmTitle: string): void {
     let errorFunc = () => { };
-
+    
     Common.SweetAlertConfirm(confirmTitle,
-        () => BasePostAPIV3<CommonMemberViewModel>(loadingMsg, "/FriendApi/RevokeFriendInvitation", model, successFunc, errorFunc));
+        () => BasePostAPIV3<CommonMemberViewModel>('', "/FriendApi/RevokeFriendInvitation", model, successFunc, errorFunc));
 }
 
 /**
  * 刪除好友 API
  */
-function DeleteFriendAPI(loadingMsg: string, model: CommonMemberViewModel, confirmTitle: string): void {
-    let successFunc = () => { };
+function DeleteFriendAPI(model: CommonMemberViewModel, successFunc: Function, confirmTitle: string): void {
     let errorFunc = () => { };
 
     Common.SweetAlertConfirm(confirmTitle,
-        () => BasePostAPIV3<CommonMemberViewModel>(loadingMsg, "/FriendApi/DeleteFriend", model, successFunc, errorFunc));
+        () => BasePostAPIV3<CommonMemberViewModel>('', "/FriendApi/DeleteFriend", model, successFunc, errorFunc));
 }

@@ -3,7 +3,7 @@
     Layout = "_Layout";
 }
 
-<script src="~/js/Home/Index.js" asp-append-version="true"></script>
+<script src="~/js/Home/HomePage.js" asp-append-version="true"></script>
 <link rel="stylesheet" href="~/css/Home/Index.css" asp-append-version="true" />
 <link rel="stylesheet" href="~/css/Home/HomePage.css" asp-append-version="true" />
 <script>
@@ -20,15 +20,23 @@
 </script>
 <input type="text" hidden="hidden" id="query_memberID" value="@ViewBag.QueryMemberID">
 <div class="div_content">
+    <div class="div_homePage_topBar"></div>
     <div class="div_profile">
         <div class="profile_background_container">
             <img class="profile_background" />
         </div>
         <div class="profile_name_container">
+            <div class="profile_photo_container">
+                <img class="profile_photo">
+            </div>
             <span class="profile_name"></span>
-            <div class ="div_addFriend">
+            <div class="div_sendMsg" style="display: none;">
+                <img class="sendMsg_icon" src="/images/sendMsg.svg">
+                <label onclick="SendMsg()">聊天</label>
+            </div>
+            <div class="div_addFriend" style="display: none;">
                 <img class="addFriend_icon" src="/images/addFriend.svg">
-                <input id="btn_addFriend" type="button" value="加好友" onclick="SendFriendInvitation()" />
+                <label class="lbl_addFriend" onclick="SendFriendInvitation()">加好友</label>
             </div>
         </div>
         <div class="profile_detail">

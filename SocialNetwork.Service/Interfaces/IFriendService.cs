@@ -28,6 +28,13 @@ namespace SocialNetwork.Service
         public ResponseViewModel<List<GetFriendListResViewModel>> GetSendFriendInvitationList();
 
         /// <summary>
+        /// 取得好友狀態
+        /// </summary>
+        /// <param name="model">取得好友狀態 Request ViewModel</param>
+        /// <returns>取得結果</returns>
+        public ResponseViewModel<GetFriendStatusResViewModel> GetFriendStatus(CommonMemberViewModel model);
+
+        /// <summary>
         /// 發送好友邀請
         /// </summary>
         /// <param name="model">發送好友邀請 Request Model</param>

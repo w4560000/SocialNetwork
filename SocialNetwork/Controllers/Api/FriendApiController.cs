@@ -91,6 +91,25 @@ namespace SocialNetwork.Controllers
         }
 
         /// <summary>
+        /// 取得好友狀態
+        /// </summary>
+        /// <param name="model">取得好友狀態 Request ViewModel</param>
+        /// <returns>取得結果</returns>
+        [HttpPost(nameof(GetFriendStatus))]
+        public ResponseViewModel<GetFriendStatusResViewModel> GetFriendStatus(CommonMemberViewModel model)
+        {
+            try
+            {
+                return FriendService.GetFriendStatus(model);
+            }
+            catch (Exception ex)
+            {
+                this.Logger.LogCritical(ex, $"取得好友狀態失敗，{ex.GetExceptionMessage()}");
+                return CommonExtension.AsSystemFailResponse<GetFriendStatusResViewModel>();
+            }
+        }
+
+        /// <summary>
         /// 發送好友邀請
         /// </summary>
         /// <param name="model">發送好友邀請 Request ViewModel</param>

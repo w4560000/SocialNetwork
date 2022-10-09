@@ -224,7 +224,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .swal2-styled.swal2-confirm {
     width: 130px !important;
     height: 50px !important;
-    font-size: 15pt !important;
+    font-size: 18pt !important;
     border-radius: 5px !important;
     background-color: $Color_PK2 !important;
     color: $Color_W1 !important;
@@ -244,8 +244,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .swal2-styled.swal2-cancel {
     width: 130px !important;
     height: 50px !important;
-    font-size: 15pt !important;
+    font-size: 18pt !important;
     border-radius: 5px !important;
+}
+
+.swal2-styled{
+    padding: 0 !important;
 }
 
 /* 客製化 JQuery DatePicker*/
@@ -397,7 +401,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .index_profilePhotoDefault {
-    border: 1px solid !important;
+    border: 1px $Color_B1 solid !important;
     filter: $Color_PK2_Filter;
 }
 

@@ -188,16 +188,21 @@ var Common = {
      * @param title 標題
      * @param confirmFunc 確認Func
      */
-    SweetAlertConfirm: function (title, confirmFunc) {
+    SweetAlertConfirm: function (title, confirmFunc, failConfirmFunc, cancelButtonText) {
+        if (cancelButtonText === void 0) { cancelButtonText = '取消'; }
         Swal.fire({
             title: title,
             showCancelButton: true,
             confirmButtonText: '確定',
-            cancelButtonText: '取消',
+            cancelButtonText: cancelButtonText,
             reverseButtons: true
         }).then(function (result) {
             if (result.isConfirmed)
                 confirmFunc();
+            else {
+                if (failConfirmFunc != null)
+                    failConfirmFunc();
+            }
         });
     },
     /**

@@ -60,6 +60,8 @@ function BaseGetAPI(loadingMsg, api, successFunc, errorFunc, isNotification, isS
                         else
                             Common.SweetAlertSuccess(res, successFunc);
                     }
+                    else
+                        Swal.close();
                     resolve(res.Data);
                 }
                 else {
@@ -109,6 +111,8 @@ function BasePostAPIV1(loadingMsg, api, successFunc, errorFunc, isNotification, 
                         else
                             Common.SweetAlertSuccess(res, successFunc);
                     }
+                    else
+                        Swal.close();
                     resolve(res.Data);
                 }
                 else {
@@ -161,6 +165,8 @@ function BasePostAPIV2(loadingMsg, api, model, successFunc, errorFunc, isNotific
                         else
                             Common.SweetAlertSuccess(res, successFunc);
                     }
+                    else
+                        Swal.close();
                     resolve(res.Data);
                 }
                 else {
@@ -211,6 +217,8 @@ function BasePostAPIV3(loadingMsg, api, model, successFunc, errorFunc, isNotific
                     else
                         Common.SweetAlertSuccess(res, successFunc);
                 }
+                else
+                    Swal.close();
             }
             else {
                 if (isNotification)
@@ -234,8 +242,9 @@ function BasePostAPIV3(loadingMsg, api, model, successFunc, errorFunc, isNotific
  * @param errorFunc 回應失敗 Func
  * @param isNotification 是否顯示快顯
  */
-function BasePostAPIByFormData(loadingMsg, api, formData, successFunc, errorFunc, isNotification) {
+function BasePostAPIByFormData(loadingMsg, api, formData, successFunc, errorFunc, isNotification, isShowSuccessMsg) {
     if (isNotification === void 0) { isNotification = false; }
+    if (isShowSuccessMsg === void 0) { isShowSuccessMsg = true; }
     if (loadingMsg)
         Common.SweetAlertLoading(loadingMsg);
     $.ajax({
@@ -250,10 +259,14 @@ function BasePostAPIByFormData(loadingMsg, api, formData, successFunc, errorFunc
         contentType: false,
         success: function (res) {
             if (res.Status == ResponseStatusEnum.Success) {
-                if (isNotification)
-                    Common.SweetAlertNotification(true, res.Message);
+                if (isShowSuccessMsg) {
+                    if (isNotification)
+                        Common.SweetAlertNotification(true, res.Message);
+                    else
+                        Common.SweetAlertSuccess(res, successFunc);
+                }
                 else
-                    Common.SweetAlertSuccess(res, successFunc);
+                    Swal.close();
             }
             else {
                 if (isNotification)
@@ -443,34 +456,49 @@ function GetSendFriendInvitationListAPI() {
     });
 }
 /**
+ * 取得好友狀態 API
+ */
+function GetFriendStatusAPI(model) {
+    return __awaiter(this, void 0, void 0, function () {
+        var successFunc, errorFunc, isNotification, isShowSuccessMsg;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    successFunc = function () { };
+                    errorFunc = function () { };
+                    isNotification = false;
+                    isShowSuccessMsg = false;
+                    return [4 /*yield*/, BasePostAPIV2('', "/FriendApi/GetFriendStatus", model, successFunc, errorFunc, isNotification, isShowSuccessMsg)];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        });
+    });
+}
+/**
  * 發送好友邀請 API
  */
-function SendFriendInvitationAPI(loadingMsg, model, confirmTitle) {
-    var successFunc = function () { };
+function SendFriendInvitationAPI(model, successFunc, confirmTitle) {
     var errorFunc = function () { };
-    Common.SweetAlertConfirm(confirmTitle, function () { return BasePostAPIV3(loadingMsg, "/FriendApi/SendFriendInvitation", model, successFunc, errorFunc); });
+    Common.SweetAlertConfirm(confirmTitle, function () { return BasePostAPIV3('', "/FriendApi/SendFriendInvitation", model, successFunc, errorFunc); });
 }
 /**
  * 判斷好友邀請 (接受 or 拒絕) API
  */
-function DecideFriendInvitationAPI(loadingMsg, model, confirmTitle) {
-    var successFunc = function () { };
+function DecideFriendInvitationAPI(model, successFunc, confirmTitle) {
     var errorFunc = function () { };
-    Common.SweetAlertConfirm(confirmTitle, function () { return BasePostAPIV3(loadingMsg, "/FriendApi/DecideFriendInvitation", model, successFunc, errorFunc); });
+    Common.SweetAlertConfirm(confirmTitle, function () { return BasePostAPIV3('', "/FriendApi/DecideFriendInvitation", model, successFunc, errorFunc); });
 }
 /**
  * 收回好友邀請 API
  */
-function RevokeFriendInvitationAPI(loadingMsg, model, confirmTitle) {
-    var successFunc = function () { };
+function RevokeFriendInvitationAPI(model, successFunc, confirmTitle) {
     var errorFunc = function () { };
-    Common.SweetAlertConfirm(confirmTitle, function () { return BasePostAPIV3(loadingMsg, "/FriendApi/RevokeFriendInvitation", model, successFunc, errorFunc); });
+    Common.SweetAlertConfirm(confirmTitle, function () { return BasePostAPIV3('', "/FriendApi/RevokeFriendInvitation", model, successFunc, errorFunc); });
 }
 /**
  * 刪除好友 API
  */
-function DeleteFriendAPI(loadingMsg, model, confirmTitle) {
-    var successFunc = function () { };
+function DeleteFriendAPI(model, successFunc, confirmTitle) {
     var errorFunc = function () { };
-    Common.SweetAlertConfirm(confirmTitle, function () { return BasePostAPIV3(loadingMsg, "/FriendApi/DeleteFriend", model, successFunc, errorFunc); });
+    Common.SweetAlertConfirm(confirmTitle, function () { return BasePostAPIV3('', "/FriendApi/DeleteFriend", model, successFunc, errorFunc); });
 }

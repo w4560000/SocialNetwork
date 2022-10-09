@@ -44,3 +44,10 @@ class GetFriendListResViewModel {
     MemberID: number;
     NickName: string;
 }
+
+/**
+ * 取得好友狀態 Response ViewModel
+ * */
+class GetFriendStatusResViewModel {
+    FriendStatus: FriendStatusEnum;
+}

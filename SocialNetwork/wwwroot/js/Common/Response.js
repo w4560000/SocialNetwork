@@ -33,3 +33,11 @@ var GetFriendListResViewModel = /** @class */ (function () {
     }
     return GetFriendListResViewModel;
 }());
+/**
+ * 取得好友狀態 Response ViewModel
+ * */
+var GetFriendStatusResViewModel = /** @class */ (function () {
+    function GetFriendStatusResViewModel() {
+    }
+    return GetFriendStatusResViewModel;
+}());

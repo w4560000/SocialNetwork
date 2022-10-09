@@ -202,16 +202,20 @@ const Common = {
      * @param title 標題
      * @param confirmFunc 確認Func
      */
-    SweetAlertConfirm: (title: string | undefined, confirmFunc: Function) => {
+    SweetAlertConfirm: (title: string | undefined, confirmFunc: Function, failConfirmFunc?: Function, cancelButtonText: string = '取消') => {
         Swal.fire({
             title: title,
             showCancelButton: true,
             confirmButtonText: '確定',
-            cancelButtonText: '取消',
+            cancelButtonText: cancelButtonText,
             reverseButtons: true
         }).then((result) => {
             if (result.isConfirmed)
                 confirmFunc();
+            else {
+                if (failConfirmFunc != null)
+                    failConfirmFunc();
+            }
         });
     },
 
