@@ -43,6 +43,7 @@ class GetMemberInfoResViewModel {
 class GetFriendListResViewModel {
     MemberID: number;
     NickName: string;
+    ProfilePhotoURL: string;
 }
 
 /**

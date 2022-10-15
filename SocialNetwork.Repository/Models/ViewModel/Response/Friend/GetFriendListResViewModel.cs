@@ -16,5 +16,10 @@
         /// 會員暱稱
         /// </summary>
         public string NickName { get; set; }
+
+        /// <summary>
+        /// 大頭貼路徑
+        /// </summary>
+        public string ProfilePhotoURL { get; set; }
     }
 }

@@ -94,7 +94,7 @@ function ReflashFriendStatus() {
                             $('.div_addFriend').css('width', '100px');
                             $('.div_addFriend').css('background-color', '#F2A1A1');
                             $('.addFriend_icon').show();
-                            $('.lbl_addFriend').click(SendFriendInvitation)
+                            $('.lbl_addFriend').click(function () { return Friend.SendFriendInvitation(memberInfo.MemberID, memberInfo.NickName, function () { return ReflashFriendStatus(); }); })
                                 .html('加好友');
                             $('.lbl_addFriend').css('padding-left', '30px');
                             break;
@@ -102,13 +102,13 @@ function ReflashFriendStatus() {
                             $('.div_addFriend').css('width', '110px');
                             $('.div_addFriend').css('background-color', 'rgba(0, 0, 0, 0.3)');
                             $('.addFriend_icon').hide();
-                            $('.lbl_addFriend').click(RevokeFriendInvitation)
+                            $('.lbl_addFriend').click(function () { return Friend.RevokeFriendInvitation(memberInfo.MemberID, memberInfo.NickName, function () { return ReflashFriendStatus(); }); })
                                 .html('收回好友邀請');
                             $('.lbl_addFriend').css('padding-left', '0px');
                             break;
                         case FriendStatusEnum.已接收好友邀請:
                             $('.lbl_addFriend').click(function () {
-                                return Common.SweetAlertConfirm("\u662F\u5426\u63A5\u53D7 ".concat(memberInfo.NickName, " \n\u7684\u597D\u53CB\u9080\u8ACB?"), function () { return DecideFriendInvitation(DecideFriendInvitationEnum.接受); }, function () { return DecideFriendInvitation(DecideFriendInvitationEnum.拒絕); }, '拒絕');
+                                return Common.SweetAlertConfirm("\u662F\u5426\u63A5\u53D7 ".concat(memberInfo.NickName, " \n\u7684\u597D\u53CB\u9080\u8ACB?"), function () { return Friend.DecideFriendInvitation(memberInfo.MemberID, memberInfo.NickName, DecideFriendInvitationEnum.接受, function () { return ReflashFriendStatus(); }); }, function () { return Friend.DecideFriendInvitation(memberInfo.MemberID, memberInfo.NickName, DecideFriendInvitationEnum.拒絕, function () { return ReflashFriendStatus(); }); }, '拒絕');
                             })
                                 .html('回覆');
                             break;
@@ -117,7 +117,7 @@ function ReflashFriendStatus() {
                             $('.div_addFriend').css('width', '110px');
                             $('.div_addFriend').css('background-color', 'rgba(0, 0, 0, 0.3)');
                             $('.addFriend_icon').attr('src', '/images/deleteFriend.svg');
-                            $('.lbl_addFriend').click(DeleteFriend)
+                            $('.lbl_addFriend').click(function () { return Friend.DeleteFriend(memberInfo.MemberID, memberInfo.NickName, function () { return ReflashFriendStatus(); }); })
                                 .html('刪除好友');
                             break;
                     }
@@ -128,38 +128,6 @@ function ReflashFriendStatus() {
             }
         });
     });
-}
-/**
- * 發送好友邀請
- * */
-function SendFriendInvitation() {
-    var model = new CommonMemberViewModel(memberInfo.MemberID);
-    var successFunc = function () { return ReflashFriendStatus(); };
-    SendFriendInvitationAPI(model, successFunc, "\u78BA\u5B9A\u662F\u5426\u5C0D ".concat(memberInfo.NickName, " \n\u767C\u9001\u597D\u53CB\u9080\u8ACB?"));
-}
-/**
- * 判斷好友邀請 (接受 or 拒絕)
- * */
-function DecideFriendInvitation(decide) {
-    var model = new DecideFriendInvitationReqViewModel(memberInfo.MemberID, decide);
-    var successFunc = function () { return ReflashFriendStatus(); };
-    DecideFriendInvitationAPI(model, successFunc, "\u78BA\u5B9A\u662F\u5426".concat(DecideFriendInvitationEnum[decide], " ").concat(memberInfo.NickName, " \n\u7684\u597D\u53CB\u9080\u8ACB?"));
-}
-/**
- * 收回好友邀請
- * */
-function RevokeFriendInvitation() {
-    var model = new CommonMemberViewModel(memberInfo.MemberID);
-    var successFunc = function () { return ReflashFriendStatus(); };
-    RevokeFriendInvitationAPI(model, successFunc, "\u78BA\u5B9A\u662F\u5426\u6536\u56DE ".concat(memberInfo.NickName, " \n\u7684\u597D\u53CB\u9080\u8ACB?"));
-}
-/**
- * 刪除好友
- * */
-function DeleteFriend() {
-    var model = new CommonMemberViewModel(memberInfo.MemberID);
-    var successFunc = function () { return ReflashFriendStatus(); };
-    DeleteFriendAPI(model, successFunc, "\u78BA\u5B9A\u662F\u5426\u522A\u9664\u8207 ".concat(memberInfo.NickName, " \n\u7684\u597D\u53CB\u95DC\u4FC2?"));
 }
 /**
  * todo 聊天室

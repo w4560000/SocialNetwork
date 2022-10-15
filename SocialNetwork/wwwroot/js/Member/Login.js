@@ -118,15 +118,6 @@ function UpdateMemberPublicInfo() {
     var errorFunc = function () { };
     UpdateMemberPublicInfoAPI("更新會員資訊中", model, successFunc, errorFunc);
 }
-/**
- * 會員資料公開或隱藏
- * @param e HTMLImageElement
- */
-function InfoIconToggle(e) {
-    var hideImage = "/images/InfoHide.png";
-    var publicImage = "/images/InfoPublic.png";
-    e.src = e.src.includes(publicImage) ? hideImage : publicImage;
-}
 /** 忘記密碼 申請重設密碼*/
 function ResetPassword() {
     var errorMsg = {

@@ -19,23 +19,21 @@
         <div class="div_firend_tab">
             <div class="div_friend_tab_content">
                 <div class="div_firend_tab_container">
-                    <div class="div_firend_tab_name_container">
+                    <div class="div_firend_tab_name_container" Tab="MyFriend" onclick="SetFriendManagementTab(this)">
                         <span class="div_firend_tab_name">
                             我的好友
                         </span>
                     </div>
                 </div>
                 <div class="div_firend_tab_container">
-                    <div class="div_firend_tab_name_container">
-
+                    <div class="div_firend_tab_name_container" Tab="FriendInvitation" onclick="SetFriendManagementTab(this)">
                         <span class="div_firend_tab_name">
                             好友邀請
                         </span>
                     </div>
                 </div>
                 <div class="div_firend_tab_container">
-                    <div class="div_firend_tab_name_container">
-
+                    <div class="div_firend_tab_name_container" Tab="SendFriendInvitation" onclick="SetFriendManagementTab(this)">
                         <span class="div_firend_tab_name">
                             您送出的好友邀請
                         </span>
@@ -43,48 +41,8 @@
                 </div>
             </div>
         </div>
-        <div class="div_firend_content">
-            <div class="div_friend_profile">
-                <img class="div_friend_img" src="@UserContext.User.ProfilePhotoUrl">
-                <div class="div_friend_name_content">
-                    <span class="div_friend_name">@UserContext.User.NickName</span>
-                </div>
-                <input class="div_frient_button_confirm" type="button" value="確定" onclick="UpdateMemberInfo()" />
-                <input class="div_frient_button_reject" type="button" value="拒絕" onclick="UpdateMemberInfo()" />
-            </div>
-            <div class="div_friend_profile">
-                <img class="div_friend_img" src="@UserContext.User.ProfilePhotoUrl">
-                <div class="div_friend_name_content">
-                    <span class="div_friend_name">@UserContext.User.NickName</span>
-                </div>
-                <input class="div_frient_button_confirm" type="button" value="確定" onclick="UpdateMemberInfo()" />
-                <input class="div_frient_button_reject" type="button" value="拒絕" onclick="UpdateMemberInfo()" />
-            </div>
-            <div class="div_friend_profile">
-                <img class="div_friend_img" src="@UserContext.User.ProfilePhotoUrl">
-                <div class="div_friend_name_content">
-                    <span class="div_friend_name">@UserContext.User.NickName</span>
-                </div>
-                <input class="div_frient_button_confirm" type="button" value="確定" onclick="UpdateMemberInfo()" />
-                <input class="div_frient_button_reject" type="button" value="拒絕" onclick="UpdateMemberInfo()" />
-            </div>
-            <div class="div_friend_profile">
-                <img class="div_friend_img" src="@UserContext.User.ProfilePhotoUrl">
-                <div class="div_friend_name_content">
-                    <span class="div_friend_name">@UserContext.User.NickName</span>
-                </div>
-                <input class="div_frient_button_confirm" type="button" value="確定" onclick="UpdateMemberInfo()" />
-                <input class="div_frient_button_reject" type="button" value="拒絕" onclick="UpdateMemberInfo()" />
-            </div>
-            <div class="div_friend_profile">
-                <img class="div_friend_img" src="@UserContext.User.ProfilePhotoUrl">
-                <div class="div_friend_name_content">
-                    <span class="div_friend_name">@UserContext.User.NickName</span>
-                </div>
-                <input class="div_frient_button_confirm" type="button" value="確定" onclick="UpdateMemberInfo()" />
-                <input class="div_frient_button_reject" type="button" value="拒絕" onclick="UpdateMemberInfo()" />
-            </div>
-
-        </div>
+        <div class="div_firend_content MyFriend"></div>
+        <div class="div_firend_content FriendInvitation"></div>
+        <div class="div_firend_content SendFriendInvitation"></div>
     </div>
 </div>

@@ -40,7 +40,7 @@ async function ReflashFriendStatus() {
                 $('.div_addFriend').css('width', '100px');
                 $('.div_addFriend').css('background-color', '#F2A1A1');
                 $('.addFriend_icon').show();
-                $('.lbl_addFriend').click(SendFriendInvitation)
+                $('.lbl_addFriend').click(() => Friend.SendFriendInvitation(memberInfo.MemberID, memberInfo.NickName, () => ReflashFriendStatus()))
                     .html('加好友');
                 $('.lbl_addFriend').css('padding-left', '30px');
                 break;
@@ -48,7 +48,7 @@ async function ReflashFriendStatus() {
                 $('.div_addFriend').css('width', '110px');
                 $('.div_addFriend').css('background-color', 'rgba(0, 0, 0, 0.3)');
                 $('.addFriend_icon').hide();
-                $('.lbl_addFriend').click(RevokeFriendInvitation)
+                $('.lbl_addFriend').click(() => Friend.RevokeFriendInvitation(memberInfo.MemberID, memberInfo.NickName, () => ReflashFriendStatus()))
                     .html('收回好友邀請');
                 $('.lbl_addFriend').css('padding-left', '0px');
 
@@ -57,8 +57,8 @@ async function ReflashFriendStatus() {
 
                 $('.lbl_addFriend').click(() =>
                     Common.SweetAlertConfirm(`是否接受 ${memberInfo.NickName} \n的好友邀請?`,
-                        () => DecideFriendInvitation(DecideFriendInvitationEnum.接受),
-                        () => DecideFriendInvitation(DecideFriendInvitationEnum.拒絕), '拒絕'))
+                        () => Friend.DecideFriendInvitation(memberInfo.MemberID, memberInfo.NickName, DecideFriendInvitationEnum.接受, () => ReflashFriendStatus()),
+                        () => Friend.DecideFriendInvitation(memberInfo.MemberID, memberInfo.NickName, DecideFriendInvitationEnum.拒絕, () => ReflashFriendStatus()), '拒絕'))
                     .html('回覆');
                 break;
             case FriendStatusEnum.為好友:
@@ -66,7 +66,7 @@ async function ReflashFriendStatus() {
                 $('.div_addFriend').css('width', '110px');
                 $('.div_addFriend').css('background-color', 'rgba(0, 0, 0, 0.3)');
                 $('.addFriend_icon').attr('src', '/images/deleteFriend.svg');
-                $('.lbl_addFriend').click(DeleteFriend)
+                $('.lbl_addFriend').click(() => Friend.DeleteFriend(memberInfo.MemberID, memberInfo.NickName, () => ReflashFriendStatus()))
                     .html('刪除好友');
                 break;
 
@@ -74,46 +74,6 @@ async function ReflashFriendStatus() {
         $('.div_addFriend').show();
         Common.ControllSVG();
     }
-}
-
-/**
- * 發送好友邀請
- * */
-function SendFriendInvitation() {
-    let model = new CommonMemberViewModel(memberInfo.MemberID);
-    let successFunc = () => ReflashFriendStatus();
-
-    SendFriendInvitationAPI(model, successFunc, `確定是否對 ${memberInfo.NickName} \n發送好友邀請?`);
-}
-
-/**
- * 判斷好友邀請 (接受 or 拒絕)
- * */
-function DecideFriendInvitation(decide: DecideFriendInvitationEnum) {
-    let model = new DecideFriendInvitationReqViewModel(memberInfo.MemberID, decide);
-    let successFunc = () => ReflashFriendStatus();
-
-    DecideFriendInvitationAPI(model, successFunc, `確定是否${DecideFriendInvitationEnum[decide]} ${memberInfo.NickName} \n的好友邀請?`);
-}
-
-/**
- * 收回好友邀請
- * */
-function RevokeFriendInvitation() {
-    let model = new CommonMemberViewModel(memberInfo.MemberID);
-    let successFunc = () => ReflashFriendStatus();
-
-    RevokeFriendInvitationAPI(model, successFunc, `確定是否收回 ${memberInfo.NickName} \n的好友邀請?`);
-}
-
-/**
- * 刪除好友
- * */
-function DeleteFriend() {
-    let model = new CommonMemberViewModel(memberInfo.MemberID);
-    let successFunc = () => ReflashFriendStatus();
-
-    DeleteFriendAPI(model, successFunc, `確定是否刪除與 ${memberInfo.NickName} \n的好友關係?`);
 }
 
 /**

@@ -56,7 +56,7 @@ namespace SocialNetwork.Service
         public ResponseViewModel<List<GetFriendListResViewModel>> GetFriendList()
         {
             var querySql = @"
-                             SELECT MemberiD, NickName 
+                             SELECT MemberiD, NickName, ProfilePhotoURL
                              FROM Member
                              WHERE MemberID IN (
 					                             SELECT FriendMemberID FROM [SocialNetwork].[dbo].[Friend]
@@ -78,7 +78,7 @@ namespace SocialNetwork.Service
         public ResponseViewModel<List<GetFriendListResViewModel>> GetFriendInvitationList()
         {
             var querySql = @"
-                             SELECT MemberiD, NickName 
+                             SELECT MemberiD, NickName, ProfilePhotoURL 
                              FROM Member
                              WHERE MemberID IN (
 					                             SELECT SendMemberID FROM [SocialNetwork].[dbo].[FriendInvitation]
@@ -97,7 +97,7 @@ namespace SocialNetwork.Service
         public ResponseViewModel<List<GetFriendListResViewModel>> GetSendFriendInvitationList()
         {
             var querySql = @"
-                             SELECT MemberiD, NickName 
+                             SELECT MemberiD, NickName, ProfilePhotoURL 
                              FROM Member
                              WHERE MemberID IN (
 					                             SELECT ReceiveMemberID FROM [SocialNetwork].[dbo].[FriendInvitation]
