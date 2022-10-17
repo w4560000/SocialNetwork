@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SocialNetwork.Helper;
 using SocialNetwork.Service;
@@ -83,6 +84,16 @@ namespace SocialNetwork.Controllers
         /// </summary>
         /// <returns>好友管理頁</returns>
         public IActionResult FriendManagement()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 錯誤頁
+        /// </summary>
+        /// <returns>錯誤頁</returns>
+        [AllowAnonymous]
+        public IActionResult Error()
         {
             return View();
         }

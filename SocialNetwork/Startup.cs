@@ -213,6 +213,9 @@ namespace SocialNetwork
                 if (response.StatusCode == (int)HttpStatusCode.Unauthorized)
                     response.Redirect("/Member/Login");
 
+                if (response.StatusCode == (int)HttpStatusCode.NotFound)
+                    response.Redirect("/Home/Error");
+
                 return Task.CompletedTask;
             });
 
