@@ -2,4 +2,35 @@
     ViewBag.Title = "Error";
     Layout = null;
 }
-ERROR
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="icon" href="/images/Logo/logo_favicon.svg" />
+    <link href="~/css/Home/Error.css" rel="stylesheet" asp-append-version="true" />
+</head>
+<body>
+    <div class="div_error">
+        <div>
+            <img class="error_logo" src="~/images/Logo/logo.svg" />
+        </div>
+        <div class="body_error">
+            <div class="body_error_logo">
+                <img src="~/images/Logo/logo_error.svg" />
+            </div>
+            <div class="body_error_text">
+                SORRY
+            </div>
+            <div class="body_error_memo">
+                畫面好像出了點問題呢...
+            </div>
+        </div>
+        <div class="footer_error">
+            <input class="btn_pageBack" type="button" value="回到上一頁" onclick="history.go(-1);">
+            <input class="btn_pageBackToIndex" type="button" value="回首頁" onclick="window.location = '/';">
+        </div>
+    </div>
+</body>
+</html>

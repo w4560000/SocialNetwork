@@ -26,5 +26,9 @@
   {
     "outputFile": "wwwroot/css/Home/FriendManagement.css",
     "inputFile": "wwwroot/css/Home/FriendManagement.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/Home/Error.css",
+    "inputFile": "wwwroot/css/Home/Error.scss"
   }
 ]

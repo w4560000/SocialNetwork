@@ -30,7 +30,6 @@
   <ItemGroup>
     <Folder Include="Helpers\" />
     <Folder Include="wwwroot\css\bundle\" />
-    <Folder Include="wwwroot\images\Logo\" />
     <Folder Include="wwwroot\js\bundle\" />
   </ItemGroup>
 
