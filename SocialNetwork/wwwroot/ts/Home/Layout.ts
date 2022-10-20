@@ -21,7 +21,7 @@
 }
 
 var user: User;
-$(function () {
+$(async function () {
     // 點選其他 element 時 自動隱藏展開的會員狀態
     $("body").click((event) => {
         var currentElemetClass = ($(event.target).attr('class')) as string;
@@ -56,23 +56,16 @@ $(function () {
     // 載入會員狀態
     $("ul").children('.index_status_select').html($('#memberStatus_' + user.Status).html());
 
-    // 假資料
-    for (var i = 0; i < 20; i++) {
-        $('.friend_content').append(
-            `<div class="friend">` +
-            `<div class="friend_img_container">` +
-            `<img class="friend_img" src="${user.ProfilePhotoUrl}"/>` +
-            `</div>` +
-            `<div class="friend_name">QQ123</div>`);
-    }
+    var friendList = await GetFriendListAPI();
 
+    // 聊天室載入好友清單
+    friendList.forEach(f => $('.friend_content').append(MyFriendChatHtmlTemplate(f)));
 
     // 控制 Img Default Style
     Common.ControllImgDefaultStyle();
 
     // 設定 Menu 底色 (根據當前頁面)
     SetMenuColor();
-
 });
 
 /** 登出 */
@@ -117,4 +110,18 @@ function SetMenuColor() {
             $('.index_menuTextBackground[Action="FriendManagement"]').addClass('index_menuTextBackground_color');
             break;
     }
+}
+
+/**
+ * 聊天室好友 Html Template
+ * @param member 會員
+ */
+function MyFriendChatHtmlTemplate(friend: GetFriendListResViewModel) {
+    return `
+<div class="friend">
+    <div class="friend_img_container">
+        <img class="friend_img" src = "${friend.ProfilePhotoURL}" />
+    </div> 
+<div class="friend_name">${friend.NickName}</div>
+  `;
 }

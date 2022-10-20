@@ -45,6 +45,11 @@ namespace SocialNetwork.Service
         private readonly IUserContext UserContext;
 
         /// <summary>
+        /// ICacheHelper
+        /// </summary>
+        private readonly ICacheHelper CacheHelper;
+
+        /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="memberRepository">IMemberRepository</param>
@@ -53,13 +58,15 @@ namespace SocialNetwork.Service
         /// <param name="httpContextAccessor">IHttpContextAccessor</param>
         /// <param name="jwtHelper">JwtHelper</param>
         /// <param name="userContext">IUserContext</param>
+        /// <param name="cacheHelper">ICacheHelper</param>
         public MemberService(
             IMemberRepository memberRepository,
             IVerificationCodeRepository verificationCodeRepository,
             IForgotPasswordRepository forgotPasswordRepository,
             IHttpContextAccessor httpContextAccessor,
             JwtHelper jwtHelper,
-            IUserContext userContext)
+            IUserContext userContext,
+            ICacheHelper cacheHelper)
 
         {
             this.MemberRepository = memberRepository;
@@ -68,6 +75,7 @@ namespace SocialNetwork.Service
             this.HttpContext = httpContextAccessor.HttpContext;
             this.JwtHelper = jwtHelper;
             this.UserContext = userContext;
+            this.CacheHelper = cacheHelper;
         }
 
         /// <summary>
@@ -216,9 +224,9 @@ namespace SocialNetwork.Service
         /// <param name="profilePhotoURL">頭像URL</param>
         /// <returns>更新結果</returns>
         public ResponseViewModel UpdateMemberPublicInfo(
-            IUpdateMemberPublicInfoReqViewModel model, 
+            IUpdateMemberPublicInfoReqViewModel model,
             string nickName = null,
-            string backgroundPhotoURL = null, 
+            string backgroundPhotoURL = null,
             string profilePhotoURL = null)
         {
             if (!this.MemberRepository.TryGetEntity(UserContext.User.MemberID, out Member member))
@@ -231,7 +239,7 @@ namespace SocialNetwork.Service
             member.Education = model.Education;
             member.NickName = string.IsNullOrEmpty(nickName) ? member.NickName : nickName;
             member.BackgroundPhotoURL = string.IsNullOrEmpty(backgroundPhotoURL) ? member.BackgroundPhotoURL : backgroundPhotoURL;
-            member.ProfilePhotoURL = string.IsNullOrEmpty(profilePhotoURL) ? member.ProfilePhotoURL: profilePhotoURL;
+            member.ProfilePhotoURL = string.IsNullOrEmpty(profilePhotoURL) ? member.ProfilePhotoURL : profilePhotoURL;
             this.MemberRepository.Update(member);
 
             this.SetMemberStatusForCookie(member.MemberID, MemberStatusEnum.在線);
@@ -477,6 +485,7 @@ outline: 0;";
 
             return this.UpdateMemberPublicInfo(model, model.NickName, backgroundPhotoUrl, profilePhotoUrl);
         }
+
         /// <summary>
         /// 更新會員狀態
         /// 1. 設定 UserInfo 轉為 Jwt 存至 Cookie 中
@@ -484,7 +493,7 @@ outline: 0;";
         /// </summary>
         /// <param name="memberID">會員編號</param>
         /// <param name="status">會員狀態</param>
-        private void SetMemberStatusForCookie(int memberID, MemberStatusEnum status)
+        private async Task SetMemberStatusForCookie(int memberID, MemberStatusEnum status)
         {
             if (this.MemberRepository.TryGetEntity(memberID, out Member member))
             {
@@ -503,7 +512,8 @@ outline: 0;";
                 var token = this.JwtHelper.GenerateToken(userInfo);
                 this.HttpContext.Response.Cookies.AddJwtTokenToCookie(token);
 
-                // todo 會員在線狀態 存入 Redis
+                // 會員在線狀態 存入 Redis
+                await this.CacheHelper.ResetAsync($"Member:{userInfo.MemberID}", () => userInfo);
             }
         }
     }

@@ -1,4 +1,6 @@
-﻿namespace SocialNetwork.Repository
+﻿using SocialNetwork.Helper;
+
+namespace SocialNetwork.Repository
 {
     /// <summary>
     /// 取得好友清單 Response ViewModel
@@ -21,5 +23,10 @@
         /// 大頭貼路徑
         /// </summary>
         public string ProfilePhotoURL { get; set; }
+
+        /// <summary>
+        /// 會員狀態
+        /// </summary>
+        public MemberStatusEnum Status { get; set; }
     }
 }

@@ -44,6 +44,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TempScript", "TempScript", 
 		FK.sql = FK.sql
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DB_Infrastructure", "DB_Infrastructure", "{181B3902-D885-4728-AA5D-ACD8F6D48596}"
+	ProjectSection(SolutionItems) = preProject
+		Infrastructure\MSSQL_FK.sql = Infrastructure\MSSQL_FK.sql
+		Infrastructure\PostgreSQL_TableInit.sql = Infrastructure\PostgreSQL_TableInit.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

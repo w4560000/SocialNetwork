@@ -44,6 +44,7 @@ class GetFriendListResViewModel {
     MemberID: number;
     NickName: string;
     ProfilePhotoURL: string;
+    Status: MemberStatusEnum;
 }
 
 /**

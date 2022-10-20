@@ -3,7 +3,10 @@
     "outputFileName": "wwwroot/css/bundle/Common.min.css",
     "inputFiles": [
       "wwwroot/css/Common/*.css"
-    ]
+    ],
+    "minify": {
+      "enabled": true
+    }
   },
   {
     "outputFileName": "wwwroot/js/bundle/Common.min.js",
@@ -13,6 +16,26 @@
     "minify": {
       "enabled": true,
       "renameLocals": true
+    },
+    "sourceMap": true
+  },
+  {
+    "outputFileName": "wwwroot/css/bundle/Common.css",
+    "inputFiles": [
+      "wwwroot/css/Common/*.css"
+    ],
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFileName": "wwwroot/js/bundle/Common.js",
+    "inputFiles": [
+      "wwwroot/js/Common/*.js"
+    ],
+    "minify": {
+      "enabled": false,
+      "renameLocals": false
     },
     "sourceMap": true
   }

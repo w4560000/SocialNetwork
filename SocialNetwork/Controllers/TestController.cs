@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using SocialNetwork.Helper;
 using SocialNetwork.Repository;
@@ -10,8 +11,9 @@ namespace SocialNetwork.Controllers
     /// <summary>
     /// test 測試測試
     /// </summary>
-    [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
+    [Route("api/[controller]")]
     public class TestController : ControllerBase
     {
         /// <summary>
@@ -60,15 +62,9 @@ namespace SocialNetwork.Controllers
         /// </summary>
         /// <returns>Redis Value</returns>
         [HttpGet(nameof(RedisTest))]
-        public string RedisTest()
+        public async Task<string> RedisTest()
         {
-            return this.CacheHelper.Get(
-                    $"USER:1",
-                    24 * 60 * 60,
-                    () =>
-                    {
-                        return "123";
-                    });
+            return await this.CacheHelper.GetAsync($"USER:1", () => "123", 24 * 60 * 60);
         }
 
         /// <summary>

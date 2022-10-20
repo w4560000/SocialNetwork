@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace SocialNetwork.Helper
 {
@@ -17,9 +16,9 @@ namespace SocialNetwork.Helper
         /// <param name="key"></param>
         /// <param name="acquire"></param>
         /// <returns></returns>
-        public static T Get<T>(this ICacheHelper cacheHelper, string key, Func<T> acquire)
+        public static async Task<T> GetAsync<T>(this ICacheHelper cacheHelper, string key, Func<T> acquire)
         {
-            return Get(cacheHelper, key, 60, acquire);
+            return await GetAsync(cacheHelper, key, acquire, 60);
         }
 
         /// <summary>
@@ -28,22 +27,43 @@ namespace SocialNetwork.Helper
         /// <typeparam name="T"></typeparam>
         /// <param name="cacheHelper"></param>
         /// <param name="key"></param>
-        /// <param name="cacheSeconds"></param>
         /// <param name="acquire"></param>
+        /// <param name="cacheSeconds"></param>
         /// <returns></returns>
-        public static T Get<T>(this ICacheHelper cacheHelper, string key, int cacheSeconds, Func<T> acquire)
+        public static async Task<T> GetAsync<T>(this ICacheHelper cacheHelper, string key, Func<T> acquire, int cacheSeconds = 0)
         {
-            if (cacheHelper.IsSet(key))
+            if (await cacheHelper.IsSetAsync(key))
             {
-                return cacheHelper.Get<T>(key);
+                return await cacheHelper.GetAsync<T>(key);
             }
 
             T result = acquire();
+            TimeSpan? expiry = cacheSeconds == 0 ? (TimeSpan?)null : TimeSpan.FromSeconds(cacheSeconds);
 
-            cacheHelper.Set(key, result, cacheSeconds);
+            await cacheHelper.SetAsync(key, result, expiry);
+
+            return result;
+        }
+
+        /// <summary>
+        /// 更新依據委派初始化快取內容, 設定的快取內容存留時間參考 cacheSeconds
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="cacheHelper"></param>
+        /// <param name="key"></param>
+        /// <param name="cacheSeconds"></param>
+        /// <param name="acquire"></param>
+        /// <returns></returns>
+        public static async Task<T> ResetAsync<T>(this ICacheHelper cacheHelper, string key, Func<T> acquire, int cacheSeconds = 0)
+        {
+            await cacheHelper.RemoveAsync(key);
+
+            T result = acquire();
+            TimeSpan? expiry = cacheSeconds == 0 ? (TimeSpan?)null : TimeSpan.FromSeconds(cacheSeconds);
+
+            await cacheHelper.SetAsync(key, result, expiry);
 
             return result;
         }
     }
-
 }

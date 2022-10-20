@@ -37,7 +37,7 @@ function minJs() {
             .pipe(
                 babel({
                     presets: ['@babel/env'], // 使用預設環境編譯
-                    minified: true,
+                    minified: bundle.minify.enabled,
                 })
             )
             .pipe(gulp.dest("."));
@@ -58,10 +58,9 @@ gulp.task(minJs);
 
 function minCss() {
     var tasks = getBundles(regex.css).map(function (bundle) {
-        return gulp.src(bundle.inputFiles, { base: "." })
-            .pipe(concat(bundle.outputFileName))
-            .pipe(cssmin())
-            .pipe(gulp.dest("."));
+        return bundle.minify.enabled ?
+            gulp.src(bundle.inputFiles, { base: "." }).pipe(concat(bundle.outputFileName)).pipe(cssmin()).pipe(gulp.dest(".")) :
+            gulp.src(bundle.inputFiles, { base: "." }).pipe(concat(bundle.outputFileName)).pipe(gulp.dest("."));
     });
     return merge(tasks);
 }

@@ -92,24 +92,27 @@ namespace SocialNetwork.Helper
             }
         }
 
-        ///// <summary>
-        ///// 清除所有快取
-        ///// </summary>
-        //public async Task ClearAsync()
-        //{
-        //    EndPoint[] endpoints = this.Connection.GetEndPoints(true);
+        /// <summary>
+        /// 清除所有快取
+        /// </summary>
+        public async Task ClearAsync()
+        {
+            EndPoint[] endpoints = this.Connection.GetEndPoints(true);
 
-        //    foreach (EndPoint endpoint in endpoints)
-        //    {
-        //        IServer server = this.Connection.GetServer(endpoint);
+            foreach (EndPoint endpoint in endpoints)
+            {
+                IServer server = this.Connection.GetServer(endpoint);
 
-        //        await server.FlushDatabaseAsync(database: this.RedisDB().Database);
-        //    }
-        //}
+                await server.FlushDatabaseAsync(database: this.RedisDB().Database);
+            }
+        }
 
         /// <summary>
         /// 取得快取內容
         /// </summary>
+        /// <typeparam name="T">Type</typeparam>
+        /// <param name="key">The key of the value to get.</param>
+        /// <returns>The value associated with the specified key.</returns>
         public T Get<T>(string key)
         {
             Task<RedisValue> getTask = this.RedisDB().StringGetAsync(key);
@@ -117,10 +120,10 @@ namespace SocialNetwork.Helper
 
             if (cacheData.IsNullOrEmpty)
             {
-                return default(T);
+                return default;
             }
 
-            if (typeof(T).IsValueType || typeof(T) == typeof(String))
+            if (typeof(T).IsValueType || typeof(T) == typeof(string))
             {
                 return (T)Convert.ChangeType(cacheData.ToString(), typeof(T));
             }
@@ -128,45 +131,48 @@ namespace SocialNetwork.Helper
             return cacheData.ToString().ToTypedObject<T>();
         }
 
-        ///// <summary>
-        ///// 取得快取內容
-        ///// </summary>
-        //public async Task<T> GetAsync<T>(string key)
-        //{
-        //    RedisValue cacheData = await this.RedisDB().StringGetAsync(key);
+        /// <summary>
+        /// 取得快取內容
+        /// </summary>
+        /// <typeparam name="T">Type</typeparam>
+        /// <param name="key">The key of the value to get.</param>
+        /// <returns>The value associated with the specified key.</returns>
+        public async Task<T> GetAsync<T>(string key)
+        {
+            RedisValue cacheData = await this.RedisDB().StringGetAsync(key);
 
-        //    if (cacheData.IsNullOrEmpty)
-        //    {
-        //        return default(T);
-        //    }
+            if (cacheData.IsNullOrEmpty)
+            {
+                return default;
+            }
 
-        //    if (typeof(T).IsValueType || typeof(T) == typeof(string))
-        //    {
-        //        return (T)Convert.ChangeType(cacheData.ToString(), typeof(T));
-        //    }
+            if (typeof(T).IsValueType || typeof(T) == typeof(string))
+            {
+                return (T)Convert.ChangeType(cacheData.ToString(), typeof(T));
+            }
 
-        //    return cacheData.ToString().ToTypedObject<T>();
-        //}
+            return cacheData.ToString().ToTypedObject<T>();
+        }
 
         /// <summary>
         /// 確定快取鍵值是否存在
         /// </summary>
         public bool IsSet(string key) => this.RedisDB().KeyExists(key);
 
-        ///// <summary>
-        ///// 確定快取鍵值是否存在
-        ///// </summary>
-        //public async Task<bool> IsSetAsync(string key) => await this.RedisDB().KeyExistsAsync(key);
+        /// <summary>
+        /// 確定快取鍵值是否存在
+        /// </summary>
+        public async Task<bool> IsSetAsync(string key) => await this.RedisDB().KeyExistsAsync(key);
 
         /// <summary>
         /// 移除快取內容
         /// </summary>
         public void Remove(string key) => this.RedisDB().KeyDelete(key);
 
-        ///// <summary>
-        ///// 移除快取內容
-        ///// </summary>
-        //public async Task RemoveAsync(string key) => await this.RedisDB().KeyDeleteAsync(key);
+        /// <summary>
+        /// 移除快取內容
+        /// </summary>
+        public async Task RemoveAsync(string key) => await this.RedisDB().KeyDeleteAsync(key);
 
         /// <summary>
         /// 依據鍵值樣式移除快取內容
@@ -199,9 +205,42 @@ namespace SocialNetwork.Helper
         }
 
         /// <summary>
+        /// 依據鍵值樣式移除快取內容
+        /// </summary>
+        /// <param name="pattern">
+        /// h?llo matches hello, hallo and hxllo h*lo matches hllo and heeeello h[ae]llo matches
+        /// hello and hallo, but not hillo h[^e]llo matches hallo, hbllo, ... but not hello h[a-b]llo
+        /// matches hallo and hbllo
+        /// </param>
+        public async Task RemoveByPatternAsync(string pattern)
+        {
+            List<string> keysToRemove = new List<string>();
+            EndPoint[] endpoints = this.Connection.GetEndPoints(true);
+
+            foreach (EndPoint endpoint in endpoints)
+            {
+                IServer server = this.Connection.GetServer(endpoint);
+
+                // 取得設定的 Database 中的 Keys
+                foreach (RedisKey item in server.Keys(database: this.RedisDB().Database, pattern: pattern))
+                {
+                    keysToRemove.Add(item);
+                }
+            }
+
+            foreach (string key in keysToRemove)
+            {
+                await this.RemoveAsync(key);
+            }
+        }
+
+        /// <summary>
         /// 指定快取內容
         /// </summary>
-        public void Set(string key, object data, int cacheSeconds)
+        /// <param name="key">The key of the value to get.</param>
+        /// <param name="data">資料</param>
+        /// <param name="expiry">到期時間 (null = 無到期時間)</param>
+        public void Set(string key, object data, TimeSpan? expiry)
         {
             if (data == null)
             {
@@ -210,35 +249,38 @@ namespace SocialNetwork.Helper
 
             if (data is string || !data.GetType().IsClass)
             {
-                Task.Factory.StartNew(() => this.RedisDB().StringSetAsync(key, data.ToString(), TimeSpan.FromSeconds(cacheSeconds)));
+                this.RedisDB().StringSetAsync(key, data.ToString(), expiry);
 
                 return;
             }
 
             string cacheData = data.ToJson();
-            Task.Factory.StartNew(() => this.RedisDB().StringSetAsync(key, cacheData, TimeSpan.FromSeconds(cacheSeconds)));
+            this.RedisDB().StringSetAsync(key, cacheData, expiry);
         }
 
-        ///// <summary>
-        ///// 指定快取內容
-        ///// </summary>
-        //public async Task Set(string key, object data, int cacheSeconds)
-        //{
-        //    if (data == null)
-        //    {
-        //        return;
-        //    }
+        /// <summary>
+        /// 指定快取內容
+        /// </summary>
+        /// <param name="key">The key of the value to get.</param>
+        /// <param name="data">資料</param>
+        /// <param name="expiry">到期時間 (null = 無到期時間)</param>
+        public async Task SetAsync(string key, object data, TimeSpan? expiry)
+        {
+            if (data == null)
+            {
+                return;
+            }
 
-        //    if (data is string || !data.GetType().IsClass)
-        //    {
-        //        Task.Factory.StartNew(() => this.RedisDB().StringSetAsync(key, data.ToString(), TimeSpan.FromSeconds(cacheSeconds)));
+            if (data is string || !data.GetType().IsClass)
+            {
+                await this.RedisDB().StringSetAsync(key, data.ToString(), expiry);
 
-        //        return;
-        //    }
+                return;
+            }
 
-        //    string cacheData = data.ToJson();
-        //    Task.Factory.StartNew(() => this.RedisDB().StringSetAsync(key, cacheData, TimeSpan.FromSeconds(cacheSeconds)));
-        //}
+            string cacheData = data.ToJson();
+            await this.RedisDB().StringSetAsync(key, cacheData, expiry);
+        }
 
         /// <summary>
         /// Redis 資料庫 (0~15)
