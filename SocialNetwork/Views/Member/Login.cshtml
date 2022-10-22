@@ -4,9 +4,16 @@
     ViewBag.Title = "IKKON";
     Layout = "_MemberLayout";
 }
-<script src="~/js/Member/Login.js" asp-append-version="true"></script>
+<script type="module" src="~/js/Member/Login.js" asp-append-version="true"></script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <link rel="stylesheet" href="~/css/Member/Login.css" asp-append-version="true" />
+
+<script>
+    $(function () {
+        debugger
+        LoginPage.Init();
+    });
+</script>
 
 <div class="inputbox">
     <input class="input_login" type="text" placeholder="請輸入帳號" id="login_account" autocomplete="off" maxlength="20">
@@ -45,14 +52,14 @@
             </div>
         </div>
         <div class="btn_div">
-            <div><input class="btn_sm_submit" type="button" value="變更密碼" onclick="ResetPassword()"></div>
+            <div><input class="btn_sm_submit" type="button" value="變更密碼" onclick="LoginPage.ResetPassword()"></div>
         </div>
     </div>
 </div>
 
 <!--登入-->
 <div class="btn_div">
-    <div><input class="btn_loginPage" type="button" value="登入" onclick="Login()"></div>
+    <div><input class="btn_loginPage" type="button" value="登入" onclick="LoginPage.Login()"></div>
 </div>
 <div id="loginError">
     <div class="popLayer"></div>
@@ -66,7 +73,7 @@
 
 <!--Google帳號登入-->
 <div class="btn_div">
-    <div><input class="btn_loginPage" type="button" value="Google帳號登入" onclick="GoogleLogin()"></div>
+    <div><input class="btn_loginPage" type="button" value="Google帳號登入" onclick="LoginPage.GoogleLogin()"></div>
 </div>
 
 <!--分隔線-->
@@ -133,7 +140,7 @@
             </div>
             <div style="display:flex; align-items:center;">
                 <input class="input_sinup" type="text" placeholder="請輸入有效電子郵件" id="singup_mail" autocomplete="off" maxlength="100" style="width: 310px; margin-right:5px;">
-                <input class="btn_Verification" type="button" value="取得驗證碼" onclick="SendVCode()">
+                <input class="btn_Verification" type="button" value="取得驗證碼" onclick="LoginPage.SendVCode()">
             </div>
         </div>
         <div class="linediv"><div class="lineStyle"></div></div>
@@ -150,13 +157,12 @@
             </div>
         </div>
         <div class="btn_div">
-            <div><input class="btn_singup" type="button" value="註冊" onclick="Singup()"></div>
+            <div><input class="btn_singup" type="button" value="註冊" onclick="LoginPage.Singup()"></div>
         </div>
     </div>
 </div>
 <!--會員資料填寫-->
 <div class="btn_div" id="MemberInfo">
-    <div><input class="btn_loginPage" type="button" value="會員資料POPTest" onclick="Common.Popup('MemberInfo')"></div>
     <div class="popLayer"></div>
     <div class="popBox InfoStyle">
         <div class="topBar">
@@ -214,7 +220,7 @@
             </div>
         </div>
         <div class="btn_div">
-            <div><input class="btn_singup" type="button" value="完成" onclick="UpdateMemberPublicInfo()"></div>
+            <div><input class="btn_singup" type="button" value="完成" onclick="LoginPage.UpdateMemberPublicInfo()"></div>
         </div>
     </div>
 </div>

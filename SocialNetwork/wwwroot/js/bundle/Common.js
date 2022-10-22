@@ -1,731 +1,25 @@
 "use strict";
 
-var __awaiter = void 0 && (void 0).__awaiter || function (thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function (resolve) {
-      resolve(value);
-    });
-  }
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
-  return new (P || (P = Promise))(function (resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.UpdateMemberStatusReqViewModel = exports.UpdateMemberPublicInfoReqViewModel = exports.Toast = exports.SignupReqViewModel = exports.SendVCodeReqViewModel = exports.ResponseViewModel = exports.ResponseStatusEnum = exports.ResetPasswordReqViewModel = exports.ResetPasswordConfirmReqViewModel = exports.MemberStatusEnum = exports.MemberPublicInfoEnum = exports.LoginReqViewModel = exports.GoogleLoginResViewModel = exports.GoogleLoginReqViewModel = exports.GetMemberInfoResViewModel = exports.GetFriendStatusResViewModel = exports.GetFriendListResViewModel = exports.FriendStatusEnum = exports.Friend = exports.DecideFriendInvitationReqViewModel = exports.DecideFriendInvitationEnum = exports.CommonMemberViewModel = exports.Common = exports.ChangePasswordReqViewModel = void 0;
 
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
+var _sweetalert = _interopRequireDefault(require("sweetalert2"));
 
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
+var API = _interopRequireWildcard(require("../Common/API"));
 
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
+var Enum = _interopRequireWildcard(require("../Common/Enum"));
 
-var __generator = void 0 && (void 0).__generator || function (thisArg, body) {
-  var _ = {
-    label: 0,
-    sent: function sent() {
-      if (t[0] & 1) throw t[1];
-      return t[1];
-    },
-    trys: [],
-    ops: []
-  },
-      f,
-      y,
-      t,
-      g;
-  return g = {
-    next: verb(0),
-    "throw": verb(1),
-    "return": verb(2)
-  }, typeof Symbol === "function" && (g[Symbol.iterator] = function () {
-    return this;
-  }), g;
+var Request = _interopRequireWildcard(require("../Common/Request"));
 
-  function verb(n) {
-    return function (v) {
-      return step([n, v]);
-    };
-  }
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
-  function step(op) {
-    if (f) throw new TypeError("Generator is already executing.");
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-    while (_) {
-      try {
-        if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-        if (y = 0, t) op = [op[0] & 2, t.value];
-
-        switch (op[0]) {
-          case 0:
-          case 1:
-            t = op;
-            break;
-
-          case 4:
-            _.label++;
-            return {
-              value: op[1],
-              done: false
-            };
-
-          case 5:
-            _.label++;
-            y = op[1];
-            op = [0];
-            continue;
-
-          case 7:
-            op = _.ops.pop();
-
-            _.trys.pop();
-
-            continue;
-
-          default:
-            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) {
-              _ = 0;
-              continue;
-            }
-
-            if (op[0] === 3 && (!t || op[1] > t[0] && op[1] < t[3])) {
-              _.label = op[1];
-              break;
-            }
-
-            if (op[0] === 6 && _.label < t[1]) {
-              _.label = t[1];
-              t = op;
-              break;
-            }
-
-            if (t && _.label < t[2]) {
-              _.label = t[2];
-
-              _.ops.push(op);
-
-              break;
-            }
-
-            if (t[2]) _.ops.pop();
-
-            _.trys.pop();
-
-            continue;
-        }
-
-        op = body.call(thisArg, _);
-      } catch (e) {
-        op = [6, e];
-        y = 0;
-      } finally {
-        f = t = 0;
-      }
-    }
-
-    if (op[0] & 5) throw op[1];
-    return {
-      value: op[0] ? op[1] : void 0,
-      done: true
-    };
-  }
-};
-/**
- * 封裝基礎 Http Get
- * @param loadingMsg Loading 顯示文字
- * @param api api 路徑
- * @param successFunc 回應成功 Func
- * @param errorFunc 回應失敗 Func
- * @param isNotification 是否快顯通知
- * @param isShowSuccessMsg 是否顯示回應成功訊息
- */
-
-
-function BaseGetAPI(loadingMsg, api, successFunc, errorFunc, isNotification, isShowSuccessMsg) {
-  if (isNotification === void 0) {
-    isNotification = false;
-  }
-
-  if (isShowSuccessMsg === void 0) {
-    isShowSuccessMsg = true;
-  }
-
-  return new Promise(function (resolve, reject) {
-    if (loadingMsg) Common.SweetAlertLoading(loadingMsg);
-    $.ajax({
-      method: "Get",
-      url: api,
-      success: function success(res) {
-        if (res.Status == ResponseStatusEnum.Success) {
-          if (isShowSuccessMsg) {
-            if (isNotification) Common.SweetAlertNotification(true, res.Message);else Common.SweetAlertSuccess(res, successFunc);
-          } else Swal.close();
-
-          resolve(res.Data);
-        } else {
-          if (isNotification) Common.SweetAlertNotification(false, res.Message);else Common.SweetAlertError(res, errorFunc);
-        }
-
-        reject('error');
-      },
-      error: function error(e) {
-        console.log(e);
-        Common.SweetAlertErrorMsg("伺服器異常", errorFunc);
-        reject(e);
-      }
-    });
-  });
-}
-/**
- * 封裝基礎 Http Post (無 Request Param 、 有 Response Data )
- * @param loadingMsg Loading 顯示文字
- * @param api api 路徑
- * @param model 傳送參數 Model
- * @param successFunc 回應成功 Func
- * @param errorFunc 回應失敗 Func
- * @param isNotification 是否快顯通知
- * @param isShowSuccessMsg 是否顯示回應成功訊息
- */
-
-
-function BasePostAPIV1(loadingMsg, api, successFunc, errorFunc, isNotification, isShowSuccessMsg) {
-  if (isNotification === void 0) {
-    isNotification = false;
-  }
-
-  if (isShowSuccessMsg === void 0) {
-    isShowSuccessMsg = true;
-  }
-
-  return new Promise(function (resolve, reject) {
-    if (loadingMsg) Common.SweetAlertLoading(loadingMsg);
-    $.ajax({
-      method: "POST",
-      url: api,
-      headers: {
-        "RequestVerificationToken": $("#RequestVerificationToken").val()
-      },
-      async: false,
-      success: function success(res) {
-        if (res.Status == ResponseStatusEnum.Success) {
-          if (isShowSuccessMsg) {
-            if (isNotification) Common.SweetAlertNotification(true, res.Message);else Common.SweetAlertSuccess(res, successFunc);
-          } else Swal.close();
-
-          resolve(res.Data);
-        } else {
-          if (isNotification) Common.SweetAlertNotification(false, res.Message);else Common.SweetAlertError(res, errorFunc);
-          reject('error');
-        }
-      },
-      error: function error(e) {
-        console.log(e);
-        Common.SweetAlertErrorMsg("伺服器異常", errorFunc);
-        reject(e);
-      }
-    });
-  });
-}
-/**
- * 封裝基礎 Http Post (有 Request Param 、 有 Response Data )
- * @param loadingMsg Loading 顯示文字
- * @param api api 路徑
- * @param model 傳送參數 Model
- * @param successFunc 回應成功 Func
- * @param errorFunc 回應失敗 Func
- * @param isNotification 是否快顯通知
- * @param isShowSuccessMsg 是否顯示回應成功訊息
- */
-
-
-function BasePostAPIV2(loadingMsg, api, model, successFunc, errorFunc, isNotification, isShowSuccessMsg) {
-  if (isNotification === void 0) {
-    isNotification = false;
-  }
-
-  if (isShowSuccessMsg === void 0) {
-    isShowSuccessMsg = true;
-  }
-
-  return new Promise(function (resolve, reject) {
-    if (loadingMsg) Common.SweetAlertLoading(loadingMsg);
-    $.ajax({
-      method: "POST",
-      url: api,
-      headers: {
-        "RequestVerificationToken": $("#RequestVerificationToken").val()
-      },
-      data: JSON.stringify(model),
-      dataType: "json",
-      contentType: "application/json",
-      async: false,
-      success: function success(res) {
-        if (res.Status == ResponseStatusEnum.Success) {
-          if (isShowSuccessMsg) {
-            if (isNotification) Common.SweetAlertNotification(true, res.Message);else Common.SweetAlertSuccess(res, successFunc);
-          } else Swal.close();
-
-          resolve(res.Data);
-        } else {
-          if (isNotification) Common.SweetAlertNotification(false, res.Message);else Common.SweetAlertError(res, errorFunc);
-          reject('error');
-        }
-      },
-      error: function error(e) {
-        console.log(e);
-        Common.SweetAlertErrorMsg("伺服器異常", errorFunc);
-        reject(e);
-      }
-    });
-  });
-}
-/**
- * 封裝基礎 Http Post (有 Request Param 、 無 Response Data )
- * @param loadingMsg Loading 顯示文字
- * @param api api 路徑
- * @param model 傳送參數 Model
- * @param successFunc 回應成功 Func
- * @param errorFunc 回應失敗 Func
- * @param isNotification 是否快顯通知
- * @param isShowSuccessMsg 是否顯示回應成功訊息
- */
-
-
-function BasePostAPIV3(loadingMsg, api, model, successFunc, errorFunc, isNotification, isShowSuccessMsg) {
-  if (isNotification === void 0) {
-    isNotification = false;
-  }
-
-  if (isShowSuccessMsg === void 0) {
-    isShowSuccessMsg = true;
-  }
-
-  if (loadingMsg) Common.SweetAlertLoading(loadingMsg);
-  $.ajax({
-    method: "POST",
-    url: api,
-    headers: {
-      "RequestVerificationToken": $("#RequestVerificationToken").val()
-    },
-    data: JSON.stringify(model),
-    dataType: "json",
-    contentType: "application/json",
-    success: function success(res) {
-      if (res.Status == ResponseStatusEnum.Success) {
-        if (isShowSuccessMsg) {
-          if (isNotification) Common.SweetAlertNotification(true, res.Message);else Common.SweetAlertSuccess(res, successFunc);
-        } else Swal.close();
-      } else {
-        if (isNotification) Common.SweetAlertNotification(false, res.Message);else Common.SweetAlertError(res, errorFunc);
-      }
-    },
-    error: function error(e) {
-      console.log(e);
-      Common.SweetAlertErrorMsg("伺服器異常", errorFunc);
-    }
-  });
-}
-/**
- * 封裝基礎 Http Post By FormData
- * @param loadingMsg Loading 顯示文字
- * @param api api 路徑
- * @param formData 傳送參數 FormData
- * @param successFunc 回應成功 Func
- * @param errorFunc 回應失敗 Func
- * @param isNotification 是否顯示快顯
- */
-
-
-function BasePostAPIByFormData(loadingMsg, api, formData, successFunc, errorFunc, isNotification, isShowSuccessMsg) {
-  if (isNotification === void 0) {
-    isNotification = false;
-  }
-
-  if (isShowSuccessMsg === void 0) {
-    isShowSuccessMsg = true;
-  }
-
-  if (loadingMsg) Common.SweetAlertLoading(loadingMsg);
-  $.ajax({
-    method: "POST",
-    url: api,
-    headers: {
-      "RequestVerificationToken": $("#RequestVerificationToken").val()
-    },
-    data: formData,
-    dataType: "json",
-    processData: false,
-    contentType: false,
-    success: function success(res) {
-      if (res.Status == ResponseStatusEnum.Success) {
-        if (isShowSuccessMsg) {
-          if (isNotification) Common.SweetAlertNotification(true, res.Message);else Common.SweetAlertSuccess(res, successFunc);
-        } else Swal.close();
-      } else {
-        if (isNotification) Common.SweetAlertNotification(false, res.Message);else Common.SweetAlertError(res, errorFunc);
-      }
-    },
-    error: function error(e) {
-      console.log(e);
-      Common.SweetAlertErrorMsg("伺服器異常", errorFunc);
-    }
-  });
-}
-/**
- * 登入 API
- */
-
-
-function LoginAPI(loadingMsg, model, successFunc, errorFunc) {
-  BasePostAPIV3(loadingMsg, "/MemberApi/Login", model, successFunc, errorFunc);
-}
-/**
- * Google 第三方登入 API
- */
-
-
-function GoogleLoginAPI(loadingMsg, model, successFunc, errorFunc) {
-  BasePostAPIV3(loadingMsg, "/MemberApi/GoogleLogin", model, successFunc, errorFunc);
-}
-/**
- * 寄送驗證碼 API
- */
-
-
-function SendVCodeAPI(loadingMsg, model, successFunc, errorFunc) {
-  BasePostAPIV3(loadingMsg, "/MemberApi/SendVCode", model, successFunc, errorFunc);
-}
-/**
- * 註冊 API
- */
-
-
-function SignupAPI(loadingMsg, model, successFunc, errorFunc) {
-  BasePostAPIV3(loadingMsg, "/MemberApi/Signup", model, successFunc, errorFunc);
-}
-/**
- * 更新會員公開資訊 API
- */
-
-
-function UpdateMemberPublicInfoAPI(loadingMsg, model, successFunc, errorFunc) {
-  BasePostAPIV3(loadingMsg, "/MemberApi/UpdateMemberPublicInfo", model, successFunc, errorFunc);
-}
-/**
- * 重設密碼 Step1 API
- * 申請重設密碼、建立重設密碼URL
- */
-
-
-function ResetPasswordAPI(loadingMsg, model) {
-  var successFunc = function successFunc() {};
-
-  var errorFunc = function errorFunc() {};
-
-  BasePostAPIV3(loadingMsg, "/MemberApi/ResetPassword", model, successFunc, errorFunc);
-}
-/**
- * 重設密碼 Step2 API
- */
-
-
-function ResetPasswordConfirmAPI(loadingMsg, model, successFunc, errorFunc) {
-  BasePostAPIV3(loadingMsg, "/MemberApi/ResetPasswordConfirm", model, successFunc, errorFunc);
-}
-/**
- * 登出 API
- */
-
-
-function LogoutAPI(loadingMsg, successFunc, errorFunc, confirmTitle) {
-  Common.SweetAlertConfirm(confirmTitle, function () {
-    return BaseGetAPI(loadingMsg, "/MemberApi/Logout", successFunc, errorFunc);
-  });
-}
-/**
- * 更新會員狀態 API
- */
-
-
-function UpdateMemberStatusAPI(model) {
-  var successFunc = function successFunc() {};
-
-  var errorFunc = function errorFunc() {};
-
-  var isNotification = true;
-  var isShowSuccessMsg = true;
-  BasePostAPIV3('', "/MemberApi/UpdateMemberStatus", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
-}
-/**
- * 取得當前會員資訊 API
- */
-
-
-function GetCurrentMemberInfoAPI() {
-  return __awaiter(this, void 0, void 0, function () {
-    var successFunc, errorFunc, isNotification, isShowSuccessMsg;
-    return __generator(this, function (_a) {
-      switch (_a.label) {
-        case 0:
-          successFunc = function successFunc() {};
-
-          errorFunc = function errorFunc() {};
-
-          isNotification = false;
-          isShowSuccessMsg = false;
-          return [4
-          /*yield*/
-          , BaseGetAPI('', "/MemberApi/GetCurrentMemberInfo", successFunc, errorFunc, isNotification, isShowSuccessMsg)];
-
-        case 1:
-          return [2
-          /*return*/
-          , _a.sent()];
-      }
-    });
-  });
-}
-/**
- * 取得會員資訊 API
- */
-
-
-function GetMemberInfoAPI(memberID) {
-  return __awaiter(this, void 0, void 0, function () {
-    var successFunc, errorFunc, isNotification, isShowSuccessMsg;
-    return __generator(this, function (_a) {
-      switch (_a.label) {
-        case 0:
-          successFunc = function successFunc() {};
-
-          errorFunc = function errorFunc() {};
-
-          isNotification = false;
-          isShowSuccessMsg = false;
-          return [4
-          /*yield*/
-          , BaseGetAPI('', "/MemberApi/GetMemberInfo/".concat(memberID), successFunc, errorFunc, isNotification, isShowSuccessMsg)];
-
-        case 1:
-          return [2
-          /*return*/
-          , _a.sent()];
-      }
-    });
-  });
-}
-/**
- * 更新會員資訊 API
- */
-
-
-function UpdateMemberInfoAPI(loadingMsg, formData, successFunc, errorFunc, confirmTitle) {
-  Common.SweetAlertConfirm(confirmTitle, function () {
-    return BasePostAPIByFormData(loadingMsg, "/MemberApi/UpdateMemberInfo", formData, successFunc, errorFunc);
-  });
-}
-/**
- * 密碼變更 API
- */
-
-
-function ChangePasswordAPI(loadingMsg, model, successFunc, errorFunc, confirmTitle) {
-  Common.SweetAlertConfirm(confirmTitle, function () {
-    return BasePostAPIV3(loadingMsg, "/MemberApi/ChangePassword", model, successFunc, errorFunc);
-  });
-} // Post
-
-/**
- * 發佈貼文 API
- */
-
-
-function PublishPostAPI(loadingMsg, formData, successFunc, errorFunc, confirmTitle) {
-  Common.SweetAlertConfirm(confirmTitle, function () {
-    return BasePostAPIByFormData(loadingMsg, "/PostApi/PublishPost", formData, successFunc, errorFunc);
-  });
-} // Friend
-
-/**
- * 取得好友清單 API
- */
-
-
-function GetFriendListAPI() {
-  return __awaiter(this, void 0, void 0, function () {
-    var successFunc, errorFunc, isNotification, isShowSuccessMsg;
-    return __generator(this, function (_a) {
-      switch (_a.label) {
-        case 0:
-          successFunc = function successFunc() {};
-
-          errorFunc = function errorFunc() {};
-
-          isNotification = false;
-          isShowSuccessMsg = false;
-          return [4
-          /*yield*/
-          , BasePostAPIV1('', "/FriendApi/GetFriendList", successFunc, errorFunc, isNotification, isShowSuccessMsg)];
-
-        case 1:
-          return [2
-          /*return*/
-          , _a.sent()];
-      }
-    });
-  });
-}
-/**
- * 取得好友邀請清單 API
- */
-
-
-function GetFriendInvitationListAPI() {
-  return __awaiter(this, void 0, void 0, function () {
-    var successFunc, errorFunc, isNotification, isShowSuccessMsg;
-    return __generator(this, function (_a) {
-      switch (_a.label) {
-        case 0:
-          successFunc = function successFunc() {};
-
-          errorFunc = function errorFunc() {};
-
-          isNotification = false;
-          isShowSuccessMsg = false;
-          return [4
-          /*yield*/
-          , BasePostAPIV1('', "/FriendApi/GetFriendInvitationList", successFunc, errorFunc, isNotification, isShowSuccessMsg)];
-
-        case 1:
-          return [2
-          /*return*/
-          , _a.sent()];
-      }
-    });
-  });
-}
-/**
- * 取得您送出的好友邀請清單 API
- */
-
-
-function GetSendFriendInvitationListAPI() {
-  return __awaiter(this, void 0, void 0, function () {
-    var successFunc, errorFunc, isNotification, isShowSuccessMsg;
-    return __generator(this, function (_a) {
-      switch (_a.label) {
-        case 0:
-          successFunc = function successFunc() {};
-
-          errorFunc = function errorFunc() {};
-
-          isNotification = false;
-          isShowSuccessMsg = false;
-          return [4
-          /*yield*/
-          , BasePostAPIV1('', "/FriendApi/GetSendFriendInvitationList", successFunc, errorFunc, isNotification, isShowSuccessMsg)];
-
-        case 1:
-          return [2
-          /*return*/
-          , _a.sent()];
-      }
-    });
-  });
-}
-/**
- * 取得好友狀態 API
- */
-
-
-function GetFriendStatusAPI(model) {
-  return __awaiter(this, void 0, void 0, function () {
-    var successFunc, errorFunc, isNotification, isShowSuccessMsg;
-    return __generator(this, function (_a) {
-      switch (_a.label) {
-        case 0:
-          successFunc = function successFunc() {};
-
-          errorFunc = function errorFunc() {};
-
-          isNotification = false;
-          isShowSuccessMsg = false;
-          return [4
-          /*yield*/
-          , BasePostAPIV2('', "/FriendApi/GetFriendStatus", model, successFunc, errorFunc, isNotification, isShowSuccessMsg)];
-
-        case 1:
-          return [2
-          /*return*/
-          , _a.sent()];
-      }
-    });
-  });
-}
-/**
- * 發送好友邀請 API
- */
-
-
-function SendFriendInvitationAPI(model, successFunc, confirmTitle) {
-  var errorFunc = function errorFunc() {};
-
-  Common.SweetAlertConfirm(confirmTitle, function () {
-    return BasePostAPIV3('', "/FriendApi/SendFriendInvitation", model, successFunc, errorFunc);
-  });
-}
-/**
- * 判斷好友邀請 (接受 or 拒絕) API
- */
-
-
-function DecideFriendInvitationAPI(model, successFunc, confirmTitle) {
-  var errorFunc = function errorFunc() {};
-
-  Common.SweetAlertConfirm(confirmTitle, function () {
-    return BasePostAPIV3('', "/FriendApi/DecideFriendInvitation", model, successFunc, errorFunc);
-  });
-}
-/**
- * 收回好友邀請 API
- */
-
-
-function RevokeFriendInvitationAPI(model, successFunc, confirmTitle) {
-  var errorFunc = function errorFunc() {};
-
-  Common.SweetAlertConfirm(confirmTitle, function () {
-    return BasePostAPIV3('', "/FriendApi/RevokeFriendInvitation", model, successFunc, errorFunc);
-  });
-}
-/**
- * 刪除好友 API
- */
-
-
-function DeleteFriendAPI(model, successFunc, confirmTitle) {
-  var errorFunc = function errorFunc() {};
-
-  Common.SweetAlertConfirm(confirmTitle, function () {
-    return BasePostAPIV3('', "/FriendApi/DeleteFriend", model, successFunc, errorFunc);
-  });
-} ///** 暫無使用 */
-////String.prototype.IsNullOrEmptyOrUndefined = function () {
-////    return !this;
-////}
-
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var Common = {
   /**
@@ -799,7 +93,7 @@ var Common = {
    */
   SweetAlertSuccess: function SweetAlertSuccess(res, confirmFunc) {
     if (confirmFunc != null) {
-      Swal.fire({
+      _sweetalert["default"].fire({
         icon: 'success',
         text: res.Message,
         confirmButtonText: '確認',
@@ -810,7 +104,7 @@ var Common = {
         }
       });
     } else {
-      Swal.fire({
+      _sweetalert["default"].fire({
         icon: 'success',
         text: res.Message,
         confirmButtonText: '確認'
@@ -825,7 +119,7 @@ var Common = {
    */
   SweetAlertError: function SweetAlertError(res, confirmFunc) {
     if (confirmFunc != null) {
-      Swal.fire({
+      _sweetalert["default"].fire({
         icon: 'error',
         text: res.Message,
         confirmButtonText: '確認',
@@ -837,7 +131,7 @@ var Common = {
         }
       });
     } else {
-      Swal.fire({
+      _sweetalert["default"].fire({
         icon: 'error',
         text: res.Message,
         confirmButtonText: '確認',
@@ -853,7 +147,7 @@ var Common = {
    */
   SweetAlertErrorMsg: function SweetAlertErrorMsg(msg, confirmFunc) {
     if (confirmFunc != null) {
-      Swal.fire({
+      _sweetalert["default"].fire({
         icon: 'error',
         text: msg,
         confirmButtonText: '確認',
@@ -865,7 +159,7 @@ var Common = {
         }
       });
     } else {
-      Swal.fire({
+      _sweetalert["default"].fire({
         icon: 'error',
         text: msg,
         confirmButtonText: '確認',
@@ -879,12 +173,12 @@ var Common = {
    * @param msg 訊息
    */
   SweetAlertLoading: function SweetAlertLoading(msg) {
-    Swal.fire({
+    _sweetalert["default"].fire({
       title: msg,
       allowEscapeKey: false,
       allowOutsideClick: false,
       didOpen: function didOpen() {
-        Swal.showLoading();
+        _sweetalert["default"].showLoading();
       }
     });
   },
@@ -896,17 +190,20 @@ var Common = {
    */
   SweetAlertRedirect: function SweetAlertRedirect(path, pathName) {
     var timerInterval;
-    Swal.fire({
+
+    _sweetalert["default"].fire({
       html: "<b></b> \u79D2\u5F8C \u8DF3\u8F49\u56DE".concat(pathName),
       timer: 3000,
       timerProgressBar: true,
       showConfirmButton: false,
       allowOutsideClick: false,
       didOpen: function didOpen() {
-        Swal.showLoading();
-        var b = Swal.getHtmlContainer().querySelector('b');
+        _sweetalert["default"].showLoading();
+
+        var b = _sweetalert["default"].getHtmlContainer().querySelector('b');
+
         timerInterval = setInterval(function () {
-          b.textContent = Math.round(Swal.getTimerLeft() / 1000).toString();
+          b.textContent = Math.round(_sweetalert["default"].getTimerLeft() / 1000).toString();
         }, 100);
       },
       willClose: function willClose() {
@@ -914,7 +211,7 @@ var Common = {
       }
     }).then(function (result) {
       /* Read more about handling dismissals below */
-      if (result.dismiss === Swal.DismissReason.timer) {
+      if (result.dismiss === _sweetalert["default"].DismissReason.timer) {
         window.location.href = path;
       }
     });
@@ -930,7 +227,7 @@ var Common = {
       cancelButtonText = '取消';
     }
 
-    Swal.fire({
+    _sweetalert["default"].fire({
       title: title,
       showCancelButton: true,
       confirmButtonText: '確定',
@@ -1056,7 +353,9 @@ var Common = {
 };
 /** SweetAlert 快顯 */
 
-var Toast = Swal.mixin({
+exports.Common = Common;
+
+var Toast = _sweetalert["default"].mixin({
   toast: true,
   position: 'top-right',
   showConfirmButton: false,
@@ -1069,27 +368,31 @@ var Toast = Swal.mixin({
   timer: 3000,
   timerProgressBar: true,
   didOpen: function didOpen(toast) {
-    toast.addEventListener('mouseenter', Swal.stopTimer);
-    toast.addEventListener('mouseleave', Swal.resumeTimer);
+    toast.addEventListener('mouseenter', _sweetalert["default"].stopTimer);
+    toast.addEventListener('mouseleave', _sweetalert["default"].resumeTimer);
   },
   showCloseButton: true
 });
+
+exports.Toast = Toast;
+
 /**
  * 共用 API 回應狀態 列舉
  * */
-
 var ResponseStatusEnum;
+exports.ResponseStatusEnum = ResponseStatusEnum;
 
 (function (ResponseStatusEnum) {
   ResponseStatusEnum[ResponseStatusEnum["Error"] = 0] = "Error";
   ResponseStatusEnum[ResponseStatusEnum["Success"] = 1] = "Success";
-})(ResponseStatusEnum || (ResponseStatusEnum = {}));
+})(ResponseStatusEnum || (exports.ResponseStatusEnum = ResponseStatusEnum = {}));
 /**
  * 會員公開資訊 列舉
  * */
 
 
 var MemberPublicInfoEnum;
+exports.MemberPublicInfoEnum = MemberPublicInfoEnum;
 
 (function (MemberPublicInfoEnum) {
   MemberPublicInfoEnum[MemberPublicInfoEnum["\u5168\u90E8\u4E0D\u516C\u958B"] = 0] = "\u5168\u90E8\u4E0D\u516C\u958B";
@@ -1098,80 +401,85 @@ var MemberPublicInfoEnum;
   MemberPublicInfoEnum[MemberPublicInfoEnum["\u516C\u958B\u5DE5\u4F5C"] = 4] = "\u516C\u958B\u5DE5\u4F5C";
   MemberPublicInfoEnum[MemberPublicInfoEnum["\u516C\u958B\u5B78\u6B77"] = 8] = "\u516C\u958B\u5B78\u6B77";
   MemberPublicInfoEnum[MemberPublicInfoEnum["\u5168\u90E8\u516C\u958B"] = 15] = "\u5168\u90E8\u516C\u958B";
-})(MemberPublicInfoEnum || (MemberPublicInfoEnum = {}));
+})(MemberPublicInfoEnum || (exports.MemberPublicInfoEnum = MemberPublicInfoEnum = {}));
 /**
  * 會員狀態 列舉
  * */
 
 
 var MemberStatusEnum;
+exports.MemberStatusEnum = MemberStatusEnum;
 
 (function (MemberStatusEnum) {
   MemberStatusEnum[MemberStatusEnum["\u5728\u7DDA"] = 1] = "\u5728\u7DDA";
   MemberStatusEnum[MemberStatusEnum["\u5FD9\u788C"] = 2] = "\u5FD9\u788C";
   MemberStatusEnum[MemberStatusEnum["\u96E2\u7DDA"] = 3] = "\u96E2\u7DDA";
-})(MemberStatusEnum || (MemberStatusEnum = {}));
+})(MemberStatusEnum || (exports.MemberStatusEnum = MemberStatusEnum = {}));
 /**
  * 判斷好友邀請 列舉
  * */
 
 
 var DecideFriendInvitationEnum;
+exports.DecideFriendInvitationEnum = DecideFriendInvitationEnum;
 
 (function (DecideFriendInvitationEnum) {
   DecideFriendInvitationEnum[DecideFriendInvitationEnum["\u62D2\u7D55"] = 0] = "\u62D2\u7D55";
   DecideFriendInvitationEnum[DecideFriendInvitationEnum["\u63A5\u53D7"] = 1] = "\u63A5\u53D7";
-})(DecideFriendInvitationEnum || (DecideFriendInvitationEnum = {}));
+})(DecideFriendInvitationEnum || (exports.DecideFriendInvitationEnum = DecideFriendInvitationEnum = {}));
 /**
  * 好友狀態 列舉
  * */
 
 
 var FriendStatusEnum;
+exports.FriendStatusEnum = FriendStatusEnum;
 
 (function (FriendStatusEnum) {
   FriendStatusEnum[FriendStatusEnum["\u975E\u597D\u53CB"] = 0] = "\u975E\u597D\u53CB";
   FriendStatusEnum[FriendStatusEnum["\u5DF2\u5BC4\u9001\u597D\u53CB\u9080\u8ACB"] = 1] = "\u5DF2\u5BC4\u9001\u597D\u53CB\u9080\u8ACB";
   FriendStatusEnum[FriendStatusEnum["\u5DF2\u63A5\u6536\u597D\u53CB\u9080\u8ACB"] = 2] = "\u5DF2\u63A5\u6536\u597D\u53CB\u9080\u8ACB";
   FriendStatusEnum[FriendStatusEnum["\u70BA\u597D\u53CB"] = 3] = "\u70BA\u597D\u53CB";
-})(FriendStatusEnum || (FriendStatusEnum = {}));
+})(FriendStatusEnum || (exports.FriendStatusEnum = FriendStatusEnum = {}));
 
 var Friend = {
   /**
    * 發送好友邀請
    */
   SendFriendInvitation: function SendFriendInvitation(memberID, nickName, successFunc) {
-    var model = new CommonMemberViewModel(memberID);
-    SendFriendInvitationAPI(model, successFunc, "\u78BA\u5B9A\u662F\u5426\u5C0D ".concat(nickName, " \n\u767C\u9001\u597D\u53CB\u9080\u8ACB?"));
+    var model = new Request.CommonMemberViewModel(memberID);
+    API.SendFriendInvitationAPI(model, successFunc, "\u78BA\u5B9A\u662F\u5426\u5C0D ".concat(nickName, " \n\u767C\u9001\u597D\u53CB\u9080\u8ACB?"));
   },
 
   /**
    * 判斷好友邀請 (接受 or 拒絕)
    */
   DecideFriendInvitation: function DecideFriendInvitation(memberID, nickName, decide, successFunc) {
-    var model = new DecideFriendInvitationReqViewModel(memberID, decide);
-    DecideFriendInvitationAPI(model, successFunc, "\u78BA\u5B9A\u662F\u5426".concat(DecideFriendInvitationEnum[decide], " ").concat(nickName, " \n\u7684\u597D\u53CB\u9080\u8ACB?"));
+    var model = new Request.DecideFriendInvitationReqViewModel(memberID, decide);
+    API.DecideFriendInvitationAPI(model, successFunc, "\u78BA\u5B9A\u662F\u5426".concat(Enum.DecideFriendInvitationEnum[decide], " ").concat(nickName, " \n\u7684\u597D\u53CB\u9080\u8ACB?"));
   },
 
   /**
    * 收回好友邀請
    */
   RevokeFriendInvitation: function RevokeFriendInvitation(memberID, nickName, successFunc) {
-    var model = new CommonMemberViewModel(memberID);
-    RevokeFriendInvitationAPI(model, successFunc, "\u78BA\u5B9A\u662F\u5426\u6536\u56DE ".concat(nickName, " \n\u7684\u597D\u53CB\u9080\u8ACB?"));
+    var model = new Request.CommonMemberViewModel(memberID);
+    API.RevokeFriendInvitationAPI(model, successFunc, "\u78BA\u5B9A\u662F\u5426\u6536\u56DE ".concat(nickName, " \n\u7684\u597D\u53CB\u9080\u8ACB?"));
   },
 
   /**
    * 刪除好友
    */
   DeleteFriend: function DeleteFriend(memberID, nickName, successFunc) {
-    var model = new CommonMemberViewModel(memberID);
-    DeleteFriendAPI(model, successFunc, "\u78BA\u5B9A\u662F\u5426\u522A\u9664\u8207 ".concat(nickName, " \n\u7684\u597D\u53CB\u95DC\u4FC2?"));
+    var model = new Request.CommonMemberViewModel(memberID);
+    API.DeleteFriendAPI(model, successFunc, "\u78BA\u5B9A\u662F\u5426\u522A\u9664\u8207 ".concat(nickName, " \n\u7684\u597D\u53CB\u95DC\u4FC2?"));
   }
 };
 /**
  * 通用的 Member ViewModel
  * */
+
+exports.Friend = Friend;
 
 var CommonMemberViewModel =
 /** @class */
@@ -1182,11 +490,12 @@ function () {
 
   return CommonMemberViewModel;
 }();
+
+exports.CommonMemberViewModel = CommonMemberViewModel;
+
 /**
  * 登入 Request ViewModel
  * */
-
-
 var LoginReqViewModel =
 /** @class */
 function () {
@@ -1197,11 +506,12 @@ function () {
 
   return LoginReqViewModel;
 }();
+
+exports.LoginReqViewModel = LoginReqViewModel;
+
 /**
  * Google 第三方登入 Request ViewModel
  * */
-
-
 var GoogleLoginReqViewModel =
 /** @class */
 function () {
@@ -1211,11 +521,12 @@ function () {
 
   return GoogleLoginReqViewModel;
 }();
+
+exports.GoogleLoginReqViewModel = GoogleLoginReqViewModel;
+
 /**
  * 寄送驗證碼 Request ViewModel
  * */
-
-
 var SendVCodeReqViewModel =
 /** @class */
 function () {
@@ -1225,11 +536,12 @@ function () {
 
   return SendVCodeReqViewModel;
 }();
+
+exports.SendVCodeReqViewModel = SendVCodeReqViewModel;
+
 /**
  * 註冊 Request ViewModel
  * */
-
-
 var SignupReqViewModel =
 /** @class */
 function () {
@@ -1244,11 +556,12 @@ function () {
 
   return SignupReqViewModel;
 }();
+
+exports.SignupReqViewModel = SignupReqViewModel;
+
 /**
  * 更新會員公開資訊 Request ViewModel
  * */
-
-
 var UpdateMemberPublicInfoReqViewModel =
 /** @class */
 function () {
@@ -1262,11 +575,12 @@ function () {
 
   return UpdateMemberPublicInfoReqViewModel;
 }();
+
+exports.UpdateMemberPublicInfoReqViewModel = UpdateMemberPublicInfoReqViewModel;
+
 /**
  * 重設密碼 Step1 Request ViewModel
  * */
-
-
 var ResetPasswordReqViewModel =
 /** @class */
 function () {
@@ -1277,11 +591,12 @@ function () {
 
   return ResetPasswordReqViewModel;
 }();
+
+exports.ResetPasswordReqViewModel = ResetPasswordReqViewModel;
+
 /**
  * 重設密碼 Step2 Request ViewModel
  * */
-
-
 var ResetPasswordConfirmReqViewModel =
 /** @class */
 function () {
@@ -1293,11 +608,12 @@ function () {
 
   return ResetPasswordConfirmReqViewModel;
 }();
+
+exports.ResetPasswordConfirmReqViewModel = ResetPasswordConfirmReqViewModel;
+
 /**
  * 更新會員狀態 Request ViewModel
  * */
-
-
 var UpdateMemberStatusReqViewModel =
 /** @class */
 function () {
@@ -1307,11 +623,12 @@ function () {
 
   return UpdateMemberStatusReqViewModel;
 }();
+
+exports.UpdateMemberStatusReqViewModel = UpdateMemberStatusReqViewModel;
+
 /**
  * 密碼變更 Request ViewModel
  * */
-
-
 var ChangePasswordReqViewModel =
 /** @class */
 function () {
@@ -1323,11 +640,12 @@ function () {
 
   return ChangePasswordReqViewModel;
 }();
+
+exports.ChangePasswordReqViewModel = ChangePasswordReqViewModel;
+
 /**
  * 判斷好友邀請 Request ViewModel
  * */
-
-
 var DecideFriendInvitationReqViewModel =
 /** @class */
 function () {
@@ -1338,11 +656,12 @@ function () {
 
   return DecideFriendInvitationReqViewModel;
 }();
+
+exports.DecideFriendInvitationReqViewModel = DecideFriendInvitationReqViewModel;
+
 /**
  * 共用回應 ViewModel
  * */
-
-
 var ResponseViewModel =
 /** @class */
 function () {
@@ -1352,11 +671,12 @@ function () {
 
   return ResponseViewModel;
 }();
+
+exports.ResponseViewModel = ResponseViewModel;
+
 /**
  * Google 第三方登入 Response ViewModel
  * */
-
-
 var GoogleLoginResViewModel =
 /** @class */
 function () {
@@ -1364,11 +684,12 @@ function () {
 
   return GoogleLoginResViewModel;
 }();
+
+exports.GoogleLoginResViewModel = GoogleLoginResViewModel;
+
 /**
  * 取得會員資訊 Response ViewModel
  * */
-
-
 var GetMemberInfoResViewModel =
 /** @class */
 function () {
@@ -1376,13 +697,14 @@ function () {
 
   return GetMemberInfoResViewModel;
 }();
+
+exports.GetMemberInfoResViewModel = GetMemberInfoResViewModel;
+
 /**
  * 取得好友清單 Response ViewModel
  * 取得好友邀請清單 Response ViewModel
  * 取得您送出的好友邀請清單 Response ViewModel
  * */
-
-
 var GetFriendListResViewModel =
 /** @class */
 function () {
@@ -1390,11 +712,12 @@ function () {
 
   return GetFriendListResViewModel;
 }();
+
+exports.GetFriendListResViewModel = GetFriendListResViewModel;
+
 /**
  * 取得好友狀態 Response ViewModel
  * */
-
-
 var GetFriendStatusResViewModel =
 /** @class */
 function () {
@@ -1402,3 +725,5 @@ function () {
 
   return GetFriendStatusResViewModel;
 }();
+
+exports.GetFriendStatusResViewModel = GetFriendStatusResViewModel;

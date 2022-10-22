@@ -1,7 +1,9 @@
-﻿/**
+﻿import { API, Request, Response, Common } from "../Common/CommonInferface.js";
+
+/**
  * 共用 API 回應狀態 列舉 
  * */
-enum ResponseStatusEnum {
+export enum ResponseStatusEnum {
     Error = 0,
     Success = 1
 }
@@ -9,7 +11,7 @@ enum ResponseStatusEnum {
 /**
  * 會員公開資訊 列舉
  * */
-enum MemberPublicInfoEnum {
+export enum MemberPublicInfoEnum {
     全部不公開 = 0,
     公開生日 = 1,
     公開興趣 = 2,
@@ -21,7 +23,7 @@ enum MemberPublicInfoEnum {
 /**
  * 會員狀態 列舉
  * */
-enum MemberStatusEnum {
+export enum MemberStatusEnum {
     在線 = 1,
     忙碌 = 2,
     離線 = 3
@@ -30,7 +32,7 @@ enum MemberStatusEnum {
 /**
  * 判斷好友邀請 列舉
  * */
-enum DecideFriendInvitationEnum {
+export enum DecideFriendInvitationEnum {
     拒絕 = 0,
     接受 = 1
 }
@@ -38,7 +40,7 @@ enum DecideFriendInvitationEnum {
 /**
  * 好友狀態 列舉
  * */
-enum FriendStatusEnum {
+export enum FriendStatusEnum {
     非好友 = 0,
     已寄送好友邀請 = 1,
     已接收好友邀請 = 2,

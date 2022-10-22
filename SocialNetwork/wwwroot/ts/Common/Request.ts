@@ -1,7 +1,9 @@
-﻿/**
+﻿import { API, Enum, Response, Common } from "../Common/CommonInferface.js";
+
+/**
  * 通用的 Member ViewModel
  * */
-class CommonMemberViewModel {
+export class CommonMemberViewModel {
     MemberID: number;
 
     constructor(memberID: number) {
@@ -12,7 +14,7 @@ class CommonMemberViewModel {
 /**
  * 登入 Request ViewModel
  * */
-class LoginReqViewModel {
+export class LoginReqViewModel {
     Account: string;
     Password: string;
 
@@ -25,7 +27,7 @@ class LoginReqViewModel {
 /**
  * Google 第三方登入 Request ViewModel
  * */
-class GoogleLoginReqViewModel {
+export class GoogleLoginReqViewModel {
     Code: string;
 
     constructor(code: string) {
@@ -36,7 +38,7 @@ class GoogleLoginReqViewModel {
 /**
  * 寄送驗證碼 Request ViewModel
  * */
-class SendVCodeReqViewModel {
+export class SendVCodeReqViewModel {
     Mail: string;
 
     constructor(mail: string) {
@@ -47,7 +49,7 @@ class SendVCodeReqViewModel {
 /**
  * 註冊 Request ViewModel
  * */
-class SignupReqViewModel {
+export class SignupReqViewModel {
     NickName: string;
     Account: string;
     Password: string;
@@ -68,14 +70,14 @@ class SignupReqViewModel {
 /**
  * 更新會員公開資訊 Request ViewModel
  * */
-class UpdateMemberPublicInfoReqViewModel {
+export class UpdateMemberPublicInfoReqViewModel {
     Brithday: Date;
     Interest: string;
     Job: string;
     Education: string;
-    InfoStatus: MemberPublicInfoEnum;
+    InfoStatus: Enum.MemberPublicInfoEnum;
 
-    constructor(brithday: Date, interest: string, job: string, education: string, infoStatus: MemberPublicInfoEnum) {
+    constructor(brithday: Date, interest: string, job: string, education: string, infoStatus: Enum.MemberPublicInfoEnum) {
         this.Brithday = brithday;
         this.Interest = interest;
         this.Job = job;
@@ -87,7 +89,7 @@ class UpdateMemberPublicInfoReqViewModel {
 /**
  * 重設密碼 Step1 Request ViewModel
  * */
-class ResetPasswordReqViewModel {
+export class ResetPasswordReqViewModel {
     Account: string;
     Mail: string;
 
@@ -100,7 +102,7 @@ class ResetPasswordReqViewModel {
 /**
  * 重設密碼 Step2 Request ViewModel
  * */
-class ResetPasswordConfirmReqViewModel {
+export class ResetPasswordConfirmReqViewModel {
     Password: string;
     PasswordCheck: string;
     Guid: string;
@@ -115,10 +117,10 @@ class ResetPasswordConfirmReqViewModel {
 /**
  * 更新會員狀態 Request ViewModel
  * */
-class UpdateMemberStatusReqViewModel {
-    Status: MemberStatusEnum;
+export class UpdateMemberStatusReqViewModel {
+    Status: Enum.MemberStatusEnum;
 
-    constructor(status: MemberStatusEnum) {
+    constructor(status: Enum.MemberStatusEnum) {
         this.Status = status;
     }
 }
@@ -126,7 +128,7 @@ class UpdateMemberStatusReqViewModel {
 /**
  * 密碼變更 Request ViewModel
  * */
-class ChangePasswordReqViewModel {
+export class ChangePasswordReqViewModel {
     OldPassword: string;
     NewPassword: string;
     NewPasswordCheck: string;
@@ -144,13 +146,13 @@ class ChangePasswordReqViewModel {
 /**
  * 判斷好友邀請 Request ViewModel
  * */
-class DecideFriendInvitationReqViewModel {
+export class DecideFriendInvitationReqViewModel {
     MemberID: number;
-    Decision: DecideFriendInvitationEnum;
+    Decision: Enum.DecideFriendInvitationEnum;
 
     constructor(
         memberID: number,
-        decision: DecideFriendInvitationEnum) {
+        decision: Enum.DecideFriendInvitationEnum) {
         this.MemberID = memberID;
         this.Decision = decision;
     }

@@ -11,8 +11,14 @@ import fs from 'fs';
 var bundleconfig = JSON.parse(fs.readFileSync('./bundleconfig.json'));
 
 var nodeRoot = './node_modules/';
-var targetPath = './wwwroot/lib2/';
-var nodePath = ['@microsoft/signalr/dist/browser'];
+var targetPath = './wwwroot/lib/';
+var nodePath = [
+    '@microsoft/signalr/dist',
+    'jquery/dist',
+    'jquery-ui/dist',
+    'lightslider/dist',
+    'sweetalert2/dist'
+];
 
 
 var regex = {
@@ -35,7 +41,7 @@ function cleanLib() {
 }
 
 function installLib() {
-    var tasks = nodePath.map(nodePath => gulp.src(nodeRoot + nodePath + '/*').pipe(gulp.dest(targetPath + nodePath)));
+    var tasks = nodePath.map(nodePath => gulp.src(nodeRoot + nodePath + '/**/*').pipe(gulp.dest(targetPath + nodePath)));
 
     return merge(tasks);
 }

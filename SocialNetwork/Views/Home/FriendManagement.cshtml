@@ -5,11 +5,15 @@
 @using SocialNetwork.Helper
 @inject IUserContext UserContext
 
-<script src="~/js/Home/Index.js" asp-append-version="true"></script>
 <link rel="stylesheet" href="~/css/Home/Index.css" asp-append-version="true" />
-
-<script src="~/js/Home/FriendManagement.js" asp-append-version="true"></script>
 <link rel="stylesheet" href="~/css/Home/FriendManagement.css" asp-append-version="true" />
+<script type="module" src="~/js/Home/FriendManagement.js" asp-append-version="true"></script>
+
+<script>
+    $(function () {
+        FriendManagementPage.Init();
+    });
+</script>
 
 <div class="div_content">
     <div class="div_firend_topBar">
@@ -19,21 +23,21 @@
         <div class="div_firend_tab">
             <div class="div_friend_tab_content">
                 <div class="div_firend_tab_container">
-                    <div class="div_firend_tab_name_container" Tab="MyFriend" onclick="SetFriendManagementTab(this)">
+                    <div class="div_firend_tab_name_container" Tab="MyFriend" onclick="FriendManagementPage.SetFriendManagementTab(this)">
                         <span class="div_firend_tab_name">
                             我的好友
                         </span>
                     </div>
                 </div>
                 <div class="div_firend_tab_container">
-                    <div class="div_firend_tab_name_container" Tab="FriendInvitation" onclick="SetFriendManagementTab(this)">
+                    <div class="div_firend_tab_name_container" Tab="FriendInvitation" onclick="FriendManagementPage.SetFriendManagementTab(this)">
                         <span class="div_firend_tab_name">
                             好友邀請
                         </span>
                     </div>
                 </div>
                 <div class="div_firend_tab_container">
-                    <div class="div_firend_tab_name_container" Tab="SendFriendInvitation" onclick="SetFriendManagementTab(this)">
+                    <div class="div_firend_tab_name_container" Tab="SendFriendInvitation" onclick="FriendManagementPage.SetFriendManagementTab(this)">
                         <span class="div_firend_tab_name">
                             您送出的好友邀請
                         </span>

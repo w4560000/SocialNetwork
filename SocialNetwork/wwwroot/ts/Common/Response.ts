@@ -1,9 +1,11 @@
-﻿/**
+﻿import { API, Enum, Request, Common } from "../Common/CommonInferface.js";
+
+/**
  * 共用回應 ViewModel
  * */
-class ResponseViewModel<T>
+export class ResponseViewModel<T>
 {
-    Status: ResponseStatusEnum | undefined;
+    Status: Enum.ResponseStatusEnum | undefined;
     Message: string | undefined;
     Data: T | undefined;
 
@@ -15,14 +17,14 @@ class ResponseViewModel<T>
 /**
  * Google 第三方登入 Response ViewModel
  * */
-class GoogleLoginResViewModel {
+export class GoogleLoginResViewModel {
     IsFirstLogin: boolean;
 }
 
 /**
  * 取得會員資訊 Response ViewModel
  * */
-class GetMemberInfoResViewModel {
+export class GetMemberInfoResViewModel {
     MemberID: number;
     NickName: string;
     ProfilePhotoURL: string;
@@ -31,7 +33,7 @@ class GetMemberInfoResViewModel {
     Interest: string;
     Job: string;
     Education: string;
-    InfoStatus: MemberPublicInfoEnum;
+    InfoStatus: Enum.MemberPublicInfoEnum;
     IsOriginalMember: boolean;
 }
 
@@ -40,16 +42,16 @@ class GetMemberInfoResViewModel {
  * 取得好友邀請清單 Response ViewModel
  * 取得您送出的好友邀請清單 Response ViewModel
  * */
-class GetFriendListResViewModel {
+export class GetFriendListResViewModel {
     MemberID: number;
     NickName: string;
     ProfilePhotoURL: string;
-    Status: MemberStatusEnum;
+    Status: Enum.MemberStatusEnum;
 }
 
 /**
  * 取得好友狀態 Response ViewModel
  * */
-class GetFriendStatusResViewModel {
-    FriendStatus: FriendStatusEnum;
+export class GetFriendStatusResViewModel {
+    FriendStatus: Enum.FriendStatusEnum;
 }

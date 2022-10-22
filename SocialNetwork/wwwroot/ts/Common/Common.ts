@@ -1,7 +1,5 @@
-﻿///** 暫無使用 */
-////String.prototype.IsNullOrEmptyOrUndefined = function () {
-////    return !this;
-////}
+﻿import { Enum, Request, Response } from "../Common/CommonInferface.js";
+//import Swal from '../../lib/sweetalert2/dist/sweetalert2.js';
 
 const Common = {
     /**
@@ -73,7 +71,7 @@ const Common = {
      * @param res 共用回應 ViewModel
      * @param confirmFunc 確認Func
      */
-    SweetAlertSuccess: <Res> (res: ResponseViewModel<Res>, confirmFunc?: Function) => {
+    SweetAlertSuccess: <Res>(res: Response.ResponseViewModel<Res>, confirmFunc?: Function) => {
         if (confirmFunc != null) {
             Swal.fire({
                 icon: 'success',
@@ -100,7 +98,7 @@ const Common = {
      * @param res 共用回應 ViewModel
      * @param confirmFunc 確認Func
      */
-    SweetAlertError: <Res> (res: ResponseViewModel<Res>, confirmFunc?: Function) => {
+    SweetAlertError: <Res>(res: Response.ResponseViewModel<Res>, confirmFunc?: Function) => {
         if (confirmFunc != null) {
             Swal.fire({
                 icon: 'error',
@@ -353,3 +351,5 @@ const Toast = Swal.mixin({
     },
     showCloseButton: true
 });
+
+export { Common, Toast };

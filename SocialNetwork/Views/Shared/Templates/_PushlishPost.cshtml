@@ -1,15 +1,21 @@
 ﻿@using SocialNetwork.Helper
 @inject IUserContext UserContext
-<script src="~/js/Template/PushlishPost.js" asp-append-version="true"></script>
-<link rel="stylesheet" href="~/css/Template/PushlishPost.css" asp-append-version="true" />
+<script type="module" src="~/js/Template/PublishPost.js" asp-append-version="true"></script>
+<link rel="stylesheet" href="~/css/Template/PublishPost.css" asp-append-version="true" />
+
+<script>
+    $(function () {
+        PublishPostPage.Init();
+    });
+</script>
 
 <div class="div_mypost">
-    <div class="post_content" onclick="ShowPublishPostContent(this)">分享今天的好心情...</div>
+    <div class="post_content" onclick="PublishPostPage.ShowPublishPostContent(this)">分享今天的好心情...</div>
     <div id="post_content_detail" class="post_content_detail_hide">
         <div class="post_content_detail_topBar">
             <div class="deploy_post_title">發佈貼文</div>
-            <input id="deploy_post_cancel" type="button" value="取消" onclick="CancelPublishPostContent(this)" />
-            <input id="deploy_post" type="button" value="發佈" onclick="PublishPost()" />
+            <input id="deploy_post_cancel" type="button" value="取消" onclick="PublishPostPage.CancelPublishPostContent(this)" />
+            <input id="deploy_post" type="button" value="發佈" onclick="PublishPostPage.PublishPost()" />
         </div>
         <div class="write_post_container">
             <textarea class="write_post" placeholder="@UserContext.User.NickName，在想些甚麼呢？"></textarea>
@@ -18,7 +24,7 @@
             <div class="photoPreview">
             </div>
             <label class="uploadPhoto_container" for="uploadPhoto">+</label>
-            <input type="file" id="uploadPhoto" accept="image/*" onchange="UploadPhoto_Change(this)" multiple />
+            <input type="file" id="uploadPhoto" accept="image/*" onchange="PublishPostPage.UploadPhoto_Change(this)" multiple />
         </div>
     </div>
 </div>

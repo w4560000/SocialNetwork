@@ -3,11 +3,12 @@
     Layout = "_Layout";
 }
 
-<script src="~/js/Home/HomePage.js" asp-append-version="true"></script>
+<script type="module" src="~/js/Home/HomePage.js" asp-append-version="true"></script>
 <link rel="stylesheet" href="~/css/Home/Index.css" asp-append-version="true" />
 <link rel="stylesheet" href="~/css/Home/HomePage.css" asp-append-version="true" />
 <script>
     $(function () {
+        HomePage.Init();
         $(".example").lightSlider({
             gallery: true, // 相本模式
             item: 1, // 顯示數量
@@ -18,6 +19,7 @@
         });
     });
 </script>
+
 <input type="text" hidden="hidden" id="query_memberID" value="@ViewBag.QueryMemberID">
 <div class="div_content">
     <div class="div_homePage_topBar"></div>
@@ -32,11 +34,11 @@
             <span class="profile_name"></span>
             <div class="div_sendMsg" style="display: none;">
                 <img class="sendMsg_icon" src="/images/sendMsg.svg">
-                <label onclick="SendMsg()">聊天</label>
+                <label onclick="HomePage.SendMsg()">聊天</label>
             </div>
             <div class="div_addFriend" style="display: none;">
                 <img class="addFriend_icon" src="/images/addFriend.svg">
-                <label class="lbl_addFriend" onclick="SendFriendInvitation()">加好友</label>
+                <label class="lbl_addFriend" onclick="Friend.SendFriendInvitation()">加好友</label>
             </div>
         </div>
         <div class="profile_detail">

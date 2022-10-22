@@ -1,7 +1,4 @@
-///** 暫無使用 */
-////String.prototype.IsNullOrEmptyOrUndefined = function () {
-////    return !this;
-////}
+//import Swal from '../../lib/sweetalert2/dist/sweetalert2.js';
 var Common = {
     /**
      * 驗證上傳圖檔的附檔名
@@ -328,3 +325,4 @@ var Toast = Swal.mixin({
     },
     showCloseButton: true
 });
+export { Common, Toast };

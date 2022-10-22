@@ -34,6 +34,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+import { API, Request, Common } from "../Common/CommonInferface.js";
 var User = /** @class */ (function () {
     function User() {
     }
@@ -49,9 +50,9 @@ var User = /** @class */ (function () {
     };
     return User;
 }());
-var user;
-$(function () {
-    return __awaiter(this, void 0, void 0, function () {
+export var user;
+export var LayoutPage = {
+    Init: function () { return __awaiter(void 0, void 0, void 0, function () {
         var friendList;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -80,69 +81,70 @@ $(function () {
                         $(".meunContent > ul").children('.index_status_select').html($(this).html());
                         $('.index_status_select').toggleClass('index_status_select_up');
                         var currentSelectStatus = (_a = $(this).attr('id')) === null || _a === void 0 ? void 0 : _a.split('_')[1];
-                        var model = new UpdateMemberStatusReqViewModel(parseInt(currentSelectStatus));
-                        UpdateMemberStatusAPI(model);
+                        var model = new Request.UpdateMemberStatusReqViewModel(parseInt(currentSelectStatus));
+                        API.UpdateMemberStatusAPI(model);
                         allOptions.toggle();
                     });
                     // 載入會員狀態
                     $("ul").children('.index_status_select').html($('#memberStatus_' + user.Status).html());
-                    return [4 /*yield*/, GetFriendListAPI()];
+                    return [4 /*yield*/, API.GetFriendListAPI()];
                 case 1:
                     friendList = _a.sent();
                     // 聊天室載入好友清單
-                    friendList.forEach(function (f) { return $('.friend_content').append(MyFriendChatHtmlTemplate(f)); });
+                    friendList.forEach(function (f) { return $('.friend_content').append(LayoutPage.MyFriendChatHtmlTemplate(f)); });
                     // 控制 Img Default Style
                     Common.ControllImgDefaultStyle();
                     // 設定 Menu 底色 (根據當前頁面)
-                    SetMenuColor();
+                    LayoutPage.SetMenuColor();
                     return [2 /*return*/];
             }
         });
-    });
-});
-/** 登出 */
-function Logout() {
-    var successFunc = function () {
-        Common.SweetAlertRedirect("/Member/Login", "登入頁");
-    };
-    var errorFunc = function () { };
-    LogoutAPI("登出中", successFunc, errorFunc, '確定是否登出?');
-}
-/**
- * 載入會員資料
- * @param _user 會員資料
- */
-function UserInit(_user) {
-    user = new User().Init(_user);
-}
-/**
- * 設定 Menu 底色 (根據當前頁面)
- * */
-function SetMenuColor() {
-    $('.index_menuTextBackground').each(function () {
-        $(this).removeClass('index_menuTextBackground_color');
-    });
-    var pathName = window.location.pathname;
-    switch (pathName) {
-        case '/':
-        case '/Home/Index':
-            $('.index_menuTextBackground[Action="Index"]').addClass('index_menuTextBackground_color');
-            break;
-        case '/Home/HomePage':
-            $('.index_menuTextBackground[Action="HomePage"]').addClass('index_menuTextBackground_color');
-            break;
-        case '/Home/MemberSetting':
-            $('.index_menuTextBackground[Action="MemberSetting"]').addClass('index_menuTextBackground_color');
-            break;
-        case '/Home/FriendManagement':
-            $('.index_menuTextBackground[Action="FriendManagement"]').addClass('index_menuTextBackground_color');
-            break;
+    }); },
+    /** 登出 */
+    Logout: function () {
+        var successFunc = function () {
+            Common.SweetAlertRedirect("/Member/Login", "登入頁");
+        };
+        var errorFunc = function () { };
+        API.LogoutAPI("登出中", successFunc, errorFunc, '確定是否登出?');
+    },
+    /**
+     * 載入會員資料
+     * @param _user 會員資料
+     */
+    UserInit: function (_user) {
+        user = new User().Init(_user);
+    },
+    /**
+     * 設定 Menu 底色 (根據當前頁面)
+     * */
+    SetMenuColor: function () {
+        $('.index_menuTextBackground').each(function () {
+            $(this).removeClass('index_menuTextBackground_color');
+        });
+        var pathName = window.location.pathname;
+        switch (pathName) {
+            case '/':
+            case '/Home/Index':
+                $('.index_menuTextBackground[Action="Index"]').addClass('index_menuTextBackground_color');
+                break;
+            case '/Home/HomePage':
+                $('.index_menuTextBackground[Action="HomePage"]').addClass('index_menuTextBackground_color');
+                break;
+            case '/Home/MemberSetting':
+                $('.index_menuTextBackground[Action="MemberSetting"]').addClass('index_menuTextBackground_color');
+                break;
+            case '/Home/FriendManagement':
+                $('.index_menuTextBackground[Action="FriendManagement"]').addClass('index_menuTextBackground_color');
+                break;
+        }
+    },
+    /**
+     * 聊天室好友 Html Template
+     * @param friend 好友資料
+     */
+    MyFriendChatHtmlTemplate: function (friend) {
+        return "\n<div class=\"friend\">\n    <div class=\"friend_img_container\">\n    <span class=\"friend_img_status_color friend_img_status_color_".concat(friend.Status, "\"></span>\n        <img class=\"friend_img\" src = \"").concat(friend.ProfilePhotoURL, "\" />\n    </div> \n<div class=\"friend_name\">").concat(friend.NickName, "</div>\n  ");
     }
-}
-/**
- * 聊天室好友 Html Template
- * @param friend 好友資料
- */
-function MyFriendChatHtmlTemplate(friend) {
-    return "\n<div class=\"friend\">\n    <div class=\"friend_img_container\">\n    <span class=\"friend_img_status_color friend_img_status_color_".concat(friend.Status, "\"></span>\n        <img class=\"friend_img\" src = \"").concat(friend.ProfilePhotoURL, "\" />\n    </div> \n<div class=\"friend_name\">").concat(friend.NickName, "</div>\n  ");
-}
+};
+window["LayoutPage"] = LayoutPage;

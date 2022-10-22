@@ -34,8 +34,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+import { Enum, Common } from "../Common/CommonInferface.js";
+//import Swal from '../../lib/sweetalert2/dist/sweetalert2.js';
 /**
- * 封裝基礎 Http Get
+ * 封裝基礎 Http
  * @param loadingMsg Loading 顯示文字
  * @param api api 路徑
  * @param successFunc 回應成功 Func
@@ -53,7 +55,7 @@ function BaseGetAPI(loadingMsg, api, successFunc, errorFunc, isNotification, isS
             method: "Get",
             url: api,
             success: function (res) {
-                if (res.Status == ResponseStatusEnum.Success) {
+                if (res.Status == Enum.ResponseStatusEnum.Success) {
                     if (isShowSuccessMsg) {
                         if (isNotification)
                             Common.SweetAlertNotification(true, res.Message);
@@ -104,7 +106,7 @@ function BasePostAPIV1(loadingMsg, api, successFunc, errorFunc, isNotification, 
             },
             async: false,
             success: function (res) {
-                if (res.Status == ResponseStatusEnum.Success) {
+                if (res.Status == Enum.ResponseStatusEnum.Success) {
                     if (isShowSuccessMsg) {
                         if (isNotification)
                             Common.SweetAlertNotification(true, res.Message);
@@ -158,7 +160,7 @@ function BasePostAPIV2(loadingMsg, api, model, successFunc, errorFunc, isNotific
             contentType: "application/json",
             async: false,
             success: function (res) {
-                if (res.Status == ResponseStatusEnum.Success) {
+                if (res.Status == Enum.ResponseStatusEnum.Success) {
                     if (isShowSuccessMsg) {
                         if (isNotification)
                             Common.SweetAlertNotification(true, res.Message);
@@ -210,7 +212,7 @@ function BasePostAPIV3(loadingMsg, api, model, successFunc, errorFunc, isNotific
         dataType: "json",
         contentType: "application/json",
         success: function (res) {
-            if (res.Status == ResponseStatusEnum.Success) {
+            if (res.Status == Enum.ResponseStatusEnum.Success) {
                 if (isShowSuccessMsg) {
                     if (isNotification)
                         Common.SweetAlertNotification(true, res.Message);
@@ -258,7 +260,7 @@ function BasePostAPIByFormData(loadingMsg, api, formData, successFunc, errorFunc
         processData: false,
         contentType: false,
         success: function (res) {
-            if (res.Status == ResponseStatusEnum.Success) {
+            if (res.Status == Enum.ResponseStatusEnum.Success) {
                 if (isShowSuccessMsg) {
                     if (isNotification)
                         Common.SweetAlertNotification(true, res.Message);
@@ -284,38 +286,38 @@ function BasePostAPIByFormData(loadingMsg, api, formData, successFunc, errorFunc
 /**
  * 登入 API
  */
-function LoginAPI(loadingMsg, model, successFunc, errorFunc) {
+export function LoginAPI(loadingMsg, model, successFunc, errorFunc) {
     BasePostAPIV3(loadingMsg, "/MemberApi/Login", model, successFunc, errorFunc);
 }
 /**
  * Google 第三方登入 API
  */
-function GoogleLoginAPI(loadingMsg, model, successFunc, errorFunc) {
+export function GoogleLoginAPI(loadingMsg, model, successFunc, errorFunc) {
     BasePostAPIV3(loadingMsg, "/MemberApi/GoogleLogin", model, successFunc, errorFunc);
 }
 /**
  * 寄送驗證碼 API
  */
-function SendVCodeAPI(loadingMsg, model, successFunc, errorFunc) {
+export function SendVCodeAPI(loadingMsg, model, successFunc, errorFunc) {
     BasePostAPIV3(loadingMsg, "/MemberApi/SendVCode", model, successFunc, errorFunc);
 }
 /**
  * 註冊 API
  */
-function SignupAPI(loadingMsg, model, successFunc, errorFunc) {
+export function SignupAPI(loadingMsg, model, successFunc, errorFunc) {
     BasePostAPIV3(loadingMsg, "/MemberApi/Signup", model, successFunc, errorFunc);
 }
 /**
  * 更新會員公開資訊 API
  */
-function UpdateMemberPublicInfoAPI(loadingMsg, model, successFunc, errorFunc) {
+export function UpdateMemberPublicInfoAPI(loadingMsg, model, successFunc, errorFunc) {
     BasePostAPIV3(loadingMsg, "/MemberApi/UpdateMemberPublicInfo", model, successFunc, errorFunc);
 }
 /**
  * 重設密碼 Step1 API
  * 申請重設密碼、建立重設密碼URL
  */
-function ResetPasswordAPI(loadingMsg, model) {
+export function ResetPasswordAPI(loadingMsg, model) {
     var successFunc = function () { };
     var errorFunc = function () { };
     BasePostAPIV3(loadingMsg, "/MemberApi/ResetPassword", model, successFunc, errorFunc);
@@ -323,19 +325,19 @@ function ResetPasswordAPI(loadingMsg, model) {
 /**
  * 重設密碼 Step2 API
  */
-function ResetPasswordConfirmAPI(loadingMsg, model, successFunc, errorFunc) {
+export function ResetPasswordConfirmAPI(loadingMsg, model, successFunc, errorFunc) {
     BasePostAPIV3(loadingMsg, "/MemberApi/ResetPasswordConfirm", model, successFunc, errorFunc);
 }
 /**
  * 登出 API
  */
-function LogoutAPI(loadingMsg, successFunc, errorFunc, confirmTitle) {
+export function LogoutAPI(loadingMsg, successFunc, errorFunc, confirmTitle) {
     Common.SweetAlertConfirm(confirmTitle, function () { return BaseGetAPI(loadingMsg, "/MemberApi/Logout", successFunc, errorFunc); });
 }
 /**
  * 更新會員狀態 API
  */
-function UpdateMemberStatusAPI(model) {
+export function UpdateMemberStatusAPI(model) {
     var successFunc = function () { };
     var errorFunc = function () { };
     var isNotification = true;
@@ -345,7 +347,7 @@ function UpdateMemberStatusAPI(model) {
 /**
  * 取得當前會員資訊 API
  */
-function GetCurrentMemberInfoAPI() {
+export function GetCurrentMemberInfoAPI() {
     return __awaiter(this, void 0, void 0, function () {
         var successFunc, errorFunc, isNotification, isShowSuccessMsg;
         return __generator(this, function (_a) {
@@ -364,7 +366,7 @@ function GetCurrentMemberInfoAPI() {
 /**
  * 取得會員資訊 API
  */
-function GetMemberInfoAPI(memberID) {
+export function GetMemberInfoAPI(memberID) {
     return __awaiter(this, void 0, void 0, function () {
         var successFunc, errorFunc, isNotification, isShowSuccessMsg;
         return __generator(this, function (_a) {
@@ -383,27 +385,27 @@ function GetMemberInfoAPI(memberID) {
 /**
  * 更新會員資訊 API
  */
-function UpdateMemberInfoAPI(loadingMsg, formData, successFunc, errorFunc, confirmTitle) {
+export function UpdateMemberInfoAPI(loadingMsg, formData, successFunc, errorFunc, confirmTitle) {
     Common.SweetAlertConfirm(confirmTitle, function () { return BasePostAPIByFormData(loadingMsg, "/MemberApi/UpdateMemberInfo", formData, successFunc, errorFunc); });
 }
 /**
  * 密碼變更 API
  */
-function ChangePasswordAPI(loadingMsg, model, successFunc, errorFunc, confirmTitle) {
+export function ChangePasswordAPI(loadingMsg, model, successFunc, errorFunc, confirmTitle) {
     Common.SweetAlertConfirm(confirmTitle, function () { return BasePostAPIV3(loadingMsg, "/MemberApi/ChangePassword", model, successFunc, errorFunc); });
 }
 // Post
 /**
  * 發佈貼文 API
  */
-function PublishPostAPI(loadingMsg, formData, successFunc, errorFunc, confirmTitle) {
+export function PublishPostAPI(loadingMsg, formData, successFunc, errorFunc, confirmTitle) {
     Common.SweetAlertConfirm(confirmTitle, function () { return BasePostAPIByFormData(loadingMsg, "/PostApi/PublishPost", formData, successFunc, errorFunc); });
 }
 // Friend
 /**
  * 取得好友清單 API
  */
-function GetFriendListAPI() {
+export function GetFriendListAPI() {
     return __awaiter(this, void 0, void 0, function () {
         var successFunc, errorFunc, isNotification, isShowSuccessMsg;
         return __generator(this, function (_a) {
@@ -422,7 +424,7 @@ function GetFriendListAPI() {
 /**
  * 取得好友邀請清單 API
  */
-function GetFriendInvitationListAPI() {
+export function GetFriendInvitationListAPI() {
     return __awaiter(this, void 0, void 0, function () {
         var successFunc, errorFunc, isNotification, isShowSuccessMsg;
         return __generator(this, function (_a) {
@@ -441,7 +443,7 @@ function GetFriendInvitationListAPI() {
 /**
  * 取得您送出的好友邀請清單 API
  */
-function GetSendFriendInvitationListAPI() {
+export function GetSendFriendInvitationListAPI() {
     return __awaiter(this, void 0, void 0, function () {
         var successFunc, errorFunc, isNotification, isShowSuccessMsg;
         return __generator(this, function (_a) {
@@ -460,7 +462,7 @@ function GetSendFriendInvitationListAPI() {
 /**
  * 取得好友狀態 API
  */
-function GetFriendStatusAPI(model) {
+export function GetFriendStatusAPI(model) {
     return __awaiter(this, void 0, void 0, function () {
         var successFunc, errorFunc, isNotification, isShowSuccessMsg;
         return __generator(this, function (_a) {
@@ -479,28 +481,28 @@ function GetFriendStatusAPI(model) {
 /**
  * 發送好友邀請 API
  */
-function SendFriendInvitationAPI(model, successFunc, confirmTitle) {
+export function SendFriendInvitationAPI(model, successFunc, confirmTitle) {
     var errorFunc = function () { };
     Common.SweetAlertConfirm(confirmTitle, function () { return BasePostAPIV3('', "/FriendApi/SendFriendInvitation", model, successFunc, errorFunc); });
 }
 /**
  * 判斷好友邀請 (接受 or 拒絕) API
  */
-function DecideFriendInvitationAPI(model, successFunc, confirmTitle) {
+export function DecideFriendInvitationAPI(model, successFunc, confirmTitle) {
     var errorFunc = function () { };
     Common.SweetAlertConfirm(confirmTitle, function () { return BasePostAPIV3('', "/FriendApi/DecideFriendInvitation", model, successFunc, errorFunc); });
 }
 /**
  * 收回好友邀請 API
  */
-function RevokeFriendInvitationAPI(model, successFunc, confirmTitle) {
+export function RevokeFriendInvitationAPI(model, successFunc, confirmTitle) {
     var errorFunc = function () { };
     Common.SweetAlertConfirm(confirmTitle, function () { return BasePostAPIV3('', "/FriendApi/RevokeFriendInvitation", model, successFunc, errorFunc); });
 }
 /**
  * 刪除好友 API
  */
-function DeleteFriendAPI(model, successFunc, confirmTitle) {
+export function DeleteFriendAPI(model, successFunc, confirmTitle) {
     var errorFunc = function () { };
     Common.SweetAlertConfirm(confirmTitle, function () { return BasePostAPIV3('', "/FriendApi/DeleteFriend", model, successFunc, errorFunc); });
 }

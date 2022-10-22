@@ -34,40 +34,37 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-$(function () {
-    return __awaiter(this, void 0, void 0, function () {
+import { API, Enum, Common } from "../Common/CommonInferface.js";
+export var FriendManagementPage = {
+    Init: function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, ToggleTab("MyFriend")];
+                case 0: return [4 /*yield*/, FriendManagementPage.ToggleTab("MyFriend")];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];
             }
         });
-    });
-});
-/**
- * 切換 Tab
- * @param tab tab名稱
- */
-function ToggleTab(tab) {
-    return __awaiter(this, void 0, void 0, function () {
+    }); },
+    /**
+     * 切換 Tab
+     * @param tab tab名稱
+     */
+    ToggleTab: function (tab) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, SetFriendManagementTab($(".div_firend_tab_name_container[Tab ='".concat(tab, "']")).get(0))];
+                case 0: return [4 /*yield*/, FriendManagementPage.SetFriendManagementTab($(".div_firend_tab_name_container[Tab ='".concat(tab, "']")).get(0))];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];
             }
         });
-    });
-}
-/**
- * 切換好友管理 Tab
- * @param e HTMLElement
- * */
-function SetFriendManagementTab(e) {
-    return __awaiter(this, void 0, void 0, function () {
+    }); },
+    /**
+     * 切換好友管理 Tab
+     * @param e HTMLElement
+     * */
+    SetFriendManagementTab: function (e) { return __awaiter(void 0, void 0, void 0, function () {
         var tab, _a, friendList, friendInvitatioinList, sendFriendInvitatioinList;
         return __generator(this, function (_b) {
             switch (_b.label) {
@@ -86,30 +83,30 @@ function SetFriendManagementTab(e) {
                     return [3 /*break*/, 7];
                 case 1:
                     $('.MyFriend').empty();
-                    return [4 /*yield*/, GetFriendListAPI()];
+                    return [4 /*yield*/, API.GetFriendListAPI()];
                 case 2:
                     friendList = _b.sent();
-                    friendList.forEach(function (f) { return $('.MyFriend').append(MyFriendHtmlTemplate(f)); });
+                    friendList.forEach(function (f) { return $('.MyFriend').append(FriendManagementPage.MyFriendHtmlTemplate(f)); });
                     $('.MyFriend').show();
                     $('.FriendInvitation').hide();
                     $('.SendFriendInvitation').hide();
                     return [3 /*break*/, 7];
                 case 3:
                     $('.FriendInvitation').empty();
-                    return [4 /*yield*/, GetFriendInvitationListAPI()];
+                    return [4 /*yield*/, API.GetFriendInvitationListAPI()];
                 case 4:
                     friendInvitatioinList = _b.sent();
-                    friendInvitatioinList.forEach(function (f) { return $('.FriendInvitation').append(FriendInvitationHtmlTemplate(f)); });
+                    friendInvitatioinList.forEach(function (f) { return $('.FriendInvitation').append(FriendManagementPage.FriendInvitationHtmlTemplate(f)); });
                     $('.MyFriend').hide();
                     $('.FriendInvitation').show();
                     $('.SendFriendInvitation').hide();
                     return [3 /*break*/, 7];
                 case 5:
                     $('.SendFriendInvitation').empty();
-                    return [4 /*yield*/, GetSendFriendInvitationListAPI()];
+                    return [4 /*yield*/, API.GetSendFriendInvitationListAPI()];
                 case 6:
                     sendFriendInvitatioinList = _b.sent();
-                    sendFriendInvitatioinList.forEach(function (f) { return $('.SendFriendInvitation').append(SendFriendInvitationHtmlTemplate(f)); });
+                    sendFriendInvitatioinList.forEach(function (f) { return $('.SendFriendInvitation').append(FriendManagementPage.SendFriendInvitationHtmlTemplate(f)); });
                     $('.MyFriend').hide();
                     $('.FriendInvitation').hide();
                     $('.SendFriendInvitation').show();
@@ -120,26 +117,27 @@ function SetFriendManagementTab(e) {
                     return [2 /*return*/];
             }
         });
-    });
-}
-/**
- * 我的好友 Html Template
- * @param member 會員
- */
-function MyFriendHtmlTemplate(member) {
-    return "\n<div class=\"div_friend_profile\" style=\"height: 360px;\">\n    <a href=\"/Home/HomePage/".concat(member.MemberID, "\" target=\"_blank\">\n        <img class=\"div_friend_img\" src=\"").concat(member.ProfilePhotoURL, "\">\n    </a>\n    <div class=\"div_friend_name_content\">\n        <a class=\"div_friend_name\" href=\"/Home/HomePage/").concat(member.MemberID, "\" target=\"_blank\">").concat(member.NickName, "</a>\n    </div>\n    <input class=\"div_frient_button_gray\" type=\"button\" value=\"\u79FB\u9664\u597D\u53CB\" onclick=\"Friend.DeleteFriend(").concat(member.MemberID, ", '").concat(member.NickName, "', () => ToggleTab('MyFriend'))\"/>\n</div>\n  ");
-}
-/**
- * 好友邀請 Html Template
- * @param member 會員
- */
-function FriendInvitationHtmlTemplate(member) {
-    return "\n<div class=\"div_friend_profile\">\n    <a href=\"/Home/HomePage/".concat(member.MemberID, "\" target=\"_blank\">\n        <img class=\"div_friend_img\" src=\"").concat(member.ProfilePhotoURL, "\">\n    </a>\n    <div class=\"div_friend_name_content\">\n        <a class=\"div_friend_name\" href=\"/Home/HomePage/").concat(member.MemberID, "\" target=\"_blank\">").concat(member.NickName, "</a>\n    </div>\n    <input class=\"div_frient_button_pink\" type=\"button\" value=\"\u63A5\u53D7\" onclick=\"Friend.DecideFriendInvitation(").concat(member.MemberID, ", '").concat(member.NickName, "', ").concat(DecideFriendInvitationEnum.接受, ", () => ToggleTab('FriendInvitation'))\"/>\n    <input class=\"div_frient_button_gray\" type=\"button\" value=\"\u62D2\u7D55\" onclick=\"Friend.DecideFriendInvitation(").concat(member.MemberID, ", '").concat(member.NickName, "', ").concat(DecideFriendInvitationEnum.拒絕, ", () => ToggleTab('FriendInvitation'))\"/>\n</div>\n  ");
-}
-/**
- * 您送出的好友邀請 Html Template
- * @param member 會員
- */
-function SendFriendInvitationHtmlTemplate(member) {
-    return "\n<div class=\"div_friend_profile\" style=\"height: 360px;\">\n    <a href=\"/Home/HomePage/".concat(member.MemberID, "\" target=\"_blank\">\n        <img class=\"div_friend_img\" src=\"").concat(member.ProfilePhotoURL, "\">\n    </a>\n    <div class=\"div_friend_name_content\">\n        <a class=\"div_friend_name\" href=\"/Home/HomePage/").concat(member.MemberID, "\" target=\"_blank\">").concat(member.NickName, "</a>\n    </div>\n    <input class=\"div_frient_button_gray\" type=\"button\" value=\"\u6536\u56DE\u9080\u8ACB\" onclick=\"Friend.RevokeFriendInvitation(").concat(member.MemberID, ", '").concat(member.NickName, "', () => ToggleTab('SendFriendInvitation'))\"/>\n</div>\n  ");
-}
+    }); },
+    /**
+     * 我的好友 Html Template
+     * @param member 會員
+     */
+    MyFriendHtmlTemplate: function (member) {
+        return "\n<div class=\"div_friend_profile\" style=\"height: 360px;\">\n    <a href=\"/Home/HomePage/".concat(member.MemberID, "\" target=\"_blank\">\n        <img class=\"div_friend_img\" src=\"").concat(member.ProfilePhotoURL, "\">\n    </a>\n    <div class=\"div_friend_name_content\">\n        <a class=\"div_friend_name\" href=\"/Home/HomePage/").concat(member.MemberID, "\" target=\"_blank\">").concat(member.NickName, "</a>\n    </div>\n    <input class=\"div_frient_button_gray\" type=\"button\" value=\"\u79FB\u9664\u597D\u53CB\" onclick=\"Friend.DeleteFriend(").concat(member.MemberID, ", '").concat(member.NickName, "', () => ToggleTab('MyFriend'))\"/>\n</div>\n  ");
+    },
+    /**
+     * 好友邀請 Html Template
+     * @param member 會員
+     */
+    FriendInvitationHtmlTemplate: function (member) {
+        return "\n<div class=\"div_friend_profile\">\n    <a href=\"/Home/HomePage/".concat(member.MemberID, "\" target=\"_blank\">\n        <img class=\"div_friend_img\" src=\"").concat(member.ProfilePhotoURL, "\">\n    </a>\n    <div class=\"div_friend_name_content\">\n        <a class=\"div_friend_name\" href=\"/Home/HomePage/").concat(member.MemberID, "\" target=\"_blank\">").concat(member.NickName, "</a>\n    </div>\n    <input class=\"div_frient_button_pink\" type=\"button\" value=\"\u63A5\u53D7\" onclick=\"Friend.DecideFriendInvitation(").concat(member.MemberID, ", '").concat(member.NickName, "', ").concat(Enum.DecideFriendInvitationEnum.接受, ", () => ToggleTab('FriendInvitation'))\"/>\n    <input class=\"div_frient_button_gray\" type=\"button\" value=\"\u62D2\u7D55\" onclick=\"Friend.DecideFriendInvitation(").concat(member.MemberID, ", '").concat(member.NickName, "', ").concat(Enum.DecideFriendInvitationEnum.拒絕, ", () => ToggleTab('FriendInvitation'))\"/>\n</div>\n  ");
+    },
+    /**
+     * 您送出的好友邀請 Html Template
+     * @param member 會員
+     */
+    SendFriendInvitationHtmlTemplate: function (member) {
+        return "\n<div class=\"div_friend_profile\" style=\"height: 360px;\">\n    <a href=\"/Home/HomePage/".concat(member.MemberID, "\" target=\"_blank\">\n        <img class=\"div_friend_img\" src=\"").concat(member.ProfilePhotoURL, "\">\n    </a>\n    <div class=\"div_friend_name_content\">\n        <a class=\"div_friend_name\" href=\"/Home/HomePage/").concat(member.MemberID, "\" target=\"_blank\">").concat(member.NickName, "</a>\n    </div>\n    <input class=\"div_frient_button_gray\" type=\"button\" value=\"\u6536\u56DE\u9080\u8ACB\" onclick=\"Friend.RevokeFriendInvitation(").concat(member.MemberID, ", '").concat(member.NickName, "', () => ToggleTab('SendFriendInvitation'))\"/>\n</div>\n  ");
+    }
+};
+window["FriendManagementPage"] = FriendManagementPage;
