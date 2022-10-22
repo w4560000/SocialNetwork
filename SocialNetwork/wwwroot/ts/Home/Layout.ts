@@ -114,12 +114,13 @@ function SetMenuColor() {
 
 /**
  * 聊天室好友 Html Template
- * @param member 會員
+ * @param friend 好友資料
  */
 function MyFriendChatHtmlTemplate(friend: GetFriendListResViewModel) {
     return `
 <div class="friend">
     <div class="friend_img_container">
+    <span class="friend_img_status_color friend_img_status_color_${friend.Status}"></span>
         <img class="friend_img" src = "${friend.ProfilePhotoURL}" />
     </div> 
 <div class="friend_name">${friend.NickName}</div>

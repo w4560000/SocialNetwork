@@ -312,6 +312,7 @@ function BasePostAPIV3(loadingMsg, api, model, successFunc, errorFunc, isNotific
     isShowSuccessMsg = true;
   }
 
+  debugger;
   if (loadingMsg) Common.SweetAlertLoading(loadingMsg);
   $.ajax({
     method: "POST",
@@ -464,7 +465,9 @@ function UpdateMemberStatusAPI(model) {
 
   var errorFunc = function errorFunc() {};
 
-  BasePostAPIV3('', "/MemberApi/UpdateMemberStatus", model, successFunc, errorFunc);
+  var isNotification = true;
+  var isShowSuccessMsg = true;
+  BasePostAPIV3('', "/MemberApi/UpdateMemberStatus", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 /**
  * 取得當前會員資訊 API

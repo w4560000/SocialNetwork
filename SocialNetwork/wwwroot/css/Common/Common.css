@@ -12,6 +12,9 @@ body {
   font-weight: 600;
   overflow-x: hidden;
   overflow-y: auto;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
   user-select: none;
 }
 
@@ -54,6 +57,9 @@ input {
 }
 
 span, input[type=text], input[type=password] {
+  -moz-user-select: text;
+  -webkit-user-select: text;
+  -ms-user-select: text;
   user-select: text;
 }
 
@@ -190,7 +196,7 @@ input[type=date]::-webkit-calendar-picker-indicator {
   justify-content: center;
   margin-top: 10%;
   font-size: 15pt;
-  color: #FF5A5A;
+  color: red;
   font-weight: 600;
   text-align: center;
   height: 80px;
@@ -465,7 +471,6 @@ a.logo_index {
   height: 1em;
   border-radius: 50%;
   background-color: #8AD98A;
-  border: 1px solid #E8E8E8;
   vertical-align: middle;
   margin: 0 5px 5px -20px;
 }
@@ -476,7 +481,6 @@ a.logo_index {
   height: 1em;
   border-radius: 50%;
   background-color: #E8E8E8;
-  border: 1px solid #E8E8E8;
   vertical-align: middle;
   margin: 0 5px 5px -20px;
 }
@@ -487,7 +491,6 @@ a.logo_index {
   height: 1em;
   border-radius: 50%;
   background-color: red;
-  border: 1px solid #E8E8E8;
   vertical-align: middle;
   margin: 0 5px 5px -20px;
 }
@@ -617,12 +620,35 @@ a.logo_index {
 .div_friend .friend_container .friend_content .friend .friend_img_container {
   width: 35px;
   height: 35px;
+  position: relative;
+}
+.div_friend .friend_container .friend_content .friend .friend_img_container .friend_img_status_color {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 2px solid #FFFFFF;
+  vertical-align: middle;
+  bottom: 8px;
+  right: 8px;
+  transform: translate(75%, 75%);
+  position: absolute;
+  z-index: 999;
+}
+.div_friend .friend_container .friend_content .friend .friend_img_container .friend_img_status_color_1 {
+  background-color: #8AD98A;
+}
+.div_friend .friend_container .friend_content .friend .friend_img_container .friend_img_status_color_2 {
+  background-color: red;
+}
+.div_friend .friend_container .friend_content .friend .friend_img_container .friend_img_status_color_3 {
+  background-color: #E8E8E8;
 }
 .div_friend .friend_container .friend_content .friend .friend_img_container .friend_img {
   border-radius: 50%;
   border: 1px #F2A1A1 solid;
   width: 100%;
   height: 100%;
+  box-sizing: border-box;
 }
 .div_friend .friend_container .friend_content .friend .friend_name {
   font-size: 12pt;

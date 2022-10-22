@@ -141,8 +141,8 @@ function SetMenuColor() {
 }
 /**
  * 聊天室好友 Html Template
- * @param member 會員
+ * @param friend 好友資料
  */
 function MyFriendChatHtmlTemplate(friend) {
-    return "\n<div class=\"friend\">\n    <div class=\"friend_img_container\">\n        <img class=\"friend_img\" src = \"".concat(friend.ProfilePhotoURL, "\" />\n    </div> \n<div class=\"friend_name\">").concat(friend.NickName, "</div>\n  ");
+    return "\n<div class=\"friend\">\n    <div class=\"friend_img_container\">\n    <span class=\"friend_img_status_color friend_img_status_color_".concat(friend.Status, "\"></span>\n        <img class=\"friend_img\" src = \"").concat(friend.ProfilePhotoURL, "\" />\n    </div> \n<div class=\"friend_name\">").concat(friend.NickName, "</div>\n  ");
 }

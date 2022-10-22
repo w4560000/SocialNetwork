@@ -338,7 +338,9 @@ function LogoutAPI(loadingMsg, successFunc, errorFunc, confirmTitle) {
 function UpdateMemberStatusAPI(model) {
     var successFunc = function () { };
     var errorFunc = function () { };
-    BasePostAPIV3('', "/MemberApi/UpdateMemberStatus", model, successFunc, errorFunc);
+    var isNotification = true;
+    var isShowSuccessMsg = true;
+    BasePostAPIV3('', "/MemberApi/UpdateMemberStatus", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 /**
  * 取得當前會員資訊 API

@@ -20,8 +20,13 @@
     <link href="~/lib/lightslider/dist/css/lightslider.min.css" rel="stylesheet" asp-append-version="true" />
 
     <environment include="Development">
-        <script src="~/js/bundle/Common.js" asp-append-version="true"></script>
-        <link href="~/css/bundle/Common.css" rel="stylesheet" asp-append-version="true" />
+        <script src="~/js/Common/Common.js" asp-append-version="true"></script>
+        <script src="~/js/Common/API.js" asp-append-version="true"></script>
+        <script src="~/js/Common/Enum.js" asp-append-version="true"></script>
+        <script src="~/js/Common/Friend.js" asp-append-version="true"></script>
+        <script src="~/js/Common/Request.js" asp-append-version="true"></script>
+        <script src="~/js/Common/Response.js" asp-append-version="true"></script>
+        <link href="~/css/Common/Common.css" rel="stylesheet" asp-append-version="true" />
     </environment>
     <environment exclude="Development">
         <script src="~/js/bundle/Common.min.js" asp-append-version="true"></script>

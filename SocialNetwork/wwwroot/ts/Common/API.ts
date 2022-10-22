@@ -351,7 +351,10 @@ function UpdateMemberStatusAPI(model: UpdateMemberStatusReqViewModel): void {
     let successFunc = () => { };
     let errorFunc = () => { };
 
-    BasePostAPIV3<UpdateMemberStatusReqViewModel>('', "/MemberApi/UpdateMemberStatus", model, successFunc, errorFunc);
+    let isNotification = true;
+    let isShowSuccessMsg = true;
+
+    BasePostAPIV3<UpdateMemberStatusReqViewModel>('', "/MemberApi/UpdateMemberStatus", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 
 /**

@@ -5,12 +5,14 @@
   background-color: #FFFFFF;
   border-radius: 5px;
   margin: auto;
-  margin-top: 3%; }
+  margin-top: 3%;
+}
 
 .inputbox_text {
   font-size: 20pt;
   padding-left: 15px;
-  line-height: 50px; }
+  line-height: 50px;
+}
 
 .btn_loginPage {
   width: 350px;
@@ -20,10 +22,12 @@
   background-color: #F2A1A1;
   color: #FFFFFF;
   font-weight: 600;
-  outline: 0; }
+  outline: 0;
+}
 
 .btn_loginPage:hover {
-  background-color: #D68D8D; }
+  background-color: #D68D8D;
+}
 
 .btn_singup, .btn_info {
   width: 130px;
@@ -33,20 +37,25 @@
   background-color: #F2A1A1;
   color: #FFFFFF;
   font-weight: 700;
-  outline: 0; }
+  outline: 0;
+}
 
 .btn_singup:hover, .btn_info:hover {
-  border: 1px solid #FFFFFF; }
+  border: 1px solid #FFFFFF;
+}
 
 .input_login {
-  width: 330px; }
+  width: 330px;
+}
 
 .input_sinup {
-  width: 430px; }
+  width: 430px;
+}
 
 .signupStyle {
   width: 700px;
-  height: 720px; }
+  height: 720px;
+}
 
 .singupText {
   font-size: 16pt;
@@ -54,7 +63,8 @@
   position: relative;
   bottom: 50%;
   right: 5%;
-  font-weight: 600; }
+  font-weight: 600;
+}
 
 .singupTextBackground {
   width: 90%;
@@ -62,7 +72,8 @@
   background-color: #FFE5E5;
   border-radius: 25px;
   position: relative;
-  top: 20%; }
+  top: 20%;
+}
 
 .InfoTextBackground {
   width: 50px;
@@ -71,47 +82,57 @@
   border-radius: 25px;
   position: relative;
   top: 20%;
-  right: 15px; }
+  right: 15px;
+}
 
 .singupContent {
   display: flex;
   align-items: center;
   justify-content: left;
-  margin: 3% 9%; }
+  margin: 3% 9%;
+}
 
 .singupInputText {
   width: 100px;
-  height: 30px; }
+  height: 30px;
+}
 
 .InfoInputText {
-  height: 30px; }
+  height: 30px;
+}
 
 .linediv {
   display: flex;
   align-content: center;
-  justify-content: center; }
+  justify-content: center;
+}
 
 .lineStyle {
   width: 80%;
   height: 1px;
-  background-color: #E8E8E8; }
+  background-color: #E8E8E8;
+}
 
 .forgotPassword {
   display: flex;
-  justify-content: center; }
+  justify-content: center;
+}
 
 .forgotPasswordWindow {
   width: 700px;
-  height: 330px; }
+  height: 330px;
+}
 
 .btn_forgotPassword {
   background: none;
   color: #F2A1A1;
   font-size: 14pt;
-  margin-top: 3%; }
+  margin-top: 3%;
+}
 
 .btn_forgotPassword:hover {
-  color: #D68D8D; }
+  color: #D68D8D;
+}
 
 .btn_Verification {
   height: 48px;
@@ -120,24 +141,29 @@
   background-color: #F2A1A1;
   color: #FFFFFF;
   font-weight: 600;
-  outline: 0; }
+  outline: 0;
+}
 
 .btn_Verification:hover {
-  background-color: #D68D8D; }
+  background-color: #D68D8D;
+}
 
 .subTitle {
   display: flex;
   justify-content: center;
-  align-items: center; }
+  align-items: center;
+}
 
 .InfoIcon {
   width: 90px;
   margin-left: 10px;
   right: 0px;
-  cursor: pointer; }
+  cursor: pointer;
+}
 
 .InfoInputdiv {
-  display: contents; }
+  display: contents;
+}
 
 /*隱藏時間選擇按鈕文字*/
 #brithday_datepicker {
@@ -147,18 +173,22 @@
   overflow: hidden;
   background: none;
   margin: auto;
-  position: absolute; }
+  position: absolute;
+}
 
 .DateText {
   margin: auto;
-  font-size: 14pt; }
+  font-size: 14pt;
+}
 
 .DateInput {
   width: 85px;
   padding-left: 0 !important;
-  text-align: center; }
+  text-align: center;
+}
 
 .DateIcon {
   display: flex;
   align-items: center;
-  justify-content: center; }
+  justify-content: center;
+}

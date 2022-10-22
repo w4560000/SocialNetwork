@@ -13,6 +13,9 @@ body {
     font-weight: 600;
     overflow-x: hidden;
     overflow-y: auto;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
     user-select: none;
 }
 
@@ -56,6 +59,9 @@ input {
 }
 
 span, input[type="text"], input[type="password"] {
+    -moz-user-select: text;
+    -webkit-user-select: text;
+    -ms-user-select: text;
     user-select: text;
 }
 
@@ -217,7 +223,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .input-error {
-    border: 2px solid red !important;
+    border: 2px solid $Color_R1 !important;
 }
 
 /* 客製化 SweetAlert2 */
@@ -248,7 +254,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     border-radius: 5px !important;
 }
 
-.swal2-styled{
+.swal2-styled {
     padding: 0 !important;
 }
 
@@ -373,7 +379,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     margin: 30px auto;
     border-radius: 5px;
 
-    .banner_img{
+    .banner_img {
         width: 100%;
         height: 100%;
     }
@@ -479,7 +485,6 @@ a.logo_index {
     height: 1em;
     border-radius: 50%;
     background-color: $Color_GN1;
-    border: 1px solid $Color_G1;
     vertical-align: middle;
     margin: 0 5px 5px -20px;
 }
@@ -490,7 +495,6 @@ a.logo_index {
     height: 1em;
     border-radius: 50%;
     background-color: $Color_G1;
-    border: 1px solid $Color_G1;
     vertical-align: middle;
     margin: 0 5px 5px -20px;
 }
@@ -500,8 +504,7 @@ a.logo_index {
     width: 1em;
     height: 1em;
     border-radius: 50%;
-    background-color: red;
-    border: 1px solid $Color_G1;
+    background-color: $Color_R1;
     vertical-align: middle;
     margin: 0 5px 5px -20px;
 }
@@ -643,12 +646,39 @@ a.logo_index {
                 .friend_img_container {
                     width: 35px;
                     height: 35px;
+                    position: relative;
+
+                    .friend_img_status_color {
+                        width: 8px;
+                        height: 8px;
+                        border-radius: 50%;
+                        border: 2px solid $Color_W1;
+                        vertical-align: middle;
+                        bottom: 8px;
+                        right: 8px;
+                        transform: translate(75%, 75%);
+                        position: absolute;
+                        z-index: 999;
+                    }
+
+                    .friend_img_status_color_1 {
+                        background-color: $Color_GN1;
+                    }
+
+                    .friend_img_status_color_2 {
+                        background-color: $Color_R1;
+                    }
+
+                    .friend_img_status_color_3 {
+                        background-color: $Color_G1;
+                    }
 
                     .friend_img {
                         border-radius: 50%;
                         border: 1px $Color_PK2 solid;
                         width: 100%;
                         height: 100%;
+                        box-sizing: border-box;
                     }
                 }
 
