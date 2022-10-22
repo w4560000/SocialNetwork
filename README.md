@@ -33,4 +33,5 @@ docker-compose up -d
 
 ## 開發注意事項
 
-- 若有更新 bundleconfig.json，記得重新 build Gulp 才會 bundle .js、.css
+- npm install後，build Gulp Task installLib 會將 node_modules 指定的第三方套件 搬移至 wwwroot/lib 底下
+- 暫時停用 (bundleconfig.json，build Gulp 才會 bundle min.js、min.css)

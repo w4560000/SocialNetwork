@@ -46,31 +46,31 @@ function installLib() {
     return merge(tasks);
 }
 
-function minJs() {
-    var tasks = getBundles(regex.js).map((bundle) =>
-        gulp.src(bundle.inputFiles, { base: "." })
-            .pipe(concat(bundle.outputFileName))
-            .pipe(
-                babel({
-                    presets: ['@babel/env'], // 使用預設環境編譯
-                    minified: bundle.minify.enabled,
-                }))
-            .pipe(gulp.dest(".")));
+//function minJs() {
+//    var tasks = getBundles(regex.js).map((bundle) =>
+//        gulp.src(bundle.inputFiles, { base: "." })
+//            .pipe(concat(bundle.outputFileName))
+//            .pipe(
+//                babel({
+//                    presets: ['@babel/env'], // 使用預設環境編譯
+//                    minified: bundle.minify.enabled,
+//                }))
+//            .pipe(gulp.dest(".")));
 
-    return merge(tasks);
-}
+//    return merge(tasks);
+//}
 
-function minCss() {
-    var tasks = getBundles(regex.css).map((bundle) =>
-            bundle.minify.enabled ?
-                gulp.src(bundle.inputFiles, { base: "." }).pipe(concat(bundle.outputFileName)).pipe(cssmin()).pipe(gulp.dest(".")) :
-            gulp.src(bundle.inputFiles, { base: "." }).pipe(concat(bundle.outputFileName)).pipe(gulp.dest(".")));
+//function minCss() {
+//    var tasks = getBundles(regex.css).map((bundle) =>
+//            bundle.minify.enabled ?
+//                gulp.src(bundle.inputFiles, { base: "." }).pipe(concat(bundle.outputFileName)).pipe(cssmin()).pipe(gulp.dest(".")) :
+//            gulp.src(bundle.inputFiles, { base: "." }).pipe(concat(bundle.outputFileName)).pipe(gulp.dest(".")));
 
-    return merge(tasks);
-}
+//    return merge(tasks);
+//}
 
-gulp.task(clean);
+//gulp.task(clean);
 gulp.task('installLib', gulp.series(cleanLib, installLib));
-gulp.task(minJs);
-gulp.task(minCss);
-gulp.task("min", gulp.series(clean, minJs, minCss));
+//gulp.task(minJs);
+//gulp.task(minCss);
+//gulp.task("min", gulp.series(clean, minJs, minCss));
