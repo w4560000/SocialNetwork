@@ -312,7 +312,6 @@ function BasePostAPIV3(loadingMsg, api, model, successFunc, errorFunc, isNotific
     isShowSuccessMsg = true;
   }
 
-  debugger;
   if (loadingMsg) Common.SweetAlertLoading(loadingMsg);
   $.ajax({
     method: "POST",
