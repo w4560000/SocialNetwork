@@ -19,6 +19,7 @@
     "@babel/core": "^7.18.9",
     "@babel/preset-env": "^7.18.9",
     "@microsoft/signalr": "^6.0.10",
+    "@microsoft/signalr-protocol-msgpack": "^6.0.10",
     "@types/google.accounts": "^0.0.2",
     "@types/jquery": "^3.5.14",
     "@types/jqueryui": "^1.12.16",

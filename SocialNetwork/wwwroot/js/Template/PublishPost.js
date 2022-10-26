@@ -1,4 +1,4 @@
-import { API, Common } from "../Common/CommonInferface.js";
+import { API, Common } from "../Common/Index.js";
 var tempFileList = [];
 export var PublishPostPage = {
     Init: function () {

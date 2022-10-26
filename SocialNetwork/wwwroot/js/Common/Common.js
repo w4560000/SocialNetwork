@@ -1,4 +1,3 @@
-//import Swal from '../../lib/sweetalert2/dist/sweetalert2.js';
 var Common = {
     /**
      * 驗證上傳圖檔的附檔名

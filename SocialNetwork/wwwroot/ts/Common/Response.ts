@@ -1,4 +1,4 @@
-﻿import { API, Enum, Request, Common } from "../Common/CommonInferface.js";
+﻿import { API, Enum, Request, Common } from "../Common/Index.js";
 
 /**
  * 共用回應 ViewModel

@@ -34,7 +34,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import { API, Enum, Request, Common } from "../Common/CommonInferface.js";
+import { API, Enum, Request, Common } from "../Common/Index.js";
 import { user } from "../Home/Layout.js";
 var tempBackgroundFile;
 var tempProfilePhotoFile;

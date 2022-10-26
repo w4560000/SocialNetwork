@@ -1,4 +1,5 @@
-﻿import { API, Enum, Request, Response, Common } from "../Common/CommonInferface.js";
+﻿import { API, Enum, Request, Response, Common } from "../Common/Index.js";
+//import { ChatHubConnection }  from "../Common/ChatHubConnection.js";
 
 class User {
     MemberID: number;
@@ -23,6 +24,7 @@ class User {
 }
 
 export var user: User;
+//var chatHubConnection: ChatHubConnection = new ChatHubConnection();
 
 export const LayoutPage = {
     Init: async () => {
@@ -60,13 +62,15 @@ export const LayoutPage = {
         // 載入會員狀態
         $("ul").children('.index_status_select').html($('#memberStatus_' + user.Status).html());
 
+        // 載入聊天室好友清單
         var friendList = await API.GetFriendListAPI();
-
-        // 聊天室載入好友清單
-        friendList.forEach(f => $('.friend_content').append(LayoutPage.MyFriendChatHtmlTemplate(f)));
+        LayoutPage.ReflashFriendList(friendList);
 
         // 控制 Img Default Style
         Common.ControllImgDefaultStyle();
+
+        // 建立 chatHubConnection 連線
+        //chatHubConnection.connect(LayoutPage.ReflashFriendStatus);
 
         // 設定 Menu 底色 (根據當前頁面)
         LayoutPage.SetMenuColor();
@@ -111,6 +115,22 @@ export const LayoutPage = {
                 $('.index_menuTextBackground[Action="FriendManagement"]').addClass('index_menuTextBackground_color');
                 break;
         }
+    },
+    /**
+     * 刷新聊天室好友狀態 (ChatHubConnection)
+     * */
+    ReflashFriendStatus: () => {
+        debugger
+    },
+    /**
+     * 刷新聊天室好友清單
+     * @param friendList 好友清單
+     */
+    ReflashFriendList: (friendList: Array<Response.GetFriendListResViewModel>) => {
+        $('.friend_content').empty();
+
+        // 聊天室載入好友清單
+        friendList.forEach(f => $('.friend_content').append(LayoutPage.MyFriendChatHtmlTemplate(f)));
     },
     /**
      * 聊天室好友 Html Template

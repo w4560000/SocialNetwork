@@ -1,4 +1,4 @@
-import { API, Request, Common } from "../Common/CommonInferface.js";
+import { API, Request, Common } from "../Common/Index.js";
 export var LoginPage = {
     Init: function () {
         // 日期選擇元件

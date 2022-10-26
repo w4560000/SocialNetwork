@@ -1,5 +1,4 @@
-﻿import { Enum, Request, Response } from "../Common/CommonInferface.js";
-//import Swal from '../../lib/sweetalert2/dist/sweetalert2.js';
+﻿import { Enum, Request, Response } from "../Common/Index.js";
 
 const Common = {
     /**

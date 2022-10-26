@@ -1,4 +1,4 @@
-import { API, Enum, Request } from "../Common/CommonInferface.js";
+import { API, Enum, Request } from "../Common/Index.js";
 export var Friend = {
     /**
      * 發送好友邀請

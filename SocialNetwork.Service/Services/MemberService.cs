@@ -493,7 +493,7 @@ outline: 0;";
         /// </summary>
         /// <param name="memberID">會員編號</param>
         /// <param name="status">會員狀態</param>
-        private async Task SetMemberStatusForCookie(int memberID, MemberStatusEnum status)
+        private void SetMemberStatusForCookie(int memberID, MemberStatusEnum status)
         {
             if (this.MemberRepository.TryGetEntity(memberID, out Member member))
             {
@@ -512,8 +512,8 @@ outline: 0;";
                 var token = this.JwtHelper.GenerateToken(userInfo);
                 this.HttpContext.Response.Cookies.AddJwtTokenToCookie(token);
 
-                // 會員在線狀態 存入 Redis
-                await this.CacheHelper.ResetAsync($"Member:{userInfo.MemberID}", () => userInfo);
+                // 會員在線狀態 存入 Redis 暫時不存
+                // await this.CacheHelper.ResetAsync($"Member:{userInfo.MemberID}", () => userInfo);
             }
         }
     }

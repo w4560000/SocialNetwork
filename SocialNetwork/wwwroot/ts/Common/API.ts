@@ -1,5 +1,4 @@
-﻿import { Enum, Request, Response, Common } from "../Common/CommonInferface.js";
-//import Swal from '../../lib/sweetalert2/dist/sweetalert2.js';
+﻿import { Enum, Request, Response, Common } from "../Common/Index.js";
 
 /**
  * 封裝基礎 Http 

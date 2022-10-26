@@ -34,7 +34,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import { API, Request, Common } from "../Common/CommonInferface.js";
+import { API, Request, Common } from "../Common/Index.js";
+//import { ChatHubConnection }  from "../Common/ChatHubConnection.js";
 var User = /** @class */ (function () {
     function User() {
     }
@@ -51,6 +52,7 @@ var User = /** @class */ (function () {
     return User;
 }());
 export var user;
+//var chatHubConnection: ChatHubConnection = new ChatHubConnection();
 export var LayoutPage = {
     Init: function () { return __awaiter(void 0, void 0, void 0, function () {
         var friendList;
@@ -90,10 +92,11 @@ export var LayoutPage = {
                     return [4 /*yield*/, API.GetFriendListAPI()];
                 case 1:
                     friendList = _a.sent();
-                    // 聊天室載入好友清單
-                    friendList.forEach(function (f) { return $('.friend_content').append(LayoutPage.MyFriendChatHtmlTemplate(f)); });
+                    LayoutPage.ReflashFriendList(friendList);
                     // 控制 Img Default Style
                     Common.ControllImgDefaultStyle();
+                    // 建立 chatHubConnection 連線
+                    //chatHubConnection.connect(LayoutPage.ReflashFriendStatus);
                     // 設定 Menu 底色 (根據當前頁面)
                     LayoutPage.SetMenuColor();
                     return [2 /*return*/];
@@ -138,6 +141,21 @@ export var LayoutPage = {
                 $('.index_menuTextBackground[Action="FriendManagement"]').addClass('index_menuTextBackground_color');
                 break;
         }
+    },
+    /**
+     * 刷新聊天室好友狀態 (ChatHubConnection)
+     * */
+    ReflashFriendStatus: function () {
+        debugger;
+    },
+    /**
+     * 刷新聊天室好友清單
+     * @param friendList 好友清單
+     */
+    ReflashFriendList: function (friendList) {
+        $('.friend_content').empty();
+        // 聊天室載入好友清單
+        friendList.forEach(function (f) { return $('.friend_content').append(LayoutPage.MyFriendChatHtmlTemplate(f)); });
     },
     /**
      * 聊天室好友 Html Template

@@ -34,8 +34,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import { Enum, Common } from "../Common/CommonInferface.js";
-//import Swal from '../../lib/sweetalert2/dist/sweetalert2.js';
+import { Enum, Common } from "../Common/Index.js";
 /**
  * 封裝基礎 Http
  * @param loadingMsg Loading 顯示文字

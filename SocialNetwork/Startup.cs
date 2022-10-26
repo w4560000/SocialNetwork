@@ -168,6 +168,13 @@ namespace SocialNetwork
                 // 若為 true 則不自動生成
                 options.SuppressXFrameOptionsHeader = false;
             });
+
+            services.AddSignalR()
+                    .AddJsonProtocol(options =>
+                    {
+                        options.PayloadSerializerOptions.PropertyNameCaseInsensitive = true;
+                    })
+                    .AddMessagePackProtocol();
         }
 
         /// <summary>
@@ -224,6 +231,7 @@ namespace SocialNetwork
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapHub<ChatHub>("/chatHub");
             });
 
             app.UseSwagger();

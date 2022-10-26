@@ -1,4 +1,4 @@
-﻿import { API, Enum, Response, Common } from "../Common/CommonInferface.js";
+﻿import { API, Enum, Response, Common } from "../Common/Index.js";
 
 /**
  * 通用的 Member ViewModel

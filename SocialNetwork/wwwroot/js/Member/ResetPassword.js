@@ -1,4 +1,4 @@
-import { API, Request, Common } from "../Common/CommonInferface.js";
+import { API, Request, Common } from "../Common/Index.js";
 export var ResetPasswordPage = {
     Init: function () {
         $('#resetPassword_password').keyup(function (e) { return Common.RemoveErrorInput(e.target); });

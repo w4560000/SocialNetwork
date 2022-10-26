@@ -1,4 +1,4 @@
-﻿import { API, Enum, Request, Response, Common } from "../Common/CommonInferface.js";
+﻿import { API, Enum, Request, Response, Common } from "../Common/Index.js";
 import { Friend } from "../Common/Friend.js";
 
 var memberInfo: Response.GetMemberInfoResViewModel;

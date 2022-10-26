@@ -1,4 +1,4 @@
-﻿import { API, Enum, Request, Response, Common } from "../Common/CommonInferface.js";
+﻿import { API, Enum, Request, Response, Common } from "../Common/Index.js";
 
 export const Friend = {
 

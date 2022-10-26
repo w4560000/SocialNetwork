@@ -1,4 +1,4 @@
-﻿import { API, Request, Response, Common } from "../Common/CommonInferface.js";
+﻿import { API, Request, Response, Common } from "../Common/Index.js";
 
 /**
  * 共用 API 回應狀態 列舉 
