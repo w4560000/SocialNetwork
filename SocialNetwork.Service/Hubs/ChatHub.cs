@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using SocialNetwork.Helper;
+using SocialNetwork.Repository;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using UserInfo = SocialNetwork.Helper.UserInfo;
 
@@ -71,19 +75,17 @@ namespace SocialNetwork.Service
         /// 刷新聊天室好友資訊
         /// </summary>
         /// <param name="friendMemberID">該會員好友的會員編號清單</param>
-        /// <param name="userInfo">會員資訊</param>
-        public async Task ReflashFriendStatus_Send(List<int> friendMemberID, UserInfo userInfo)
+        /// <param name="friend">好友資訊</param>
+        public async Task ReflashFriendStatus_Send(List<int> friendMemberID, GetFriendListResViewModel friend)
         {
-            List<string> connectionIdList = new List<string>();
+            // 取得目前有線上好友的 ConnectionID
+            List<Task<string>> connectionIdListTask = friendMemberID.Select(async s => await this.CacheHelper.GetAsync<string>(RedisMemberConnectionKey(s)))
+                                                                    .ToList();
 
-            friendMemberID.ForEach(async f =>
-            {
-                string connectionId = await this.CacheHelper.GetAsync<string>(RedisMemberConnectionKey(f));
-                if (!string.IsNullOrEmpty(connectionId))
-                    connectionIdList.Add(connectionId);
-            });
+            List<string> connectionIdList = (await Task.WhenAll(connectionIdListTask)).ToList();
 
-            await Clients.Clients(connectionIdList).SendAsync("ReflashFriendStatus_Receive", userInfo);
+            if (connectionIdList.Any())
+                await Clients.Clients(connectionIdList).SendAsync("ReflashFriendStatus_Receive", friend);
         }
     }
 }

@@ -87,6 +87,7 @@ namespace SocialNetwork
             services.AddSingleton<ICacheHelper, RedisCacheHelper>();
             services.AddSingleton<JwtHelper>();
             services.AddSingleton<HttpClientHelper>();
+            services.AddSingleton<ChatHub>();
 
             // ÅçÃÒ JWT
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -173,8 +174,9 @@ namespace SocialNetwork
                     .AddJsonProtocol(options =>
                     {
                         options.PayloadSerializerOptions.PropertyNameCaseInsensitive = true;
-                    })
-                    .AddMessagePackProtocol();
+                        options.PayloadSerializerOptions.PropertyNamingPolicy = null;
+                    });
+            //.AddMessagePackProtocol();
         }
 
         /// <summary>

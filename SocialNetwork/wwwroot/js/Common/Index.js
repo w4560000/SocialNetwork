@@ -6,4 +6,6 @@ import * as Request_1 from "../Common/Request.js";
 export { Request_1 as Request };
 import * as Response_1 from "../Common/Response.js";
 export { Response_1 as Response };
+import * as ViewModel_1 from "../Common/ViewModel.js";
+export { ViewModel_1 as ViewModel };
 export { Common } from "../Common/Common.js";

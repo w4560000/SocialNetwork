@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace SocialNetwork.Service
@@ -30,6 +31,11 @@ namespace SocialNetwork.Service
         private readonly IForgotPasswordRepository ForgotPasswordRepository;
 
         /// <summary>
+        /// IFriendService
+        /// </summary>
+        private readonly IFriendService FriendService;
+
+        /// <summary>
         /// HttpContext
         /// </summary>
         private readonly HttpContext HttpContext;
@@ -50,32 +56,43 @@ namespace SocialNetwork.Service
         private readonly ICacheHelper CacheHelper;
 
         /// <summary>
+        /// ChatHub
+        /// </summary>
+        private readonly ChatHub ChatHub;
+
+        /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="memberRepository">IMemberRepository</param>
         /// <param name="verificationCodeRepository">IVerificationCodeRepository</param>
         /// <param name="forgotPasswordRepository">IForgotPasswordRepository</param>
+        /// <param name="friendService">IFriendService</param>
         /// <param name="httpContextAccessor">IHttpContextAccessor</param>
         /// <param name="jwtHelper">JwtHelper</param>
         /// <param name="userContext">IUserContext</param>
         /// <param name="cacheHelper">ICacheHelper</param>
+        /// <param name="chatHub">ChatHub</param>
         public MemberService(
             IMemberRepository memberRepository,
             IVerificationCodeRepository verificationCodeRepository,
             IForgotPasswordRepository forgotPasswordRepository,
+            IFriendService friendService,
             IHttpContextAccessor httpContextAccessor,
             JwtHelper jwtHelper,
             IUserContext userContext,
-            ICacheHelper cacheHelper)
+            ICacheHelper cacheHelper,
+            ChatHub chatHub)
 
         {
             this.MemberRepository = memberRepository;
             this.VerificationCodeRepository = verificationCodeRepository;
             this.ForgotPasswordRepository = forgotPasswordRepository;
+            this.FriendService = friendService;
             this.HttpContext = httpContextAccessor.HttpContext;
             this.JwtHelper = jwtHelper;
             this.UserContext = userContext;
             this.CacheHelper = cacheHelper;
+            this.ChatHub = chatHub;
         }
 
         /// <summary>
@@ -341,13 +358,7 @@ outline: 0;";
         /// <returns>登出結果</returns>
         public ResponseViewModel Logout()
         {
-            if (this.MemberRepository.TryGetEntity(this.UserContext.User.MemberID, out Member member))
-            {
-                member.Status = MemberStatusEnum.離線;
-                this.MemberRepository.Update(member);
-            }
-
-            this.HttpContext.Response.Cookies.ExpireCookies();
+            this.SetMemberStatusForCookie(this.UserContext.User.MemberID, MemberStatusEnum.離線, isLogout: true);
 
             return "登出成功".AsSuccessResponse();
         }
@@ -493,7 +504,8 @@ outline: 0;";
         /// </summary>
         /// <param name="memberID">會員編號</param>
         /// <param name="status">會員狀態</param>
-        private void SetMemberStatusForCookie(int memberID, MemberStatusEnum status)
+        /// <param name="isLogout">是否為登出</param>
+        private async Task SetMemberStatusForCookie(int memberID, MemberStatusEnum status, bool isLogout = false)
         {
             if (this.MemberRepository.TryGetEntity(memberID, out Member member))
             {
@@ -509,11 +521,30 @@ outline: 0;";
                     Status = member.Status
                 };
 
-                var token = this.JwtHelper.GenerateToken(userInfo);
-                this.HttpContext.Response.Cookies.AddJwtTokenToCookie(token);
+                if (isLogout)
+                {
+                    this.HttpContext.Response.Cookies.ExpireCookies();
+                }
+                else
+                {
+                    var token = this.JwtHelper.GenerateToken(userInfo);
+                    this.HttpContext.Response.Cookies.AddJwtTokenToCookie(token);
+                }
 
                 // 會員在線狀態 存入 Redis 暫時不存
                 // await this.CacheHelper.ResetAsync($"Member:{userInfo.MemberID}", () => userInfo);
+
+                var firendList = this.FriendService.GetFriendList(userInfo.MemberID);
+
+                await this.ChatHub.ReflashFriendStatus_Send(
+                    firendList.Data.Select(s => s.MemberID).ToList(), 
+                    new GetFriendListResViewModel()
+                    {
+                        MemberID = userInfo.MemberID,
+                        NickName = userInfo.NickName,
+                        Status = userInfo.Status,
+                        ProfilePhotoURL = userInfo.ProfilePhotoUrl
+                    });
             }
         }
     }

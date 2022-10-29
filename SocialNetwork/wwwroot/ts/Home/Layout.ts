@@ -1,33 +1,13 @@
-﻿import { API, Enum, Request, Response, Common } from "../Common/Index.js";
-//import { ChatHubConnection }  from "../Common/ChatHubConnection.js";
+﻿import { API, Enum, Request, Response, Common, ViewModel } from "../Common/Index.js";
+import { ChatHubConnection }  from "../Common/ChatHubConnection.js";
 
-class User {
-    MemberID: number;
-    Account: string;
-    NickName: string;
-    ProfilePhotoUrl: string;
-    Status: Enum.MemberStatusEnum;
-    IsOriginalMember: boolean;
-
-    public Init(user: User): User {
-        this.MemberID = user.MemberID;
-        this.Account = user.Account;
-        this.NickName = user.NickName;
-        this.ProfilePhotoUrl = user.ProfilePhotoUrl;
-        this.Status = user.Status;
-
-        let oAuthList = ["google"];
-        this.IsOriginalMember = oAuthList.every(a => a != user.Account.split('@').pop());
-
-        return this;
-    }
-}
-
-export var user: User;
-//var chatHubConnection: ChatHubConnection = new ChatHubConnection();
+export var user: ViewModel.User;
+var chatHubConnection: ChatHubConnection = new ChatHubConnection();
 
 export const LayoutPage = {
     Init: async () => {
+        chatHubConnection.connect(LayoutPage.ReflashFriendStatus);
+
         // 點選其他 element 時 自動隱藏展開的會員狀態
         $("body").click((event) => {
             var currentElemetClass = ($(event.target).attr('class')) as string;
@@ -87,8 +67,8 @@ export const LayoutPage = {
      * 載入會員資料
      * @param _user 會員資料
      */
-    UserInit: (_user: User) => {
-        user = new User().Init(_user);
+    UserInit: (_user: ViewModel.User) => {
+        user = new ViewModel.User().Init(_user);
     },
     /**
      * 設定 Menu 底色 (根據當前頁面)
@@ -119,8 +99,13 @@ export const LayoutPage = {
     /**
      * 刷新聊天室好友狀態 (ChatHubConnection)
      * */
-    ReflashFriendStatus: () => {
-        debugger
+    ReflashFriendStatus: (friend: Response.GetFriendListResViewModel) => {
+        
+        $(`.friend_content > .friend[MemberID=${friend.MemberID}]`).empty();
+        $(`.friend_content > .friend[MemberID=${friend.MemberID}]`).append(LayoutPage.MyFriendChatDetailHtmlTemplate(friend));
+
+        // 控制 Img Default Style
+        Common.ControllImgDefaultStyle();
     },
     /**
      * 刷新聊天室好友清單
@@ -138,12 +123,22 @@ export const LayoutPage = {
      */
     MyFriendChatHtmlTemplate: (friend: Response.GetFriendListResViewModel) => {
         return `
-<div class="friend">
+    <div class="friend" MemberID="${friend.MemberID}">
+        ${LayoutPage.MyFriendChatDetailHtmlTemplate(friend)}
+    </div>
+  `;
+    },
+    /**
+     * 聊天室好友 Detail Html Template
+     * @param friend 好友資料
+     */
+    MyFriendChatDetailHtmlTemplate: (friend: Response.GetFriendListResViewModel) => {
+        return `
     <div class="friend_img_container">
-    <span class="friend_img_status_color friend_img_status_color_${friend.Status}"></span>
-        <img class="friend_img" src = "${friend.ProfilePhotoURL}" />
+        <span class="friend_img_status_color friend_img_status_color_${friend.Status}"></span>
+        <img class="friend_img" src="${friend.ProfilePhotoURL}" />
     </div> 
-<div class="friend_name">${friend.NickName}</div>
+    <div class="friend_name">${friend.NickName}</div>
   `;
     }
 }

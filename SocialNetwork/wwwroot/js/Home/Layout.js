@@ -34,31 +34,17 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import { API, Request, Common } from "../Common/Index.js";
-//import { ChatHubConnection }  from "../Common/ChatHubConnection.js";
-var User = /** @class */ (function () {
-    function User() {
-    }
-    User.prototype.Init = function (user) {
-        this.MemberID = user.MemberID;
-        this.Account = user.Account;
-        this.NickName = user.NickName;
-        this.ProfilePhotoUrl = user.ProfilePhotoUrl;
-        this.Status = user.Status;
-        var oAuthList = ["google"];
-        this.IsOriginalMember = oAuthList.every(function (a) { return a != user.Account.split('@').pop(); });
-        return this;
-    };
-    return User;
-}());
+import { API, Request, Common, ViewModel } from "../Common/Index.js";
+import { ChatHubConnection } from "../Common/ChatHubConnection.js";
 export var user;
-//var chatHubConnection: ChatHubConnection = new ChatHubConnection();
+var chatHubConnection = new ChatHubConnection();
 export var LayoutPage = {
     Init: function () { return __awaiter(void 0, void 0, void 0, function () {
         var friendList;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    chatHubConnection.connect(LayoutPage.ReflashFriendStatus);
                     // 點選其他 element 時 自動隱藏展開的會員狀態
                     $("body").click(function (event) {
                         var currentElemetClass = ($(event.target).attr('class'));
@@ -116,7 +102,7 @@ export var LayoutPage = {
      * @param _user 會員資料
      */
     UserInit: function (_user) {
-        user = new User().Init(_user);
+        user = new ViewModel.User().Init(_user);
     },
     /**
      * 設定 Menu 底色 (根據當前頁面)
@@ -145,8 +131,11 @@ export var LayoutPage = {
     /**
      * 刷新聊天室好友狀態 (ChatHubConnection)
      * */
-    ReflashFriendStatus: function () {
-        debugger;
+    ReflashFriendStatus: function (friend) {
+        $(".friend_content > .friend[MemberID=".concat(friend.MemberID, "]")).empty();
+        $(".friend_content > .friend[MemberID=".concat(friend.MemberID, "]")).append(LayoutPage.MyFriendChatDetailHtmlTemplate(friend));
+        // 控制 Img Default Style
+        Common.ControllImgDefaultStyle();
     },
     /**
      * 刷新聊天室好友清單
@@ -162,7 +151,14 @@ export var LayoutPage = {
      * @param friend 好友資料
      */
     MyFriendChatHtmlTemplate: function (friend) {
-        return "\n<div class=\"friend\">\n    <div class=\"friend_img_container\">\n    <span class=\"friend_img_status_color friend_img_status_color_".concat(friend.Status, "\"></span>\n        <img class=\"friend_img\" src = \"").concat(friend.ProfilePhotoURL, "\" />\n    </div> \n<div class=\"friend_name\">").concat(friend.NickName, "</div>\n  ");
+        return "\n    <div class=\"friend\" MemberID=\"".concat(friend.MemberID, "\">\n        ").concat(LayoutPage.MyFriendChatDetailHtmlTemplate(friend), "\n    </div>\n  ");
+    },
+    /**
+     * 聊天室好友 Detail Html Template
+     * @param friend 好友資料
+     */
+    MyFriendChatDetailHtmlTemplate: function (friend) {
+        return "\n    <div class=\"friend_img_container\">\n        <span class=\"friend_img_status_color friend_img_status_color_".concat(friend.Status, "\"></span>\n        <img class=\"friend_img\" src=\"").concat(friend.ProfilePhotoURL, "\" />\n    </div> \n    <div class=\"friend_name\">").concat(friend.NickName, "</div>\n  ");
     }
 };
 window["LayoutPage"] = LayoutPage;

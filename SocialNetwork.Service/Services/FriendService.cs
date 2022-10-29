@@ -52,8 +52,9 @@ namespace SocialNetwork.Service
         /// <summary>
         /// 取得好友清單
         /// </summary>
+        /// <param name="memberID">會員編號</param>
         /// <returns>取得結果</returns>
-        public ResponseViewModel<List<GetFriendListResViewModel>> GetFriendList()
+        public ResponseViewModel<List<GetFriendListResViewModel>> GetFriendList(int memberID)
         {
             var querySql = @"
                              SELECT MemberiD, NickName, ProfilePhotoURL, Status
@@ -63,10 +64,10 @@ namespace SocialNetwork.Service
 					                             WHERE MemberID = @MemberID
 					                             UNION
 					                             SELECT MemberID FROM [SocialNetwork].[dbo].[Friend]
-					                             WHERE FriendMemberID = @MemberID
+					                             WHERE FriendMemberID = @memberID
 				                               )";
 
-            var res = this.FriendRepository.Query<GetFriendListResViewModel>(querySql, new { this.UserContext.User.MemberID });
+            var res = this.FriendRepository.Query<GetFriendListResViewModel>(querySql, new { memberID });
 
             return "取得好友清單成功".AsSuccessResponse(res);
         }
@@ -74,18 +75,20 @@ namespace SocialNetwork.Service
         /// <summary>
         /// 取得好友邀請清單
         /// </summary>
+        /// <param name="memberID">會員編號</param>
         /// <returns>取得結果</returns>
-        public ResponseViewModel<List<GetFriendListResViewModel>> GetFriendInvitationList()
+        public ResponseViewModel<List<GetFriendListResViewModel>> GetFriendInvitationList(int memberID)
         {
             var querySql = @"
                              SELECT MemberiD, NickName, ProfilePhotoURL
                              FROM Member
                              WHERE MemberID IN (
 					                             SELECT SendMemberID FROM [SocialNetwork].[dbo].[FriendInvitation]
-					                             WHERE ReceiveMemberID = @MemberID
-				                               )";
+					                             WHERE ReceiveMemberID = @memberID
+				                               )"
+            ;
 
-            var res = this.FriendRepository.Query<GetFriendListResViewModel>(querySql, new { this.UserContext.User.MemberID });
+            var res = this.FriendRepository.Query<GetFriendListResViewModel>(querySql, new { memberID });
 
             return "取得好友邀請清單成功".AsSuccessResponse(res);
         }
@@ -93,18 +96,19 @@ namespace SocialNetwork.Service
         /// <summary>
         /// 取得您送出的好友邀請清單
         /// </summary>
+        /// <param name="memberID">會員編號</param>
         /// <returns>取得結果</returns>
-        public ResponseViewModel<List<GetFriendListResViewModel>> GetSendFriendInvitationList()
+        public ResponseViewModel<List<GetFriendListResViewModel>> GetSendFriendInvitationList(int memberID)
         {
             var querySql = @"
                              SELECT MemberiD, NickName, ProfilePhotoURL
                              FROM Member
                              WHERE MemberID IN (
 					                             SELECT ReceiveMemberID FROM [SocialNetwork].[dbo].[FriendInvitation]
-					                             WHERE SendMemberID = @MemberID
+					                             WHERE SendMemberID = @memberID
 				                               )";
 
-            var res = this.FriendRepository.Query<GetFriendListResViewModel>(querySql, new { this.UserContext.User.MemberID });
+            var res = this.FriendRepository.Query<GetFriendListResViewModel>(querySql, new { memberID });
 
             return "取得您送出的好友邀請清單成功".AsSuccessResponse(res);
         }

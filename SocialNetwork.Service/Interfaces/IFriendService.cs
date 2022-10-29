@@ -12,20 +12,23 @@ namespace SocialNetwork.Service
         /// <summary>
         /// 取得好友清單
         /// </summary>
+        /// <param name="memberID">會員編號</param>
         /// <returns>取得結果</returns>
-        public ResponseViewModel<List<GetFriendListResViewModel>> GetFriendList();
+        public ResponseViewModel<List<GetFriendListResViewModel>> GetFriendList(int memberID);
 
         /// <summary>
         /// 取得好友邀請清單
         /// </summary>
+        /// <param name="memberID">會員編號</param>
         /// <returns>取得結果</returns>
-        public ResponseViewModel<List<GetFriendListResViewModel>> GetFriendInvitationList();
+        public ResponseViewModel<List<GetFriendListResViewModel>> GetFriendInvitationList(int memberID);
 
         /// <summary>
         /// 取得您送出的好友邀請清單
         /// </summary>
+        /// <param name="memberID">會員編號</param>
         /// <returns>取得結果</returns>
-        public ResponseViewModel<List<GetFriendListResViewModel>> GetSendFriendInvitationList();
+        public ResponseViewModel<List<GetFriendListResViewModel>> GetSendFriendInvitationList(int memberID);
 
         /// <summary>
         /// 取得好友狀態

@@ -26,15 +26,22 @@ namespace SocialNetwork.Controllers
         private readonly IFriendService FriendService;
 
         /// <summary>
+        /// IUserContext
+        /// </summary>
+        private readonly IUserContext UserContext;
+
+        /// <summary>
         /// Constructor
         /// </summary>
         public FriendApiController(
             ILogger<FriendApiController> logger,
-            IFriendService friendService)
+            IFriendService friendService,
+            IUserContext userContext)
         {
             this.Logger = logger;
             this.FriendService = friendService;
-        }
+            this.UserContext = userContext;
+        }   
 
         /// <summary>
         /// 取得好友清單
@@ -45,7 +52,7 @@ namespace SocialNetwork.Controllers
         {
             try
             {
-                return FriendService.GetFriendList();
+                return FriendService.GetFriendList(this.UserContext.User.MemberID);
             }
             catch (Exception ex)
             {
@@ -63,7 +70,7 @@ namespace SocialNetwork.Controllers
         {
             try
             {
-                return FriendService.GetFriendInvitationList();
+                return FriendService.GetFriendInvitationList(this.UserContext.User.MemberID);
             }
             catch (Exception ex)
             {
@@ -81,7 +88,7 @@ namespace SocialNetwork.Controllers
         {
             try
             {
-                return FriendService.GetSendFriendInvitationList();
+                return FriendService.GetSendFriendInvitationList(this.UserContext.User.MemberID);
             }
             catch (Exception ex)
             {
