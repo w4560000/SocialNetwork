@@ -13,8 +13,6 @@ var bundleconfig = JSON.parse(fs.readFileSync('./bundleconfig.json'));
 var nodeRoot = './node_modules/';
 var targetPath = './wwwroot/lib/';
 var nodePath = [
-    '@microsoft/signalr/dist',
-    '@microsoft/signalr-protocol-msgpack/dist',
     'jquery/dist',
     'jquery-ui/dist',
     'lightslider/dist',
