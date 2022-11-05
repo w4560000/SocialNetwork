@@ -82,7 +82,7 @@ namespace SocialNetwork.Service
             List<Task<string>> connectionIdListTask = friendMemberID.Select(async s => await this.CacheHelper.GetAsync<string>(RedisMemberConnectionKey(s)))
                                                                     .ToList();
 
-            List<string> connectionIdList = (await Task.WhenAll(connectionIdListTask)).ToList();
+            List<string> connectionIdList = (await Task.WhenAll(connectionIdListTask)).Where(w => !string.IsNullOrEmpty(w)).ToList();
 
             if (connectionIdList.Any())
                 await Clients.Clients(connectionIdList).SendAsync("ReflashFriendStatus_Receive", friend);
