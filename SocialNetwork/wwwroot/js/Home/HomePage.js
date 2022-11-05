@@ -43,7 +43,6 @@ export var HomePage = {
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
-                    debugger;
                     if (!$("#query_memberID").val()) return [3 /*break*/, 2];
                     return [4 /*yield*/, API.GetMemberInfoAPI($("#query_memberID").val())];
                 case 1:

@@ -1,0 +1,47 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SocialNetwork.Repository
+{
+    /// <summary>
+    /// 取得貼文留言 
+    /// </summary>
+    public class GetPostMsgResViewModel
+    {
+        /// <summary>
+        /// 貼文編號
+        /// </summary>
+        public int PostKey { get; set; }
+
+        /// <summary>
+        /// 會員編號
+        /// </summary>
+        public int MemberID { get; set; }
+
+        /// <summary>
+        /// 會員暱稱
+        /// </summary>
+        public string NickName { get; set; }
+
+        /// <summary>
+        /// 大頭貼路徑
+        /// </summary>
+        public string ProfilePhotoUrl { get; set; }
+
+        /// <summary>
+        /// 留言內容
+        /// </summary>
+        public string MsgContent { get; set; }
+
+        /// <summary>
+        /// 留言時間
+        /// </summary>
+        public DateTime PostMsgDateTime { get; set; }
+
+        /// <summary>
+        /// 總留言筆數
+        /// </summary>
+        public int TotalPostMsgCount { get; set; }
+    }
+}
