@@ -25,15 +25,21 @@
 
     @*signalr*@
     <script src="~/lib/@@microsoft/signalr/dist/browser/signalr.js" asp-append-version="true"></script>
-    <script src="~/lib/@@microsoft/signalr-protocol-msgpack/dist/browser/signalr-protocol-msgpack.js" asp-append-version="true"></script>
+    @*<script src="~/lib/@@microsoft/signalr-protocol-msgpack/dist/browser/signalr-protocol-msgpack.js" asp-append-version="true"></script>*@
 
-    <script type="module" src="~/js/Home/Layout.js" asp-append-version="true"></script>
-    <link href="~/css/Common/Common.css" rel="stylesheet" asp-append-version="true" />
+    <script src="~/js/Home/Layout.js" asp-append-version="true"></script>
 
+    <environment include="Development">
+        <script src="~/js/bundle/Common.min.js" asp-append-version="true"></script>
+        <link href="~/css/bundle/Common.min.css" rel="stylesheet" asp-append-version="true" />
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/bundle/Common.min.js" asp-append-version="true"></script>
+        <link href="~/css/bundle/Common.min.css" rel="stylesheet" asp-append-version="true" />
+    </environment>
     <script>
         $(function () {
-            LayoutPage.UserInit(@Html.Raw(JsonSerializer.Serialize(UserContext.User)));
-            LayoutPage.Init();
+            LayoutPage.Init(@Html.Raw(JsonSerializer.Serialize(UserContext.User)));
         });
     </script>
 </head>

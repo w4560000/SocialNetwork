@@ -1,13 +1,10 @@
-﻿import { API, Enum, Request, Response, Common } from "../Common/Index.js";
-import { Friend } from "../Common/Friend.js";
+﻿var memberInfo: GetMemberInfoResViewModel;
 
-var memberInfo: Response.GetMemberInfoResViewModel;
-
-export const HomePage = {
+const HomePage = {
     Init: async () => {
-        
+        debugger
         // 查看別人主頁 or 個人主頁
-        memberInfo = $("#query_memberID").val() ? await API.GetMemberInfoAPI($("#query_memberID").val() as number) : await API.GetCurrentMemberInfoAPI();
+        memberInfo = $("#query_memberID").val() ? await GetMemberInfoAPI($("#query_memberID").val() as number) : await GetCurrentMemberInfoAPI();
 
         var memberBrithday = new Date(memberInfo.Brithday);
         var brithday = `${memberBrithday.getFullYear()} 年 ${memberBrithday.getMonth() + 1} 月 ${memberBrithday.getDate()} 日`;
@@ -34,12 +31,12 @@ export const HomePage = {
         if ($("#query_memberID").val()) {
             $('.div_homePage_topBar').html(`${memberInfo.NickName}的個人主頁`);
 
-            let model = new Request.CommonMemberViewModel(memberInfo.MemberID);
-            var firendStatus = await API.GetFriendStatusAPI(model);
+            let model = new CommonMemberViewModel(memberInfo.MemberID);
+            var firendStatus = await GetFriendStatusAPI(model);
             $('.div_sendMsg').hide();
 
             switch (firendStatus.FriendStatus) {
-                case Enum.FriendStatusEnum.非好友:
+                case FriendStatusEnum.非好友:
                     $('.div_addFriend').css('width', '100px');
                     $('.div_addFriend').css('background-color', '#F2A1A1');
                     $('.addFriend_icon').show();
@@ -47,7 +44,7 @@ export const HomePage = {
                         .html('加好友');
                     $('.lbl_addFriend').css('padding-left', '30px');
                     break;
-                case Enum.FriendStatusEnum.已寄送好友邀請:
+                case FriendStatusEnum.已寄送好友邀請:
                     $('.div_addFriend').css('width', '110px');
                     $('.div_addFriend').css('background-color', 'rgba(0, 0, 0, 0.3)');
                     $('.addFriend_icon').hide();
@@ -56,15 +53,15 @@ export const HomePage = {
                     $('.lbl_addFriend').css('padding-left', '0px');
 
                     break;
-                case Enum.FriendStatusEnum.已接收好友邀請:
+                case FriendStatusEnum.已接收好友邀請:
 
                     $('.lbl_addFriend').click(() =>
                         Common.SweetAlertConfirm(`是否接受 ${memberInfo.NickName} \n的好友邀請?`,
-                            () => Friend.DecideFriendInvitation(memberInfo.MemberID, memberInfo.NickName, Enum.DecideFriendInvitationEnum.接受, () => HomePage.ReflashFriendStatus()),
-                            () => Friend.DecideFriendInvitation(memberInfo.MemberID, memberInfo.NickName, Enum.DecideFriendInvitationEnum.拒絕, () => HomePage.ReflashFriendStatus()), '拒絕'))
+                            () => Friend.DecideFriendInvitation(memberInfo.MemberID, memberInfo.NickName, DecideFriendInvitationEnum.接受, () => HomePage.ReflashFriendStatus()),
+                            () => Friend.DecideFriendInvitation(memberInfo.MemberID, memberInfo.NickName, DecideFriendInvitationEnum.拒絕, () => HomePage.ReflashFriendStatus()), '拒絕'))
                         .html('回覆');
                     break;
-                case Enum.FriendStatusEnum.為好友:
+                case FriendStatusEnum.為好友:
                     $('.div_sendMsg').show();
                     $('.div_addFriend').css('width', '110px');
                     $('.div_addFriend').css('background-color', 'rgba(0, 0, 0, 0.3)');

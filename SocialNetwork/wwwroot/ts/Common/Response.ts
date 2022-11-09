@@ -1,11 +1,9 @@
-﻿import { API, Enum, Request, Common } from "../Common/Index.js";
-
-/**
+﻿/**
  * 共用回應 ViewModel
  * */
-export class ResponseViewModel<T>
+class ResponseViewModel<T>
 {
-    Status: Enum.ResponseStatusEnum | undefined;
+    Status: ResponseStatusEnum | undefined;
     Message: string | undefined;
     Data: T | undefined;
 
@@ -17,14 +15,14 @@ export class ResponseViewModel<T>
 /**
  * Google 第三方登入 Response ViewModel
  * */
-export class GoogleLoginResViewModel {
+class GoogleLoginResViewModel {
     IsFirstLogin: boolean;
 }
 
 /**
  * 取得會員資訊 Response ViewModel
  * */
-export class GetMemberInfoResViewModel {
+class GetMemberInfoResViewModel {
     MemberID: number;
     NickName: string;
     ProfilePhotoURL: string;
@@ -33,7 +31,7 @@ export class GetMemberInfoResViewModel {
     Interest: string;
     Job: string;
     Education: string;
-    InfoStatus: Enum.MemberPublicInfoEnum;
+    InfoStatus: MemberPublicInfoEnum;
     IsOriginalMember: boolean;
 }
 
@@ -42,16 +40,16 @@ export class GetMemberInfoResViewModel {
  * 取得好友邀請清單 Response ViewModel
  * 取得您送出的好友邀請清單 Response ViewModel
  * */
-export class GetFriendListResViewModel {
+class GetFriendListResViewModel {
     MemberID: number;
     NickName: string;
     ProfilePhotoURL: string;
-    Status: Enum.MemberStatusEnum;
+    Status: MemberStatusEnum;
 }
 
 /**
  * 取得好友狀態 Response ViewModel
  * */
-export class GetFriendStatusResViewModel {
-    FriendStatus: Enum.FriendStatusEnum;
+class GetFriendStatusResViewModel {
+    FriendStatus: FriendStatusEnum;
 }

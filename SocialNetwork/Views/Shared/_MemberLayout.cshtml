@@ -19,7 +19,14 @@
     <script src="~/lib/lightslider/dist/js/lightslider.min.js" asp-append-version="true"></script>
     <link href="~/lib/lightslider/dist/css/lightslider.min.css" rel="stylesheet" asp-append-version="true" />
 
-    <link href="~/css/Common/Common.css" rel="stylesheet" asp-append-version="true" />
+    <environment include="Development">
+        <script src="~/js/bundle/Common.min.js" asp-append-version="true"></script>
+        <link href="~/css/bundle/Common.min.css" rel="stylesheet" asp-append-version="true" />
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/bundle/Common.min.js" asp-append-version="true"></script>
+        <link href="~/css/bundle/Common.min.css" rel="stylesheet" asp-append-version="true" />
+    </environment>
 </head>
 <body style="height: 100% !important">
     @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
@@ -27,8 +34,8 @@
 
     <div class="member_layout_background">
         <div class="member_layout_Box">
-@*            <div style="display:flex; justify-content:center;margin-bottom: 10%;">
-                <img src="~/images/Logo/logo.svg" style="width: 50%;" />
+            @*            <div style="display:flex; justify-content:center;margin-bottom: 10%;">
+            <img src="~/images/Logo/logo.svg" style="width: 50%;" />
             </div>*@
             <a class="logo">I K K O N</a>
             @RenderBody()

@@ -1,11 +1,9 @@
-﻿import { API, Enum, Request, Common } from "../Common/Index.js";
-
-export class User {
+﻿class User {
     MemberID: number;
     Account: string;
     NickName: string;
     ProfilePhotoUrl: string;
-    Status: Enum.MemberStatusEnum;
+    Status: MemberStatusEnum;
     IsOriginalMember: boolean;
 
     public Init(user: User): User {

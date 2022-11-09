@@ -1,6 +1,4 @@
-﻿import { API, Enum, Request, Response, Common } from "../Common/Index.js";
-
-export const FriendManagementPage = {
+﻿const FriendManagementPage = {
     Init: async () => {
         await FriendManagementPage.ToggleTab("MyFriend");
     },
@@ -27,7 +25,7 @@ export const FriendManagementPage = {
             case 'MyFriend':
                 $('.MyFriend').empty();
 
-                var friendList = await API.GetFriendListAPI();
+                var friendList = await GetFriendListAPI();
                 friendList.forEach((f) => $('.MyFriend').append(FriendManagementPage.MyFriendHtmlTemplate(f)));
 
                 $('.MyFriend').show();
@@ -37,7 +35,7 @@ export const FriendManagementPage = {
             case 'FriendInvitation':
                 $('.FriendInvitation').empty();
 
-                var friendInvitatioinList = await API.GetFriendInvitationListAPI();
+                var friendInvitatioinList = await GetFriendInvitationListAPI();
                 friendInvitatioinList.forEach((f) => $('.FriendInvitation').append(FriendManagementPage.FriendInvitationHtmlTemplate(f)));
 
                 $('.MyFriend').hide();
@@ -47,7 +45,7 @@ export const FriendManagementPage = {
             case 'SendFriendInvitation':
                 $('.SendFriendInvitation').empty();
 
-                var sendFriendInvitatioinList = await API.GetSendFriendInvitationListAPI();
+                var sendFriendInvitatioinList = await GetSendFriendInvitationListAPI();
                 sendFriendInvitatioinList.forEach((f) => $('.SendFriendInvitation').append(FriendManagementPage.SendFriendInvitationHtmlTemplate(f)));
 
                 $('.MyFriend').hide();
@@ -63,7 +61,7 @@ export const FriendManagementPage = {
      * 我的好友 Html Template
      * @param member 會員
      */
-    MyFriendHtmlTemplate: (member: Response.GetFriendListResViewModel) => {
+    MyFriendHtmlTemplate: (member: GetFriendListResViewModel) => {
         return `
 <div class="div_friend_profile" style="height: 360px;">
     <a href="/Home/HomePage/${member.MemberID}" target="_blank">
@@ -80,7 +78,7 @@ export const FriendManagementPage = {
      * 好友邀請 Html Template
      * @param member 會員
      */
-    FriendInvitationHtmlTemplate: (member: Response.GetFriendListResViewModel) => {
+    FriendInvitationHtmlTemplate: (member: GetFriendListResViewModel) => {
             return `
 <div class="div_friend_profile">
     <a href="/Home/HomePage/${member.MemberID}" target="_blank">
@@ -89,8 +87,8 @@ export const FriendManagementPage = {
     <div class="div_friend_name_content">
         <a class="div_friend_name" href="/Home/HomePage/${member.MemberID}" target="_blank">${member.NickName}</a>
     </div>
-    <input class="div_frient_button_pink" type="button" value="接受" onclick="Friend.DecideFriendInvitation(${member.MemberID}, '${member.NickName}', ${Enum.DecideFriendInvitationEnum.接受}, () => ToggleTab('FriendInvitation'))"/>
-    <input class="div_frient_button_gray" type="button" value="拒絕" onclick="Friend.DecideFriendInvitation(${member.MemberID}, '${member.NickName}', ${Enum.DecideFriendInvitationEnum.拒絕}, () => ToggleTab('FriendInvitation'))"/>
+    <input class="div_frient_button_pink" type="button" value="接受" onclick="Friend.DecideFriendInvitation(${member.MemberID}, '${member.NickName}', ${DecideFriendInvitationEnum.接受}, () => ToggleTab('FriendInvitation'))"/>
+    <input class="div_frient_button_gray" type="button" value="拒絕" onclick="Friend.DecideFriendInvitation(${member.MemberID}, '${member.NickName}', ${DecideFriendInvitationEnum.拒絕}, () => ToggleTab('FriendInvitation'))"/>
 </div>
   `;
     },
@@ -98,7 +96,7 @@ export const FriendManagementPage = {
      * 您送出的好友邀請 Html Template
      * @param member 會員
      */
-    SendFriendInvitationHtmlTemplate: (member: Response.GetFriendListResViewModel) => {
+    SendFriendInvitationHtmlTemplate: (member: GetFriendListResViewModel) => {
         return `
 <div class="div_friend_profile" style="height: 360px;">
     <a href="/Home/HomePage/${member.MemberID}" target="_blank">

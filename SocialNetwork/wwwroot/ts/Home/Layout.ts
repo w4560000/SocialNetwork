@@ -1,11 +1,10 @@
-﻿import { API, Enum, Request, Response, Common, ViewModel } from "../Common/Index.js";
-import { ChatHubConnection }  from "../Common/ChatHubConnection.js";
+﻿var user: User;
+var chatHubConnection: ChatHubConnection;
 
-export var user: ViewModel.User;
-var chatHubConnection: ChatHubConnection = new ChatHubConnection();
-
-export const LayoutPage = {
-    Init: async () => {
+const LayoutPage = {
+    Init: async (_user: User) => {
+        user = new User().Init(_user);
+        chatHubConnection = new ChatHubConnection();
         chatHubConnection.connect(LayoutPage.ReflashFriendStatus);
 
         // 點選其他 element 時 自動隱藏展開的會員狀態
@@ -34,8 +33,8 @@ export const LayoutPage = {
             $('.index_status_select').toggleClass('index_status_select_up');
 
             let currentSelectStatus = $(this).attr('id')?.split('_')[1] as string;
-            let model = new Request.UpdateMemberStatusReqViewModel(parseInt(currentSelectStatus) as Enum.MemberStatusEnum);
-            API.UpdateMemberStatusAPI(model);
+            let model = new UpdateMemberStatusReqViewModel(parseInt(currentSelectStatus) as MemberStatusEnum);
+            UpdateMemberStatusAPI(model);
             allOptions.toggle();
         });
 
@@ -43,7 +42,7 @@ export const LayoutPage = {
         $("ul").children('.index_status_select').html($('#memberStatus_' + user.Status).html());
 
         // 載入聊天室好友清單
-        var friendList = await API.GetFriendListAPI();
+        var friendList = await GetFriendListAPI();
         LayoutPage.ReflashFriendList(friendList);
 
         // 控制 Img Default Style
@@ -61,14 +60,7 @@ export const LayoutPage = {
             Common.SweetAlertRedirect("/Member/Login", "登入頁");
         };
         let errorFunc = () => { };
-        API.LogoutAPI("登出中", successFunc, errorFunc, '確定是否登出?');
-    },
-    /**
-     * 載入會員資料
-     * @param _user 會員資料
-     */
-    UserInit: (_user: ViewModel.User) => {
-        user = new ViewModel.User().Init(_user);
+        LogoutAPI("登出中", successFunc, errorFunc, '確定是否登出?');
     },
     /**
      * 設定 Menu 底色 (根據當前頁面)
@@ -99,7 +91,7 @@ export const LayoutPage = {
     /**
      * 刷新聊天室好友狀態 (ChatHubConnection)
      * */
-    ReflashFriendStatus: (friend: Response.GetFriendListResViewModel) => {
+    ReflashFriendStatus: (friend: GetFriendListResViewModel) => {
         
         $(`.friend_content > .friend[MemberID=${friend.MemberID}]`).empty();
         $(`.friend_content > .friend[MemberID=${friend.MemberID}]`).append(LayoutPage.MyFriendChatDetailHtmlTemplate(friend));
@@ -111,7 +103,7 @@ export const LayoutPage = {
      * 刷新聊天室好友清單
      * @param friendList 好友清單
      */
-    ReflashFriendList: (friendList: Array<Response.GetFriendListResViewModel>) => {
+    ReflashFriendList: (friendList: Array<GetFriendListResViewModel>) => {
         $('.friend_content').empty();
 
         // 聊天室載入好友清單
@@ -121,7 +113,7 @@ export const LayoutPage = {
      * 聊天室好友 Html Template
      * @param friend 好友資料
      */
-    MyFriendChatHtmlTemplate: (friend: Response.GetFriendListResViewModel) => {
+    MyFriendChatHtmlTemplate: (friend: GetFriendListResViewModel) => {
         return `
     <div class="friend" MemberID="${friend.MemberID}">
         ${LayoutPage.MyFriendChatDetailHtmlTemplate(friend)}
@@ -132,7 +124,7 @@ export const LayoutPage = {
      * 聊天室好友 Detail Html Template
      * @param friend 好友資料
      */
-    MyFriendChatDetailHtmlTemplate: (friend: Response.GetFriendListResViewModel) => {
+    MyFriendChatDetailHtmlTemplate: (friend: GetFriendListResViewModel) => {
         return `
     <div class="friend_img_container">
         <span class="friend_img_status_color friend_img_status_color_${friend.Status}"></span>

@@ -7,7 +7,6 @@ var ResponseViewModel = /** @class */ (function () {
     }
     return ResponseViewModel;
 }());
-export { ResponseViewModel };
 /**
  * Google 第三方登入 Response ViewModel
  * */
@@ -16,7 +15,6 @@ var GoogleLoginResViewModel = /** @class */ (function () {
     }
     return GoogleLoginResViewModel;
 }());
-export { GoogleLoginResViewModel };
 /**
  * 取得會員資訊 Response ViewModel
  * */
@@ -25,7 +23,6 @@ var GetMemberInfoResViewModel = /** @class */ (function () {
     }
     return GetMemberInfoResViewModel;
 }());
-export { GetMemberInfoResViewModel };
 /**
  * 取得好友清單 Response ViewModel
  * 取得好友邀請清單 Response ViewModel
@@ -36,7 +33,6 @@ var GetFriendListResViewModel = /** @class */ (function () {
     }
     return GetFriendListResViewModel;
 }());
-export { GetFriendListResViewModel };
 /**
  * 取得好友狀態 Response ViewModel
  * */
@@ -45,4 +41,3 @@ var GetFriendStatusResViewModel = /** @class */ (function () {
     }
     return GetFriendStatusResViewModel;
 }());
-export { GetFriendStatusResViewModel };

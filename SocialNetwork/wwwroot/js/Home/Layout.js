@@ -34,16 +34,17 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import { API, Request, Common, ViewModel } from "../Common/Index.js";
-import { ChatHubConnection } from "../Common/ChatHubConnection.js";
-export var user;
-var chatHubConnection = new ChatHubConnection();
-export var LayoutPage = {
-    Init: function () { return __awaiter(void 0, void 0, void 0, function () {
+var _this = this;
+var user;
+var chatHubConnection;
+var LayoutPage = {
+    Init: function (_user) { return __awaiter(_this, void 0, void 0, function () {
         var friendList;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    user = new User().Init(_user);
+                    chatHubConnection = new ChatHubConnection();
                     chatHubConnection.connect(LayoutPage.ReflashFriendStatus);
                     // 點選其他 element 時 自動隱藏展開的會員狀態
                     $("body").click(function (event) {
@@ -69,13 +70,13 @@ export var LayoutPage = {
                         $(".meunContent > ul").children('.index_status_select').html($(this).html());
                         $('.index_status_select').toggleClass('index_status_select_up');
                         var currentSelectStatus = (_a = $(this).attr('id')) === null || _a === void 0 ? void 0 : _a.split('_')[1];
-                        var model = new Request.UpdateMemberStatusReqViewModel(parseInt(currentSelectStatus));
-                        API.UpdateMemberStatusAPI(model);
+                        var model = new UpdateMemberStatusReqViewModel(parseInt(currentSelectStatus));
+                        UpdateMemberStatusAPI(model);
                         allOptions.toggle();
                     });
                     // 載入會員狀態
                     $("ul").children('.index_status_select').html($('#memberStatus_' + user.Status).html());
-                    return [4 /*yield*/, API.GetFriendListAPI()];
+                    return [4 /*yield*/, GetFriendListAPI()];
                 case 1:
                     friendList = _a.sent();
                     LayoutPage.ReflashFriendList(friendList);
@@ -95,14 +96,7 @@ export var LayoutPage = {
             Common.SweetAlertRedirect("/Member/Login", "登入頁");
         };
         var errorFunc = function () { };
-        API.LogoutAPI("登出中", successFunc, errorFunc, '確定是否登出?');
-    },
-    /**
-     * 載入會員資料
-     * @param _user 會員資料
-     */
-    UserInit: function (_user) {
-        user = new ViewModel.User().Init(_user);
+        LogoutAPI("登出中", successFunc, errorFunc, '確定是否登出?');
     },
     /**
      * 設定 Menu 底色 (根據當前頁面)

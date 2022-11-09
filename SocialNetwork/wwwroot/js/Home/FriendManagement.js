@@ -34,9 +34,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import { API, Enum, Common } from "../Common/Index.js";
-export var FriendManagementPage = {
-    Init: function () { return __awaiter(void 0, void 0, void 0, function () {
+var _this = this;
+var FriendManagementPage = {
+    Init: function () { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, FriendManagementPage.ToggleTab("MyFriend")];
@@ -50,7 +50,7 @@ export var FriendManagementPage = {
      * 切換 Tab
      * @param tab tab名稱
      */
-    ToggleTab: function (tab) { return __awaiter(void 0, void 0, void 0, function () {
+    ToggleTab: function (tab) { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, FriendManagementPage.SetFriendManagementTab($(".div_firend_tab_name_container[Tab ='".concat(tab, "']")).get(0))];
@@ -64,7 +64,7 @@ export var FriendManagementPage = {
      * 切換好友管理 Tab
      * @param e HTMLElement
      * */
-    SetFriendManagementTab: function (e) { return __awaiter(void 0, void 0, void 0, function () {
+    SetFriendManagementTab: function (e) { return __awaiter(_this, void 0, void 0, function () {
         var tab, _a, friendList, friendInvitatioinList, sendFriendInvitatioinList;
         return __generator(this, function (_b) {
             switch (_b.label) {
@@ -83,7 +83,7 @@ export var FriendManagementPage = {
                     return [3 /*break*/, 7];
                 case 1:
                     $('.MyFriend').empty();
-                    return [4 /*yield*/, API.GetFriendListAPI()];
+                    return [4 /*yield*/, GetFriendListAPI()];
                 case 2:
                     friendList = _b.sent();
                     friendList.forEach(function (f) { return $('.MyFriend').append(FriendManagementPage.MyFriendHtmlTemplate(f)); });
@@ -93,7 +93,7 @@ export var FriendManagementPage = {
                     return [3 /*break*/, 7];
                 case 3:
                     $('.FriendInvitation').empty();
-                    return [4 /*yield*/, API.GetFriendInvitationListAPI()];
+                    return [4 /*yield*/, GetFriendInvitationListAPI()];
                 case 4:
                     friendInvitatioinList = _b.sent();
                     friendInvitatioinList.forEach(function (f) { return $('.FriendInvitation').append(FriendManagementPage.FriendInvitationHtmlTemplate(f)); });
@@ -103,7 +103,7 @@ export var FriendManagementPage = {
                     return [3 /*break*/, 7];
                 case 5:
                     $('.SendFriendInvitation').empty();
-                    return [4 /*yield*/, API.GetSendFriendInvitationListAPI()];
+                    return [4 /*yield*/, GetSendFriendInvitationListAPI()];
                 case 6:
                     sendFriendInvitatioinList = _b.sent();
                     sendFriendInvitatioinList.forEach(function (f) { return $('.SendFriendInvitation').append(FriendManagementPage.SendFriendInvitationHtmlTemplate(f)); });
@@ -130,7 +130,7 @@ export var FriendManagementPage = {
      * @param member 會員
      */
     FriendInvitationHtmlTemplate: function (member) {
-        return "\n<div class=\"div_friend_profile\">\n    <a href=\"/Home/HomePage/".concat(member.MemberID, "\" target=\"_blank\">\n        <img class=\"div_friend_img\" src=\"").concat(member.ProfilePhotoURL, "\">\n    </a>\n    <div class=\"div_friend_name_content\">\n        <a class=\"div_friend_name\" href=\"/Home/HomePage/").concat(member.MemberID, "\" target=\"_blank\">").concat(member.NickName, "</a>\n    </div>\n    <input class=\"div_frient_button_pink\" type=\"button\" value=\"\u63A5\u53D7\" onclick=\"Friend.DecideFriendInvitation(").concat(member.MemberID, ", '").concat(member.NickName, "', ").concat(Enum.DecideFriendInvitationEnum.接受, ", () => ToggleTab('FriendInvitation'))\"/>\n    <input class=\"div_frient_button_gray\" type=\"button\" value=\"\u62D2\u7D55\" onclick=\"Friend.DecideFriendInvitation(").concat(member.MemberID, ", '").concat(member.NickName, "', ").concat(Enum.DecideFriendInvitationEnum.拒絕, ", () => ToggleTab('FriendInvitation'))\"/>\n</div>\n  ");
+        return "\n<div class=\"div_friend_profile\">\n    <a href=\"/Home/HomePage/".concat(member.MemberID, "\" target=\"_blank\">\n        <img class=\"div_friend_img\" src=\"").concat(member.ProfilePhotoURL, "\">\n    </a>\n    <div class=\"div_friend_name_content\">\n        <a class=\"div_friend_name\" href=\"/Home/HomePage/").concat(member.MemberID, "\" target=\"_blank\">").concat(member.NickName, "</a>\n    </div>\n    <input class=\"div_frient_button_pink\" type=\"button\" value=\"\u63A5\u53D7\" onclick=\"Friend.DecideFriendInvitation(").concat(member.MemberID, ", '").concat(member.NickName, "', ").concat(DecideFriendInvitationEnum.接受, ", () => ToggleTab('FriendInvitation'))\"/>\n    <input class=\"div_frient_button_gray\" type=\"button\" value=\"\u62D2\u7D55\" onclick=\"Friend.DecideFriendInvitation(").concat(member.MemberID, ", '").concat(member.NickName, "', ").concat(DecideFriendInvitationEnum.拒絕, ", () => ToggleTab('FriendInvitation'))\"/>\n</div>\n  ");
     },
     /**
      * 您送出的好友邀請 Html Template

@@ -1,10 +1,7 @@
-﻿import { API, Enum, Request, Response, Common } from "../Common/Index.js";
-import { user } from "../Home/Layout.js";
-
-var tempBackgroundFile: File;
+﻿var tempBackgroundFile: File;
 var tempProfilePhotoFile: File;
 
-export const MemberSettingPage = {
+const MemberSettingPage = {
     Init: async () => {
         // 日期選擇元件
         Common.DatepickerInit(
@@ -15,7 +12,7 @@ export const MemberSettingPage = {
             });
 
         // 取得當前會員資訊
-        var memberInfo = await API.GetCurrentMemberInfoAPI();
+        var memberInfo = await GetCurrentMemberInfoAPI();
 
         // 載入 會員資訊
         $('.profile_background').attr('src', memberInfo.BackgroundPhotoURL);
@@ -134,8 +131,8 @@ export const MemberSettingPage = {
         formData.append('Education', $('#infoEducation').val() as string);
         formData.append('InfoStatus', infoStatus.toString());
 
-        var successFunc = (res: Response.ResponseViewModel<object>) => {
-            if (res.Status == Enum.ResponseStatusEnum.Success) {
+        var successFunc = (res: ResponseViewModel<object>) => {
+            if (res.Status == ResponseStatusEnum.Success) {
                 // 更新左側 Menu 頭像
                 if (tempProfilePhotoFile !== undefined)
                     $('.index_profilePhoto').attr('src', URL.createObjectURL(tempProfilePhotoFile));
@@ -151,7 +148,7 @@ export const MemberSettingPage = {
             }
         };
         var errorFunc = () => { };
-        API.UpdateMemberInfoAPI("更新個人資訊中", formData, successFunc, errorFunc, '確定是否更新?');
+        UpdateMemberInfoAPI("更新個人資訊中", formData, successFunc, errorFunc, '確定是否更新?');
     },
     /** 變更密碼 */
     ChangePassword: () => {
@@ -168,7 +165,7 @@ export const MemberSettingPage = {
             return;
         }
 
-        let model = new Request.ChangePasswordReqViewModel(
+        let model = new ChangePasswordReqViewModel(
             $('#oldPassword').val() as string,
             $('#newPassword').val() as string,
             $('#newPasswordCheck').val() as string);
@@ -179,9 +176,8 @@ export const MemberSettingPage = {
             $('#newPasswordCheck').val('');
         };
         let errorFunc = () => { };
-        API.ChangePasswordAPI("變更密碼中", model, successFunc, errorFunc, "確定是否執行變更密碼?");
+        ChangePasswordAPI("變更密碼中", model, successFunc, errorFunc, "確定是否執行變更密碼?");
     }
 }
 
 window["MemberSettingPage"] = MemberSettingPage;
-window["Common"] = Common;

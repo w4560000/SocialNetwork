@@ -1,6 +1,4 @@
-﻿import { API, Enum, Request, Response, Common } from "../Common/Index.js";
-
-export const ResetPasswordPage = {
+﻿const ResetPasswordPage = {
     Init: () => {
         $('#resetPassword_password').keyup((e) => Common.RemoveErrorInput(e.target));
         $('#resetPassword_confirmPassword').keyup((e) => Common.RemoveErrorInput(e.target));
@@ -28,7 +26,7 @@ export const ResetPasswordPage = {
             return;
         }
 
-        let model = new Request.ResetPasswordConfirmReqViewModel(
+        let model = new ResetPasswordConfirmReqViewModel(
             $("#resetPassword_password").val() as string,
             $("#resetPassword_confirmPassword").val() as string,
             $("#resetPassword_guid").val() as string
@@ -38,8 +36,6 @@ export const ResetPasswordPage = {
         };
         let errorFuc = (res) => { };
 
-        API.ResetPasswordConfirmAPI("重設密碼中", model, successFuc, errorFuc);
+        ResetPasswordConfirmAPI("重設密碼中", model, successFuc, errorFuc);
     }
 }
-
-window["ResetPasswordPage"] = ResetPasswordPage;

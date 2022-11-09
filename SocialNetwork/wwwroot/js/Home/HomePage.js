@@ -34,21 +34,21 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import { API, Enum, Request, Common } from "../Common/Index.js";
-import { Friend } from "../Common/Friend.js";
+var _this = this;
 var memberInfo;
-export var HomePage = {
-    Init: function () { return __awaiter(void 0, void 0, void 0, function () {
+var HomePage = {
+    Init: function () { return __awaiter(_this, void 0, void 0, function () {
         var _a, memberBrithday, brithday;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
+                    debugger;
                     if (!$("#query_memberID").val()) return [3 /*break*/, 2];
-                    return [4 /*yield*/, API.GetMemberInfoAPI($("#query_memberID").val())];
+                    return [4 /*yield*/, GetMemberInfoAPI($("#query_memberID").val())];
                 case 1:
                     _a = _b.sent();
                     return [3 /*break*/, 4];
-                case 2: return [4 /*yield*/, API.GetCurrentMemberInfoAPI()];
+                case 2: return [4 /*yield*/, GetCurrentMemberInfoAPI()];
                 case 3:
                     _a = _b.sent();
                     _b.label = 4;
@@ -77,20 +77,20 @@ export var HomePage = {
     /**
      * 刷新好友狀態
      * */
-    ReflashFriendStatus: function () { return __awaiter(void 0, void 0, void 0, function () {
+    ReflashFriendStatus: function () { return __awaiter(_this, void 0, void 0, function () {
         var model, firendStatus;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     if (!$("#query_memberID").val()) return [3 /*break*/, 2];
                     $('.div_homePage_topBar').html("".concat(memberInfo.NickName, "\u7684\u500B\u4EBA\u4E3B\u9801"));
-                    model = new Request.CommonMemberViewModel(memberInfo.MemberID);
-                    return [4 /*yield*/, API.GetFriendStatusAPI(model)];
+                    model = new CommonMemberViewModel(memberInfo.MemberID);
+                    return [4 /*yield*/, GetFriendStatusAPI(model)];
                 case 1:
                     firendStatus = _a.sent();
                     $('.div_sendMsg').hide();
                     switch (firendStatus.FriendStatus) {
-                        case Enum.FriendStatusEnum.非好友:
+                        case FriendStatusEnum.非好友:
                             $('.div_addFriend').css('width', '100px');
                             $('.div_addFriend').css('background-color', '#F2A1A1');
                             $('.addFriend_icon').show();
@@ -98,7 +98,7 @@ export var HomePage = {
                                 .html('加好友');
                             $('.lbl_addFriend').css('padding-left', '30px');
                             break;
-                        case Enum.FriendStatusEnum.已寄送好友邀請:
+                        case FriendStatusEnum.已寄送好友邀請:
                             $('.div_addFriend').css('width', '110px');
                             $('.div_addFriend').css('background-color', 'rgba(0, 0, 0, 0.3)');
                             $('.addFriend_icon').hide();
@@ -106,13 +106,13 @@ export var HomePage = {
                                 .html('收回好友邀請');
                             $('.lbl_addFriend').css('padding-left', '0px');
                             break;
-                        case Enum.FriendStatusEnum.已接收好友邀請:
+                        case FriendStatusEnum.已接收好友邀請:
                             $('.lbl_addFriend').click(function () {
-                                return Common.SweetAlertConfirm("\u662F\u5426\u63A5\u53D7 ".concat(memberInfo.NickName, " \n\u7684\u597D\u53CB\u9080\u8ACB?"), function () { return Friend.DecideFriendInvitation(memberInfo.MemberID, memberInfo.NickName, Enum.DecideFriendInvitationEnum.接受, function () { return HomePage.ReflashFriendStatus(); }); }, function () { return Friend.DecideFriendInvitation(memberInfo.MemberID, memberInfo.NickName, Enum.DecideFriendInvitationEnum.拒絕, function () { return HomePage.ReflashFriendStatus(); }); }, '拒絕');
+                                return Common.SweetAlertConfirm("\u662F\u5426\u63A5\u53D7 ".concat(memberInfo.NickName, " \n\u7684\u597D\u53CB\u9080\u8ACB?"), function () { return Friend.DecideFriendInvitation(memberInfo.MemberID, memberInfo.NickName, DecideFriendInvitationEnum.接受, function () { return HomePage.ReflashFriendStatus(); }); }, function () { return Friend.DecideFriendInvitation(memberInfo.MemberID, memberInfo.NickName, DecideFriendInvitationEnum.拒絕, function () { return HomePage.ReflashFriendStatus(); }); }, '拒絕');
                             })
                                 .html('回覆');
                             break;
-                        case Enum.FriendStatusEnum.為好友:
+                        case FriendStatusEnum.為好友:
                             $('.div_sendMsg').show();
                             $('.div_addFriend').css('width', '110px');
                             $('.div_addFriend').css('background-color', 'rgba(0, 0, 0, 0.3)');

@@ -7,7 +7,6 @@ var CommonMemberViewModel = /** @class */ (function () {
     }
     return CommonMemberViewModel;
 }());
-export { CommonMemberViewModel };
 /**
  * 登入 Request ViewModel
  * */
@@ -18,7 +17,6 @@ var LoginReqViewModel = /** @class */ (function () {
     }
     return LoginReqViewModel;
 }());
-export { LoginReqViewModel };
 /**
  * Google 第三方登入 Request ViewModel
  * */
@@ -28,7 +26,6 @@ var GoogleLoginReqViewModel = /** @class */ (function () {
     }
     return GoogleLoginReqViewModel;
 }());
-export { GoogleLoginReqViewModel };
 /**
  * 寄送驗證碼 Request ViewModel
  * */
@@ -38,7 +35,6 @@ var SendVCodeReqViewModel = /** @class */ (function () {
     }
     return SendVCodeReqViewModel;
 }());
-export { SendVCodeReqViewModel };
 /**
  * 註冊 Request ViewModel
  * */
@@ -53,7 +49,6 @@ var SignupReqViewModel = /** @class */ (function () {
     }
     return SignupReqViewModel;
 }());
-export { SignupReqViewModel };
 /**
  * 更新會員公開資訊 Request ViewModel
  * */
@@ -67,7 +62,6 @@ var UpdateMemberPublicInfoReqViewModel = /** @class */ (function () {
     }
     return UpdateMemberPublicInfoReqViewModel;
 }());
-export { UpdateMemberPublicInfoReqViewModel };
 /**
  * 重設密碼 Step1 Request ViewModel
  * */
@@ -78,7 +72,6 @@ var ResetPasswordReqViewModel = /** @class */ (function () {
     }
     return ResetPasswordReqViewModel;
 }());
-export { ResetPasswordReqViewModel };
 /**
  * 重設密碼 Step2 Request ViewModel
  * */
@@ -90,7 +83,6 @@ var ResetPasswordConfirmReqViewModel = /** @class */ (function () {
     }
     return ResetPasswordConfirmReqViewModel;
 }());
-export { ResetPasswordConfirmReqViewModel };
 /**
  * 更新會員狀態 Request ViewModel
  * */
@@ -100,7 +92,6 @@ var UpdateMemberStatusReqViewModel = /** @class */ (function () {
     }
     return UpdateMemberStatusReqViewModel;
 }());
-export { UpdateMemberStatusReqViewModel };
 /**
  * 密碼變更 Request ViewModel
  * */
@@ -112,7 +103,6 @@ var ChangePasswordReqViewModel = /** @class */ (function () {
     }
     return ChangePasswordReqViewModel;
 }());
-export { ChangePasswordReqViewModel };
 /**
  * 判斷好友邀請 Request ViewModel
  * */
@@ -123,4 +113,3 @@ var DecideFriendInvitationReqViewModel = /** @class */ (function () {
     }
     return DecideFriendInvitationReqViewModel;
 }());
-export { DecideFriendInvitationReqViewModel };

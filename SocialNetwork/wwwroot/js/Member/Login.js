@@ -1,5 +1,4 @@
-import { API, Request, Common } from "../Common/Index.js";
-export var LoginPage = {
+var LoginPage = {
     Init: function () {
         // 日期選擇元件
         Common.DatepickerInit($('#brithday_datepicker'), function (dateText, inst) {
@@ -27,12 +26,12 @@ export var LoginPage = {
             Common.SweetAlertErrorMsg(error);
             return;
         }
-        var model = new Request.LoginReqViewModel($('#login_account').val(), $('#login_password').val());
+        var model = new LoginReqViewModel($('#login_account').val(), $('#login_password').val());
         var successFunc = function () {
             Common.SweetAlertRedirect("/Home/Index", "首頁");
         };
         var errorFunc = function () { };
-        API.LoginAPI("登入中", model, successFunc, errorFunc);
+        LoginAPI("登入中", model, successFunc, errorFunc);
     },
     /** Google 第三方登入 */
     GoogleLogin: function () {
@@ -51,20 +50,20 @@ export var LoginPage = {
                     Common.SweetAlertRedirect("/Home/Index", "首頁");
                 };
                 var errorFunc = function () { };
-                var model = new Request.GoogleLoginReqViewModel(response.code);
-                API.GoogleLoginAPI("登入中", model, successFuc, errorFunc);
+                var model = new GoogleLoginReqViewModel(response.code);
+                GoogleLoginAPI("登入中", model, successFuc, errorFunc);
             },
         });
         client.requestCode();
     },
     /** 寄送驗證碼 */
     SendVCode: function () {
-        var model = new Request.SendVCodeReqViewModel($('#singup_mail').val());
+        var model = new SendVCodeReqViewModel($('#singup_mail').val());
         var successFunc = function () { };
         var errorFunc = function () {
             $('#singup_mail').addClass('input-error');
         };
-        API.SendVCodeAPI("寄送驗證碼中", model, successFunc, errorFunc);
+        SendVCodeAPI("寄送驗證碼中", model, successFunc, errorFunc);
     },
     /** 註冊 */
     Singup: function () {
@@ -94,12 +93,12 @@ export var LoginPage = {
             Common.SweetAlertErrorMsg(error);
             return;
         }
-        var model = new Request.SignupReqViewModel($("#singup_name").val(), $("#singup_account").val(), $("#singup_password").val(), $("#singup_passwordCheck").val(), $("#singup_mail").val(), $("#singup_vCode").val());
+        var model = new SignupReqViewModel($("#singup_name").val(), $("#singup_account").val(), $("#singup_password").val(), $("#singup_passwordCheck").val(), $("#singup_mail").val(), $("#singup_vCode").val());
         var successFunc = function () {
             Common.Popup('MemberInfo');
         };
         var errorFunc = function () { };
-        API.SignupAPI("註冊中", model, successFunc, errorFunc);
+        SignupAPI("註冊中", model, successFunc, errorFunc);
     },
     /** 更新會員公開資訊 */
     UpdateMemberPublicInfo: function () {
@@ -113,12 +112,12 @@ export var LoginPage = {
             Common.SweetAlertErrorMsg('請選擇生日');
             return;
         }
-        var model = new Request.UpdateMemberPublicInfoReqViewModel(new Date($('#brithday_datepicker').val()), $('#infoInternest').val(), $('#infoJob').val(), $('#infoEducation').val(), infoStatus);
+        var model = new UpdateMemberPublicInfoReqViewModel(new Date($('#brithday_datepicker').val()), $('#infoInternest').val(), $('#infoJob').val(), $('#infoEducation').val(), infoStatus);
         var successFunc = function () {
             Common.SweetAlertRedirect('/Home/Index', '首頁');
         };
         var errorFunc = function () { };
-        API.UpdateMemberPublicInfoAPI("更新會員資訊中", model, successFunc, errorFunc);
+        UpdateMemberPublicInfoAPI("更新會員資訊中", model, successFunc, errorFunc);
     },
     /** 忘記密碼 申請重設密碼*/
     ResetPassword: function () {
@@ -131,9 +130,7 @@ export var LoginPage = {
             Common.SweetAlertErrorMsg(error);
             return;
         }
-        var model = new Request.ResetPasswordReqViewModel($('#forgotPassword_account').val(), $('#forgotPassword_mail').val());
-        API.ResetPasswordAPI("寄送重設密碼郵件中", model);
+        var model = new ResetPasswordReqViewModel($('#forgotPassword_account').val(), $('#forgotPassword_mail').val());
+        ResetPasswordAPI("寄送重設密碼郵件中", model);
     }
 };
-window["LoginPage"] = LoginPage;
-window["Common"] = Common;

@@ -1,6 +1,4 @@
-﻿import { Enum, Request, Response } from "../Common/Index.js";
-
-const Common = {
+﻿const Common = {
     /**
      * 驗證上傳圖檔的附檔名
      * @param fileName 上傳圖檔
@@ -70,7 +68,7 @@ const Common = {
      * @param res 共用回應 ViewModel
      * @param confirmFunc 確認Func
      */
-    SweetAlertSuccess: <Res>(res: Response.ResponseViewModel<Res>, confirmFunc?: Function) => {
+    SweetAlertSuccess: <Res>(res: ResponseViewModel<Res>, confirmFunc?: Function) => {
         if (confirmFunc != null) {
             Swal.fire({
                 icon: 'success',
@@ -97,7 +95,7 @@ const Common = {
      * @param res 共用回應 ViewModel
      * @param confirmFunc 確認Func
      */
-    SweetAlertError: <Res>(res: Response.ResponseViewModel<Res>, confirmFunc?: Function) => {
+    SweetAlertError: <Res>(res: ResponseViewModel<Res>, confirmFunc?: Function) => {
         if (confirmFunc != null) {
             Swal.fire({
                 icon: 'error',
@@ -350,5 +348,3 @@ const Toast = Swal.mixin({
     },
     showCloseButton: true
 });
-
-export { Common, Toast };

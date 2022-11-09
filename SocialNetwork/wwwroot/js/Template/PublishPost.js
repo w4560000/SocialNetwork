@@ -1,6 +1,5 @@
-import { API, Common } from "../Common/Index.js";
 var tempFileList = [];
-export var PublishPostPage = {
+var PublishPostPage = {
     Init: function () {
         // 輸入框 高度自動伸縮
         $('.write_post, .msgComment').on("input", function () {
@@ -92,7 +91,7 @@ export var PublishPostPage = {
             // todo reload PostMsg
         };
         var errorFunc = function () { };
-        API.PublishPostAPI("發佈貼文中", formData, successFunc, errorFunc, '確定是否發佈?');
+        PublishPostAPI("發佈貼文中", formData, successFunc, errorFunc, '確定是否發佈?');
     }
 };
 window["PublishPostPage"] = PublishPostPage;

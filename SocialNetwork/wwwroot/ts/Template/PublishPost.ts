@@ -1,8 +1,6 @@
-﻿import { API, Enum, Request, Response, Common } from "../Common/Index.js";
+﻿var tempFileList: File[] = [];
 
-var tempFileList: File[] = [];
-
-export const PublishPostPage = {
+const PublishPostPage = {
     Init: () => {
         // 輸入框 高度自動伸縮
         $('.write_post, .msgComment').on("input", function () {
@@ -109,7 +107,7 @@ export const PublishPostPage = {
             // todo reload PostMsg
         };
         var errorFunc = function () { };
-        API.PublishPostAPI("發佈貼文中", formData, successFunc, errorFunc, '確定是否發佈?');
+        PublishPostAPI("發佈貼文中", formData, successFunc, errorFunc, '確定是否發佈?');
     }
 }
 

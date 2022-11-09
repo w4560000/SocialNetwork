@@ -1,6 +1,4 @@
-﻿import { API, Enum, Request, Response, Common } from "../Common/Index.js";
-
-export const LoginPage = {
+﻿const LoginPage = {
     Init: () => {
         // 日期選擇元件
         Common.DatepickerInit(
@@ -35,12 +33,12 @@ export const LoginPage = {
             return;
         }
 
-        let model = new Request.LoginReqViewModel($('#login_account').val() as string, $('#login_password').val() as string);
+        let model = new LoginReqViewModel($('#login_account').val() as string, $('#login_password').val() as string);
         let successFunc = () => {
             Common.SweetAlertRedirect("/Home/Index", "首頁");
         };
         let errorFunc = () => { };
-        API.LoginAPI("登入中", model, successFunc, errorFunc);
+        LoginAPI("登入中", model, successFunc, errorFunc);
     },
     /** Google 第三方登入 */
     GoogleLogin: () => {
@@ -49,7 +47,7 @@ export const LoginPage = {
             scope: 'profile email',
             ux_mode: 'popup',
             callback: (response: any) => {
-                let successFuc = (res: Response.ResponseViewModel<Response.GoogleLoginResViewModel>) => {
+                let successFuc = (res: ResponseViewModel<GoogleLoginResViewModel>) => {
                     // 首次第三方登入 才需要設定個人公開資訊
                     if (res.Data?.IsFirstLogin === true) {
                         Common.Popup('MemberInfo');
@@ -59,21 +57,21 @@ export const LoginPage = {
                     Common.SweetAlertRedirect("/Home/Index", "首頁");
                 };
                 let errorFunc = () => { };
-                let model = new Request.GoogleLoginReqViewModel(response.code);
-                API.GoogleLoginAPI("登入中", model, successFuc, errorFunc);
+                let model = new GoogleLoginReqViewModel(response.code);
+                GoogleLoginAPI("登入中", model, successFuc, errorFunc);
             },
         });
         client.requestCode();
     },
     /** 寄送驗證碼 */
     SendVCode: () => {
-        let model = new Request.SendVCodeReqViewModel($('#singup_mail').val() as string);
+        let model = new SendVCodeReqViewModel($('#singup_mail').val() as string);
         let successFunc = () => { };
         let errorFunc = () => {
             $('#singup_mail').addClass('input-error');
         };
 
-        API.SendVCodeAPI("寄送驗證碼中", model, successFunc, errorFunc);
+        SendVCodeAPI("寄送驗證碼中", model, successFunc, errorFunc);
     },
     /** 註冊 */
     Singup: () => {
@@ -107,7 +105,7 @@ export const LoginPage = {
             return;
         }
 
-        let model = new Request.SignupReqViewModel(
+        let model = new SignupReqViewModel(
             $("#singup_name").val() as string,
             $("#singup_account").val() as string,
             $("#singup_password").val() as string,
@@ -120,7 +118,7 @@ export const LoginPage = {
         };
         let errorFunc = () => { };
 
-        API.SignupAPI("註冊中", model, successFunc, errorFunc);
+        SignupAPI("註冊中", model, successFunc, errorFunc);
     },
     /** 更新會員公開資訊 */
     UpdateMemberPublicInfo: () => {
@@ -137,7 +135,7 @@ export const LoginPage = {
             return;
         }
 
-        let model = new Request.UpdateMemberPublicInfoReqViewModel(
+        let model = new UpdateMemberPublicInfoReqViewModel(
             new Date($('#brithday_datepicker').val() as string),
             $('#infoInternest').val() as string,
             $('#infoJob').val() as string,
@@ -148,7 +146,7 @@ export const LoginPage = {
         };
         let errorFunc = () => { };
 
-        API.UpdateMemberPublicInfoAPI("更新會員資訊中", model, successFunc, errorFunc);
+        UpdateMemberPublicInfoAPI("更新會員資訊中", model, successFunc, errorFunc);
     },
     /** 忘記密碼 申請重設密碼*/
     ResetPassword: () => {
@@ -164,13 +162,10 @@ export const LoginPage = {
             return;
         }
 
-        let model = new Request.ResetPasswordReqViewModel(
+        let model = new ResetPasswordReqViewModel(
             $('#forgotPassword_account').val() as string,
             $('#forgotPassword_mail').val() as string);
 
-        API.ResetPasswordAPI("寄送重設密碼郵件中", model);
+        ResetPasswordAPI("寄送重設密碼郵件中", model);
     }
 }
-
-window["LoginPage"] = LoginPage;
-window["Common"] = Common;

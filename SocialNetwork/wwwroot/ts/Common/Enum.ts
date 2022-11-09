@@ -1,9 +1,7 @@
-﻿import { API, Request, Response, Common } from "../Common/Index.js";
-
-/**
+﻿/**
  * 共用 API 回應狀態 列舉 
  * */
-export enum ResponseStatusEnum {
+enum ResponseStatusEnum {
     Error = 0,
     Success = 1
 }
@@ -11,7 +9,7 @@ export enum ResponseStatusEnum {
 /**
  * 會員公開資訊 列舉
  * */
-export enum MemberPublicInfoEnum {
+enum MemberPublicInfoEnum {
     全部不公開 = 0,
     公開生日 = 1,
     公開興趣 = 2,
@@ -23,7 +21,7 @@ export enum MemberPublicInfoEnum {
 /**
  * 會員狀態 列舉
  * */
-export enum MemberStatusEnum {
+enum MemberStatusEnum {
     在線 = 1,
     忙碌 = 2,
     離線 = 3
@@ -32,7 +30,7 @@ export enum MemberStatusEnum {
 /**
  * 判斷好友邀請 列舉
  * */
-export enum DecideFriendInvitationEnum {
+enum DecideFriendInvitationEnum {
     拒絕 = 0,
     接受 = 1
 }
@@ -40,7 +38,7 @@ export enum DecideFriendInvitationEnum {
 /**
  * 好友狀態 列舉
  * */
-export enum FriendStatusEnum {
+enum FriendStatusEnum {
     非好友 = 0,
     已寄送好友邀請 = 1,
     已接收好友邀請 = 2,

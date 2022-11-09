@@ -34,12 +34,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import { API, Enum, Request, Common } from "../Common/Index.js";
-import { user } from "../Home/Layout.js";
+var _this = this;
 var tempBackgroundFile;
 var tempProfilePhotoFile;
-export var MemberSettingPage = {
-    Init: function () { return __awaiter(void 0, void 0, void 0, function () {
+var MemberSettingPage = {
+    Init: function () { return __awaiter(_this, void 0, void 0, function () {
         var memberInfo;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -49,7 +48,7 @@ export var MemberSettingPage = {
                         var date = "".concat(inst.selectedYear, " \u5E74 ").concat(inst.selectedMonth + 1, " \u6708 ").concat(inst.selectedDay, " \u65E5");
                         $("#infoBrithday").val(date);
                     });
-                    return [4 /*yield*/, API.GetCurrentMemberInfoAPI()];
+                    return [4 /*yield*/, GetCurrentMemberInfoAPI()];
                 case 1:
                     memberInfo = _a.sent();
                     // 載入 會員資訊
@@ -159,7 +158,7 @@ export var MemberSettingPage = {
         formData.append('Education', $('#infoEducation').val());
         formData.append('InfoStatus', infoStatus.toString());
         var successFunc = function (res) {
-            if (res.Status == Enum.ResponseStatusEnum.Success) {
+            if (res.Status == ResponseStatusEnum.Success) {
                 // 更新左側 Menu 頭像
                 if (tempProfilePhotoFile !== undefined)
                     $('.index_profilePhoto').attr('src', URL.createObjectURL(tempProfilePhotoFile));
@@ -174,7 +173,7 @@ export var MemberSettingPage = {
             }
         };
         var errorFunc = function () { };
-        API.UpdateMemberInfoAPI("更新個人資訊中", formData, successFunc, errorFunc, '確定是否更新?');
+        UpdateMemberInfoAPI("更新個人資訊中", formData, successFunc, errorFunc, '確定是否更新?');
     },
     /** 變更密碼 */
     ChangePassword: function () {
@@ -188,15 +187,14 @@ export var MemberSettingPage = {
             Common.SweetAlertErrorMsg(error);
             return;
         }
-        var model = new Request.ChangePasswordReqViewModel($('#oldPassword').val(), $('#newPassword').val(), $('#newPasswordCheck').val());
+        var model = new ChangePasswordReqViewModel($('#oldPassword').val(), $('#newPassword').val(), $('#newPasswordCheck').val());
         var successFunc = function () {
             $('#oldPassword').val('');
             $('#newPassword').val('');
             $('#newPasswordCheck').val('');
         };
         var errorFunc = function () { };
-        API.ChangePasswordAPI("變更密碼中", model, successFunc, errorFunc, "確定是否執行變更密碼?");
+        ChangePasswordAPI("變更密碼中", model, successFunc, errorFunc, "確定是否執行變更密碼?");
     }
 };
 window["MemberSettingPage"] = MemberSettingPage;
-window["Common"] = Common;

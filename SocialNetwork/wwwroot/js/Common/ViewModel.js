@@ -13,4 +13,3 @@ var User = /** @class */ (function () {
     };
     return User;
 }());
-export { User };

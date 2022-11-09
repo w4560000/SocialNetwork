@@ -1,6 +1,3 @@
-//import { HubConnectionBuilder } from "../../lib/@microsoft/signalr/dist/esm/HubConnectionBuilder.js";
-//import { MessagePackHubProtocol } from "../../lib/@microsoft/signalr-protocol-msgpack/dist/esm/MessagePackHubProtocol.js";
-import { Common } from "../Common/Index.js";
 var ChatHubConnection = /** @class */ (function () {
     function ChatHubConnection() {
         this.Connection = new signalR.HubConnectionBuilder()
@@ -24,4 +21,3 @@ var ChatHubConnection = /** @class */ (function () {
     };
     return ChatHubConnection;
 }());
-export { ChatHubConnection };

@@ -1,5 +1,4 @@
-import { API, Request, Common } from "../Common/Index.js";
-export var ResetPasswordPage = {
+var ResetPasswordPage = {
     Init: function () {
         $('#resetPassword_password').keyup(function (e) { return Common.RemoveErrorInput(e.target); });
         $('#resetPassword_confirmPassword').keyup(function (e) { return Common.RemoveErrorInput(e.target); });
@@ -23,12 +22,11 @@ export var ResetPasswordPage = {
             Common.SweetAlertErrorMsg(error);
             return;
         }
-        var model = new Request.ResetPasswordConfirmReqViewModel($("#resetPassword_password").val(), $("#resetPassword_confirmPassword").val(), $("#resetPassword_guid").val());
+        var model = new ResetPasswordConfirmReqViewModel($("#resetPassword_password").val(), $("#resetPassword_confirmPassword").val(), $("#resetPassword_guid").val());
         var successFuc = function (res) {
             Common.SweetAlertRedirect('/Member/Login', '登入頁');
         };
         var errorFuc = function (res) { };
-        API.ResetPasswordConfirmAPI("重設密碼中", model, successFuc, errorFuc);
+        ResetPasswordConfirmAPI("重設密碼中", model, successFuc, errorFuc);
     }
 };
-window["ResetPasswordPage"] = ResetPasswordPage;

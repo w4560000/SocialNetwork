@@ -324,4 +324,3 @@ var Toast = Swal.mixin({
     },
     showCloseButton: true
 });
-export { Common, Toast };

@@ -1,8 +1,4 @@
-﻿//import { HubConnectionBuilder } from "../../lib/@microsoft/signalr/dist/esm/HubConnectionBuilder.js";
-//import { MessagePackHubProtocol } from "../../lib/@microsoft/signalr-protocol-msgpack/dist/esm/MessagePackHubProtocol.js";
-import { Enum, Request, Response, Common, ViewModel } from "../Common/Index.js";
-
-export class ChatHubConnection {
+﻿class ChatHubConnection {
     Connection: signalR.HubConnection = new signalR.HubConnectionBuilder()
         .withUrl("/chatHub")
         //.withHubProtocol(new signalR.protocols.msgpack.MessagePackHubProtocol())
@@ -11,7 +7,7 @@ export class ChatHubConnection {
 
     connect(ReflashFriendStatusFunc: Function) {
         // Register
-        this.Connection.on("ReflashFriendStatus_Receive", (friend: Response.GetFriendListResViewModel) => {
+        this.Connection.on("ReflashFriendStatus_Receive", (friend: GetFriendListResViewModel) => {
             ReflashFriendStatusFunc(friend);
         });
 
