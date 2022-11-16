@@ -5,7 +5,7 @@ namespace SocialNetwork.Repository
     /// <summary>
     /// 更新會員公開資訊 Request ViewModel
     /// </summary>
-    public class UpdateMemberPublicInfoReqViewModel : IUpdateMemberPublicInfoReqViewModel
+    public class UpdateMemberPublicInfoReqViewModel
     {
         /// <summary>
         /// 生日

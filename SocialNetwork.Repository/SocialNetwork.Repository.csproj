@@ -37,6 +37,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Interfaces\ViewModel\Request\Member\" />
     <Folder Include="Models\Dto\" />
   </ItemGroup>
 

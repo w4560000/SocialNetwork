@@ -41,15 +41,8 @@ namespace SocialNetwork.Service
         /// 更新會員公開資訊
         /// </summary>
         /// <param name="model">更新會員公開資訊 Request ViewModel</param>
-        /// <param name="nickName">暱稱</param>
-        /// <param name="backgroundPhotoURL">主頁背景URL</param>
-        /// <param name="profilePhotoURL">頭像URL</param>
         /// <returns>更新結果</returns>
-        public ResponseViewModel UpdateMemberPublicInfo(
-            IUpdateMemberPublicInfoReqViewModel model,
-            string nickName = null,
-            string backgroundPhotoURL = null,
-            string profilePhotoURL = null);
+        public ResponseViewModel UpdateMemberPublicInfo(UpdateMemberPublicInfoReqViewModel model);
 
         /// <summary>
         /// 重設密碼 Step1

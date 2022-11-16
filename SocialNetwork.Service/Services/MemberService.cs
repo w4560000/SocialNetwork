@@ -236,15 +236,8 @@ namespace SocialNetwork.Service
         /// 更新會員公開資訊
         /// </summary>
         /// <param name="model">更新會員公開資訊 Request ViewModel</param>
-        /// <param name="nickName">暱稱</param>
-        /// <param name="backgroundPhotoURL">主頁背景URL</param>
-        /// <param name="profilePhotoURL">頭像URL</param>
         /// <returns>更新結果</returns>
-        public ResponseViewModel UpdateMemberPublicInfo(
-            IUpdateMemberPublicInfoReqViewModel model,
-            string nickName = null,
-            string backgroundPhotoURL = null,
-            string profilePhotoURL = null)
+        public ResponseViewModel UpdateMemberPublicInfo(UpdateMemberPublicInfoReqViewModel model)
         {
             if (!this.MemberRepository.TryGetEntity(UserContext.User.MemberID, out Member member))
                 return CommonExtension.AsSystemFailResponse();
@@ -254,9 +247,6 @@ namespace SocialNetwork.Service
             member.Interest = model.Interest;
             member.Job = model.Job;
             member.Education = model.Education;
-            member.NickName = string.IsNullOrEmpty(nickName) ? member.NickName : nickName;
-            member.BackgroundPhotoURL = string.IsNullOrEmpty(backgroundPhotoURL) ? member.BackgroundPhotoURL : backgroundPhotoURL;
-            member.ProfilePhotoURL = string.IsNullOrEmpty(profilePhotoURL) ? member.ProfilePhotoURL : profilePhotoURL;
             this.MemberRepository.Update(member);
 
             this.SetMemberStatusForCookie(member.MemberID, MemberStatusEnum.在線);
@@ -459,6 +449,9 @@ outline: 0;";
         /// <returns>更新結果</returns>
         public async Task<ResponseViewModel> UpdateMemberInfoAsync(UpdateMemberInfoReqViewModel model)
         {
+            if (!this.MemberRepository.TryGetEntity(UserContext.User.MemberID, out Member member))
+                return CommonExtension.AsSystemFailResponse();
+
             string backgroundPhotoUrl = string.Empty;
             string profilePhotoUrl = string.Empty;
 
@@ -494,7 +487,13 @@ outline: 0;";
                 profilePhotoUrl = AzureHelper.GetImage(AzureBlobDirectoryEnum.ProfilePhoto, profilePhotoFile);
             }
 
-            return this.UpdateMemberPublicInfo(model, model.NickName, backgroundPhotoUrl, profilePhotoUrl);
+            member.NickName = model.NickName;
+            member.BackgroundPhotoURL = string.IsNullOrEmpty(backgroundPhotoUrl) ? member.BackgroundPhotoURL : backgroundPhotoUrl;
+            member.ProfilePhotoURL = string.IsNullOrEmpty(profilePhotoUrl) ? member.ProfilePhotoURL : profilePhotoUrl;
+            this.MemberRepository.Update(member);
+
+            this.SetMemberStatusForCookie(member.MemberID, MemberStatusEnum.在線);
+            return "更新成功".AsSuccessResponse();
         }
 
         /// <summary>
