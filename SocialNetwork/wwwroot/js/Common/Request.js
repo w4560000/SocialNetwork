@@ -8,6 +8,16 @@ var CommonMemberViewModel = /** @class */ (function () {
     return CommonMemberViewModel;
 }());
 /**
+ * 查詢資料筆數 Member ViewModel
+ * */
+var QueryRowMemberReqViewModel = /** @class */ (function () {
+    function QueryRowMemberReqViewModel(memberID, queryRowNo) {
+        this.MemberID = memberID;
+        this.QueryRowNo = queryRowNo;
+    }
+    return QueryRowMemberReqViewModel;
+}());
+/**
  * 登入 Request ViewModel
  * */
 var LoginReqViewModel = /** @class */ (function () {

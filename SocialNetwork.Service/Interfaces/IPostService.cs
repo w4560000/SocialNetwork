@@ -22,13 +22,13 @@ namespace SocialNetwork.Service
         /// </summary>
         /// <param name="model">取得貼文 (自己和朋友) Request ViewModel</param>
         /// <returns>取得結果</returns>
-        Task<ResponseViewModel<List<GetPostResViewModel>>> GetHomeIndexPost(QueryRowMemberViewModel model);
+        Task<ResponseViewModel<List<GetPostResViewModel>>> GetHomeIndexPost(QueryRowMemberReqViewModel model);
 
         /// <summary>
         /// 取得會員貼文
         /// </summary>
         /// <param name="model">取得會員貼文 Request ViewModel</param>
         /// <returns>取得結果</returns>
-        Task<ResponseViewModel<List<GetPostResViewModel>>> GetMemberPost(QueryRowMemberViewModel model);
+        Task<ResponseViewModel<List<GetPostResViewModel>>> GetMemberPost(QueryRowMemberReqViewModel model);
     }
 }

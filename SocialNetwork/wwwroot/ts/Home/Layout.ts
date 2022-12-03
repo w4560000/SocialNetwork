@@ -45,11 +45,16 @@ const LayoutPage = {
         var friendList = await GetFriendListAPI();
         LayoutPage.ReflashFriendList(friendList);
 
+        
+        var postList = await GetHomeIndexPostAPI(new QueryRowMemberReqViewModel(user.MemberID, 1));
+        
+        postList.forEach(f => {
+            $('.div_mypost').after(Post.PostHtmlTemplate(f));
+        });
+        
+
         // 控制 Img Default Style
         Common.ControllImgDefaultStyle();
-
-        // 建立 chatHubConnection 連線
-        //chatHubConnection.connect(LayoutPage.ReflashFriendStatus);
 
         // 設定 Menu 底色 (根據當前頁面)
         LayoutPage.SetMenuColor();

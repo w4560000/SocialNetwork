@@ -39,7 +39,7 @@ var user;
 var chatHubConnection;
 var LayoutPage = {
     Init: function (_user) { return __awaiter(_this, void 0, void 0, function () {
-        var friendList;
+        var friendList, postList;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -80,10 +80,14 @@ var LayoutPage = {
                 case 1:
                     friendList = _a.sent();
                     LayoutPage.ReflashFriendList(friendList);
+                    return [4 /*yield*/, GetHomeIndexPostAPI(new QueryRowMemberReqViewModel(user.MemberID, 1))];
+                case 2:
+                    postList = _a.sent();
+                    postList.forEach(function (f) {
+                        $('.div_mypost').after(Post.PostHtmlTemplate(f));
+                    });
                     // 控制 Img Default Style
                     Common.ControllImgDefaultStyle();
-                    // 建立 chatHubConnection 連線
-                    //chatHubConnection.connect(LayoutPage.ReflashFriendStatus);
                     // 設定 Menu 底色 (根據當前頁面)
                     LayoutPage.SetMenuColor();
                     return [2 /*return*/];

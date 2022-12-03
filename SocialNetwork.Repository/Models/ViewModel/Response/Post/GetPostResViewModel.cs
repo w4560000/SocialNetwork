@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SocialNetwork.Repository
 {
@@ -44,8 +43,8 @@ namespace SocialNetwork.Repository
         /// <summary>
         /// 貼文圖片清單
         /// </summary>
-        public List<string> PostImageUrlList 
-        { 
+        public List<string> PostImageUrlList
+        {
             get
             {
                 return this.PostImageUrlStr.Split(',')

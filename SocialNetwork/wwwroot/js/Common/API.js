@@ -399,6 +399,44 @@ function ChangePasswordAPI(loadingMsg, model, successFunc, errorFunc, confirmTit
 function PublishPostAPI(loadingMsg, formData, successFunc, errorFunc, confirmTitle) {
     Common.SweetAlertConfirm(confirmTitle, function () { return BasePostAPIByFormData(loadingMsg, "/PostApi/PublishPost", formData, successFunc, errorFunc); });
 }
+/**
+ * 取得貼文 (自己和朋友) API
+ */
+function GetHomeIndexPostAPI(model) {
+    return __awaiter(this, void 0, void 0, function () {
+        var successFunc, errorFunc, isNotification, isShowSuccessMsg;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    successFunc = function () { };
+                    errorFunc = function () { };
+                    isNotification = false;
+                    isShowSuccessMsg = false;
+                    return [4 /*yield*/, BasePostAPIV2('', "/PostApi/GetHomeIndexPost", model, successFunc, errorFunc, isNotification, isShowSuccessMsg)];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        });
+    });
+}
+/**
+ * 取得會員貼文 API
+ */
+function GetMemberPostAPI(model) {
+    return __awaiter(this, void 0, void 0, function () {
+        var successFunc, errorFunc, isNotification, isShowSuccessMsg;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    successFunc = function () { };
+                    errorFunc = function () { };
+                    isNotification = false;
+                    isShowSuccessMsg = false;
+                    return [4 /*yield*/, BasePostAPIV2('', "/PostApi/GetMemberPost", model, successFunc, errorFunc, isNotification, isShowSuccessMsg)];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        });
+    });
+}
 // Friend
 /**
  * 取得好友清單 API

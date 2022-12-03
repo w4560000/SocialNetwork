@@ -62,7 +62,7 @@ namespace SocialNetwork.Controllers
         /// </summary>
         /// <returns>取得結果</returns>
         [HttpPost(nameof(GetHomeIndexPost))]
-        public async Task<ResponseViewModel<List<GetPostResViewModel>>> GetHomeIndexPost(QueryRowMemberViewModel model)
+        public async Task<ResponseViewModel<List<GetPostResViewModel>>> GetHomeIndexPost(QueryRowMemberReqViewModel model)
         {
             try
             {
@@ -81,7 +81,7 @@ namespace SocialNetwork.Controllers
         /// <param name="model">取得會員貼文 Req ViewModel</param>
         /// <returns>取得結果</returns>
         [HttpPost(nameof(GetMemberPost))]
-        public async Task<ResponseViewModel<List<GetPostResViewModel>>> GetMemberPost(QueryRowMemberViewModel model)
+        public async Task<ResponseViewModel<List<GetPostResViewModel>>> GetMemberPost(QueryRowMemberReqViewModel model)
         {
             try
             {

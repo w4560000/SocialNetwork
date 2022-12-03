@@ -96,7 +96,7 @@ namespace SocialNetwork.Service
         /// </summary>
         /// <param name="model">取得貼文 (自己和朋友) Request ViewModel</param>
         /// <returns>取得結果</returns>
-        public async Task<ResponseViewModel<List<GetPostResViewModel>>> GetHomeIndexPost(QueryRowMemberViewModel model)
+        public async Task<ResponseViewModel<List<GetPostResViewModel>>> GetHomeIndexPost(QueryRowMemberReqViewModel model)
         {
             model.MemberID = this.UserContext.User.MemberID;
 
@@ -116,7 +116,7 @@ namespace SocialNetwork.Service
         /// </summary>
         /// <param name="model">取得會員貼文 Request ViewModel</param>
         /// <returns>取得結果</returns>
-        public async Task<ResponseViewModel<List<GetPostResViewModel>>> GetMemberPost(QueryRowMemberViewModel model)
+        public async Task<ResponseViewModel<List<GetPostResViewModel>>> GetMemberPost(QueryRowMemberReqViewModel model)
         {
             var postData = await this.QueryPost(new List<int>() { model.MemberID }, model.QueryRowNo);
 
@@ -165,7 +165,7 @@ ORDER BY RowNo
 
 SELECT * FROM #TempPostData;
 
-SELECT a.PostKey, a.MemberID, b.NickName, b.ProfilePhotoURL, a.MsgContent, a.CreatedAt AS 'PostMsgDateTime',
+SELECT a.PostKey, a.MsgKey, a.MemberID, b.NickName, b.ProfilePhotoURL, a.MsgContent, a.CreatedAt AS 'PostMsgDateTime',
 ROW_NUMBER() OVER( PARTITION BY PostKey ORDER BY a.CreatedAt ASC) as rowNumber
 INTO #TempPostMsgData
 FROM [SocialNetwork].[dbo].[PostMsg] a
@@ -191,7 +191,6 @@ WHERE rowNumber IN (1,2,3)";
             // mapping 貼文留言清單
             postList.ForEach(f =>
             {
-                f.ProfilePhotoUrl = $"{AzureHelper.BxStorageURL}/{f.ProfilePhotoUrl}";
                 f.PostMsgList = postMsgList.Where(w => w.PostKey == f.PostKey).OrderBy(o => o.PostMsgDateTime).ToList();
             });
 

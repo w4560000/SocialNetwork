@@ -2,7 +2,6 @@
 
 const HomePage = {
     Init: async () => {
-        debugger
         // 查看別人主頁 or 個人主頁
         memberInfo = $("#query_memberID").val() ? await GetMemberInfoAPI($("#query_memberID").val() as number) : await GetCurrentMemberInfoAPI();
 

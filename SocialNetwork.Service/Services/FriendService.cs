@@ -85,8 +85,7 @@ namespace SocialNetwork.Service
                              WHERE MemberID IN (
 					                             SELECT SendMemberID FROM [SocialNetwork].[dbo].[FriendInvitation]
 					                             WHERE ReceiveMemberID = @memberID
-				                               )"
-            ;
+				                               )";
 
             var res = this.FriendRepository.Query<GetFriendListResViewModel>(querySql, new { memberID });
 

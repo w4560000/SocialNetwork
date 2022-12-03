@@ -3,9 +3,9 @@
 namespace SocialNetwork.Repository
 {
     /// <summary>
-    /// 查詢資料筆數 Member ViewModel
+    /// 查詢資料筆數 Member Request ViewModel
     /// </summary>
-    public class QueryRowMemberViewModel
+    public class QueryRowMemberReqViewModel
     {
         /// <summary>
         /// 會員編號

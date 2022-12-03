@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SocialNetwork.Repository
 {
     /// <summary>
-    /// 取得貼文留言 
+    /// 取得貼文留言 Response ViewModel
     /// </summary>
     public class GetPostMsgResViewModel
     {
@@ -13,6 +11,11 @@ namespace SocialNetwork.Repository
         /// 貼文編號
         /// </summary>
         public int PostKey { get; set; }
+
+        /// <summary>
+        /// 貼文留言編號
+        /// </summary>
+        public int MsgKey { get; set; }
 
         /// <summary>
         /// 會員編號

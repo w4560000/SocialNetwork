@@ -41,3 +41,20 @@ var GetFriendStatusResViewModel = /** @class */ (function () {
     }
     return GetFriendStatusResViewModel;
 }());
+/**
+ * 取得貼文 Response ViewModel
+ * 取得會員貼文 Response ViewModel
+ * */
+var GetPostResViewModel = /** @class */ (function () {
+    function GetPostResViewModel() {
+    }
+    return GetPostResViewModel;
+}());
+/**
+ * 貼文留言 Response ViewModel
+ * */
+var GetPostMsgResViewModel = /** @class */ (function () {
+    function GetPostMsgResViewModel() {
+    }
+    return GetPostMsgResViewModel;
+}());

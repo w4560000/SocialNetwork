@@ -226,6 +226,13 @@
     },
 
     /**
+     * Date 轉換 => yyyy-MM-dd HH:mm:ss
+     * @param date
+     */
+    DateFormat: (date: string) => {
+        return new Date(date).toISOString().replace(/T/, ' ').replace(/\..+/, '');
+    },
+    /**
      * 頁面註冊 Datepicker
      * @param e HTMLElement
      * @param onSelectFunc SeleteFunc

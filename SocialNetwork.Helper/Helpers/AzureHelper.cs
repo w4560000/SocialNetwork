@@ -79,7 +79,7 @@ namespace SocialNetwork.Helper
         /// <returns>圖片網址</returns>
         public static string GetImage(AzureBlobDirectoryEnum directory, PhotoFileDto photoFileDto)
         {
-            return $"{BxAPIStorageContainerName}/{directory}/{photoFileDto.FileName}{photoFileDto.FileExtension}";
+            return $"{BxStorageURL}{BxAPIStorageContainerName}/{directory}/{photoFileDto.FileName}{photoFileDto.FileExtension}";
         }
 
         /// <summary>

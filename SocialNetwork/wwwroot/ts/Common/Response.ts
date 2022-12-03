@@ -53,3 +53,33 @@ class GetFriendListResViewModel {
 class GetFriendStatusResViewModel {
     FriendStatus: FriendStatusEnum;
 }
+
+/** 
+ * 取得貼文 Response ViewModel 
+ * 取得會員貼文 Response ViewModel 
+ * */
+class GetPostResViewModel {
+    MemberID: number;
+    NickName: string;
+    ProfilePhotoUrl: string;
+    PostKey: number;
+    PostDateTime: Date;
+    PostContent: string;
+    PostImageUrlList: Array<string>;
+    GoodQuantity: number;
+    TotalPostMsgCount: number;
+    PostMsgList: Array<GetPostMsgResViewModel>;
+}
+
+/**
+ * 貼文留言 Response ViewModel
+ * */
+class GetPostMsgResViewModel {
+    PostKey: number;
+    MsgKey: number;
+    MemberID: number;
+    NickName: string;
+    ProfilePhotoUrl: string;
+    MsgContent: string;
+    PostMsgDateTime: Date;
+}

@@ -10,6 +10,19 @@ class CommonMemberViewModel {
 }
 
 /**
+ * 查詢資料筆數 Member ViewModel
+ * */
+class QueryRowMemberReqViewModel {
+    MemberID: number;
+    QueryRowNo: number;
+
+    constructor(memberID: number, queryRowNo: number) {
+        this.MemberID = memberID;
+        this.QueryRowNo = queryRowNo;
+    }
+}
+
+/**
  * 登入 Request ViewModel
  * */
 class LoginReqViewModel {
