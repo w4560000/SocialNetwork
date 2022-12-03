@@ -150,6 +150,9 @@ namespace SocialNetwork.Service
             if (!this.MemberRepository.TryGetEntity(model.MemberID, out _))
                 return CommonExtension.AsSystemFailResponse();
 
+            if (this.UserContext.User.MemberID == model.MemberID)
+                return "無法對自己發送好友邀請".AsFailResponse();
+
             if (this.CheckFriendExist(this.UserContext.User.MemberID, model.MemberID, out _))
                 return "無法對好友發送好友邀請".AsFailResponse();
 

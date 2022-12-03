@@ -38,10 +38,5 @@ namespace SocialNetwork.Repository
         /// 留言時間
         /// </summary>
         public DateTime PostMsgDateTime { get; set; }
-
-        /// <summary>
-        /// 總留言筆數
-        /// </summary>
-        public int TotalPostMsgCount { get; set; }
     }
 }

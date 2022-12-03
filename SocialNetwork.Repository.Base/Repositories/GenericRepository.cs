@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Transactions;
+using static Dapper.SqlMapper;
 
 namespace SocialNetwork.Repository.Base
 {
@@ -83,7 +84,7 @@ namespace SocialNetwork.Repository.Base
         }
 
         /// <summary>
-        /// 查詢
+        /// 查詢 Async
         /// </summary>
         /// <param name="sql">查詢sql</param>
         /// <param name="param">參數</param>
@@ -91,6 +92,28 @@ namespace SocialNetwork.Repository.Base
         public async Task<IEnumerable<T>> QueryAsync<T>(string sql, object param)
         {
             return await this.Connection.QueryAsync<T>(sql, param);
+        }
+
+        /// <summary>
+        /// 查詢多表
+        /// </summary>
+        /// <param name="sql">查詢sql</param>
+        /// <param name="param">參數</param>
+        /// <returns>Query Result</returns>
+        public GridReader QueryMultiple(string sql, object param)
+        {
+            return this.Connection.QueryMultiple(sql, param);
+        }
+
+        /// <summary>
+        /// 查詢多表 Async
+        /// </summary>
+        /// <param name="sql">查詢sql</param>
+        /// <param name="param">參數</param>
+        /// <returns>Query Result</returns>
+        public async Task<GridReader> QueryMultipleAsync(string sql, object param)
+        {
+            return await this.Connection.QueryMultipleAsync(sql, param);
         }
 
         /// <summary>

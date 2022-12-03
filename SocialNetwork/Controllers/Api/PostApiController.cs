@@ -58,16 +58,15 @@ namespace SocialNetwork.Controllers
         }
 
         /// <summary>
-        /// 取得貼文
+        /// 取得貼文 (自己和朋友)
         /// </summary>
         /// <returns>取得結果</returns>
         [HttpPost(nameof(GetHomeIndexPost))]
-        public async Task<ResponseViewModel<List<GetPostResViewModel>>> GetHomeIndexPost()
+        public async Task<ResponseViewModel<List<GetPostResViewModel>>> GetHomeIndexPost(QueryRowMemberViewModel model)
         {
             try
             {
-                // todo 取得自己 + 好友貼文
-                return await PostService.GetMemberPost(new CommonMemberViewModel());
+                return await PostService.GetHomeIndexPost(model);
             }
             catch (Exception ex)
             {
@@ -82,8 +81,7 @@ namespace SocialNetwork.Controllers
         /// <param name="model">取得會員貼文 Req ViewModel</param>
         /// <returns>取得結果</returns>
         [HttpPost(nameof(GetMemberPost))]
-        [AllowAnonymous]
-        public async Task<ResponseViewModel<List<GetPostResViewModel>>> GetMemberPost(CommonMemberViewModel model)
+        public async Task<ResponseViewModel<List<GetPostResViewModel>>> GetMemberPost(QueryRowMemberViewModel model)
         {
             try
             {

@@ -65,6 +65,11 @@ namespace SocialNetwork.Repository
         public int GoodQuantity { get; set; }
 
         /// <summary>
+        /// 總留言筆數
+        /// </summary>
+        public int TotalPostMsgCount { get; set; }
+
+        /// <summary>
         /// 留言清單 (最多呈現3筆)
         /// </summary>
         public List<GetPostMsgResViewModel> PostMsgList { get; set; }

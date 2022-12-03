@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using static Dapper.SqlMapper;
 
 namespace SocialNetwork.Repository.Base
 {
@@ -18,12 +19,28 @@ namespace SocialNetwork.Repository.Base
         List<T> Query<T>(string sql, object param);
 
         /// <summary>
-        /// 查詢
+        /// 查詢 Async
         /// </summary>
         /// <param name="sql">查詢sql</param>
         /// <param name="param">參數</param>
         /// <returns>Query Result</returns>
         Task<IEnumerable<T>> QueryAsync<T>(string sql, object param);
+
+        /// <summary>
+        /// 查詢多表
+        /// </summary>
+        /// <param name="sql">查詢sql</param>
+        /// <param name="param">參數</param>
+        /// <returns>Query Result</returns>
+        GridReader QueryMultiple(string sql, object param);
+
+        /// <summary>
+        /// 查詢多表 Async
+        /// </summary>
+        /// <param name="sql">查詢sql</param>
+        /// <param name="param">參數</param>
+        /// <returns>Query Result</returns>
+        Task<GridReader> QueryMultipleAsync(string sql, object param);
 
         /// <summary>
         /// 新增

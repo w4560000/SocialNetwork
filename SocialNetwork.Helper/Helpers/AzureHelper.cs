@@ -32,6 +32,11 @@ namespace SocialNetwork.Helper
         private static string BxAPIStorageContainerName => "social-network";
 
         /// <summary>
+        /// Azure Storage URL
+        /// </summary>
+        public static string BxStorageURL => "https://bingxiangstorage.blob.core.windows.net/";
+
+        /// <summary>
         /// 取得AzureSecret
         /// </summary>
         /// <param name="secretName">secretName</param>
@@ -74,7 +79,7 @@ namespace SocialNetwork.Helper
         /// <returns>圖片網址</returns>
         public static string GetImage(AzureBlobDirectoryEnum directory, PhotoFileDto photoFileDto)
         {
-            return $"https://bingxiangstorage.blob.core.windows.net/{BxAPIStorageContainerName}/{directory}/{photoFileDto.FileName}{photoFileDto.FileExtension}";
+            return $"{BxAPIStorageContainerName}/{directory}/{photoFileDto.FileName}{photoFileDto.FileExtension}";
         }
 
         /// <summary>
