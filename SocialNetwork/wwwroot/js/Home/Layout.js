@@ -55,6 +55,12 @@ var LayoutPage = {
                                 $('.index_status_select').toggleClass('index_status_select_up');
                             }
                         }
+                        if (currentElemetClass !== undefined && !currentElemetClass.includes('postAction')) {
+                            var ul = $(".ul_postAction[postkey=".concat(tempSelectPostKey, "]"));
+                            if (ul.is(':visible')) {
+                                ul.toggle();
+                            }
+                        }
                     });
                     // 展開 會員狀態下拉
                     $(".index_status").on("click", ".index_status_select", function () {
@@ -86,6 +92,7 @@ var LayoutPage = {
                     postList.forEach(function (f) {
                         $('.div_mypost').after(Post.PostHtmlTemplate(f));
                     });
+                    Post.Init();
                     // 控制 Img Default Style
                     Common.ControllImgDefaultStyle();
                     // 設定 Menu 底色 (根據當前頁面)

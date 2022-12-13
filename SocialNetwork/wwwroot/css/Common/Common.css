@@ -12,10 +12,10 @@ body {
   font-weight: 600;
   overflow-x: hidden;
   overflow-y: auto;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+  -moz-user-select: auto;
+  -webkit-user-select: auto;
+  -ms-user-select: auto;
+  user-select: auto;
 }
 
 body::-webkit-scrollbar-track {
@@ -56,7 +56,14 @@ input {
   font-weight: 600;
 }
 
-span, input[type=text], input[type=password] {
+.div_menu > a, .index_status_select, .index_menuText, .deploy_post_title, .postAction {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+input[type=text], input[type=password] {
   -moz-user-select: text;
   -webkit-user-select: text;
   -ms-user-select: text;

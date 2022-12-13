@@ -1,5 +1,19 @@
-﻿const Post = {
+﻿var tempSelectPostKey: number = 0;
 
+const Post = {
+    Init: () => {
+        
+        //$(".postAction").on("focus", function (event) {
+        //    debugger
+        //    $(this).children('.ul_postAction').show();
+        //});
+
+        //$(".postAction").blur(function (event) {
+        //    debugger
+        //    $(this).children('.ul_postAction').hide();
+        //});
+
+    },
     /**
      * 貼文 Html Template
      */
@@ -12,15 +26,18 @@
                 <img class="postPhoto" src="${model.ProfilePhotoUrl}">
             </div>
             <div class="postProfile">
-                <span>${model.NickName}</span>
+                <div>${model.NickName}</div>
                 <span class="time"title="${Common.DateFormat(model.PostDateTime.toString())}">${Post.PostDateTimeFilter(model.PostDateTime.toString())}</span>
             </div>
-            <div class="postAction">⋮</div>
+            <div class="postAction" tabindex="-1" PostKey="${model.PostKey}" onclick="Post.TogglePostAction(this)">⋮
+            <ul class="ul_postAction" PostKey="${model.PostKey}">
+                <li><a PostKey="${model.PostKey}">刪除</a></li>
+                <li><a PostKey="${model.PostKey}">編輯</a></li>
+            </ul>
+            </div>
         </div>
         <div class="post_body">
-            <span>
-                ${model.PostContent}
-            </span>
+            ${model.PostContent}
             <div id="wrapper">
                 <ul class="example">
                     ${Post.PostImageHtmlTemplate(model.PostImageUrlList)}
@@ -57,7 +74,7 @@
         </div>
     </div>
 
-    ${Post.ShowPostMsg(model.PostMsgList, model.TotalPostMsgCount)}
+    ${Post.ShowPostMsg(model.PostKey, model.PostMsgList, model.TotalPostMsgCount)}
 </div>
   `;
     },
@@ -75,7 +92,7 @@
         postImageUrlList.forEach(f => {
             html += `
             <li data-src="${f}" data-thumb="${f}">
-                <img src="${f}" />
+                <img src="${f}" style="max-height: 100%; max-width: 100%;"/>
             </li>`
         });
 
@@ -86,7 +103,7 @@
      * 貼文留言顯示
      * @param PostMsgList
      */
-    ShowPostMsg: (postMsgList: Array<GetPostMsgResViewModel>, totalPostMsgCount: number) => {
+    ShowPostMsg: (postKey: number, postMsgList: Array<GetPostMsgResViewModel>, totalPostMsgCount: number) => {
         var html = '';
 
         postMsgList.slice(0, 3).forEach(f => {
@@ -94,7 +111,15 @@
         });
         
         if (totalPostMsgCount > 3)
-            html += "<div> 查看其他留言 </div>";
+            html += `
+            <div class="div_post_moreMsg" PostKey="${postKey}">
+                <div class="container_moreMsg">
+                    <img class="moreMsg" src="/images/more_msg.svg" />
+                        <span>查看其它留言</span>
+                    <img class="moreMsg" src="/images/more_msg.svg" />
+                </div>
+            </div>
+`;
 
         return html;
     },
@@ -108,12 +133,22 @@
             <img class="post_msgPhoto" src="${model.ProfilePhotoUrl}">
         </div>
         <div class="postMsgProfile">
-            <span>${model.NickName}</span>
+            <div>
+                <span>${model.NickName}</span>
+                <span class="msgContent" style="margin-left:5px;"> ${model.MsgContent}</span>
+            </div>
             <span class="time" title="${Common.DateFormat(model.PostMsgDateTime.toString())}">${Post.PostDateTimeFilter(model.PostMsgDateTime.toString())}</span>
         </div>
-        <span class="postMsgComment">${model.MsgContent}</span>
     </div>
   `;
+    },
+    /**
+     * 貼文選項開關
+     * @param e HTMLSpanElement
+     */
+    TogglePostAction(e: HTMLSpanElement) {
+        tempSelectPostKey = parseInt($(e).attr('postkey') as string);
+        $(e).children('ul').toggle();
     },
     /**
      * Source Code 參考

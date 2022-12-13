@@ -16,6 +16,13 @@ const LayoutPage = {
                     $('.index_status_select').toggleClass('index_status_select_up');
                 }
             }
+
+            if (currentElemetClass !== undefined && !currentElemetClass.includes('postAction')) {
+                let ul = $(`.ul_postAction[postkey=${tempSelectPostKey}]`);
+                if (ul.is(':visible')) {
+                    ul.toggle();
+                }
+            }
         });
 
         // 展開 會員狀態下拉
@@ -51,7 +58,8 @@ const LayoutPage = {
         postList.forEach(f => {
             $('.div_mypost').after(Post.PostHtmlTemplate(f));
         });
-        
+        Post.Init();
+
 
         // 控制 Img Default Style
         Common.ControllImgDefaultStyle();
