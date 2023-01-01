@@ -85,10 +85,10 @@ class UpdateMemberPublicInfoReqViewModel {
     Brithday: Date;
     Interest: string;
     Job: string;
-    Education: string;
+    Education: MemberEducationEnum;
     InfoStatus: MemberPublicInfoEnum;
 
-    constructor(brithday: Date, interest: string, job: string, education: string, infoStatus: MemberPublicInfoEnum) {
+    constructor(brithday: Date, interest: string, job: string, education: MemberEducationEnum, infoStatus: MemberPublicInfoEnum) {
         this.Brithday = brithday;
         this.Interest = interest;
         this.Job = job;

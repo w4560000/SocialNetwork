@@ -18,6 +18,15 @@
         $('#singup_passwordCheck').keyup((e) => Common.RemoveErrorInput(e.target));
         $('#singup_mail').keyup((e) => Common.RemoveErrorInput(e.target));
         $('#singup_vCode').keyup((e) => Common.RemoveErrorInput(e.target));
+
+        // 設定 學歷 option
+        Object.keys(MemberEducationEnum)
+            .filter(key => !isNaN(Number(MemberEducationEnum[key])))
+            .forEach(f => {
+                $('#infoEducation').append($("<option></option>")
+                                   .attr("value", MemberEducationEnum[f])
+                                   .text(f)); 
+            });
     },
     /** 登入 */
     Login: () => {
@@ -130,16 +139,11 @@
             }
         });
 
-        if (!$('#brithday_datepicker').val()) {
-            Common.SweetAlertErrorMsg('請選擇生日');
-            return;
-        }
-
         let model = new UpdateMemberPublicInfoReqViewModel(
             new Date($('#brithday_datepicker').val() as string),
             $('#infoInternest').val() as string,
             $('#infoJob').val() as string,
-            $('#infoEducation').val() as string,
+            Number($('#infoEducation').val()),
             infoStatus);
         let successFunc = () => {
             Common.SweetAlertRedirect('/Home/Index', '首頁');

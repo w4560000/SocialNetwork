@@ -27,10 +27,10 @@ class GetMemberInfoResViewModel {
     NickName: string;
     ProfilePhotoURL: string;
     BackgroundPhotoURL: string;
-    Brithday: Date;
+    Brithday: Date | null;
     Interest: string;
     Job: string;
-    Education: string;
+    Education: MemberEducationEnum;
     InfoStatus: MemberPublicInfoEnum;
     IsOriginalMember: boolean;
 }

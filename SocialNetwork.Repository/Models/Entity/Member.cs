@@ -65,7 +65,7 @@ namespace SocialNetwork.Repository
         /// <summary>
         /// 學歷
         /// </summary>
-        public virtual string Education { get; set; }
+        public virtual MemberEducationEnum Education { get; set; }
 
         /// <summary>
         /// 資訊狀態

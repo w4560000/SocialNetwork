@@ -10,7 +10,7 @@ namespace SocialNetwork.Repository
         /// <summary>
         /// 會員編號
         /// </summary>
-        [Required(ErrorMessage = "請帶入會員編號")]
+        [Required(ErrorMessage = "請輸入會員編號")]
         public int MemberID { get; set; }
 
         /// <summary>

@@ -24,7 +24,7 @@ namespace SocialNetwork.Helper
         /// <summary>
         /// Represents an inter-related group of connections to redis servers
         /// </summary>
-        private ConnectionMultiplexer Redis;
+        private readonly IConnectionMultiplexer ConnectionMultiplexer;
 
         /// <summary>
         /// Track whether Dispose has been called.
@@ -34,10 +34,14 @@ namespace SocialNetwork.Helper
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="configHelper"></param>
-        public RedisCacheHelper(IConfigHelper configHelper)
+        /// <param name="configHelper">configHelper</param>
+        /// <param name="connectionMultiplexer">connectionMultiplexer</param>
+        public RedisCacheHelper(
+            IConfigHelper configHelper,
+            IConnectionMultiplexer connectionMultiplexer)
         {
             this.ConfigHelper = configHelper;
+            this.ConnectionMultiplexer = connectionMultiplexer;
         }
 
         /// <summary>
@@ -49,44 +53,15 @@ namespace SocialNetwork.Helper
         }
 
         /// <summary>
-        /// Redis 連線
-        /// </summary>
-        /// <exception cref="AggregateException">Redis Server 連線錯誤</exception>
-        private ConnectionMultiplexer Connection
-        {
-            get
-            {
-                if (this.Redis == null || !this.Redis.IsConnected)
-                {
-                    lock (LockObject)
-                    {
-                        if (this.Redis == null || !this.Redis.IsConnected)
-                        {
-                            string redisConnection = this.ConfigHelper.Get("RedisSettings:Connection");
-                            string redisPassword = this.ConfigHelper.Get("RedisSettings:Password");
-
-                            ConfigurationOptions configurationOptions = ConfigurationOptions.Parse(redisConnection);
-                            configurationOptions.Password = redisPassword;
-
-                            this.Redis = ConnectionMultiplexer.Connect(configurationOptions);
-                        }
-                    }
-                }
-
-                return this.Redis;
-            }
-        }
-
-        /// <summary>
         /// 清除所有快取
         /// </summary>
         public void Clear()
         {
-            EndPoint[] endpoints = this.Connection.GetEndPoints(true);
+            EndPoint[] endpoints = this.ConnectionMultiplexer.GetEndPoints(true);
 
             foreach (EndPoint endpoint in endpoints)
             {
-                IServer server = this.Connection.GetServer(endpoint);
+                IServer server = this.ConnectionMultiplexer.GetServer(endpoint);
 
                 server.FlushDatabase(database: this.RedisDB().Database);
             }
@@ -97,11 +72,11 @@ namespace SocialNetwork.Helper
         /// </summary>
         public async Task ClearAsync()
         {
-            EndPoint[] endpoints = this.Connection.GetEndPoints(true);
+            EndPoint[] endpoints = this.ConnectionMultiplexer.GetEndPoints(true);
 
             foreach (EndPoint endpoint in endpoints)
             {
-                IServer server = this.Connection.GetServer(endpoint);
+                IServer server = this.ConnectionMultiplexer.GetServer(endpoint);
 
                 await server.FlushDatabaseAsync(database: this.RedisDB().Database);
             }
@@ -185,11 +160,11 @@ namespace SocialNetwork.Helper
         public void RemoveByPattern(string pattern)
         {
             List<string> keysToRemove = new List<string>();
-            EndPoint[] endpoints = this.Connection.GetEndPoints(true);
+            EndPoint[] endpoints = this.ConnectionMultiplexer.GetEndPoints(true);
 
             foreach (EndPoint endpoint in endpoints)
             {
-                IServer server = this.Connection.GetServer(endpoint);
+                IServer server = this.ConnectionMultiplexer.GetServer(endpoint);
 
                 // 取得設定的 Database 中的 Keys
                 foreach (RedisKey item in server.Keys(database: this.RedisDB().Database, pattern: pattern))
@@ -215,11 +190,11 @@ namespace SocialNetwork.Helper
         public async Task RemoveByPatternAsync(string pattern)
         {
             List<string> keysToRemove = new List<string>();
-            EndPoint[] endpoints = this.Connection.GetEndPoints(true);
+            EndPoint[] endpoints = this.ConnectionMultiplexer.GetEndPoints(true);
 
             foreach (EndPoint endpoint in endpoints)
             {
-                IServer server = this.Connection.GetServer(endpoint);
+                IServer server = this.ConnectionMultiplexer.GetServer(endpoint);
 
                 // 取得設定的 Database 中的 Keys
                 foreach (RedisKey item in server.Keys(database: this.RedisDB().Database, pattern: pattern))
@@ -300,7 +275,7 @@ namespace SocialNetwork.Helper
                 throw new AggregateException("Redis Database 設定為 0 ~ 15");
             }
 
-            return this.Connection.GetDatabase(db: database);
+            return this.ConnectionMultiplexer.GetDatabase(db: database);
         }
 
         /// <summary>
@@ -333,7 +308,7 @@ namespace SocialNetwork.Helper
             if (disposing)
             {
                 // Dispose managed resources.
-                this.Redis?.Dispose();
+                this.ConnectionMultiplexer?.Dispose();
             }
 
             // Note disposing has been done.

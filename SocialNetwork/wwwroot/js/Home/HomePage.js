@@ -38,7 +38,7 @@ var _this = this;
 var memberInfo;
 var HomePage = {
     Init: function () { return __awaiter(_this, void 0, void 0, function () {
-        var _a, memberBrithday, brithday;
+        var _a, brithday, memberBrithday;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
@@ -54,14 +54,17 @@ var HomePage = {
                 case 4:
                     // 查看別人主頁 or 個人主頁
                     memberInfo = _a;
-                    memberBrithday = new Date(memberInfo.Brithday);
-                    brithday = "".concat(memberBrithday.getFullYear(), " \u5E74 ").concat(memberBrithday.getMonth() + 1, " \u6708 ").concat(memberBrithday.getDate(), " \u65E5");
+                    brithday = "";
+                    if (memberInfo.Brithday !== null) {
+                        memberBrithday = new Date(memberInfo.Brithday);
+                        brithday = "".concat(memberBrithday.getFullYear(), " \u5E74 ").concat(memberBrithday.getMonth() + 1, " \u6708 ").concat(memberBrithday.getDate(), " \u65E5");
+                    }
                     $('.div_homePage_topBar').html('個人主頁');
                     $('.profile_name').html(memberInfo.NickName);
                     $('.profile_detail_brithday').html(brithday);
                     $('.profile_detail_job').html(memberInfo.Job);
                     $('.profile_detail_internest').html(memberInfo.Interest);
-                    $('.profile_detail_education').html(memberInfo.Education);
+                    $('.profile_detail_education').html(MemberEducationEnum[memberInfo.Education]);
                     $('.profile_photo').attr('src', memberInfo.ProfilePhotoURL);
                     $('.profile_background').attr('src', memberInfo.BackgroundPhotoURL);
                     return [4 /*yield*/, HomePage.ReflashFriendStatus()];

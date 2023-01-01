@@ -30,7 +30,7 @@ namespace SocialNetwork.Repository
         /// <summary>
         /// 生日
         /// </summary>
-        public DateTime Brithday { get; set; }
+        public DateTime? Brithday { get; set; }
 
         /// <summary>
         /// 興趣
@@ -45,7 +45,7 @@ namespace SocialNetwork.Repository
         /// <summary>
         /// 學歷
         /// </summary>
-        public string Education { get; set; }
+        public MemberEducationEnum Education { get; set; }
         
         /// <summary>
         /// 公開狀態

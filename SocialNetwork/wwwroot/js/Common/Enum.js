@@ -45,3 +45,19 @@ var FriendStatusEnum;
     FriendStatusEnum[FriendStatusEnum["\u5DF2\u63A5\u6536\u597D\u53CB\u9080\u8ACB"] = 2] = "\u5DF2\u63A5\u6536\u597D\u53CB\u9080\u8ACB";
     FriendStatusEnum[FriendStatusEnum["\u70BA\u597D\u53CB"] = 3] = "\u70BA\u597D\u53CB";
 })(FriendStatusEnum || (FriendStatusEnum = {}));
+/**
+ * 會員學歷狀態列舉
+ * */
+var MemberEducationEnum;
+(function (MemberEducationEnum) {
+    MemberEducationEnum[MemberEducationEnum["\u79D8\u5BC6"] = 0] = "\u79D8\u5BC6";
+    MemberEducationEnum[MemberEducationEnum["\u7121\u5B78\u6B77"] = 1] = "\u7121\u5B78\u6B77";
+    MemberEducationEnum[MemberEducationEnum["\u5C0F\u5B78"] = 2] = "\u5C0F\u5B78";
+    MemberEducationEnum[MemberEducationEnum["\u570B\u4E2D"] = 3] = "\u570B\u4E2D";
+    MemberEducationEnum[MemberEducationEnum["\u9AD8\u4E2D"] = 4] = "\u9AD8\u4E2D";
+    MemberEducationEnum[MemberEducationEnum["\u9AD8\u8077"] = 5] = "\u9AD8\u8077";
+    MemberEducationEnum[MemberEducationEnum["\u4E94\u5C08"] = 6] = "\u4E94\u5C08";
+    MemberEducationEnum[MemberEducationEnum["\u5927\u5B78"] = 7] = "\u5927\u5B78";
+    MemberEducationEnum[MemberEducationEnum["\u78A9\u58EB"] = 8] = "\u78A9\u58EB";
+    MemberEducationEnum[MemberEducationEnum["\u535A\u58EB"] = 9] = "\u535A\u58EB";
+})(MemberEducationEnum || (MemberEducationEnum = {}));

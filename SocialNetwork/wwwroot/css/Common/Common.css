@@ -70,7 +70,7 @@ input[type=text], input[type=password] {
   user-select: text;
 }
 
-input[type=text], input[type=password] {
+input[type=text], input[type=password], #infoEducation {
   height: 50px;
   border-radius: 5px;
   border: 1px solid #FCD4D5;

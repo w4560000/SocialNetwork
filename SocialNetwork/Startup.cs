@@ -14,6 +14,7 @@ using SocialNetwork.Helper;
 using SocialNetwork.Repository;
 using SocialNetwork.Repository.Base;
 using SocialNetwork.Service;
+using StackExchange.Redis;
 using System;
 using System.IO;
 using System.Net;
@@ -81,6 +82,15 @@ namespace SocialNetwork
             services.AddScoped<IPostService, PostService>();
             services.AddScoped<IFriendService, FriendService>();
 
+
+            var connectionMultiplexer = ConnectionMultiplexer.Connect(new ConfigurationOptions()
+            {
+                EndPoints = { Configuration.GetValue<string>("RedisSettings:Connection") },
+                Password = Configuration.GetValue<string>("RedisSettings:Password"),
+                AbortOnConnectFail = false
+            });
+
+            services.AddSingleton<IConnectionMultiplexer>(connectionMultiplexer);
             services.AddSingleton<IUserContext, UserContext>();
             services.AddSingleton(provider => Configuration);
             services.AddSingleton<IConfigHelper, ConfigHelper>();

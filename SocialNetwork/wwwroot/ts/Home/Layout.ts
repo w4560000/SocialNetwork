@@ -7,9 +7,10 @@ const LayoutPage = {
         chatHubConnection = new ChatHubConnection();
         chatHubConnection.connect(LayoutPage.ReflashFriendStatus);
 
-        // 點選其他 element 時 自動隱藏展開的會員狀態
         $("body").click((event) => {
             var currentElemetClass = ($(event.target).attr('class')) as string;
+
+            // 點選其他 element 時 自動隱藏展開的會員狀態
             if (currentElemetClass !== undefined && !currentElemetClass.includes('index_status_select')) {
                 if ($('#memberStatus_1').is(':visible')) {
                     $('.meunContent > ul').children('li').toggle();
@@ -17,6 +18,7 @@ const LayoutPage = {
                 }
             }
 
+            // 點選其他 element 時 自動隱藏展開的貼文選項
             if (currentElemetClass !== undefined && !currentElemetClass.includes('postAction')) {
                 let ul = $(`.ul_postAction[postkey=${tempSelectPostKey}]`);
                 if (ul.is(':visible')) {

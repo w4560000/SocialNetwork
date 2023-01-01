@@ -138,7 +138,7 @@ namespace SocialNetwork.Service
             var memberID = this.MemberRepository.Add<int>(memberEntity);
 
             // 更新會員狀態、寫入 Cookie
-            this.SetMemberStatusForCookie(memberID, MemberStatusEnum.在線);
+            this.SetMemberStatusForCookie(memberID, MemberStatusEnum.在線).GetAwaiter().GetResult();
 
             return $"{model.NickName} 註冊成功".AsSuccessResponse();
         }
@@ -184,7 +184,7 @@ namespace SocialNetwork.Service
                 return "帳號或密碼錯誤".AsFailResponse();
 
             // 更新會員狀態、寫入 Cookie
-            this.SetMemberStatusForCookie(member.MemberID, MemberStatusEnum.在線);
+            this.SetMemberStatusForCookie(member.MemberID, MemberStatusEnum.在線).GetAwaiter().GetResult();
 
             return $"{member.NickName} 登入成功".AsSuccessResponse();
         }
@@ -227,7 +227,7 @@ namespace SocialNetwork.Service
             }
 
             // 更新會員狀態、寫入 Cookie
-            this.SetMemberStatusForCookie(member.MemberID, MemberStatusEnum.在線);
+            this.SetMemberStatusForCookie(member.MemberID, MemberStatusEnum.在線).GetAwaiter().GetResult();
 
             return $"{member.NickName} 登入成功".AsSuccessResponse(res);
         }
@@ -249,7 +249,7 @@ namespace SocialNetwork.Service
             member.Education = model.Education;
             this.MemberRepository.Update(member);
 
-            this.SetMemberStatusForCookie(member.MemberID, MemberStatusEnum.在線);
+            this.SetMemberStatusForCookie(member.MemberID, MemberStatusEnum.在線).GetAwaiter().GetResult();
             return "更新成功".AsSuccessResponse();
         }
 
@@ -348,7 +348,7 @@ outline: 0;";
         /// <returns>登出結果</returns>
         public ResponseViewModel Logout()
         {
-            this.SetMemberStatusForCookie(this.UserContext.User.MemberID, MemberStatusEnum.離線, isLogout: true);
+            this.SetMemberStatusForCookie(this.UserContext.User.MemberID, MemberStatusEnum.離線, isLogout: true).GetAwaiter().GetResult();
 
             return "登出成功".AsSuccessResponse();
         }
@@ -360,7 +360,7 @@ outline: 0;";
         /// <returns>更新結果</returns>
         public ResponseViewModel UpdateMemberStatus(UpdateMemberStatusReqViewModel model)
         {
-            this.SetMemberStatusForCookie(this.UserContext.User.MemberID, model.Status);
+            this.SetMemberStatusForCookie(this.UserContext.User.MemberID, model.Status).GetAwaiter().GetResult();
 
             return "更新狀態成功".AsSuccessResponse();
         }
@@ -380,7 +380,7 @@ outline: 0;";
                 NickName = member.NickName,
                 ProfilePhotoURL = member.ProfilePhotoURL,
                 BackgroundPhotoURL = member.BackgroundPhotoURL,
-                Brithday = member.Brithday ?? DateTime.MinValue,
+                Brithday = member.Brithday,
                 Interest = member.Interest,
                 Job = member.Job,
                 Education = member.Education,
@@ -409,10 +409,10 @@ outline: 0;";
                 NickName = member.NickName,
                 ProfilePhotoURL = member.ProfilePhotoURL,
                 BackgroundPhotoURL = member.BackgroundPhotoURL,
-                Brithday = member.InfoStatus.HasFlag(MemberPublicInfoEnum.公開生日) ? (member.Brithday ?? DateTime.MinValue) : DateTime.MinValue,
+                Brithday = member.InfoStatus.HasFlag(MemberPublicInfoEnum.公開生日) ? member.Brithday : null,
                 Interest = member.InfoStatus.HasFlag(MemberPublicInfoEnum.公開興趣) ? member.Interest : string.Empty,
                 Job = member.InfoStatus.HasFlag(MemberPublicInfoEnum.公開工作) ? member.Job : string.Empty,
-                Education = member.InfoStatus.HasFlag(MemberPublicInfoEnum.公開學歷) ? member.Education : string.Empty,
+                Education = member.InfoStatus.HasFlag(MemberPublicInfoEnum.公開學歷) ? member.Education : MemberEducationEnum.秘密,
                 InfoStatus = member.InfoStatus,
                 IsOriginalMember = oAuthList.All(a => a != member.Account.Split("@").Last())
             };
@@ -490,9 +490,15 @@ outline: 0;";
             member.NickName = model.NickName;
             member.BackgroundPhotoURL = string.IsNullOrEmpty(backgroundPhotoUrl) ? member.BackgroundPhotoURL : backgroundPhotoUrl;
             member.ProfilePhotoURL = string.IsNullOrEmpty(profilePhotoUrl) ? member.ProfilePhotoURL : profilePhotoUrl;
+            member.Brithday = model.Brithday;
+            member.Interest = model.Interest;
+            member.Job = model.Job;
+            member.Education = model.Education;
+            member.InfoStatus = model.InfoStatus;
+
             this.MemberRepository.Update(member);
 
-            this.SetMemberStatusForCookie(member.MemberID, MemberStatusEnum.在線);
+            await this.SetMemberStatusForCookie(member.MemberID, MemberStatusEnum.在線);
             return "更新成功".AsSuccessResponse();
         }
 
@@ -531,12 +537,12 @@ outline: 0;";
                 }
 
                 // 會員在線狀態 存入 Redis 暫時不存
-                // await this.CacheHelper.ResetAsync($"Member:{userInfo.MemberID}", () => userInfo);
+                await this.CacheHelper.ResetAsync($"Member:{userInfo.MemberID}", () => userInfo);
 
                 var firendList = this.FriendService.GetFriendList(userInfo.MemberID);
 
                 await this.ChatHub.ReflashFriendStatus_Send(
-                    firendList.Data.Select(s => s.MemberID).ToList(), 
+                    firendList.Data.Select(s => s.MemberID).ToList(),
                     new GetFriendListResViewModel()
                     {
                         MemberID = userInfo.MemberID,

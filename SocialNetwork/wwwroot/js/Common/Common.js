@@ -224,11 +224,12 @@ var Common = {
      * @param onSelectFunc SeleteFunc
      */
     DatepickerInit: function (e, onSelectFunc) {
+        var currentYear = new Date().getFullYear();
         e.datepicker({
             changeMonth: true,
             changeYear: true,
             showMonthAfterYear: true,
-            yearRange: '1950:2022',
+            yearRange: "1950:".concat(currentYear),
             dateFormat: 'yy-mm-dd',
             onSelect: onSelectFunc
         });

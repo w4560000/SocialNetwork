@@ -5,15 +5,18 @@ const HomePage = {
         // 查看別人主頁 or 個人主頁
         memberInfo = $("#query_memberID").val() ? await GetMemberInfoAPI($("#query_memberID").val() as number) : await GetCurrentMemberInfoAPI();
 
-        var memberBrithday = new Date(memberInfo.Brithday);
-        var brithday = `${memberBrithday.getFullYear()} 年 ${memberBrithday.getMonth() + 1} 月 ${memberBrithday.getDate()} 日`;
+        var brithday = "";
+        if (memberInfo.Brithday !== null) {
+            var memberBrithday = new Date(memberInfo.Brithday);
+            brithday = `${memberBrithday.getFullYear()} 年 ${memberBrithday.getMonth() + 1} 月 ${memberBrithday.getDate()} 日`;
+        }
 
         $('.div_homePage_topBar').html('個人主頁');
         $('.profile_name').html(memberInfo.NickName);
         $('.profile_detail_brithday').html(brithday);
         $('.profile_detail_job').html(memberInfo.Job);
         $('.profile_detail_internest').html(memberInfo.Interest);
-        $('.profile_detail_education').html(memberInfo.Education);
+        $('.profile_detail_education').html(MemberEducationEnum[memberInfo.Education]);
         $('.profile_photo').attr('src', memberInfo.ProfilePhotoURL);
         $('.profile_background').attr('src', memberInfo.BackgroundPhotoURL);
 

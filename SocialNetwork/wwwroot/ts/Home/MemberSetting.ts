@@ -11,9 +11,18 @@ const MemberSettingPage = {
                 $("#infoBrithday").val(date);
             });
 
+        // 設定 學歷 option
+        Object.keys(MemberEducationEnum)
+            .filter(key => !isNaN(Number(MemberEducationEnum[key])))
+            .forEach(f => {
+                $('#infoEducation').append($("<option></option>")
+                    .attr("value", MemberEducationEnum[f])
+                    .text(f));
+            });
+
         // 取得當前會員資訊
         var memberInfo = await GetCurrentMemberInfoAPI();
-
+        
         // 載入 會員資訊
         $('.profile_background').attr('src', memberInfo.BackgroundPhotoURL);
 
@@ -23,7 +32,9 @@ const MemberSettingPage = {
             $(this).attr("src", src);
         });
 
-        $('#brithday_datepicker').datepicker('setDate', new Date(memberInfo.Brithday));
+        if (memberInfo.Brithday != null)
+            $('#brithday_datepicker').datepicker('setDate', new Date(memberInfo.Brithday));
+
         $('.ui-datepicker-current-day').click();
         $('#infoInternest').val(memberInfo.Interest);
         $('#infoJob').val(memberInfo.Job);

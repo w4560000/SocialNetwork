@@ -70,6 +70,10 @@ namespace SocialNetwork.Repository.Base
 
                 return conn;
             }
+            set
+            {
+                this.Factory.Connection = value;
+            }
         }
 
         /// <summary>
@@ -482,6 +486,7 @@ namespace SocialNetwork.Repository.Base
                 {
                     // Dispose managed resources.
                     this.Connection.Dispose();
+                    this.Connection = null;
                 }
                 // Note disposing has been done.
                 this.Disposed = true;

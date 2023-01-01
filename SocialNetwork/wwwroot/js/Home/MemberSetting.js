@@ -48,6 +48,14 @@ var MemberSettingPage = {
                         var date = "".concat(inst.selectedYear, " \u5E74 ").concat(inst.selectedMonth + 1, " \u6708 ").concat(inst.selectedDay, " \u65E5");
                         $("#infoBrithday").val(date);
                     });
+                    // 設定 學歷 option
+                    Object.keys(MemberEducationEnum)
+                        .filter(function (key) { return !isNaN(Number(MemberEducationEnum[key])); })
+                        .forEach(function (f) {
+                        $('#infoEducation').append($("<option></option>")
+                            .attr("value", MemberEducationEnum[f])
+                            .text(f));
+                    });
                     return [4 /*yield*/, GetCurrentMemberInfoAPI()];
                 case 1:
                     memberInfo = _a.sent();
@@ -58,7 +66,8 @@ var MemberSettingPage = {
                         var src = Common.HasFlag(memberInfo.InfoStatus, memberPublicInfoFlag) ? "/images/InfoPublic.png" : "/images/InfoHide.png";
                         $(this).attr("src", src);
                     });
-                    $('#brithday_datepicker').datepicker('setDate', new Date(memberInfo.Brithday));
+                    if (memberInfo.Brithday != null)
+                        $('#brithday_datepicker').datepicker('setDate', new Date(memberInfo.Brithday));
                     $('.ui-datepicker-current-day').click();
                     $('#infoInternest').val(memberInfo.Interest);
                     $('#infoJob').val(memberInfo.Job);
