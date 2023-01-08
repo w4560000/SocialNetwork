@@ -1,8 +1,14 @@
 ﻿var tempSelectPostKey: number = 0;
+var tempQueryRowNo: number = 1;
+var lightSliderInstance: JQuery<HTMLElement>;
 
 const Post = {
-    Init: () => {
-        
+    Init: async () => {
+        await Post.LoadHomeIndexPost();
+
+        // 頁面最後一個貼文 後面加上Loading
+        Common.ShowLoading($('.div_post').last());
+
         //$(".postAction").on("focus", function (event) {
         //    debugger
         //    $(this).children('.ul_postAction').show();
@@ -13,6 +19,33 @@ const Post = {
         //    $(this).children('.ul_postAction').hide();
         //});
 
+        $(window).scroll(async function () {
+            var scrollTop = $(document).scrollTop() as number;
+            var documentHeight = $(document).height() as number;
+            var windowHeight = $(window).height() as number;
+
+            // 判斷頁面捲到最底部
+            if (scrollTop == (documentHeight - windowHeight)) {
+                await Post.LoadHomeIndexPost();
+            }
+        });
+    },
+
+    /**
+     * 載入個人首頁貼文
+     * */
+    LoadHomeIndexPost: async () => {
+        (await GetHomeIndexPostAPI(new QueryRowMemberReqViewModel(user.MemberID, tempQueryRowNo)))
+            .forEach(f => {
+                if (!$('.div_post').length)
+                    $('#post').append(Post.PostHtmlTemplate(f));
+                else
+                    $('.div_post').last().after(Post.PostHtmlTemplate(f));
+
+                Common.InitLightSlider($(`.PostPhoto[PostKey='${f.PostKey}']`));
+            });
+
+        tempQueryRowNo += 3;
     },
     /**
      * 貼文 Html Template
@@ -23,7 +56,7 @@ const Post = {
     <div class="div_post_content">
         <div class="post_content_topBar">
             <div class="postPhoto_container">
-                <img class="postPhoto" src="${model.ProfilePhotoUrl}">
+                <img class="postPhoto" src="${model.ProfilePhotoUrl}" />
             </div>
             <div class="postProfile">
                 <div>${model.NickName}</div>
@@ -37,9 +70,10 @@ const Post = {
             </div>
         </div>
         <div class="post_body">
+            ${model.PostKey} %% <!-- todo remove -->
             ${model.PostContent}
-            <div id="wrapper">
-                <ul class="example">
+            <div>
+                <ul class="PostPhoto" PostKey="${model.PostKey}">
                     ${Post.PostImageHtmlTemplate(model.PostImageUrlList)}
                 </ul>
             </div>
@@ -91,8 +125,8 @@ const Post = {
 
         postImageUrlList.forEach(f => {
             html += `
-            <li data-src="${f}" data-thumb="${f}">
-                <img src="${f}" style="max-height: 100%; max-width: 100%;"/>
+            <li data-src='${f}' data-thumb='${f}'>
+                <img src='${f}' style='max-height: 100%; max-width: 100%;' />
             </li>`
         });
 
@@ -109,7 +143,7 @@ const Post = {
         postMsgList.slice(0, 3).forEach(f => {
             html += Post.PostMsgHtmlTemplate(f);
         });
-        
+
         if (totalPostMsgCount > 3)
             html += `
             <div class="div_post_moreMsg" PostKey="${postKey}">
@@ -153,7 +187,7 @@ const Post = {
     /**
      * Source Code 參考
      * https://www.cnblogs.com/miangao/p/13229050.html
-     * 
+     *
      * 發布時間轉換字串顯示
      * 改寫成
      * ● 當天(24小時內)顯示"XX秒/分鐘/小時前"。

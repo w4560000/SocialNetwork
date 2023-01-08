@@ -311,6 +311,36 @@ var Common = {
                 $img.replaceWith($svg);
             }, 'xml');
         });
+    },
+    /**
+     * 顯示 Loading
+     * @param e Loading 要顯示在哪個DOM下面
+     * */
+    ShowLoading: function (e) {
+        e.after("<div class=\"load\">\n                <div class=\"load_Body\">\n                    <div class=\"one\"></div>\n                    <div class=\"two\"></div>\n                    <div class=\"three\"></div>\n                </div>\n             </div>\n            ");
+    },
+    /**
+     * 隱藏 Loading
+     * */
+    HideLoading: function () {
+        $(".load").remove();
+    },
+    /**
+     * 初始化 LightSlider
+     * @param e 要初始化的 element
+     * */
+    InitLightSlider: function (e) {
+        e.lightSlider({
+            gallery: true,
+            item: 1,
+            loop: false,
+            slideMargin: 10,
+            enableDrag: true,
+            speed: 500,
+            adaptiveHeight: true,
+            //autoWidth: true
+            //verticalHeight: 500px
+        });
     }
 };
 /** SweetAlert 快顯 */

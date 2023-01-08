@@ -6,6 +6,7 @@ using SocialNetwork.Repository;
 using SocialNetwork.Service;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SocialNetwork.Controllers
@@ -66,6 +67,8 @@ namespace SocialNetwork.Controllers
         {
             try
             {
+                // todo remove
+                Thread.Sleep(1000);
                 return await PostService.GetHomeIndexPost(model);
             }
             catch (Exception ex)

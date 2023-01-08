@@ -334,6 +334,47 @@
                 $img.replaceWith($svg);
             }, 'xml');
         });
+    },
+
+    /**
+     * 顯示 Loading
+     * @param e Loading 要顯示在哪個DOM下面
+     * */
+    ShowLoading: (e: JQuery<HTMLElement>) => {
+        e.after(
+            `<div class="load">
+                <div class="load_Body">
+                    <div class="one"></div>
+                    <div class="two"></div>
+                    <div class="three"></div>
+                </div>
+             </div>
+            `);
+    },
+
+    /**
+     * 隱藏 Loading
+     * */
+    HideLoading: () => {
+        $(".load").remove();
+    },
+
+    /**
+     * 初始化 LightSlider
+     * @param e 要初始化的 element
+     * */
+    InitLightSlider: (e: JQuery<HTMLElement>): void => {
+        e.lightSlider({
+            gallery: true, // 相本模式
+            item: 1, // 顯示數量
+            loop: false, // 無限循環
+            slideMargin: 10, // 間隔寬度
+            enableDrag: true, // 當左右拖曳時，則切換上/下項目
+            speed: 500,
+            adaptiveHeight: true,
+            //autoWidth: true
+            //verticalHeight: 500px
+        });
     }
 };
 

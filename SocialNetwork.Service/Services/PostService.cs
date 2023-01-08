@@ -160,7 +160,7 @@ ON pd.PostKey = tpmc.PostKey;
 SELECT * 
 INTO #TempPostData
 FROM #ResultData
-WHERE RowNo BETWEEN @QueryRowNo AND @QueryRowNo + 10
+WHERE RowNo BETWEEN @QueryRowNo AND @QueryRowNo + 2
 ORDER BY RowNo
 
 SELECT * FROM #TempPostData;

@@ -54,15 +54,6 @@ const LayoutPage = {
         var friendList = await GetFriendListAPI();
         LayoutPage.ReflashFriendList(friendList);
 
-        
-        var postList = await GetHomeIndexPostAPI(new QueryRowMemberReqViewModel(user.MemberID, 1));
-        
-        postList.forEach(f => {
-            $('.div_mypost').after(Post.PostHtmlTemplate(f));
-        });
-        Post.Init();
-
-
         // 控制 Img Default Style
         Common.ControllImgDefaultStyle();
 

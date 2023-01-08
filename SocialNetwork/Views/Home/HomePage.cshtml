@@ -7,15 +7,20 @@
 <link rel="stylesheet" href="~/css/Home/Index.css" asp-append-version="true" />
 <link rel="stylesheet" href="~/css/Home/HomePage.css" asp-append-version="true" />
 <script>
-    $(function () {
+    $(document).ready(async function () {
         HomePage.Init();
-        $(".example").lightSlider({
+        await Post.Init();
+
+        $(".PostContent").lightSlider({
             gallery: true, // 相本模式
             item: 1, // 顯示數量
             loop: false, // 無限循環
             slideMargin: 10, // 間隔寬度
             enableDrag: true, // 當左右拖曳時，則切換上/下項目
-            speed: 500
+            speed: 500,
+            adaptiveHeight: true,
+            //autoWidth: true
+            //verticalHeight: 500px
         });
     });
 </script>
@@ -93,5 +98,4 @@
         </div>
     </div>
     <partial name="~/Views/Shared/Templates/_PushlishPost.cshtml" />
-    <div class="div_post"></div>
 </div>
