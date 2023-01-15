@@ -92,11 +92,11 @@ namespace SocialNetwork.Service
         }
 
         /// <summary>
-        /// 取得貼文 (自己和朋友)
+        /// 取得首頁貼文 (自己和朋友)
         /// </summary>
         /// <param name="model">取得貼文 (自己和朋友) Request ViewModel</param>
         /// <returns>取得結果</returns>
-        public async Task<ResponseViewModel<List<GetPostResViewModel>>> GetHomeIndexPost(QueryRowMemberReqViewModel model)
+        public async Task<ResponseViewModel<List<GetPostResViewModel>>> GetIndexPost(QueryRowMemberReqViewModel model)
         {
             model.MemberID = this.UserContext.User.MemberID;
 
@@ -112,11 +112,11 @@ namespace SocialNetwork.Service
         }
 
         /// <summary>
-        /// 取得會員貼文
+        /// 取得會員個人貼文
         /// </summary>
         /// <param name="model">取得會員貼文 Request ViewModel</param>
         /// <returns>取得結果</returns>
-        public async Task<ResponseViewModel<List<GetPostResViewModel>>> GetMemberPost(QueryRowMemberReqViewModel model)
+        public async Task<ResponseViewModel<List<GetPostResViewModel>>> GetHomePagePost(QueryRowMemberReqViewModel model)
         {
             var postData = await this.QueryPost(new List<int>() { model.MemberID }, model.QueryRowNo);
 

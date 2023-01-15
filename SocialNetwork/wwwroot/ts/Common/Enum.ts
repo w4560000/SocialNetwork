@@ -60,3 +60,15 @@ enum MemberEducationEnum {
     碩士 = 8,
     博士 = 9
 }
+
+/**
+ * 貼文類型列舉
+ * */
+enum PostTypeEnum {
+
+    /** 載入個人、朋友的貼文 */
+    首頁,
+
+    /** 只載入個人貼文 */
+    個人首頁
+}

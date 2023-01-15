@@ -2,6 +2,7 @@
     ViewBag.Title = "HomePage";
     Layout = "_Layout";
 }
+@using SocialNetwork.Repository
 
 <script src="~/js/Home/HomePage.js" asp-append-version="true"></script>
 <link rel="stylesheet" href="~/css/Home/Index.css" asp-append-version="true" />
@@ -9,7 +10,7 @@
 <script>
     $(document).ready(async function () {
         HomePage.Init();
-        await Post.Init();
+        await Post.Init(@((int)PostTypeEnum.個人首頁));
 
         $(".PostContent").lightSlider({
             gallery: true, // 相本模式
@@ -98,4 +99,5 @@
         </div>
     </div>
     <partial name="~/Views/Shared/Templates/_PushlishPost.cshtml" />
+    <div id="post"></div>
 </div>

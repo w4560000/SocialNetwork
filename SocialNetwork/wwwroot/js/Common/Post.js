@@ -38,15 +38,22 @@ var _this = this;
 var tempSelectPostKey = 0;
 var tempQueryRowNo = 1;
 var lightSliderInstance;
+var _postType;
 var Post = {
-    Init: function () { return __awaiter(_this, void 0, void 0, function () {
+    /**
+     * 初始化
+     * @param postType 貼文類型
+     */
+    Init: function (postType) { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, Post.LoadHomeIndexPost()];
+                case 0:
+                    tempQueryRowNo = 1;
+                    $('.div_post').remove();
+                    _postType = postType;
+                    return [4 /*yield*/, Post.LoadPost()];
                 case 1:
                     _a.sent();
-                    // 頁面最後一個貼文 後面加上Loading
-                    Common.ShowLoading($('.div_post').last());
                     //$(".postAction").on("focus", function (event) {
                     //    debugger
                     //    $(this).children('.ul_postAction').show();
@@ -65,7 +72,7 @@ var Post = {
                                         documentHeight = $(document).height();
                                         windowHeight = $(window).height();
                                         if (!(scrollTop == (documentHeight - windowHeight))) return [3 /*break*/, 2];
-                                        return [4 /*yield*/, Post.LoadHomeIndexPost()];
+                                        return [4 /*yield*/, Post.LoadPost()];
                                     case 1:
                                         _a.sent();
                                         _a.label = 2;
@@ -79,35 +86,72 @@ var Post = {
         });
     }); },
     /**
-     * 載入個人首頁貼文
+     * 重新載入貼文
      * */
-    LoadHomeIndexPost: function () { return __awaiter(_this, void 0, void 0, function () {
+    ReLoadPost: function () { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, GetHomeIndexPostAPI(new QueryRowMemberReqViewModel(user.MemberID, tempQueryRowNo))];
+                case 0:
+                    tempQueryRowNo = 1;
+                    $('.div_post').remove();
+                    return [4 /*yield*/, Post.LoadPost()];
                 case 1:
-                    (_a.sent())
-                        .forEach(function (f) {
-                        if (!$('.div_post').length)
-                            $('#post').append(Post.PostHtmlTemplate(f));
-                        else
-                            $('.div_post').last().after(Post.PostHtmlTemplate(f));
-                        Common.InitLightSlider($(".PostPhoto[PostKey='".concat(f.PostKey, "']")));
-                    });
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); },
+    /**
+     * 載入貼文
+     * @param postType 貼文類型
+     * */
+    LoadPost: function () { return __awaiter(_this, void 0, void 0, function () {
+        var postData, _a;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    if (!(this._postType === PostTypeEnum.首頁)) return [3 /*break*/, 2];
+                    return [4 /*yield*/, GetIndexPostAPI(new QueryRowMemberReqViewModel(user.MemberID, tempQueryRowNo))];
+                case 1:
+                    _a = _b.sent();
+                    return [3 /*break*/, 4];
+                case 2: return [4 /*yield*/, GetHomePagePostAPI(new QueryRowMemberReqViewModel(user.MemberID, tempQueryRowNo))];
+                case 3:
+                    _a = _b.sent();
+                    _b.label = 4;
+                case 4:
+                    postData = _a;
+                    if (postData.length !== 0) {
+                        postData.forEach(function (f) {
+                            if (!$('.div_post').length)
+                                $('#post').append(Post.PostHtmlTemplate(f));
+                            else
+                                $('.div_post').last().after(Post.PostHtmlTemplate(f));
+                            Common.InitLightSlider($(".PostPhoto[PostKey='".concat(f.PostKey, "']")));
+                        });
+                        Common.HideLoading();
+                        Common.ShowLoading($('.div_post').last());
+                    }
+                    else {
+                        Common.HideLoading();
+                    }
                     tempQueryRowNo += 3;
+                    // 控制 Img Default Style
+                    Common.ControllImgDefaultStyle();
                     return [2 /*return*/];
             }
         });
     }); },
     /**
      * 貼文 Html Template
+     * @param model 貼文 ViewModel
      */
     PostHtmlTemplate: function (model) {
         return "\n<div class=\"div_post\" PostKey=\"".concat(model.PostKey, "\" MemberID=\"").concat(model.MemberID, "\">\n    <div class=\"div_post_content\">\n        <div class=\"post_content_topBar\">\n            <div class=\"postPhoto_container\">\n                <img class=\"postPhoto\" src=\"").concat(model.ProfilePhotoUrl, "\" />\n            </div>\n            <div class=\"postProfile\">\n                <div>").concat(model.NickName, "</div>\n                <span class=\"time\"title=\"").concat(Common.DateFormat(model.PostDateTime.toString()), "\">").concat(Post.PostDateTimeFilter(model.PostDateTime.toString()), "</span>\n            </div>\n            <div class=\"postAction\" tabindex=\"-1\" PostKey=\"").concat(model.PostKey, "\" onclick=\"Post.TogglePostAction(this)\">\u22EE\n            <ul class=\"ul_postAction\" PostKey=\"").concat(model.PostKey, "\">\n                <li><a PostKey=\"").concat(model.PostKey, "\">\u522A\u9664</a></li>\n                <li><a PostKey=\"").concat(model.PostKey, "\">\u7DE8\u8F2F</a></li>\n            </ul>\n            </div>\n        </div>\n        <div class=\"post_body\">\n            ").concat(model.PostKey, " %% <!-- todo remove -->\n            ").concat(model.PostContent, "\n            <div>\n                <ul class=\"PostPhoto\" PostKey=\"").concat(model.PostKey, "\">\n                    ").concat(Post.PostImageHtmlTemplate(model.PostImageUrlList), "\n                </ul>\n            </div>\n        </div>\n        <div class=\"post_footerBar\">\n            <div class=\"post_footer_container\">\n                <div class=\"post_footer_img\">\n                    <img class=\"postLike\" src=\"/images/post/thumb_up_black_24dp.svg\" />\n                </div>\n                <span class=\"post_footer_number\">").concat(model.GoodQuantity, "</span>\n            </div>\n            <div class=\"post_footer_container\">\n                <div class=\"post_footer_img\">\n                    <img class=\"postMsg\" src=\"/images/post/textsms_black_24dp.svg\" />\n                </div>\n                <span class=\"post_footer_number\">").concat(model.TotalPostMsgCount, "</span>\n            </div>\n            <div class=\"post_footer_container\">\n                <img class=\"postShare\" src=\"/images/post/share_black_24dp.svg\" />\n            </div>\n        </div>\n    </div>\n    <div class=\"div_post_msg_send\">\n        <div class=\"post_msgPhoto_container\">\n            <img class=\"post_msgPhoto\" src=\"").concat(model.ProfilePhotoUrl, "\">\n        </div>\n        <div class=\"post_msg_comment\">\n            <textarea class=\"msgComment\" placeholder=\"\u7559\u8A00...\"></textarea>\n        </div>\n        <div class=\"post_msg_submit\">\n            <img class=\"msgSend\" src=\"/images/post/send_black_24dp.svg\">\n        </div>\n    </div>\n\n    ").concat(Post.ShowPostMsg(model.PostKey, model.PostMsgList, model.TotalPostMsgCount), "\n</div>\n  ");
     },
     /**
      * 貼文圖片 Html Template
-     * @param PostMsgList
+     * @param postImageUrlList 貼文圖片 URL 清單
      */
     PostImageHtmlTemplate: function (postImageUrlList) {
         var html = '';

@@ -52,7 +52,7 @@ var PublishPostPage = {
             }
             for (var i = 0; i < fileList.length; i++) {
                 $('.photoPreview').append("<div class=\"photoPreviewContainer\">" +
-                    "<img class=\"svg photoDelete\" src=\"/images/Close.svg\" onclick='PhotoDelete(this)' id=\"".concat(fileList[i].name, "\"/>") +
+                    "<img class=\"svg photoDelete\" src=\"/images/Close.svg\" onclick='PublishPostPage.PhotoDelete(this)' id=\"".concat(fileList[i].name, "\"/>") +
                     "<img class=\"svg photoPreviewImg\" src=\"".concat(URL.createObjectURL(fileList[i]), "\" />") +
                     '</div>');
                 tempFileList.push(fileList[i]);
@@ -69,6 +69,7 @@ var PublishPostPage = {
         tempFileList = tempFileList.filter(function (f) { return f.name !== e.id; });
         // 刪除 Element
         $(e).parent().remove();
+        $('#uploadPhoto').val('');
     },
     /**
      *  發佈貼文
@@ -88,7 +89,8 @@ var PublishPostPage = {
             tempFileList = [];
             $(".write_post").val('');
             $('#deploy_post_cancel').click();
-            // todo reload PostMsg
+            // 重新載入貼文
+            Post.ReLoadPost();
         };
         var errorFunc = function () { };
         PublishPostAPI("發佈貼文中", formData, successFunc, errorFunc, '確定是否發佈?');

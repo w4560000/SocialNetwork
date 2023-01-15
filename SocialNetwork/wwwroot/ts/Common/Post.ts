@@ -1,13 +1,18 @@
 ﻿var tempSelectPostKey: number = 0;
 var tempQueryRowNo: number = 1;
 var lightSliderInstance: JQuery<HTMLElement>;
+var _postType: PostTypeEnum;
 
 const Post = {
-    Init: async () => {
-        await Post.LoadHomeIndexPost();
-
-        // 頁面最後一個貼文 後面加上Loading
-        Common.ShowLoading($('.div_post').last());
+    /**
+     * 初始化
+     * @param postType 貼文類型
+     */
+    Init: async (postType: PostTypeEnum) => {
+        tempQueryRowNo = 1;
+        $('.div_post').remove();
+        _postType = postType;
+        await Post.LoadPost();
 
         //$(".postAction").on("focus", function (event) {
         //    debugger
@@ -26,17 +31,31 @@ const Post = {
 
             // 判斷頁面捲到最底部
             if (scrollTop == (documentHeight - windowHeight)) {
-                await Post.LoadHomeIndexPost();
+                await Post.LoadPost();
             }
         });
     },
 
     /**
-     * 載入個人首頁貼文
+     * 重新載入貼文
      * */
-    LoadHomeIndexPost: async () => {
-        (await GetHomeIndexPostAPI(new QueryRowMemberReqViewModel(user.MemberID, tempQueryRowNo)))
-            .forEach(f => {
+    ReLoadPost: async () => {
+        tempQueryRowNo = 1;
+        $('.div_post').remove();
+        await Post.LoadPost();
+    },
+
+    /**
+     * 載入貼文
+     * @param postType 貼文類型
+     * */
+    LoadPost: async () => {
+        var postData = this._postType === PostTypeEnum.首頁 ?
+            await GetIndexPostAPI(new QueryRowMemberReqViewModel(user.MemberID, tempQueryRowNo)) :
+            await GetHomePagePostAPI(new QueryRowMemberReqViewModel(user.MemberID, tempQueryRowNo));
+
+        if (postData.length !== 0) {
+            postData.forEach(f => {
                 if (!$('.div_post').length)
                     $('#post').append(Post.PostHtmlTemplate(f));
                 else
@@ -45,10 +64,21 @@ const Post = {
                 Common.InitLightSlider($(`.PostPhoto[PostKey='${f.PostKey}']`));
             });
 
+            Common.HideLoading();
+            Common.ShowLoading($('.div_post').last());
+        }
+        else {
+            Common.HideLoading();
+        }
+
         tempQueryRowNo += 3;
+
+        // 控制 Img Default Style
+        Common.ControllImgDefaultStyle();
     },
     /**
      * 貼文 Html Template
+     * @param model 貼文 ViewModel
      */
     PostHtmlTemplate: (model: GetPostResViewModel) => {
         return `
@@ -115,7 +145,7 @@ const Post = {
 
     /**
      * 貼文圖片 Html Template
-     * @param PostMsgList
+     * @param postImageUrlList 貼文圖片 URL 清單
      */
     PostImageHtmlTemplate: (postImageUrlList: Array<string>) => {
         var html = '';

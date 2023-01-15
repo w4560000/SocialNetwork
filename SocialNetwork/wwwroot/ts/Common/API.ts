@@ -408,27 +408,27 @@ function PublishPostAPI(loadingMsg: string, formData: FormData, successFunc: Fun
 }
 
 /**
- * 取得貼文 (自己和朋友) API
+ * 取得首頁貼文 (自己和朋友) API
  */
-async function GetHomeIndexPostAPI(model: QueryRowMemberReqViewModel): Promise<Array<GetPostResViewModel>> {
+async function GetIndexPostAPI(model: QueryRowMemberReqViewModel): Promise<Array<GetPostResViewModel>> {
     let successFunc = () => { };
     let errorFunc = () => { };
 
     let isNotification = false;
     let isShowSuccessMsg = false;
-    return await BasePostAPIV2<CommonMemberViewModel, Array<GetPostResViewModel>>('', "/PostApi/GetHomeIndexPost", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
+    return await BasePostAPIV2<CommonMemberViewModel, Array<GetPostResViewModel>>('', "/PostApi/GetIndexPost", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 
 /**
  * 取得會員貼文 API
  */
-async function GetMemberPostAPI(model: QueryRowMemberReqViewModel): Promise<Array<GetPostResViewModel>> {
+async function GetHomePagePostAPI(model: QueryRowMemberReqViewModel): Promise<Array<GetPostResViewModel>> {
     let successFunc = () => { };
     let errorFunc = () => { };
 
     let isNotification = false;
     let isShowSuccessMsg = false;
-    return await BasePostAPIV2<CommonMemberViewModel, Array<GetPostResViewModel>>('', "/PostApi/GetMemberPost", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
+    return await BasePostAPIV2<CommonMemberViewModel, Array<GetPostResViewModel>>('', "/PostApi/GetHomePagePost", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 
 // Friend

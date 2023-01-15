@@ -61,3 +61,13 @@ var MemberEducationEnum;
     MemberEducationEnum[MemberEducationEnum["\u78A9\u58EB"] = 8] = "\u78A9\u58EB";
     MemberEducationEnum[MemberEducationEnum["\u535A\u58EB"] = 9] = "\u535A\u58EB";
 })(MemberEducationEnum || (MemberEducationEnum = {}));
+/**
+ * 貼文類型列舉
+ * */
+var PostTypeEnum;
+(function (PostTypeEnum) {
+    /** 載入個人、朋友的貼文 */
+    PostTypeEnum[PostTypeEnum["\u9996\u9801"] = 0] = "\u9996\u9801";
+    /** 只載入個人貼文 */
+    PostTypeEnum[PostTypeEnum["\u500B\u4EBA\u9996\u9801"] = 1] = "\u500B\u4EBA\u9996\u9801";
+})(PostTypeEnum || (PostTypeEnum = {}));

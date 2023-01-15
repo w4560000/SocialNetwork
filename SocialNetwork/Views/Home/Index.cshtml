@@ -3,6 +3,7 @@
     Layout = "_Layout";
 }
 @using SocialNetwork.Helper
+@using SocialNetwork.Repository
 @inject IUserContext UserContext
 
 <script src="~/js/Home/Index.js" asp-append-version="true"></script>
@@ -10,7 +11,7 @@
 <script>
     $(document).ready(async function () {
         IndexPage.Init();
-        await Post.Init();
+        await Post.Init(@((int)PostTypeEnum.首頁));
     });
 </script>
 <div class="div_content">

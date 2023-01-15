@@ -400,9 +400,9 @@ function PublishPostAPI(loadingMsg, formData, successFunc, errorFunc, confirmTit
     Common.SweetAlertConfirm(confirmTitle, function () { return BasePostAPIByFormData(loadingMsg, "/PostApi/PublishPost", formData, successFunc, errorFunc); });
 }
 /**
- * 取得貼文 (自己和朋友) API
+ * 取得首頁貼文 (自己和朋友) API
  */
-function GetHomeIndexPostAPI(model) {
+function GetIndexPostAPI(model) {
     return __awaiter(this, void 0, void 0, function () {
         var successFunc, errorFunc, isNotification, isShowSuccessMsg;
         return __generator(this, function (_a) {
@@ -412,7 +412,7 @@ function GetHomeIndexPostAPI(model) {
                     errorFunc = function () { };
                     isNotification = false;
                     isShowSuccessMsg = false;
-                    return [4 /*yield*/, BasePostAPIV2('', "/PostApi/GetHomeIndexPost", model, successFunc, errorFunc, isNotification, isShowSuccessMsg)];
+                    return [4 /*yield*/, BasePostAPIV2('', "/PostApi/GetIndexPost", model, successFunc, errorFunc, isNotification, isShowSuccessMsg)];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });
@@ -421,7 +421,7 @@ function GetHomeIndexPostAPI(model) {
 /**
  * 取得會員貼文 API
  */
-function GetMemberPostAPI(model) {
+function GetHomePagePostAPI(model) {
     return __awaiter(this, void 0, void 0, function () {
         var successFunc, errorFunc, isNotification, isShowSuccessMsg;
         return __generator(this, function (_a) {
@@ -431,7 +431,7 @@ function GetMemberPostAPI(model) {
                     errorFunc = function () { };
                     isNotification = false;
                     isShowSuccessMsg = false;
-                    return [4 /*yield*/, BasePostAPIV2('', "/PostApi/GetMemberPost", model, successFunc, errorFunc, isNotification, isShowSuccessMsg)];
+                    return [4 /*yield*/, BasePostAPIV2('', "/PostApi/GetHomePagePost", model, successFunc, errorFunc, isNotification, isShowSuccessMsg)];
                 case 1: return [2 /*return*/, _a.sent()];
             }
         });

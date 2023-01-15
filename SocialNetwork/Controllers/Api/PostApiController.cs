@@ -59,17 +59,17 @@ namespace SocialNetwork.Controllers
         }
 
         /// <summary>
-        /// 取得貼文 (自己和朋友)
+        /// 取得首頁貼文 (自己和朋友)
         /// </summary>
         /// <returns>取得結果</returns>
-        [HttpPost(nameof(GetHomeIndexPost))]
-        public async Task<ResponseViewModel<List<GetPostResViewModel>>> GetHomeIndexPost(QueryRowMemberReqViewModel model)
+        [HttpPost(nameof(GetIndexPost))]
+        public async Task<ResponseViewModel<List<GetPostResViewModel>>> GetIndexPost(QueryRowMemberReqViewModel model)
         {
             try
             {
                 // todo remove
                 Thread.Sleep(1000);
-                return await PostService.GetHomeIndexPost(model);
+                return await PostService.GetIndexPost(model);
             }
             catch (Exception ex)
             {
@@ -79,16 +79,16 @@ namespace SocialNetwork.Controllers
         }
 
         /// <summary>
-        /// 取得會員貼文
+        /// 取得會員個人貼文
         /// </summary>
         /// <param name="model">取得會員貼文 Req ViewModel</param>
         /// <returns>取得結果</returns>
-        [HttpPost(nameof(GetMemberPost))]
-        public async Task<ResponseViewModel<List<GetPostResViewModel>>> GetMemberPost(QueryRowMemberReqViewModel model)
+        [HttpPost(nameof(GetHomePagePost))]
+        public async Task<ResponseViewModel<List<GetPostResViewModel>>> GetHomePagePost(QueryRowMemberReqViewModel model)
         {
             try
             {
-                return await PostService.GetMemberPost(model);
+                return await PostService.GetHomePagePost(model);
             }
             catch (Exception ex)
             {
