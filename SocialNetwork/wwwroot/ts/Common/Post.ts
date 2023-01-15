@@ -177,7 +177,7 @@ const Post = {
         if (totalPostMsgCount > 3)
             html += `
             <div class="div_post_moreMsg" PostKey="${postKey}">
-                <div class="container_moreMsg">
+                <div class="container_moreMsg" onclick="Post.ShowAllPostMsg(${postKey})">
                     <img class="moreMsg" src="/images/more_msg.svg" />
                         <span>查看其它留言</span>
                     <img class="moreMsg" src="/images/more_msg.svg" />
@@ -210,9 +210,29 @@ const Post = {
      * 貼文選項開關
      * @param e HTMLSpanElement
      */
-    TogglePostAction(e: HTMLSpanElement) {
+    TogglePostAction: (e: HTMLSpanElement) => {
         tempSelectPostKey = parseInt($(e).attr('postkey') as string);
         $(e).children('ul').toggle();
+    },
+    /**
+     * 顯示該貼文所有留言
+     * @param postkey 貼文編號
+     */
+    ShowAllPostMsg: async (postkey: number) => {
+        var allPostMsgList = await GetPostAllMsgAPI(new CommonPostViewModel(postkey));
+
+        if (allPostMsgList.length > 0) {
+            $(`.div_post[postkey=${postkey}] > .div_post_msg`).remove();
+
+            var postMsgHtmlTemplateList = '';
+            allPostMsgList.forEach(f => postMsgHtmlTemplateList += Post.PostMsgHtmlTemplate(f));
+            $(`.div_post[postkey=${postkey}] > .div_post_msg_send`).after(postMsgHtmlTemplateList);
+        }
+
+        $(`.div_post_moreMsg[postkey=${postkey}]`).remove();
+
+        // 控制 Img Default Style
+        Common.ControllImgDefaultStyle();
     },
     /**
      * Source Code 參考

@@ -96,5 +96,24 @@ namespace SocialNetwork.Controllers
                 return CommonExtension.AsSystemFailResponse<List<GetPostResViewModel>>();
             }
         }
+
+        /// <summary>
+        /// 取得該貼文所有留言
+        /// </summary>
+        /// <param name="model">取得該貼文所有留言 Req ViewModel</param>
+        /// <returns>取得結果</returns>
+        [HttpPost(nameof(GetPostAllMsg))]
+        public async Task<ResponseViewModel<List<GetPostMsgResViewModel>>> GetPostAllMsg(CommonPostViewModel model)
+        {
+            try
+            {
+                return await PostService.GetPostAllMsg(model);
+            }
+            catch (Exception ex)
+            {
+                this.Logger.LogCritical(ex, $"取得該貼文所有留言失敗，{ex.GetExceptionMessage()}");
+                return CommonExtension.AsSystemFailResponse<List<GetPostMsgResViewModel>>();
+            }
+        }
     }
 }

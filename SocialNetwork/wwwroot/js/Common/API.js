@@ -437,6 +437,25 @@ function GetHomePagePostAPI(model) {
         });
     });
 }
+/**
+ * 取得該貼文所有留言 API
+ */
+function GetPostAllMsgAPI(model) {
+    return __awaiter(this, void 0, void 0, function () {
+        var successFunc, errorFunc, isNotification, isShowSuccessMsg;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    successFunc = function () { };
+                    errorFunc = function () { };
+                    isNotification = false;
+                    isShowSuccessMsg = false;
+                    return [4 /*yield*/, BasePostAPIV2('', "/PostApi/GetPostAllMsg", model, successFunc, errorFunc, isNotification, isShowSuccessMsg)];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        });
+    });
+}
 // Friend
 /**
  * 取得好友清單 API

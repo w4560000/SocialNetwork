@@ -10,6 +10,17 @@ class CommonMemberViewModel {
 }
 
 /**
+ * 通用的 Post ViewModel
+ * */
+class CommonPostViewModel {
+    PostKey: number;
+
+    constructor(postKey: number) {
+        this.PostKey = postKey
+    }
+}
+
+/**
  * 查詢資料筆數 Member ViewModel
  * */
 class QueryRowMemberReqViewModel {

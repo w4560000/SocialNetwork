@@ -8,6 +8,15 @@ var CommonMemberViewModel = /** @class */ (function () {
     return CommonMemberViewModel;
 }());
 /**
+ * 通用的 Post ViewModel
+ * */
+var CommonPostViewModel = /** @class */ (function () {
+    function CommonPostViewModel(postKey) {
+        this.PostKey = postKey;
+    }
+    return CommonPostViewModel;
+}());
+/**
  * 查詢資料筆數 Member ViewModel
  * */
 var QueryRowMemberReqViewModel = /** @class */ (function () {

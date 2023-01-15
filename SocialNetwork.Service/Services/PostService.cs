@@ -124,6 +124,27 @@ namespace SocialNetwork.Service
         }
 
         /// <summary>
+        /// 取得該貼文所有留言
+        /// </summary>
+        /// <param name="model">取得該貼文所有留言 Request ViewModel</param>
+        /// <returns>取得結果</returns>
+        public async Task<ResponseViewModel<List<GetPostMsgResViewModel>>> GetPostAllMsg(CommonPostViewModel model)
+        {
+            string sql = @"
+SELECT a.PostKey, a.MsgKey, a.MemberID, b.NickName, b.ProfilePhotoURL, a.MsgContent, a.CreatedAt AS 'PostMsgDateTime'
+FROM [SocialNetwork].[dbo].[PostMsg] a
+INNER JOIN [SocialNetwork].[dbo].[Member] b
+ON a.MemberID = b.MemberID
+WHERE a.PostKey = @PostKey
+ORDER BY PostMsgDateTime ASC";
+
+            // 貼文留言清單
+            List<GetPostMsgResViewModel> postMsgList = (await this.PostRepository.QueryAsync<GetPostMsgResViewModel>(sql, new { model.PostKey })).ToList();
+
+            return "取得該貼文所有留言成功".AsSuccessResponse(postMsgList);
+        }
+
+        /// <summary>
         /// 查詢貼文
         /// </summary>
         /// <param name="memberIDList">查詢貼文的MemberID</param>
@@ -171,8 +192,8 @@ INTO #TempPostMsgData
 FROM [SocialNetwork].[dbo].[PostMsg] a
 INNER JOIN [SocialNetwork].[dbo].[Member] b
 ON a.MemberID = b.MemberID
-WHERE PostKey IN (SELECT PostKey FROM #TempPostData)
-ORDER BY PostKey, PostMsgDateTime ASC
+WHERE a.PostKey IN (SELECT PostKey FROM #TempPostData)
+ORDER BY a.PostKey, PostMsgDateTime ASC
 
 -- 取前三筆留言
 SELECT *

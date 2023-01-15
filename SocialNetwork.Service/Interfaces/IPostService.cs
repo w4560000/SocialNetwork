@@ -30,5 +30,12 @@ namespace SocialNetwork.Service
         /// <param name="model">取得會員貼文 Request ViewModel</param>
         /// <returns>取得結果</returns>
         Task<ResponseViewModel<List<GetPostResViewModel>>> GetHomePagePost(QueryRowMemberReqViewModel model);
+
+        /// <summary>
+        /// 取得該貼文所有留言
+        /// </summary>
+        /// <param name="model">取得該貼文所有留言 Request ViewModel</param>
+        /// <returns>取得結果</returns>
+        Task<ResponseViewModel<List<GetPostMsgResViewModel>>> GetPostAllMsg(CommonPostViewModel model);
     }
 }

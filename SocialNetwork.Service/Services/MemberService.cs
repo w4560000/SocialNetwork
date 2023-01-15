@@ -536,11 +536,11 @@ outline: 0;";
                     this.HttpContext.Response.Cookies.AddJwtTokenToCookie(token);
                 }
 
-                // 會員在線狀態 存入 Redis 暫時不存
+                // 會員在線狀態 存入 Redis
                 await this.CacheHelper.ResetAsync($"Member:{userInfo.MemberID}", () => userInfo);
 
+                // SignalR 通知所有好友 更新會員狀態
                 var firendList = this.FriendService.GetFriendList(userInfo.MemberID);
-
                 await this.ChatHub.ReflashFriendStatus_Send(
                     firendList.Data.Select(s => s.MemberID).ToList(),
                     new GetFriendListResViewModel()

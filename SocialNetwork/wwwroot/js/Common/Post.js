@@ -172,7 +172,7 @@ var Post = {
             html += Post.PostMsgHtmlTemplate(f);
         });
         if (totalPostMsgCount > 3)
-            html += "\n            <div class=\"div_post_moreMsg\" PostKey=\"".concat(postKey, "\">\n                <div class=\"container_moreMsg\">\n                    <img class=\"moreMsg\" src=\"/images/more_msg.svg\" />\n                        <span>\u67E5\u770B\u5176\u5B83\u7559\u8A00</span>\n                    <img class=\"moreMsg\" src=\"/images/more_msg.svg\" />\n                </div>\n            </div>\n");
+            html += "\n            <div class=\"div_post_moreMsg\" PostKey=\"".concat(postKey, "\">\n                <div class=\"container_moreMsg\" onclick=\"Post.ShowAllPostMsg(").concat(postKey, ")\">\n                    <img class=\"moreMsg\" src=\"/images/more_msg.svg\" />\n                        <span>\u67E5\u770B\u5176\u5B83\u7559\u8A00</span>\n                    <img class=\"moreMsg\" src=\"/images/more_msg.svg\" />\n                </div>\n            </div>\n");
         return html;
     },
     /**
@@ -189,6 +189,30 @@ var Post = {
         tempSelectPostKey = parseInt($(e).attr('postkey'));
         $(e).children('ul').toggle();
     },
+    /**
+     * 顯示該貼文所有留言
+     * @param postkey 貼文編號
+     */
+    ShowAllPostMsg: function (postkey) { return __awaiter(_this, void 0, void 0, function () {
+        var allPostMsgList, postMsgHtmlTemplateList;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, GetPostAllMsgAPI(new CommonPostViewModel(postkey))];
+                case 1:
+                    allPostMsgList = _a.sent();
+                    if (allPostMsgList.length > 0) {
+                        $(".div_post[postkey=".concat(postkey, "] > .div_post_msg")).remove();
+                        postMsgHtmlTemplateList = '';
+                        allPostMsgList.forEach(function (f) { return postMsgHtmlTemplateList += Post.PostMsgHtmlTemplate(f); });
+                        $(".div_post[postkey=".concat(postkey, "] > .div_post_msg_send")).after(postMsgHtmlTemplateList);
+                    }
+                    $(".div_post_moreMsg[postkey=".concat(postkey, "]")).remove();
+                    // 控制 Img Default Style
+                    Common.ControllImgDefaultStyle();
+                    return [2 /*return*/];
+            }
+        });
+    }); },
     /**
      * Source Code 參考
      * https://www.cnblogs.com/miangao/p/13229050.html

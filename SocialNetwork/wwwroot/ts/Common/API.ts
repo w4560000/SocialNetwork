@@ -431,6 +431,18 @@ async function GetHomePagePostAPI(model: QueryRowMemberReqViewModel): Promise<Ar
     return await BasePostAPIV2<CommonMemberViewModel, Array<GetPostResViewModel>>('', "/PostApi/GetHomePagePost", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 
+/**
+ * 取得該貼文所有留言 API
+ */
+async function GetPostAllMsgAPI(model: CommonPostViewModel): Promise<Array<GetPostMsgResViewModel>> {
+    let successFunc = () => { };
+    let errorFunc = () => { };
+
+    let isNotification = false;
+    let isShowSuccessMsg = false;
+    return await BasePostAPIV2<CommonPostViewModel, Array<GetPostMsgResViewModel>>('', "/PostApi/GetPostAllMsg", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
+}
+
 // Friend
 
 /**
