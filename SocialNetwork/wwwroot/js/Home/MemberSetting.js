@@ -167,18 +167,16 @@ var MemberSettingPage = {
         formData.append('Education', $('#infoEducation').val());
         formData.append('InfoStatus', infoStatus.toString());
         var successFunc = function (res) {
-            if (res.Status == ResponseStatusEnum.Success) {
-                // 更新左側 Menu 頭像
-                if (tempProfilePhotoFile !== undefined)
-                    $('.index_profilePhoto').attr('src', URL.createObjectURL(tempProfilePhotoFile));
-                if ($('.profile_OldName').is(":hidden")) {
-                    $('.profile_OldName').show();
-                    $('.profile_changeName_container').show();
-                    $('.profile_changeName').hide();
-                    $('.profile_changeName_cancel').hide();
-                    $('.profile_OldName').html($('.profile_changeName').val());
-                    $('.index_nickName').html($('.profile_changeName').val());
-                }
+            // 更新左側 Menu 頭像
+            if (tempProfilePhotoFile !== undefined)
+                $('.index_profilePhoto').attr('src', URL.createObjectURL(tempProfilePhotoFile));
+            if ($('.profile_OldName').is(":hidden")) {
+                $('.profile_OldName').show();
+                $('.profile_changeName_container').show();
+                $('.profile_changeName').hide();
+                $('.profile_changeName_cancel').hide();
+                $('.profile_OldName').html($('.profile_changeName').val());
+                $('.index_nickName').html($('.profile_changeName').val());
             }
         };
         var errorFunc = function () { };

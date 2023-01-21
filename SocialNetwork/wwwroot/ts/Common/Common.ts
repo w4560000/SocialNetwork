@@ -23,8 +23,8 @@
      * @param func func
      */
     Popup: (containerID: string, func: void) => {
-        var popBox = $('#' + containerID + '> .popBox')[0];
-        var popLayer = $('#' + containerID + '> .popLayer')[0];
+        let popBox = $('#' + containerID + '> .popBox')[0];
+        let popLayer = $('#' + containerID + '> .popLayer')[0];
         popBox.style.display = popLayer.style.display = "block";
 
         if (func !== undefined)
@@ -37,8 +37,8 @@
      * @param func func
      */
     ClosePopup: (containerID: string, func: void) => {
-        var popBox = $('#' + containerID + '> .popBox')[0];
-        var popLayer = $('#' + containerID + '> .popLayer')[0];
+        let popBox = $('#' + containerID + '> .popBox')[0];
+        let popLayer = $('#' + containerID + '> .popLayer')[0];
         popBox.style.display = popLayer.style.display = "none";
 
         if (func !== undefined)
@@ -238,7 +238,7 @@
      * @param onSelectFunc SeleteFunc
      */
     DatepickerInit: (e: JQuery<HTMLElement>, onSelectFunc: ((dateText: string, inst: any) => void)) => {
-        var currentYear = new Date().getFullYear();
+        let currentYear = new Date().getFullYear();
         e.datepicker({
             changeMonth: true,
             changeYear: true,
@@ -300,15 +300,15 @@
      * */
     ControllSVG: () => {
         jQuery('img.svg').each(function () {
-            var $img = jQuery(this);
-            var imgID = $img.attr('id');
-            var imgClass = $img.attr('class');
-            var imgURL = $img.attr('src');
-            var imgClick = $img.attr('onclick');
+            let $img = jQuery(this);
+            let imgID = $img.attr('id');
+            let imgClass = $img.attr('class');
+            let imgURL = $img.attr('src');
+            let imgClick = $img.attr('onclick');
 
             jQuery.get(imgURL as string, function (data) {
                 // Get the SVG tag, ignore the rest
-                var $svg = jQuery(data).find('svg');
+                let $svg = jQuery(data).find('svg');
 
                 // Add replaced image's ID to the new SVG
                 if (typeof imgID !== 'undefined') {

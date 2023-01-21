@@ -31,8 +31,8 @@ enum MemberStatusEnum {
  * 判斷好友邀請 列舉
  * */
 enum DecideFriendInvitationEnum {
-    拒絕 = 0,
-    接受 = 1
+    拒絕 = 1,
+    接受 = 2
 }
 
 /**
@@ -71,4 +71,12 @@ enum PostTypeEnum {
 
     /** 只載入個人貼文 */
     個人首頁
+}
+
+/**
+ * 切換列舉
+ * */
+enum ToggleEnum {
+    On = 1,
+    Off = 2
 }

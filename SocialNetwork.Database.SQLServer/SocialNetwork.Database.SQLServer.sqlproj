@@ -133,5 +133,6 @@
     <Build Include="Security\Permissions.sql" />
     <Build Include="dbo\Tables\ForgotPassword.sql" />
     <Build Include="dbo\Tables\FriendInvitation.sql" />
+    <Build Include="dbo\Tables\PostLike.sql" />
   </ItemGroup>
 </Project>

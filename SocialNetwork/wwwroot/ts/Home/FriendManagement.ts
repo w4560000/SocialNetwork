@@ -18,14 +18,14 @@
             $(this).removeClass('div_firend_tab_name_container_color');
         });
 
-        var tab = $(e).attr('tab');
+        let tab = $(e).attr('tab');
         $(`.div_firend_tab_name_container[Tab="${tab}"]`).addClass('div_firend_tab_name_container_color');
 
         switch (tab) {
             case 'MyFriend':
                 $('.MyFriend').empty();
 
-                var friendList = await GetFriendListAPI();
+                let friendList = await GetFriendListAPI();
                 friendList.forEach((f) => $('.MyFriend').append(FriendManagementPage.MyFriendHtmlTemplate(f)));
 
                 $('.MyFriend').show();
@@ -35,7 +35,7 @@
             case 'FriendInvitation':
                 $('.FriendInvitation').empty();
 
-                var friendInvitatioinList = await GetFriendInvitationListAPI();
+                let friendInvitatioinList = await GetFriendInvitationListAPI();
                 friendInvitatioinList.forEach((f) => $('.FriendInvitation').append(FriendManagementPage.FriendInvitationHtmlTemplate(f)));
 
                 $('.MyFriend').hide();
@@ -45,7 +45,7 @@
             case 'SendFriendInvitation':
                 $('.SendFriendInvitation').empty();
 
-                var sendFriendInvitatioinList = await GetSendFriendInvitationListAPI();
+                let sendFriendInvitatioinList = await GetSendFriendInvitationListAPI();
                 sendFriendInvitatioinList.forEach((f) => $('.SendFriendInvitation').append(FriendManagementPage.SendFriendInvitationHtmlTemplate(f)));
 
                 $('.MyFriend').hide();
@@ -70,7 +70,7 @@
     <div class="div_friend_name_content">
         <a class="div_friend_name" href="/Home/HomePage/${member.MemberID}" target="_blank">${member.NickName}</a>
     </div>
-    <input class="div_frient_button_gray" type="button" value="移除好友" onclick="Friend.DeleteFriend(${member.MemberID}, '${member.NickName}', () => ToggleTab('MyFriend'))"/>
+    <input class="div_frient_button_gray" type="button" value="移除好友" onclick="Friend.DeleteFriend(${member.MemberID}, '${member.NickName}', () => FriendManagementPage.ToggleTab('MyFriend'))"/>
 </div>
   `;
     },
@@ -87,8 +87,8 @@
     <div class="div_friend_name_content">
         <a class="div_friend_name" href="/Home/HomePage/${member.MemberID}" target="_blank">${member.NickName}</a>
     </div>
-    <input class="div_frient_button_pink" type="button" value="接受" onclick="Friend.DecideFriendInvitation(${member.MemberID}, '${member.NickName}', ${DecideFriendInvitationEnum.接受}, () => ToggleTab('FriendInvitation'))"/>
-    <input class="div_frient_button_gray" type="button" value="拒絕" onclick="Friend.DecideFriendInvitation(${member.MemberID}, '${member.NickName}', ${DecideFriendInvitationEnum.拒絕}, () => ToggleTab('FriendInvitation'))"/>
+    <input class="div_frient_button_pink" type="button" value="接受" onclick="Friend.DecideFriendInvitation(${member.MemberID}, '${member.NickName}', ${DecideFriendInvitationEnum.接受}, () => FriendManagementPage.ToggleTab('FriendInvitation'))"/>
+    <input class="div_frient_button_gray" type="button" value="拒絕" onclick="Friend.DecideFriendInvitation(${member.MemberID}, '${member.NickName}', ${DecideFriendInvitationEnum.拒絕}, () => FriendManagementPage.ToggleTab('FriendInvitation'))"/>
 </div>
   `;
     },
@@ -105,7 +105,7 @@
     <div class="div_friend_name_content">
         <a class="div_friend_name" href="/Home/HomePage/${member.MemberID}" target="_blank">${member.NickName}</a>
     </div>
-    <input class="div_frient_button_gray" type="button" value="收回邀請" onclick="Friend.RevokeFriendInvitation(${member.MemberID}, '${member.NickName}', () => ToggleTab('SendFriendInvitation'))"/>
+    <input class="div_frient_button_gray" type="button" value="收回邀請" onclick="Friend.RevokeFriendInvitation(${member.MemberID}, '${member.NickName}', () => FriendManagementPage.ToggleTab('SendFriendInvitation'))"/>
 </div>
   `;
     }

@@ -32,8 +32,8 @@ var MemberStatusEnum;
  * */
 var DecideFriendInvitationEnum;
 (function (DecideFriendInvitationEnum) {
-    DecideFriendInvitationEnum[DecideFriendInvitationEnum["\u62D2\u7D55"] = 0] = "\u62D2\u7D55";
-    DecideFriendInvitationEnum[DecideFriendInvitationEnum["\u63A5\u53D7"] = 1] = "\u63A5\u53D7";
+    DecideFriendInvitationEnum[DecideFriendInvitationEnum["\u62D2\u7D55"] = 1] = "\u62D2\u7D55";
+    DecideFriendInvitationEnum[DecideFriendInvitationEnum["\u63A5\u53D7"] = 2] = "\u63A5\u53D7";
 })(DecideFriendInvitationEnum || (DecideFriendInvitationEnum = {}));
 /**
  * 好友狀態 列舉
@@ -71,3 +71,11 @@ var PostTypeEnum;
     /** 只載入個人貼文 */
     PostTypeEnum[PostTypeEnum["\u500B\u4EBA\u9996\u9801"] = 1] = "\u500B\u4EBA\u9996\u9801";
 })(PostTypeEnum || (PostTypeEnum = {}));
+/**
+ * 切換列舉
+ * */
+var ToggleEnum;
+(function (ToggleEnum) {
+    ToggleEnum[ToggleEnum["On"] = 1] = "On";
+    ToggleEnum[ToggleEnum["Off"] = 2] = "Off";
+})(ToggleEnum || (ToggleEnum = {}));

@@ -132,3 +132,13 @@ var DecideFriendInvitationReqViewModel = /** @class */ (function () {
     }
     return DecideFriendInvitationReqViewModel;
 }());
+/**
+ * 貼文按讚 or 取消按讚 Request ViewModel
+ * */
+var TogglePostLikeViewModel = /** @class */ (function () {
+    function TogglePostLikeViewModel(postKey, toggle) {
+        this.PostKey = postKey;
+        this.Toggle = toggle;
+    }
+    return TogglePostLikeViewModel;
+}());

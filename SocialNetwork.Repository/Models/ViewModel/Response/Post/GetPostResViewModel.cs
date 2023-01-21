@@ -61,7 +61,12 @@ namespace SocialNetwork.Repository
         /// <summary>
         /// 按讚數
         /// </summary>
-        public int GoodQuantity { get; set; }
+        public int PostLike { get; set; }
+
+        /// <summary>
+        /// 當前會員是否有按讚該貼文
+        /// </summary>
+        public bool IsCurrnetMemberPostLiked { get; set; }
 
         /// <summary>
         /// 總留言筆數

@@ -1,18 +1,18 @@
 ﻿namespace SocialNetwork.Repository
 {
     /// <summary>
-    /// 判斷好友邀請 列舉
+    /// 切換列舉
     /// </summary>
-    public enum DecideFriendInvitationEnum
+    public enum ToggleEnum
     {
         /// <summary>
-        /// 拒絕
+        /// 開啟
         /// </summary>
-        拒絕 = 1,
+        On = 1,
 
         /// <summary>
-        /// 接受
+        /// 關閉
         /// </summary>
-        接受 = 2
+        Off = 2,
     }
 }

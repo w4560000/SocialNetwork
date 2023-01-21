@@ -101,7 +101,6 @@
         margin: 0 15px;
 
         .post_footer_img {
-            margin: 0 5px;
         }
 
         .post_footer_number {
@@ -109,6 +108,7 @@
             text-align: center;
             display: flex;
             align-items: center;
+            margin: 0 5px;
         }
 
         .postLike, .postMsg {
@@ -120,6 +120,14 @@
 
         .postLike:hover, .postMsg:hover {
             filter: $Color_G5_Filter;
+        }
+
+        .postLiked {
+            filter: $Color_PK2_Filter !important;
+
+            &:hover {
+                filter: $Color_PK1_Filter !important;
+            }
         }
 
         .postShare {
@@ -135,147 +143,147 @@
     }
 }
 
-.post_msgPhoto_container {
-    width: 40px;
-}
-
-.post_msgPhoto {
-    border-radius: 50%;
-    border: 1px $Color_PK2 solid;
-    width: 40px;
-    height: 100%;
-}
-
-.div_post_msg_send {
-    background-color: $Color_W1;
-    border-radius: 5px;
-    display: flex;
-    border-left: 8px solid $Color_PK1;
-    height: 100%;
-    padding: 5px;
-    align-items: center;
-    margin: 2px auto;
-
-    > div {
-        padding: 5px;
+    .post_msgPhoto_container {
+        width: 40px;
     }
 
-    .post_msg_comment {
-        display: flex;
-        justify-content: center;
+    .post_msgPhoto {
+        border-radius: 50%;
+        border: 1px $Color_PK2 solid;
+        width: 40px;
         height: 100%;
-        width: 89%;
+    }
 
-        .msgComment {
-            overflow: hidden;
-            resize: none;
-            font-size: 20px;
-            border-radius: 10px;
-            border: 1px solid $Color_PK2;
-            width: 100%;
-            height: 50px;
-            padding-left: 10px;
+    .div_post_msg_send {
+        background-color: $Color_W1;
+        border-radius: 5px;
+        display: flex;
+        border-left: 8px solid $Color_PK1;
+        height: 100%;
+        padding: 5px;
+        align-items: center;
+        margin: 2px auto;
+
+        > div {
+            padding: 5px;
+        }
+
+        .post_msg_comment {
+            display: flex;
+            justify-content: center;
+            height: 100%;
+            width: 89%;
+
+            .msgComment {
+                overflow: hidden;
+                resize: none;
+                font-size: 20px;
+                border-radius: 10px;
+                border: 1px solid $Color_PK2;
+                width: 100%;
+                height: 50px;
+                padding-left: 10px;
+            }
+        }
+
+        .msgComment:focus {
+            outline: none !important;
+            border: 1px solid $Color_PK1;
+            box-shadow: 0 0 5px $Color_PK1;
         }
     }
 
-    .msgComment:focus {
-        outline: none !important;
-        border: 1px solid $Color_PK1;
-        box-shadow: 0 0 5px $Color_PK1;
-    }
-}
-
-.post_msg_submit {
-    width: 30px;
-    position: absolute;
-    right: 1%;
-
-    .msgSend {
+    .post_msg_submit {
         width: 30px;
-        height: 30px;
-        filter: $Color_PK2_Filter;
-        cursor: pointer;
-    }
+        position: absolute;
+        right: 1%;
 
-    .msgSend:hover {
-        filter: $Color_PK1_Filter;
-    }
-}
-
-.div_post_moreMsg {
-    background-color: $Color_W1;
-    border-radius: 5px;
-    height: 40px;
-    padding: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 2px auto;
-    font-size: 20px;
-    font-weight: 600;
-
-    .container_moreMsg {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        .moreMsg {
-            height: 25px;
-            width: 25px;
+        .msgSend {
+            width: 30px;
+            height: 30px;
             filter: $Color_PK2_Filter;
             cursor: pointer;
         }
 
-        > span {
-            color: $Color_PK2;
-            cursor: pointer;
+        .msgSend:hover {
+            filter: $Color_PK1_Filter;
         }
+    }
 
-        &:hover {
+    .div_post_moreMsg {
+        background-color: $Color_W1;
+        border-radius: 5px;
+        height: 40px;
+        padding: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 2px auto;
+        font-size: 20px;
+        font-weight: 600;
+
+        .container_moreMsg {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
             .moreMsg {
-                filter: $Color_PK1_Filter;
+                height: 25px;
+                width: 25px;
+                filter: $Color_PK2_Filter;
+                cursor: pointer;
             }
 
             > span {
-                color: $Color_PK1;
+                color: $Color_PK2;
+                cursor: pointer;
+            }
+
+            &:hover {
+                .moreMsg {
+                    filter: $Color_PK1_Filter;
+                }
+
+                > span {
+                    color: $Color_PK1;
+                }
             }
         }
     }
-}
 
-.div_post_msg {
-    background-color: $Color_W1;
-    border-radius: 5px;
-    display: flex;
-    border-left: 8px solid $Color_PK2;
-    height: 100%;
-    padding: 5px;
-    align-items: center;
-    margin: 2px auto;
-
-    .postMsgProfile {
-        margin-left: 15px;
-        font-size: 13pt;
-        font-weight: 600;
+    .div_post_msg {
+        background-color: $Color_W1;
+        border-radius: 5px;
         display: flex;
-        flex-direction: column;
-        justify-content: center;
+        border-left: 8px solid $Color_PK2;
+        height: 100%;
+        padding: 5px;
+        align-items: center;
+        margin: 2px auto;
 
-        .msgContent {
-            font-size: 12pt;
-            font-weight: 400;
-            padding-left: 5px;
+        .postMsgProfile {
+            margin-left: 15px;
+            font-size: 13pt;
+            font-weight: 600;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            .msgContent {
+                font-size: 12pt;
+                font-weight: 400;
+                padding-left: 5px;
+            }
+
+            .time {
+                padding-top: 10px;
+                color: $Color_G3;
+                font-size: 11pt;
+            }
         }
 
-        .time {
-            padding-top: 10px;
-            color: $Color_G3;
-            font-size: 11pt;
+        .postMsgComment {
+            width: 80%;
+            font-size: 16px;
         }
     }
-
-    .postMsgComment {
-        width: 80%;
-        font-size: 16px;
-    }
-}

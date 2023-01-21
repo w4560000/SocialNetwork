@@ -5,7 +5,7 @@ const PublishPostPage = {
         // 輸入框 高度自動伸縮
         $('.write_post, .msgComment').on("input", function () {
             let _this = $(this);
-            var currentVal = _this.val() as string;
+            let currentVal = _this.val() as string;
 
             _this.height('auto');
             _this.height(_this.prop('scrollHeight') + 'px');
@@ -37,7 +37,7 @@ const PublishPostPage = {
      */
     UploadPhoto_Change: (e: HTMLInputElement) => {
         if (e.files) {
-            var fileList = Array.from(e.files);
+            let fileList = Array.from(e.files);
 
             if (fileList.length > 10) {
                 e.files = null;
@@ -57,7 +57,7 @@ const PublishPostPage = {
                 return;
             }
 
-            for (var i = 0; i < fileList.length; i++) {
+            for (let i = 0; i < fileList.length; i++) {
                 $('.photoPreview').append(
                     `<div class="photoPreviewContainer">` +
                     `<img class="svg photoDelete" src="/images/Close.svg" onclick='PublishPostPage.PhotoDelete(this)' id="${fileList[i].name}"/>` +
@@ -94,11 +94,11 @@ const PublishPostPage = {
             return;
         }
 
-        var formData = new FormData();
+        let formData = new FormData();
         formData.append('Post', post);
         tempFileList.forEach(f => formData.append('PhotoFiles', f));
 
-        var successFunc = function () {
+        let successFunc = function () {
             // 成功發佈貼文後 清空圖片、貼文
             $('.photoPreview').empty();
             tempFileList = [];
@@ -109,7 +109,7 @@ const PublishPostPage = {
             // 重新載入貼文
             Post.ReLoadPost();
         };
-        var errorFunc = function () { };
+        let errorFunc = function () { };
         PublishPostAPI("發佈貼文中", formData, successFunc, errorFunc, '確定是否發佈?');
     }
 }

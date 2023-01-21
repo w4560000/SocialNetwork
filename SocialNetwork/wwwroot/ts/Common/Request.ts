@@ -179,3 +179,19 @@ class DecideFriendInvitationReqViewModel {
         this.Decision = decision;
     }
 }
+
+/**
+ * 貼文按讚 or 取消按讚 Request ViewModel
+ * */
+class TogglePostLikeViewModel {
+    PostKey: number;
+    Toggle: ToggleEnum;
+
+    constructor(
+        postKey: number,
+        toggle: ToggleEnum
+    ) {
+        this.PostKey = postKey;
+        this.Toggle = toggle;
+    }
+}

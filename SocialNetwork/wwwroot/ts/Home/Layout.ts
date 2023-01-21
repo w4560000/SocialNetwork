@@ -8,7 +8,7 @@ const LayoutPage = {
         chatHubConnection.connect(LayoutPage.ReflashFriendStatus);
 
         $("body").click((event) => {
-            var currentElemetClass = ($(event.target).attr('class')) as string;
+            let currentElemetClass = ($(event.target).attr('class')) as string;
 
             // 點選其他 element 時 自動隱藏展開的會員狀態
             if (currentElemetClass !== undefined && !currentElemetClass.includes('index_status_select')) {
@@ -35,7 +35,7 @@ const LayoutPage = {
 
         // 更新會員狀態
         $(".index_status").on("click", "li", function () {
-            var allOptions = $(".meunContent > ul").children('li');
+            let allOptions = $(".meunContent > ul").children('li');
             allOptions.removeClass('selected');
             $(this).addClass('selected');
             $(".meunContent > ul").children('.index_status_select').html($(this).html());
@@ -51,7 +51,7 @@ const LayoutPage = {
         $("ul").children('.index_status_select').html($('#memberStatus_' + user.Status).html());
 
         // 載入聊天室好友清單
-        var friendList = await GetFriendListAPI();
+        let friendList = await GetFriendListAPI();
         LayoutPage.ReflashFriendList(friendList);
 
         // 控制 Img Default Style
@@ -76,7 +76,7 @@ const LayoutPage = {
             $(this).removeClass('index_menuTextBackground_color');
         });
 
-        var pathName = window.location.pathname;
+        let pathName = window.location.pathname;
 
         switch (pathName) {
             case '/':

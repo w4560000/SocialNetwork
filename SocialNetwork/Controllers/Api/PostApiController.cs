@@ -67,8 +67,6 @@ namespace SocialNetwork.Controllers
         {
             try
             {
-                // todo remove
-                Thread.Sleep(1000);
                 return await PostService.GetIndexPost(model);
             }
             catch (Exception ex)
@@ -113,6 +111,25 @@ namespace SocialNetwork.Controllers
             {
                 this.Logger.LogCritical(ex, $"取得該貼文所有留言失敗，{ex.GetExceptionMessage()}");
                 return CommonExtension.AsSystemFailResponse<List<GetPostMsgResViewModel>>();
+            }
+        }
+
+        /// <summary>
+        /// 貼文按讚 or 取消按讚
+        /// </summary>
+        /// <param name="model">貼文按讚 or 取消按讚 Req ViewModel</param>
+        /// <returns>操作結果</returns>
+        [HttpPost(nameof(TogglePostLike))]
+        public async Task<ResponseViewModel> TogglePostLike(TogglePostLikeViewModel model)
+        {
+            try
+            {
+                return await PostService.TogglePostLike(model);
+            }
+            catch (Exception ex)
+            {
+                this.Logger.LogCritical(ex, $"貼文按讚 or 取消按讚失敗，{ex.GetExceptionMessage()}");
+                return CommonExtension.AsSystemFailResponse();
             }
         }
     }

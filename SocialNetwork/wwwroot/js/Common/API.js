@@ -60,8 +60,11 @@ function BaseGetAPI(loadingMsg, api, successFunc, errorFunc, isNotification, isS
                         else
                             Common.SweetAlertSuccess(res, successFunc);
                     }
-                    else
+                    else {
+                        if (successFunc)
+                            successFunc(res);
                         Swal.close();
+                    }
                     resolve(res.Data);
                 }
                 else {
@@ -111,8 +114,11 @@ function BasePostAPIV1(loadingMsg, api, successFunc, errorFunc, isNotification, 
                         else
                             Common.SweetAlertSuccess(res, successFunc);
                     }
-                    else
+                    else {
+                        if (successFunc)
+                            successFunc(res);
                         Swal.close();
+                    }
                     resolve(res.Data);
                 }
                 else {
@@ -165,8 +171,11 @@ function BasePostAPIV2(loadingMsg, api, model, successFunc, errorFunc, isNotific
                         else
                             Common.SweetAlertSuccess(res, successFunc);
                     }
-                    else
+                    else {
+                        if (successFunc)
+                            successFunc(res);
                         Swal.close();
+                    }
                     resolve(res.Data);
                 }
                 else {
@@ -217,8 +226,11 @@ function BasePostAPIV3(loadingMsg, api, model, successFunc, errorFunc, isNotific
                     else
                         Common.SweetAlertSuccess(res, successFunc);
                 }
-                else
+                else {
+                    if (successFunc)
+                        successFunc(res);
                     Swal.close();
+                }
             }
             else {
                 if (isNotification)
@@ -265,8 +277,11 @@ function BasePostAPIByFormData(loadingMsg, api, formData, successFunc, errorFunc
                     else
                         Common.SweetAlertSuccess(res, successFunc);
                 }
-                else
+                else {
+                    if (successFunc)
+                        successFunc(res);
                     Swal.close();
+                }
             }
             else {
                 if (isNotification)
@@ -455,6 +470,14 @@ function GetPostAllMsgAPI(model) {
             }
         });
     });
+}
+/**
+ * 貼文按讚 or 取消按讚 API
+ */
+function TogglePostLikeAPI(model, successFunc, errorFunc) {
+    var isNotification = false;
+    var isShowSuccessMsg = false;
+    BasePostAPIV3('', "/PostApi/TogglePostLike", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 // Friend
 /**

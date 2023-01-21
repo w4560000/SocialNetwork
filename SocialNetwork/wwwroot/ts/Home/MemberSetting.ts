@@ -21,14 +21,14 @@ const MemberSettingPage = {
             });
 
         // 取得當前會員資訊
-        var memberInfo = await GetCurrentMemberInfoAPI();
-        
+        let memberInfo = await GetCurrentMemberInfoAPI();
+
         // 載入 會員資訊
         $('.profile_background').attr('src', memberInfo.BackgroundPhotoURL);
 
         $('.InfoIcon').each(function () {
-            var memberPublicInfoFlag = Number($(this).attr('memberpublicinfoflag'));
-            var src = Common.HasFlag(memberInfo.InfoStatus, memberPublicInfoFlag) ? "/images/InfoPublic.png" : "/images/InfoHide.png"
+            let memberPublicInfoFlag = Number($(this).attr('memberpublicinfoflag'));
+            let src = Common.HasFlag(memberInfo.InfoStatus, memberPublicInfoFlag) ? "/images/InfoPublic.png" : "/images/InfoHide.png"
             $(this).attr("src", src);
         });
 
@@ -57,7 +57,7 @@ const MemberSettingPage = {
         if (e.files) {
             let isUploadBackground = e.id == 'profile_changeBackground';
             let errorMsgTitle = isUploadBackground ? '主頁背景' : '頭像';
-            var fileList = Array.from(e.files);
+            let fileList = Array.from(e.files);
 
             if (fileList.length > 1) {
                 e.files = null;
@@ -132,7 +132,7 @@ const MemberSettingPage = {
             Common.SweetAlertErrorMsg('請選擇生日');
             return;
         }
-        var formData = new FormData();
+        let formData = new FormData();
         formData.append('NickName', $('.profile_changeName').val() as string);
         formData.append('BackgroundPhoto', tempBackgroundFile);
         formData.append('ProfilePhoto', tempProfilePhotoFile);
@@ -142,23 +142,21 @@ const MemberSettingPage = {
         formData.append('Education', $('#infoEducation').val() as string);
         formData.append('InfoStatus', infoStatus.toString());
 
-        var successFunc = (res: ResponseViewModel<object>) => {
-            if (res.Status == ResponseStatusEnum.Success) {
-                // 更新左側 Menu 頭像
-                if (tempProfilePhotoFile !== undefined)
-                    $('.index_profilePhoto').attr('src', URL.createObjectURL(tempProfilePhotoFile));
+        let successFunc = (res: ResponseViewModel<object>) => {
+            // 更新左側 Menu 頭像
+            if (tempProfilePhotoFile !== undefined)
+                $('.index_profilePhoto').attr('src', URL.createObjectURL(tempProfilePhotoFile));
 
-                if ($('.profile_OldName').is(":hidden")) {
-                    $('.profile_OldName').show();
-                    $('.profile_changeName_container').show();
-                    $('.profile_changeName').hide();
-                    $('.profile_changeName_cancel').hide();
-                    $('.profile_OldName').html($('.profile_changeName').val() as string);
-                    $('.index_nickName').html($('.profile_changeName').val() as string);
-                }
+            if ($('.profile_OldName').is(":hidden")) {
+                $('.profile_OldName').show();
+                $('.profile_changeName_container').show();
+                $('.profile_changeName').hide();
+                $('.profile_changeName_cancel').hide();
+                $('.profile_OldName').html($('.profile_changeName').val() as string);
+                $('.index_nickName').html($('.profile_changeName').val() as string);
             }
         };
-        var errorFunc = () => { };
+        let errorFunc = () => { };
         UpdateMemberInfoAPI("更新個人資訊中", formData, successFunc, errorFunc, '確定是否更新?');
     },
     /** 變更密碼 */

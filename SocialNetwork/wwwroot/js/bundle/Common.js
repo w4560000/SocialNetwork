@@ -171,7 +171,10 @@ function BaseGetAPI(loadingMsg, api, successFunc, errorFunc, isNotification, isS
         if (res.Status == ResponseStatusEnum.Success) {
           if (isShowSuccessMsg) {
             if (isNotification) Common.SweetAlertNotification(true, res.Message);else Common.SweetAlertSuccess(res, successFunc);
-          } else Swal.close();
+          } else {
+            if (errorFunc) errorFunc(res);
+            Swal.close();
+          }
 
           resolve(res.Data);
         } else {
@@ -222,7 +225,10 @@ function BasePostAPIV1(loadingMsg, api, successFunc, errorFunc, isNotification, 
         if (res.Status == ResponseStatusEnum.Success) {
           if (isShowSuccessMsg) {
             if (isNotification) Common.SweetAlertNotification(true, res.Message);else Common.SweetAlertSuccess(res, successFunc);
-          } else Swal.close();
+          } else {
+            if (errorFunc) errorFunc(res);
+            Swal.close();
+          }
 
           resolve(res.Data);
         } else {
@@ -275,7 +281,10 @@ function BasePostAPIV2(loadingMsg, api, model, successFunc, errorFunc, isNotific
         if (res.Status == ResponseStatusEnum.Success) {
           if (isShowSuccessMsg) {
             if (isNotification) Common.SweetAlertNotification(true, res.Message);else Common.SweetAlertSuccess(res, successFunc);
-          } else Swal.close();
+          } else {
+            if (errorFunc) errorFunc(res);
+            Swal.close();
+          }
 
           resolve(res.Data);
         } else {
@@ -326,7 +335,10 @@ function BasePostAPIV3(loadingMsg, api, model, successFunc, errorFunc, isNotific
       if (res.Status == ResponseStatusEnum.Success) {
         if (isShowSuccessMsg) {
           if (isNotification) Common.SweetAlertNotification(true, res.Message);else Common.SweetAlertSuccess(res, successFunc);
-        } else Swal.close();
+        } else {
+          if (errorFunc) errorFunc(res);
+          Swal.close();
+        }
       } else {
         if (isNotification) Common.SweetAlertNotification(false, res.Message);else Common.SweetAlertError(res, errorFunc);
       }
@@ -372,7 +384,10 @@ function BasePostAPIByFormData(loadingMsg, api, formData, successFunc, errorFunc
       if (res.Status == ResponseStatusEnum.Success) {
         if (isShowSuccessMsg) {
           if (isNotification) Common.SweetAlertNotification(true, res.Message);else Common.SweetAlertSuccess(res, successFunc);
-        } else Swal.close();
+        } else {
+          if (errorFunc) errorFunc(res);
+          Swal.close();
+        }
       } else {
         if (isNotification) Common.SweetAlertNotification(false, res.Message);else Common.SweetAlertError(res, errorFunc);
       }
@@ -558,11 +573,11 @@ function PublishPostAPI(loadingMsg, formData, successFunc, errorFunc, confirmTit
   });
 }
 /**
- * 取得貼文 (自己和朋友) API
+ * 取得首頁貼文 (自己和朋友) API
  */
 
 
-function GetHomeIndexPostAPI(model) {
+function GetIndexPostAPI(model) {
   return __awaiter(this, void 0, void 0, function () {
     var successFunc, errorFunc, isNotification, isShowSuccessMsg;
     return __generator(this, function (_a) {
@@ -576,7 +591,7 @@ function GetHomeIndexPostAPI(model) {
           isShowSuccessMsg = false;
           return [4
           /*yield*/
-          , BasePostAPIV2('', "/PostApi/GetHomeIndexPost", model, successFunc, errorFunc, isNotification, isShowSuccessMsg)];
+          , BasePostAPIV2('', "/PostApi/GetIndexPost", model, successFunc, errorFunc, isNotification, isShowSuccessMsg)];
 
         case 1:
           return [2
@@ -591,7 +606,7 @@ function GetHomeIndexPostAPI(model) {
  */
 
 
-function GetMemberPostAPI(model) {
+function GetHomePagePostAPI(model) {
   return __awaiter(this, void 0, void 0, function () {
     var successFunc, errorFunc, isNotification, isShowSuccessMsg;
     return __generator(this, function (_a) {
@@ -605,7 +620,7 @@ function GetMemberPostAPI(model) {
           isShowSuccessMsg = false;
           return [4
           /*yield*/
-          , BasePostAPIV2('', "/PostApi/GetMemberPost", model, successFunc, errorFunc, isNotification, isShowSuccessMsg)];
+          , BasePostAPIV2('', "/PostApi/GetHomePagePost", model, successFunc, errorFunc, isNotification, isShowSuccessMsg)];
 
         case 1:
           return [2
@@ -614,6 +629,45 @@ function GetMemberPostAPI(model) {
       }
     });
   });
+}
+/**
+ * 取得該貼文所有留言 API
+ */
+
+
+function GetPostAllMsgAPI(model) {
+  return __awaiter(this, void 0, void 0, function () {
+    var successFunc, errorFunc, isNotification, isShowSuccessMsg;
+    return __generator(this, function (_a) {
+      switch (_a.label) {
+        case 0:
+          successFunc = function successFunc() {};
+
+          errorFunc = function errorFunc() {};
+
+          isNotification = false;
+          isShowSuccessMsg = false;
+          return [4
+          /*yield*/
+          , BasePostAPIV2('', "/PostApi/GetPostAllMsg", model, successFunc, errorFunc, isNotification, isShowSuccessMsg)];
+
+        case 1:
+          return [2
+          /*return*/
+          , _a.sent()];
+      }
+    });
+  });
+}
+/**
+ * 貼文按讚 or 取消按讚 API
+ */
+
+
+function TogglePostLikeAPI(model, successFunc, errorFunc) {
+  var isNotification = false;
+  var isShowSuccessMsg = false;
+  BasePostAPIV3('', "/PostApi/TogglePostLike", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 } // Friend
 
 /**
@@ -1238,8 +1292,8 @@ var MemberStatusEnum;
 var DecideFriendInvitationEnum;
 
 (function (DecideFriendInvitationEnum) {
-  DecideFriendInvitationEnum[DecideFriendInvitationEnum["\u62D2\u7D55"] = 0] = "\u62D2\u7D55";
-  DecideFriendInvitationEnum[DecideFriendInvitationEnum["\u63A5\u53D7"] = 1] = "\u63A5\u53D7";
+  DecideFriendInvitationEnum[DecideFriendInvitationEnum["\u62D2\u7D55"] = 1] = "\u62D2\u7D55";
+  DecideFriendInvitationEnum[DecideFriendInvitationEnum["\u63A5\u53D7"] = 2] = "\u63A5\u53D7";
 })(DecideFriendInvitationEnum || (DecideFriendInvitationEnum = {}));
 /**
  * 好友狀態 列舉
@@ -1273,6 +1327,31 @@ var MemberEducationEnum;
   MemberEducationEnum[MemberEducationEnum["\u78A9\u58EB"] = 8] = "\u78A9\u58EB";
   MemberEducationEnum[MemberEducationEnum["\u535A\u58EB"] = 9] = "\u535A\u58EB";
 })(MemberEducationEnum || (MemberEducationEnum = {}));
+/**
+ * 貼文類型列舉
+ * */
+
+
+var PostTypeEnum;
+
+(function (PostTypeEnum) {
+  /** 載入個人、朋友的貼文 */
+  PostTypeEnum[PostTypeEnum["\u9996\u9801"] = 0] = "\u9996\u9801";
+  /** 只載入個人貼文 */
+
+  PostTypeEnum[PostTypeEnum["\u500B\u4EBA\u9996\u9801"] = 1] = "\u500B\u4EBA\u9996\u9801";
+})(PostTypeEnum || (PostTypeEnum = {}));
+/**
+ * 切換列舉
+ * */
+
+
+var ToggleEnum;
+
+(function (ToggleEnum) {
+  ToggleEnum[ToggleEnum["On"] = 1] = "On";
+  ToggleEnum[ToggleEnum["Off"] = 2] = "Off";
+})(ToggleEnum || (ToggleEnum = {}));
 
 var Friend = {
   /**
@@ -1452,25 +1531,39 @@ var __generator = void 0 && (void 0).__generator || function (thisArg, body) {
 };
 
 var _this = void 0;
+/** 點擊貼文選項開關 暫存的貼文編號 */
+
 
 var tempSelectPostKey = 0;
+/** 該頁面目前查詢貼文筆數 */
+
 var tempQueryRowNo = 1;
-var lightSliderInstance;
+/** 貼文類型 */
+
+var _postType;
+/** 目前頁面有點擊選是全部留言的貼文編號 */
+
+
+var tempShowAllPostMsgPostKey = new Array();
 var Post = {
-  Init: function Init() {
+  /**
+   * 初始化
+   * @param postType 貼文類型
+   */
+  Init: function Init(postType) {
     return __awaiter(_this, void 0, void 0, function () {
       return __generator(this, function (_a) {
         switch (_a.label) {
           case 0:
+            tempQueryRowNo = 1;
+            $('.div_post').remove();
+            _postType = postType;
             return [4
             /*yield*/
-            , Post.LoadHomeIndexPost()];
+            , Post.LoadPost()];
 
           case 1:
-            _a.sent(); // 頁面最後一個貼文 後面加上Loading
-
-
-            Common.ShowLoading($('.div_post').last()); //$(".postAction").on("focus", function (event) {
+            _a.sent(); //$(".postAction").on("focus", function (event) {
             //    debugger
             //    $(this).children('.ul_postAction').show();
             //});
@@ -1478,6 +1571,7 @@ var Post = {
             //    debugger
             //    $(this).children('.ul_postAction').hide();
             //});
+
 
             $(window).scroll(function () {
               return __awaiter(this, void 0, void 0, function () {
@@ -1493,7 +1587,7 @@ var Post = {
                       , 2];
                       return [4
                       /*yield*/
-                      , Post.LoadHomeIndexPost()];
+                      , Post.LoadPost()];
 
                     case 1:
                       _a.sent();
@@ -1517,24 +1611,80 @@ var Post = {
   },
 
   /**
-   * 載入個人首頁貼文
+   * 重新載入貼文
    * */
-  LoadHomeIndexPost: function LoadHomeIndexPost() {
+  ReLoadPost: function ReLoadPost() {
     return __awaiter(_this, void 0, void 0, function () {
       return __generator(this, function (_a) {
         switch (_a.label) {
           case 0:
+            tempQueryRowNo = 1;
+            $('.div_post').remove();
             return [4
             /*yield*/
-            , GetHomeIndexPostAPI(new QueryRowMemberReqViewModel(user.MemberID, tempQueryRowNo))];
+            , Post.LoadPost()];
 
           case 1:
-            _a.sent().forEach(function (f) {
-              $('#post').append(Post.PostHtmlTemplate(f));
-              Common.InitLightSlider($(".PostPhoto[PostKey='".concat(f.PostKey, "']")));
-            });
+            _a.sent();
 
-            tempQueryRowNo += 3;
+            return [2
+            /*return*/
+            ];
+        }
+      });
+    });
+  },
+
+  /**
+   * 載入貼文
+   * @param postType 貼文類型
+   * */
+  LoadPost: function LoadPost() {
+    return __awaiter(_this, void 0, void 0, function () {
+      var postData, _a;
+
+      return __generator(this, function (_b) {
+        switch (_b.label) {
+          case 0:
+            if (!(this._postType === PostTypeEnum.首頁)) return [3
+            /*break*/
+            , 2];
+            return [4
+            /*yield*/
+            , GetIndexPostAPI(new QueryRowMemberReqViewModel(user.MemberID, tempQueryRowNo))];
+
+          case 1:
+            _a = _b.sent();
+            return [3
+            /*break*/
+            , 4];
+
+          case 2:
+            return [4
+            /*yield*/
+            , GetHomePagePostAPI(new QueryRowMemberReqViewModel(user.MemberID, tempQueryRowNo))];
+
+          case 3:
+            _a = _b.sent();
+            _b.label = 4;
+
+          case 4:
+            postData = _a;
+
+            if (postData.length !== 0) {
+              postData.forEach(function (f) {
+                if (!$('.div_post').length) $('#post').append(Post.PostHtmlTemplate(f));else $('.div_post').last().after(Post.PostHtmlTemplate(f));
+                Common.InitLightSlider($(".PostPhoto[PostKey='".concat(f.PostKey, "']")));
+              });
+              Common.HideLoading();
+              Common.ShowLoading($('.div_post').last());
+            } else {
+              Common.HideLoading();
+            }
+
+            tempQueryRowNo += 3; // 控制 Img Default Style
+
+            Common.ControllImgDefaultStyle();
             return [2
             /*return*/
             ];
@@ -1545,14 +1695,15 @@ var Post = {
 
   /**
    * 貼文 Html Template
+   * @param model 貼文 ViewModel
    */
   PostHtmlTemplate: function PostHtmlTemplate(model) {
-    return "\n<div class=\"div_post\" PostKey=\"".concat(model.PostKey, "\" MemberID=\"").concat(model.MemberID, "\">\n    <div class=\"div_post_content\">\n        <div class=\"post_content_topBar\">\n            <div class=\"postPhoto_container\">\n                <img class=\"postPhoto\" src=\"").concat(model.ProfilePhotoUrl, "\" />\n            </div>\n            <div class=\"postProfile\">\n                <div>").concat(model.NickName, "</div>\n                <span class=\"time\"title=\"").concat(Common.DateFormat(model.PostDateTime.toString()), "\">").concat(Post.PostDateTimeFilter(model.PostDateTime.toString()), "</span>\n            </div>\n            <div class=\"postAction\" tabindex=\"-1\" PostKey=\"").concat(model.PostKey, "\" onclick=\"Post.TogglePostAction(this)\">\u22EE\n            <ul class=\"ul_postAction\" PostKey=\"").concat(model.PostKey, "\">\n                <li><a PostKey=\"").concat(model.PostKey, "\">\u522A\u9664</a></li>\n                <li><a PostKey=\"").concat(model.PostKey, "\">\u7DE8\u8F2F</a></li>\n            </ul>\n            </div>\n        </div>\n        <div class=\"post_body\">\n            ").concat(model.PostKey, " %%\n            ").concat(model.PostContent, "\n            <div>\n                <ul class=\"PostPhoto\" PostKey=\"").concat(model.PostKey, "\">\n                    ").concat(Post.PostImageHtmlTemplate(model.PostImageUrlList), "\n                </ul>\n            </div>\n        </div>\n        <div class=\"post_footerBar\">\n            <div class=\"post_footer_container\">\n                <div class=\"post_footer_img\">\n                    <img class=\"postLike\" src=\"/images/post/thumb_up_black_24dp.svg\" />\n                </div>\n                <span class=\"post_footer_number\">").concat(model.GoodQuantity, "</span>\n            </div>\n            <div class=\"post_footer_container\">\n                <div class=\"post_footer_img\">\n                    <img class=\"postMsg\" src=\"/images/post/textsms_black_24dp.svg\" />\n                </div>\n                <span class=\"post_footer_number\">").concat(model.TotalPostMsgCount, "</span>\n            </div>\n            <div class=\"post_footer_container\">\n                <img class=\"postShare\" src=\"/images/post/share_black_24dp.svg\" />\n            </div>\n        </div>\n    </div>\n    <div class=\"div_post_msg_send\">\n        <div class=\"post_msgPhoto_container\">\n            <img class=\"post_msgPhoto\" src=\"").concat(model.ProfilePhotoUrl, "\">\n        </div>\n        <div class=\"post_msg_comment\">\n            <textarea class=\"msgComment\" placeholder=\"\u7559\u8A00...\"></textarea>\n        </div>\n        <div class=\"post_msg_submit\">\n            <img class=\"msgSend\" src=\"/images/post/send_black_24dp.svg\">\n        </div>\n    </div>\n\n    ").concat(Post.ShowPostMsg(model.PostKey, model.PostMsgList, model.TotalPostMsgCount), "\n</div>\n  ");
+    return "\n<div class=\"div_post\" PostKey=\"".concat(model.PostKey, "\" MemberID=\"").concat(model.MemberID, "\">\n    <div class=\"div_post_content\">\n        <div class=\"post_content_topBar\">\n            <div class=\"postPhoto_container\">\n                <img class=\"postPhoto\" src=\"").concat(model.ProfilePhotoUrl, "\" />\n            </div>\n            <div class=\"postProfile\">\n                <div>").concat(model.NickName, "</div>\n                <span class=\"time\"title=\"").concat(Common.DateFormat(model.PostDateTime.toString()), "\">").concat(Post.PostDateTimeFilter(model.PostDateTime.toString()), "</span>\n            </div>\n            <div class=\"postAction\" tabindex=\"-1\" PostKey=\"").concat(model.PostKey, "\" onclick=\"Post.TogglePostAction(this)\">\u22EE\n            <ul class=\"ul_postAction\" PostKey=\"").concat(model.PostKey, "\">\n                <li><a PostKey=\"").concat(model.PostKey, "\">\u522A\u9664</a></li>\n                <li><a PostKey=\"").concat(model.PostKey, "\">\u7DE8\u8F2F</a></li>\n            </ul>\n            </div>\n        </div>\n        <div class=\"post_body\">\n            ").concat(model.PostContent, "\n            <div style=\"margin-top: 10px;\">\n                <ul class=\"PostPhoto\" PostKey=\"").concat(model.PostKey, "\">\n                    ").concat(Post.PostImageHtmlTemplate(model.PostImageUrlList), "\n                </ul>\n            </div>\n        </div>\n        <div class=\"post_footerBar\">\n            <div class=\"post_footer_container\">\n                <div class=\"post_footer_img\" onclick=\"Post.TogglePostLike(").concat(model.PostKey, ")\">\n                    <img class=\"postLike ").concat(model.IsCurrnetMemberPostLiked ? 'postLiked' : '', "\" src=\"/images/post/thumb_up_black_24dp.svg\" />\n                </div>\n                <span class=\"post_footer_number\">").concat(model.PostLike, "</span>\n            </div>\n            <div class=\"post_footer_container\">\n                <div class=\"post_footer_img\">\n                    <img class=\"postMsg\" src=\"/images/post/textsms_black_24dp.svg\" />\n                </div>\n                <span class=\"post_footer_number\">").concat(model.TotalPostMsgCount, "</span>\n            </div>\n            <div class=\"post_footer_container\">\n                <img class=\"postShare\" src=\"/images/post/share_black_24dp.svg\" />\n            </div>\n        </div>\n    </div>\n    <div class=\"div_post_msg_send\">\n        <div class=\"post_msgPhoto_container\">\n            <img class=\"post_msgPhoto\" src=\"").concat(model.ProfilePhotoUrl, "\">\n        </div>\n        <div class=\"post_msg_comment\">\n            <textarea class=\"msgComment\" placeholder=\"\u7559\u8A00...\"></textarea>\n        </div>\n        <div class=\"post_msg_submit\">\n            <img class=\"msgSend\" src=\"/images/post/send_black_24dp.svg\">\n        </div>\n    </div>\n\n    ").concat(Post.ShowPostMsg(model.PostKey, model.PostMsgList, model.TotalPostMsgCount), "\n</div>");
   },
 
   /**
    * 貼文圖片 Html Template
-   * @param PostMsgList
+   * @param postImageUrlList 貼文圖片 URL 清單
    */
   PostImageHtmlTemplate: function PostImageHtmlTemplate(postImageUrlList) {
     var html = '';
@@ -1572,7 +1723,7 @@ var Post = {
     postMsgList.slice(0, 3).forEach(function (f) {
       html += Post.PostMsgHtmlTemplate(f);
     });
-    if (totalPostMsgCount > 3) html += "\n            <div class=\"div_post_moreMsg\" PostKey=\"".concat(postKey, "\">\n                <div class=\"container_moreMsg\">\n                    <img class=\"moreMsg\" src=\"/images/more_msg.svg\" />\n                        <span>\u67E5\u770B\u5176\u5B83\u7559\u8A00</span>\n                    <img class=\"moreMsg\" src=\"/images/more_msg.svg\" />\n                </div>\n            </div>\n");
+    if (totalPostMsgCount > 3) html += "\n            <div class=\"div_post_moreMsg\" PostKey=\"".concat(postKey, "\">\n                <div class=\"container_moreMsg\" onclick=\"Post.ShowAllPostMsg(").concat(postKey, ")\">\n                    <img class=\"moreMsg\" src=\"/images/more_msg.svg\" />\n                        <span>\u67E5\u770B\u5176\u5B83\u7559\u8A00</span>\n                    <img class=\"moreMsg\" src=\"/images/more_msg.svg\" />\n                </div>\n            </div>");
     return html;
   },
 
@@ -1580,7 +1731,7 @@ var Post = {
    * 貼文留言 Html Template
    */
   PostMsgHtmlTemplate: function PostMsgHtmlTemplate(model) {
-    return "\n    <div class=\"div_post_msg\" MsgKey=\"".concat(model.MsgKey, " MemberID=\"").concat(model.MemberID, "\">\n        <div class=\"post_msgPhoto_container\">\n            <img class=\"post_msgPhoto\" src=\"").concat(model.ProfilePhotoUrl, "\">\n        </div>\n        <div class=\"postMsgProfile\">\n            <div>\n                <span>").concat(model.NickName, "</span>\n                <span class=\"msgContent\" style=\"margin-left:5px;\"> ").concat(model.MsgContent, "</span>\n            </div>\n            <span class=\"time\" title=\"").concat(Common.DateFormat(model.PostMsgDateTime.toString()), "\">").concat(Post.PostDateTimeFilter(model.PostMsgDateTime.toString()), "</span>\n        </div>\n    </div>\n  ");
+    return "\n    <div class=\"div_post_msg\" MsgKey=\"".concat(model.MsgKey, " MemberID=\"").concat(model.MemberID, "\">\n        <div class=\"post_msgPhoto_container\">\n            <img class=\"post_msgPhoto\" src=\"").concat(model.ProfilePhotoUrl, "\">\n        </div>\n        <div class=\"postMsgProfile\">\n            <div>\n                <span>").concat(model.NickName, "</span>\n                <span class=\"msgContent\" style=\"margin-left:5px;\"> ").concat(model.MsgContent, "</span>\n            </div>\n            <span class=\"time\" title=\"").concat(Common.DateFormat(model.PostMsgDateTime.toString()), "\">").concat(Post.PostDateTimeFilter(model.PostMsgDateTime.toString()), "</span>\n        </div>\n    </div>");
   },
 
   /**
@@ -1590,6 +1741,62 @@ var Post = {
   TogglePostAction: function TogglePostAction(e) {
     tempSelectPostKey = parseInt($(e).attr('postkey'));
     $(e).children('ul').toggle();
+  },
+
+  /**
+   * 貼文按讚 or 取消按讚
+   * @param postKey 貼文編號
+   */
+  TogglePostLike: function TogglePostLike(postKey) {
+    var toggle = $(".div_post[PostKey='".concat(postKey, "'] .postLike")).hasClass('postLiked') ? ToggleEnum.Off : ToggleEnum.On;
+    var model = new TogglePostLikeViewModel(postKey, toggle);
+
+    var successFunc = function successFunc() {
+      $(".div_post[PostKey='".concat(postKey, "'] .postLike")).removeClass('postLiked');
+      if (toggle == ToggleEnum.On) $(".div_post[PostKey='".concat(postKey, "'] .postLike")).addClass('postLiked');
+    };
+
+    var errorFunc = function errorFunc() {};
+
+    TogglePostLikeAPI(model, successFunc, errorFunc);
+  },
+
+  /**
+   * 顯示該貼文所有留言
+   * @param postkey 貼文編號
+   */
+  ShowAllPostMsg: function ShowAllPostMsg(postkey) {
+    return __awaiter(_this, void 0, void 0, function () {
+      var allPostMsgList, postMsgHtmlTemplateList_1;
+      return __generator(this, function (_a) {
+        switch (_a.label) {
+          case 0:
+            tempShowAllPostMsgPostKey.push(postkey);
+            return [4
+            /*yield*/
+            , GetPostAllMsgAPI(new CommonPostViewModel(postkey))];
+
+          case 1:
+            allPostMsgList = _a.sent();
+
+            if (allPostMsgList.length > 0) {
+              $(".div_post[postkey=".concat(postkey, "] > .div_post_msg")).remove();
+              postMsgHtmlTemplateList_1 = '';
+              allPostMsgList.forEach(function (f) {
+                return postMsgHtmlTemplateList_1 += Post.PostMsgHtmlTemplate(f);
+              });
+              $(".div_post[postkey=".concat(postkey, "] > .div_post_msg_send")).after(postMsgHtmlTemplateList_1);
+            }
+
+            $(".div_post_moreMsg[postkey=".concat(postkey, "]")).remove(); // 控制 Img Default Style
+
+            Common.ControllImgDefaultStyle();
+            return [2
+            /*return*/
+            ];
+        }
+      });
+    });
   },
 
   /**
@@ -1652,6 +1859,20 @@ function () {
   }
 
   return CommonMemberViewModel;
+}();
+/**
+ * 通用的 Post ViewModel
+ * */
+
+
+var CommonPostViewModel =
+/** @class */
+function () {
+  function CommonPostViewModel(postKey) {
+    this.PostKey = postKey;
+  }
+
+  return CommonPostViewModel;
 }();
 /**
  * 查詢資料筆數 Member ViewModel
@@ -1823,6 +2044,21 @@ function () {
   }
 
   return DecideFriendInvitationReqViewModel;
+}();
+/**
+ * 貼文按讚 or 取消按讚 Request ViewModel
+ * */
+
+
+var TogglePostLikeViewModel =
+/** @class */
+function () {
+  function TogglePostLikeViewModel(postKey, toggle) {
+    this.PostKey = postKey;
+    this.Toggle = toggle;
+  }
+
+  return TogglePostLikeViewModel;
 }();
 /**
  * 共用回應 ViewModel

@@ -29,8 +29,12 @@ function BaseGetAPI<Res>(
                         else
                             Common.SweetAlertSuccess(res, successFunc);
                     }
-                    else
+                    else {
+                        if (successFunc)
+                            successFunc(res);
+
                         Swal.close();
+                    }
 
                     resolve(res.Data as Res);
                 }
@@ -87,8 +91,12 @@ function BasePostAPIV1<Res>(
                         else
                             Common.SweetAlertSuccess(res, successFunc);
                     }
-                    else
+                    else {
+                        if (successFunc)
+                            successFunc(res);
+
                         Swal.close();
+                    }
 
                     resolve(res.Data as Res);
                 }
@@ -150,8 +158,12 @@ function BasePostAPIV2<T, Res>(
                         else
                             Common.SweetAlertSuccess(res, successFunc);
                     }
-                    else
+                    else {
+                        if (successFunc)
+                            successFunc(res);
+
                         Swal.close();
+                    }
 
                     resolve(res.Data as Res);
                 }
@@ -211,8 +223,12 @@ function BasePostAPIV3<T>(
                     else
                         Common.SweetAlertSuccess(res, successFunc);
                 }
-                else
+                else {
+                    if (successFunc)
+                        successFunc(res);
+
                     Swal.close();
+                }
             }
             else {
                 if (isNotification)
@@ -266,8 +282,12 @@ function BasePostAPIByFormData(
                     else
                         Common.SweetAlertSuccess(res, successFunc);
                 }
-                else
+                else {
+                    if (successFunc)
+                        successFunc(res);
+
                     Swal.close();
+                }
             }
             else {
                 if (isNotification)
@@ -441,6 +461,15 @@ async function GetPostAllMsgAPI(model: CommonPostViewModel): Promise<Array<GetPo
     let isNotification = false;
     let isShowSuccessMsg = false;
     return await BasePostAPIV2<CommonPostViewModel, Array<GetPostMsgResViewModel>>('', "/PostApi/GetPostAllMsg", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
+}
+
+/**
+ * 貼文按讚 or 取消按讚 API
+ */
+function TogglePostLikeAPI(model: TogglePostLikeViewModel, successFunc: Function, errorFunc: Function): void {
+    let isNotification = false;
+    let isShowSuccessMsg = false;
+    BasePostAPIV3<TogglePostLikeViewModel>('', "/PostApi/TogglePostLike", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 
 // Friend

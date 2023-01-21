@@ -93,14 +93,12 @@
   display: flex;
   margin: 0 15px;
 }
-.post_footerBar .post_footer_container .post_footer_img {
-  margin: 0 5px;
-}
 .post_footerBar .post_footer_container .post_footer_number {
   font-size: 14pt;
   text-align: center;
   display: flex;
   align-items: center;
+  margin: 0 5px;
 }
 .post_footerBar .post_footer_container .postLike, .post_footerBar .post_footer_container .postMsg {
   width: 30px;
@@ -110,6 +108,12 @@
 }
 .post_footerBar .post_footer_container .postLike:hover, .post_footerBar .post_footer_container .postMsg:hover {
   filter: invert(75%) sepia(18%) saturate(105%) hue-rotate(137deg) brightness(83%) contrast(90%);
+}
+.post_footerBar .post_footer_container .postLiked {
+  filter: invert(95%) sepia(69%) saturate(1835%) hue-rotate(293deg) brightness(99%) contrast(91%) !important;
+}
+.post_footerBar .post_footer_container .postLiked:hover {
+  filter: invert(88%) sepia(50%) saturate(878%) hue-rotate(294deg) brightness(93%) contrast(79%) !important;
 }
 .post_footerBar .post_footer_container .postShare {
   width: 30px;

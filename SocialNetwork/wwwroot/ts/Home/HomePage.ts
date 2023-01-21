@@ -5,9 +5,9 @@ const HomePage = {
         // 查看別人主頁 or 個人主頁
         memberInfo = $("#query_memberID").val() ? await GetMemberInfoAPI($("#query_memberID").val() as number) : await GetCurrentMemberInfoAPI();
 
-        var brithday = "";
+        let brithday = "";
         if (memberInfo.Brithday !== null) {
-            var memberBrithday = new Date(memberInfo.Brithday);
+            let memberBrithday = new Date(memberInfo.Brithday);
             brithday = `${memberBrithday.getFullYear()} 年 ${memberBrithday.getMonth() + 1} 月 ${memberBrithday.getDate()} 日`;
         }
 
@@ -34,7 +34,7 @@ const HomePage = {
             $('.div_homePage_topBar').html(`${memberInfo.NickName}的個人主頁`);
 
             let model = new CommonMemberViewModel(memberInfo.MemberID);
-            var firendStatus = await GetFriendStatusAPI(model);
+            let firendStatus = await GetFriendStatusAPI(model);
             $('.div_sendMsg').hide();
 
             switch (firendStatus.FriendStatus) {

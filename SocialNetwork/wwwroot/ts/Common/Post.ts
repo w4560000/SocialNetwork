@@ -1,7 +1,14 @@
-﻿var tempSelectPostKey: number = 0;
+﻿/** 點擊貼文選項開關 暫存的貼文編號 */
+var tempSelectPostKey: number = 0;
+
+/** 該頁面目前查詢貼文筆數 */
 var tempQueryRowNo: number = 1;
-var lightSliderInstance: JQuery<HTMLElement>;
+
+/** 貼文類型 */
 var _postType: PostTypeEnum;
+
+/** 目前頁面有點擊選是全部留言的貼文編號 */
+var tempShowAllPostMsgPostKey: Array<number> = new Array<number>();
 
 const Post = {
     /**
@@ -25,9 +32,9 @@ const Post = {
         //});
 
         $(window).scroll(async function () {
-            var scrollTop = $(document).scrollTop() as number;
-            var documentHeight = $(document).height() as number;
-            var windowHeight = $(window).height() as number;
+            let scrollTop = $(document).scrollTop() as number;
+            let documentHeight = $(document).height() as number;
+            let windowHeight = $(window).height() as number;
 
             // 判斷頁面捲到最底部
             if (scrollTop == (documentHeight - windowHeight)) {
@@ -50,7 +57,7 @@ const Post = {
      * @param postType 貼文類型
      * */
     LoadPost: async () => {
-        var postData = this._postType === PostTypeEnum.首頁 ?
+        let postData = this._postType === PostTypeEnum.首頁 ?
             await GetIndexPostAPI(new QueryRowMemberReqViewModel(user.MemberID, tempQueryRowNo)) :
             await GetHomePagePostAPI(new QueryRowMemberReqViewModel(user.MemberID, tempQueryRowNo));
 
@@ -100,9 +107,8 @@ const Post = {
             </div>
         </div>
         <div class="post_body">
-            ${model.PostKey} %% <!-- todo remove -->
             ${model.PostContent}
-            <div>
+            <div style="margin-top: 10px;">
                 <ul class="PostPhoto" PostKey="${model.PostKey}">
                     ${Post.PostImageHtmlTemplate(model.PostImageUrlList)}
                 </ul>
@@ -110,10 +116,10 @@ const Post = {
         </div>
         <div class="post_footerBar">
             <div class="post_footer_container">
-                <div class="post_footer_img">
-                    <img class="postLike" src="/images/post/thumb_up_black_24dp.svg" />
+                <div class="post_footer_img" onclick="Post.TogglePostLike(${model.PostKey})">
+                    <img class="postLike ${model.IsCurrnetMemberPostLiked ? 'postLiked' : ''}" src="/images/post/thumb_up_black_24dp.svg" />
                 </div>
-                <span class="post_footer_number">${model.GoodQuantity}</span>
+                <span class="post_footer_number postLikeCount">${model.PostLike}</span>
             </div>
             <div class="post_footer_container">
                 <div class="post_footer_img">
@@ -139,16 +145,14 @@ const Post = {
     </div>
 
     ${Post.ShowPostMsg(model.PostKey, model.PostMsgList, model.TotalPostMsgCount)}
-</div>
-  `;
+</div>`;
     },
-
     /**
      * 貼文圖片 Html Template
      * @param postImageUrlList 貼文圖片 URL 清單
      */
     PostImageHtmlTemplate: (postImageUrlList: Array<string>) => {
-        var html = '';
+        let html = '';
 
         if (postImageUrlList.length == 0)
             return html;
@@ -157,18 +161,17 @@ const Post = {
             html += `
             <li data-src='${f}' data-thumb='${f}'>
                 <img src='${f}' style='max-height: 100%; max-width: 100%;' />
-            </li>`
+            </li>`;
         });
 
         return html;
     },
-
     /**
      * 貼文留言顯示
      * @param PostMsgList
      */
     ShowPostMsg: (postKey: number, postMsgList: Array<GetPostMsgResViewModel>, totalPostMsgCount: number) => {
-        var html = '';
+        let html = '';
 
         postMsgList.slice(0, 3).forEach(f => {
             html += Post.PostMsgHtmlTemplate(f);
@@ -182,8 +185,7 @@ const Post = {
                         <span>查看其它留言</span>
                     <img class="moreMsg" src="/images/more_msg.svg" />
                 </div>
-            </div>
-`;
+            </div>`;
 
         return html;
     },
@@ -203,8 +205,7 @@ const Post = {
             </div>
             <span class="time" title="${Common.DateFormat(model.PostMsgDateTime.toString())}">${Post.PostDateTimeFilter(model.PostMsgDateTime.toString())}</span>
         </div>
-    </div>
-  `;
+    </div>`;
     },
     /**
      * 貼文選項開關
@@ -215,16 +216,42 @@ const Post = {
         $(e).children('ul').toggle();
     },
     /**
+     * 貼文按讚 or 取消按讚
+     * @param postKey 貼文編號
+     */
+    TogglePostLike: (postKey: number) => {
+        let toggle = $(`.div_post[PostKey='${postKey}'] .postLike`).hasClass('postLiked') ? ToggleEnum.Off : ToggleEnum.On;
+        let model = new TogglePostLikeViewModel(postKey, toggle);
+
+        let successFunc = function () {
+            var postLike = Number($(`.div_post[PostKey='${postKey}'] .postLikeCount`).html());
+
+            if (toggle == ToggleEnum.On) {
+                $(`.div_post[PostKey='${postKey}'] .postLike`).addClass('postLiked');
+                $(`.div_post[PostKey='${postKey}'] .postLikeCount`).html((postLike + 1).toString());
+
+                return;
+            }
+
+            $(`.div_post[PostKey='${postKey}'] .postLike`).removeClass('postLiked');
+            $(`.div_post[PostKey='${postKey}'] .postLikeCount`).html((postLike - 1).toString());
+        };
+        
+        let errorFunc = function () { };
+        TogglePostLikeAPI(model, successFunc, errorFunc);
+    },
+    /**
      * 顯示該貼文所有留言
      * @param postkey 貼文編號
      */
     ShowAllPostMsg: async (postkey: number) => {
-        var allPostMsgList = await GetPostAllMsgAPI(new CommonPostViewModel(postkey));
+        tempShowAllPostMsgPostKey.push(postkey);
+        let allPostMsgList = await GetPostAllMsgAPI(new CommonPostViewModel(postkey));
 
         if (allPostMsgList.length > 0) {
             $(`.div_post[postkey=${postkey}] > .div_post_msg`).remove();
 
-            var postMsgHtmlTemplateList = '';
+            let postMsgHtmlTemplateList = '';
             allPostMsgList.forEach(f => postMsgHtmlTemplateList += Post.PostMsgHtmlTemplate(f));
             $(`.div_post[postkey=${postkey}] > .div_post_msg_send`).after(postMsgHtmlTemplateList);
         }
@@ -247,8 +274,8 @@ const Post = {
      * @param postDateTimeStr 發布時間
      */
     PostDateTimeFilter: (postDateTimeStr: string) => {
-        var postDateTime = new Date(postDateTimeStr);
-        var publishTime = postDateTime.getTime() / 1000,
+        let postDateTime = new Date(postDateTimeStr);
+        let publishTime = postDateTime.getTime() / 1000,
             d_seconds,
             d_minutes,
             d_hours,

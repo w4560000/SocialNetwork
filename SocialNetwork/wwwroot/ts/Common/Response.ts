@@ -66,7 +66,8 @@ class GetPostResViewModel {
     PostDateTime: Date;
     PostContent: string;
     PostImageUrlList: Array<string>;
-    GoodQuantity: number;
+    PostLike: number;
+    IsCurrnetMemberPostLiked: boolean;
     TotalPostMsgCount: number;
     PostMsgList: Array<GetPostMsgResViewModel>;
 }

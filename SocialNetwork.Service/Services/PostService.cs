@@ -145,6 +145,21 @@ ORDER BY PostMsgDateTime ASC";
         }
 
         /// <summary>
+        /// 貼文按讚 or 取消按讚
+        /// </summary>
+        /// <param name="model">取得該貼文所有留言 Request ViewModel</param>
+        /// <returns>取得結果</returns>
+        public async Task<ResponseViewModel> TogglePostLike(TogglePostLikeViewModel model)
+        {
+            if (!this.PostRepository.TryGetEntity(model.PostKey, out _))
+                return CommonExtension.AsSystemFailResponse();
+
+            await this.PostRepository.TogglePostLike(model);
+
+            return "操作成功".AsSuccessResponse();
+        }
+
+        /// <summary>
         /// 查詢貼文
         /// </summary>
         /// <param name="memberIDList">查詢貼文的MemberID</param>
@@ -154,11 +169,20 @@ ORDER BY PostMsgDateTime ASC";
             string sql = @"
 ;WITH PostData AS
 (
-	SELECT p.MemberID, m.NickName, m.ProfilePhotoURL, p.PostKey, p.CreatedAt AS 'PostDateTime', p.PostContent, p.PostImageUrl AS 'PostImageUrlStr', p.GoodQuantity
+	SELECT p.MemberID, m.NickName, m.ProfilePhotoURL, p.PostKey, p.CreatedAt AS 'PostDateTime', p.PostContent, p.PostImageUrl AS 'PostImageUrlStr',
+           ISNULL(glCount.PostLike, 0 ) AS 'PostLike',
+           ISNULL(pl.MemberID, 0) AS 'IsCurrnetMemberPostLiked'
 	FROM [SocialNetwork].[dbo].[Post] p
 	INNER JOIN [SocialNetwork].[dbo].[Member] m
 		ON p.MemberID = m.MemberID
-	WHERE p.MemberID IN @MemberIDList
+    LEFT JOIN 
+        (SELECT PostKey, count(1) AS 'PostLike'
+         FROM dbo.PostLike
+         GROUP BY PostKey) as glCount
+        ON p.PostKey = glCount.PostKey
+	LEFT JOIN dbo.PostLike pl
+        ON pl.PostKey = p.PostKey AND pl.MemberID = @CurrentMemberID
+    WHERE p.MemberID IN @MemberIDList
 ),
 TotalPostMsgCount AS
 (
@@ -201,7 +225,7 @@ FROM #TempPostMsgData
 WHERE rowNumber IN (1,2,3)";
 
 
-            GridReader postData = await this.PostRepository.QueryMultipleAsync(sql, new { MemberIDList = memberIDList, QueryRowNo = queryRowNo });
+            GridReader postData = await this.PostRepository.QueryMultipleAsync(sql, new { MemberIDList = memberIDList, QueryRowNo = queryRowNo, CurrentMemberID = this.UserContext.User.MemberID });
 
             // 貼文清單
             List<GetPostResViewModel> postList = (await postData.ReadAsync<GetPostResViewModel>()).ToList();

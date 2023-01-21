@@ -15,7 +15,6 @@ namespace SocialNetwork.Repository
         public virtual int MemberID { get; set; }
         public virtual string PostContent { get; set; }
         public virtual string PostImageUrl { get; set; }
-        public virtual int GoodQuantity { get; set; }
         public virtual PostStatusEnum Status { get; set; }
         public virtual DateTime CreatedAt { get; set; }
         public virtual int CreatedBy { get; set; }
