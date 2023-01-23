@@ -3,9 +3,8 @@
 const PublishPostPage = {
     Init: () => {
         // 輸入框 高度自動伸縮
-        $('.write_post, .msgComment').on("input", function () {
+        $('.write_post').on("input", function () {
             let _this = $(this);
-            let currentVal = _this.val() as string;
 
             _this.height('auto');
             _this.height(_this.prop('scrollHeight') + 'px');

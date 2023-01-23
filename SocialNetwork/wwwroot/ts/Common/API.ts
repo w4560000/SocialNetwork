@@ -466,12 +466,21 @@ async function GetPostAllMsgAPI(model: CommonPostViewModel): Promise<Array<GetPo
 /**
  * 貼文按讚 or 取消按讚 API
  */
-function TogglePostLikeAPI(model: TogglePostLikeViewModel, successFunc: Function, errorFunc: Function): void {
+function TogglePostLikeAPI(model: TogglePostLikeReqViewModel, successFunc: Function, errorFunc: Function): void {
     let isNotification = false;
     let isShowSuccessMsg = false;
-    BasePostAPIV3<TogglePostLikeViewModel>('', "/PostApi/TogglePostLike", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
+    BasePostAPIV3<TogglePostLikeReqViewModel>('', "/PostApi/TogglePostLike", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 
+/**
+ * 發送貼文留言 API
+ */
+async function SendPostMsgAPI(model: SendPostMsgReqViewModel, successFunc: Function, errorFunc: Function): Promise<GetPostMsgResViewModel> {
+    let isNotification = false;
+    let isShowSuccessMsg = false;
+
+    return await BasePostAPIV2<SendPostMsgReqViewModel, GetPostMsgResViewModel>('', "/PostApi/SendPostMsg", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
+}
 // Friend
 
 /**

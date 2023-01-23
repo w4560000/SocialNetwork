@@ -41,6 +41,22 @@ const Post = {
                 await Post.LoadPost();
             }
         });
+
+        $('.msgComment').keydown(function (e) {
+            let _this = $(this);
+            if (e.key == 'Enter' && (e.shiftKey || e.ctrlKey || e.altKey)) {
+                e.preventDefault();
+                let msg = _this.val() + '\n';
+                _this.val(msg);
+            }
+            else if (e.key == 'Enter') {
+                e.preventDefault();
+                Post.SendPostMsg(_this);
+            }
+
+            _this.height('auto');
+            _this.height(_this.prop('scrollHeight') + 'px');
+        });
     },
 
     /**
@@ -107,7 +123,7 @@ const Post = {
             </div>
         </div>
         <div class="post_body">
-            ${model.PostContent}
+            <div class="post_body_content">${model.PostContent}</div>
             <div style="margin-top: 10px;">
                 <ul class="PostPhoto" PostKey="${model.PostKey}">
                     ${Post.PostImageHtmlTemplate(model.PostImageUrlList)}
@@ -221,7 +237,7 @@ const Post = {
      */
     TogglePostLike: (postKey: number) => {
         let toggle = $(`.div_post[PostKey='${postKey}'] .postLike`).hasClass('postLiked') ? ToggleEnum.Off : ToggleEnum.On;
-        let model = new TogglePostLikeViewModel(postKey, toggle);
+        let model = new TogglePostLikeReqViewModel(postKey, toggle);
 
         let successFunc = function () {
             var postLike = Number($(`.div_post[PostKey='${postKey}'] .postLikeCount`).html());
@@ -260,6 +276,29 @@ const Post = {
 
         // 控制 Img Default Style
         Common.ControllImgDefaultStyle();
+    },
+    /**
+     * 發送貼文留言
+     * @param postkey 貼文編號
+     */
+    SendPostMsg: async (e: JQuery<HTMLElement>) => {
+        let postMsg = (e.val() as string);
+        if (postMsg.length == 0)
+            return;
+
+        let currentPost = e.parents('.div_post');
+        let postkey = Number(currentPost.attr('postkey'));
+
+        let successFunc = (res: ResponseViewModel<GetPostMsgResViewModel>) => {
+            if (res.Data) {
+                currentPost.children('.div_post_msg_send').after(Post.PostMsgHtmlTemplate(res.Data));
+                e.val('');
+            }
+        };
+
+        let errorFunc = () => { };
+
+        await SendPostMsgAPI(new SendPostMsgReqViewModel(postkey, postMsg), successFunc, errorFunc);
     },
     /**
      * Source Code 參考
@@ -306,8 +345,11 @@ const Post = {
             return `${d_hours}小時前`;
         } else if (d_minutes < 60 && d_seconds >= 60) {
             return `${d_minutes}分鐘前`;
-        } else {
+        } else if (d_seconds >= 10) {
             return `${d_seconds}秒前`;
+        }
+        else {
+            return `剛剛`;
         }
     }
 };

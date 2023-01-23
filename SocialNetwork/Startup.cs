@@ -73,6 +73,7 @@ namespace SocialNetwork
             services.AddScoped<IVerificationCodeRepository, VerificationCodeRepository>();
             services.AddScoped<IForgotPasswordRepository, ForgotPasswordRepository>();
             services.AddScoped<IPostRepository, PostRepository>();
+            services.AddScoped<IPostMsgRepository, PostMsgRepository>();
             services.AddScoped<IFriendRepository, FriendRepository>();
             services.AddScoped<IFriendInvitationRepository, FriendInvitationRepository>();
 

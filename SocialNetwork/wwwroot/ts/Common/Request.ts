@@ -183,7 +183,7 @@ class DecideFriendInvitationReqViewModel {
 /**
  * 貼文按讚 or 取消按讚 Request ViewModel
  * */
-class TogglePostLikeViewModel {
+class TogglePostLikeReqViewModel {
     PostKey: number;
     Toggle: ToggleEnum;
 
@@ -193,5 +193,21 @@ class TogglePostLikeViewModel {
     ) {
         this.PostKey = postKey;
         this.Toggle = toggle;
+    }
+}
+
+/**
+ * 發送貼文留言 Request ViewModel
+ * */
+class SendPostMsgReqViewModel {
+    PostKey: number;
+    Msg: string;
+
+    constructor(
+        postKey: number,
+        msg: string
+    ) {
+        this.PostKey = postKey;
+        this.Msg = msg;
     }
 }

@@ -44,5 +44,13 @@ namespace SocialNetwork.Service
         /// <param name="model">貼文按讚 or 取消按讚 Request ViewModel</param>
         /// <returns>操作結果</returns>
         Task<ResponseViewModel> TogglePostLike(TogglePostLikeViewModel model);
+
+        /// <summary>
+        /// 發送貼文留言
+        /// </summary>
+        /// <param name="model">發送貼文留言 Request ViewModel</param>
+        /// <returns>發送結果</returns>
+        Task<ResponseViewModel<GetPostMsgResViewModel>> SendPostMsg(SendPostMsgReqViewModel model);
+
     }
 }

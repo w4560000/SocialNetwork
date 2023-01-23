@@ -479,6 +479,23 @@ function TogglePostLikeAPI(model, successFunc, errorFunc) {
     var isShowSuccessMsg = false;
     BasePostAPIV3('', "/PostApi/TogglePostLike", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
+/**
+ * 發送貼文留言 API
+ */
+function SendPostMsgAPI(model, successFunc, errorFunc) {
+    return __awaiter(this, void 0, void 0, function () {
+        var isNotification, isShowSuccessMsg;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    isNotification = false;
+                    isShowSuccessMsg = false;
+                    return [4 /*yield*/, BasePostAPIV2('', "/PostApi/SendPostMsg", model, successFunc, errorFunc, isNotification, isShowSuccessMsg)];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        });
+    });
+}
 // Friend
 /**
  * 取得好友清單 API

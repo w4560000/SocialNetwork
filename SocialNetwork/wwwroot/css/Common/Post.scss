@@ -75,6 +75,11 @@
     height: 100%;
     font-weight: 400;
     font-size: 16px;
+
+    .post_body_content {
+        white-space: pre-wrap;
+        word-break: break-word;
+    }
 }
 
 #wrapper {
@@ -154,44 +159,44 @@
         height: 100%;
     }
 
-    .div_post_msg_send {
-        background-color: $Color_W1;
-        border-radius: 5px;
-        display: flex;
-        border-left: 8px solid $Color_PK1;
-        height: 100%;
+.div_post_msg_send {
+    background-color: $Color_W1;
+    border-radius: 5px;
+    display: flex;
+    border-left: 8px solid $Color_PK1;
+    height: 100%;
+    padding: 5px;
+    align-items: center;
+    margin: 2px auto;
+
+    > div {
         padding: 5px;
-        align-items: center;
-        margin: 2px auto;
+    }
 
-        > div {
-            padding: 5px;
-        }
+    .post_msg_comment {
+        display: flex;
+        justify-content: center;
+        height: 100%;
+        width: 89%;
 
-        .post_msg_comment {
-            display: flex;
-            justify-content: center;
-            height: 100%;
-            width: 89%;
-
-            .msgComment {
-                overflow: hidden;
-                resize: none;
-                font-size: 20px;
-                border-radius: 10px;
-                border: 1px solid $Color_PK2;
-                width: 100%;
-                height: 50px;
-                padding-left: 10px;
-            }
-        }
-
-        .msgComment:focus {
-            outline: none !important;
-            border: 1px solid $Color_PK1;
-            box-shadow: 0 0 5px $Color_PK1;
+        .msgComment {
+            overflow: hidden;
+            resize: none;
+            font-size: 20px;
+            border-radius: 10px;
+            border: 1px solid $Color_PK2;
+            width: 100%;
+            height: 50px;
+            padding-left: 10px;
         }
     }
+
+    .msgComment:focus {
+        outline: none !important;
+        border: 1px solid $Color_PK1;
+        box-shadow: 0 0 5px $Color_PK1;
+    }
+}
 
     .post_msg_submit {
         width: 30px;
@@ -251,39 +256,41 @@
         }
     }
 
-    .div_post_msg {
-        background-color: $Color_W1;
-        border-radius: 5px;
+.div_post_msg {
+    background-color: $Color_W1;
+    border-radius: 5px;
+    display: flex;
+    border-left: 8px solid $Color_PK2;
+    height: 100%;
+    padding: 5px;
+    align-items: center;
+    margin: 2px auto;
+
+    .postMsgProfile {
+        margin-left: 15px;
+        font-size: 13pt;
+        font-weight: 600;
         display: flex;
-        border-left: 8px solid $Color_PK2;
-        height: 100%;
-        padding: 5px;
-        align-items: center;
-        margin: 2px auto;
+        flex-direction: column;
+        justify-content: center;
 
-        .postMsgProfile {
-            margin-left: 15px;
-            font-size: 13pt;
-            font-weight: 600;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-
-            .msgContent {
-                font-size: 12pt;
-                font-weight: 400;
-                padding-left: 5px;
-            }
-
-            .time {
-                padding-top: 10px;
-                color: $Color_G3;
-                font-size: 11pt;
-            }
+        .msgContent {
+            font-size: 12pt;
+            font-weight: 400;
+            padding-left: 5px;
+            white-space: pre-wrap;
+            word-break: break-word;
         }
 
-        .postMsgComment {
-            width: 80%;
-            font-size: 16px;
+        .time {
+            padding-top: 10px;
+            color: $Color_G3;
+            font-size: 11pt;
         }
     }
+
+    .postMsgComment {
+        width: 80%;
+        font-size: 16px;
+    }
+}

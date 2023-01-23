@@ -135,10 +135,20 @@ var DecideFriendInvitationReqViewModel = /** @class */ (function () {
 /**
  * 貼文按讚 or 取消按讚 Request ViewModel
  * */
-var TogglePostLikeViewModel = /** @class */ (function () {
-    function TogglePostLikeViewModel(postKey, toggle) {
+var TogglePostLikeReqViewModel = /** @class */ (function () {
+    function TogglePostLikeReqViewModel(postKey, toggle) {
         this.PostKey = postKey;
         this.Toggle = toggle;
     }
-    return TogglePostLikeViewModel;
+    return TogglePostLikeReqViewModel;
+}());
+/**
+ * 發送貼文留言 Request ViewModel
+ * */
+var SendPostMsgReqViewModel = /** @class */ (function () {
+    function SendPostMsgReqViewModel(postKey, msg) {
+        this.PostKey = postKey;
+        this.Msg = msg;
+    }
+    return SendPostMsgReqViewModel;
 }());

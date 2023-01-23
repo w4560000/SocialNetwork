@@ -20,6 +20,11 @@ namespace SocialNetwork.Service
         private readonly IPostRepository PostRepository;
 
         /// <summary>
+        /// IPostMsgRepository
+        /// </summary>
+        private readonly IPostMsgRepository PostMsgRepository;
+
+        /// <summary>
         /// IMemberRepository
         /// </summary>
         private readonly IMemberRepository MemberRepository;
@@ -38,17 +43,20 @@ namespace SocialNetwork.Service
         /// Constructor
         /// </summary>
         /// <param name="postRepository">IPostRepository</param>
+        /// <param name="postMsgRepository">IPostMsgRepository</param>
         /// <param name="memberRepository">IMemberRepository</param>
         /// <param name="friendService">IFriendService
         /// </param>
         /// <param name="userContext">IUserContext</param>
         public PostService(
             IPostRepository postRepository,
+            IPostMsgRepository postMsgRepository,
             IMemberRepository memberRepository,
             IFriendService friendService,
             IUserContext userContext)
         {
             this.PostRepository = postRepository;
+            this.PostMsgRepository = postMsgRepository;
             this.MemberRepository = memberRepository;
             this.FriendService = friendService;
             this.UserContext = userContext;
@@ -160,6 +168,33 @@ ORDER BY PostMsgDateTime ASC";
         }
 
         /// <summary>
+        /// 發送貼文留言
+        /// </summary>
+        /// <param name="model">發送貼文留言 Request ViewModel</param>
+        /// <returns>發送結果</returns>
+        public async Task<ResponseViewModel<GetPostMsgResViewModel>> SendPostMsg(SendPostMsgReqViewModel model)
+        {
+            if (!this.PostRepository.TryGetEntity(model.PostKey, out _))
+                return CommonExtension.AsSystemFailResponse<GetPostMsgResViewModel>();
+
+            PostMsg postMsgEntity = new PostMsg()
+            {
+                PostKey = model.PostKey,
+                MemberID = this.UserContext.User.MemberID,
+                MsgContent = model.Msg
+            };
+
+            var postMsgKey = await this.PostMsgRepository.AddAsync<int>(postMsgEntity);
+
+            if(postMsgKey == 0)
+                return CommonExtension.AsSystemFailResponse<GetPostMsgResViewModel>();
+
+            var postMsg = await this.GetPostMsgAsync(postMsgKey);
+
+            return "發送成功".AsSuccessResponse(postMsg);
+        }
+
+        /// <summary>
         /// 查詢貼文
         /// </summary>
         /// <param name="memberIDList">查詢貼文的MemberID</param>
@@ -175,7 +210,7 @@ ORDER BY PostMsgDateTime ASC";
 	FROM [SocialNetwork].[dbo].[Post] p
 	INNER JOIN [SocialNetwork].[dbo].[Member] m
 		ON p.MemberID = m.MemberID
-    LEFT JOIN 
+    LEFT JOIN
         (SELECT PostKey, count(1) AS 'PostLike'
          FROM dbo.PostLike
          GROUP BY PostKey) as glCount
@@ -186,23 +221,22 @@ ORDER BY PostMsgDateTime ASC";
 ),
 TotalPostMsgCount AS
 (
-	SELECT pd.PostKey, Count(1) AS 'TotalPostMsgCount' 
+	SELECT pd.PostKey, Count(1) AS 'TotalPostMsgCount'
 	FROM [SocialNetwork].[dbo].[PostMsg] pm
 	INNER JOIN PostData pd
 		ON pm.PostKey = pd.PostKey
 	GROUP BY pd.PostKey
 )
-SELECT 
-    pd.*, 
-    ISNULL(tpmc.TotalPostMsgCount, 0) AS 'TotalPostMsgCount', 
+SELECT
+    pd.*,
+    ISNULL(tpmc.TotalPostMsgCount, 0) AS 'TotalPostMsgCount',
     ROW_NUMBER() OVER (ORDER BY pd.PostDateTime DESC) AS RowNo
 INTO #ResultData
 FROM PostData pd
 LEFT JOIN TotalPostMsgCount tpmc
 ON pd.PostKey = tpmc.PostKey;
 
-
-SELECT * 
+SELECT *
 INTO #TempPostData
 FROM #ResultData
 WHERE RowNo BETWEEN @QueryRowNo AND @QueryRowNo + 2
@@ -224,7 +258,6 @@ SELECT *
 FROM #TempPostMsgData
 WHERE rowNumber IN (1,2,3)";
 
-
             GridReader postData = await this.PostRepository.QueryMultipleAsync(sql, new { MemberIDList = memberIDList, QueryRowNo = queryRowNo, CurrentMemberID = this.UserContext.User.MemberID });
 
             // 貼文清單
@@ -240,6 +273,25 @@ WHERE rowNumber IN (1,2,3)";
             });
 
             return postList;
+        }
+
+        /// <summary>
+        /// 查詢貼文留言
+        /// </summary>
+        /// <param name="postMsgKey">貼文留言編號</param>
+        private async Task<GetPostMsgResViewModel> GetPostMsgAsync(int postMsgKey)
+        {
+            string sql = @"
+SELECT a.PostKey, a.MsgKey, a.MemberID, b.NickName, b.ProfilePhotoURL, a.MsgContent, a.CreatedAt AS 'PostMsgDateTime'
+FROM [SocialNetwork].[dbo].[PostMsg] a
+INNER JOIN [SocialNetwork].[dbo].[Member] b
+ON a.MemberID = b.MemberID
+WHERE a.MsgKey = @postMsgKey";
+
+            // 貼文留言
+            GetPostMsgResViewModel postMsgList = (await this.PostMsgRepository.QueryAsync<GetPostMsgResViewModel>(sql, new { postMsgKey })).FirstOrDefault();
+
+            return postMsgList;
         }
     }
 }
