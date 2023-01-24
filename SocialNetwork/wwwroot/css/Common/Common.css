@@ -352,44 +352,55 @@ input[type=date]::-webkit-calendar-picker-indicator {
 
 .div_menu {
   background-color: #FFFFFF;
-  width: 20%;
+  width: 300px;
   height: 100%;
   position: fixed;
   top: 0px;
   left: 0px;
+  top: 60px;
 }
 
 .div_topBar {
-  width: 76.5%;
+  width: 100%;
   height: 60px;
   top: 0px;
   position: fixed;
   background-color: #F5F5F5;
   border-radius: 5px;
-  left: 22%;
   z-index: 999;
-  border-bottom: 1px solid #F5F5F5;
+  box-shadow: 0 0 5px #D68D8D;
 }
 .div_topBar .topBar_Content {
-  background-color: #FFFFFF;
+  background-color: #F2A1A1;
   height: 60px;
   display: flex;
   align-items: center;
   border-radius: 5px;
 }
-.div_topBar .topBar_Content .topBar_Logo {
-  width: 40px;
-  height: 40px;
+.div_topBar .topBar_Content .topBar_Menu {
+  width: 35px;
   padding: 10px;
+  cursor: pointer;
+  margin-left: 30px;
 }
-.div_topBar .topBar_Content .topBar_Logo .LogoPhoto {
+.div_topBar .topBar_Content .topBar_Menu .MenuPhoto {
   width: 100%;
   height: 100%;
+}
+.div_topBar .topBar_Content .logo_index {
+  font-size: 24pt;
+  display: flex;
+  justify-content: center;
+  color: #FFFFFF;
+  cursor: pointer;
+  margin-left: 40px;
 }
 .div_topBar .topBar_Content .search_container {
   display: flex;
   justify-content: center;
-  width: 60%;
+  width: 35%;
+  right: 13%;
+  position: absolute;
 }
 .div_topBar .topBar_Content .search_container .member_search_container {
   overflow: hidden;
@@ -413,22 +424,74 @@ input[type=date]::-webkit-calendar-picker-indicator {
 }
 .div_topBar .topBar_Content .search_container .member_search_container .SearchIcon {
   filter: invert(95%) sepia(69%) saturate(1835%) hue-rotate(293deg) brightness(99%) contrast(91%);
-  height: 25px;
+  height: 35px;
   right: 3%;
   position: relative;
+}
+.div_topBar .topBar_Message {
+  border-radius: 50%;
+  background: #F5F5F5;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 9%;
+  position: absolute;
+  cursor: pointer;
+}
+.div_topBar .topBar_Notification {
+  border-radius: 50%;
+  background: #F5F5F5;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 6%;
+  position: absolute;
+  cursor: pointer;
+}
+.div_topBar .topBar_Control {
+  border-radius: 50%;
+  background: #F5F5F5;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 3%;
+  position: absolute;
+  cursor: pointer;
+}
+.div_topBar .MessageIcon, .div_topBar .NotificationIcon, .div_topBar .ControlIcon {
+  width: 20px;
+}
+.div_topBar .News {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 12px;
+  height: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: red;
+  border-radius: 50%;
+  z-index: 999;
 }
 
 .div_content {
   top: 90px;
   height: 100%;
   position: absolute;
-  left: 22%;
-  right: 28.5%;
+  left: 18%;
+  right: 23.5%;
 }
 
 .div_right {
   top: 60px;
-  width: 25%;
+  width: 380px;
   height: 100%;
   position: fixed;
   right: 30px;
@@ -446,17 +509,10 @@ input[type=date]::-webkit-calendar-picker-indicator {
   height: 100%;
 }
 
-a.logo_index {
-  font-size: 25pt;
-  display: flex;
-  justify-content: center;
-  padding-top: 8%;
-  padding-bottom: 10%;
-  color: #F2A1A1;
-}
-
-.meunContent {
+.menuContent {
   padding-left: 15%;
+  top: 90px;
+  position: relative;
 }
 
 .index_profilePhoto {

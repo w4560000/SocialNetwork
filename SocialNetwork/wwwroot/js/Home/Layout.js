@@ -39,7 +39,7 @@ var user;
 var chatHubConnection;
 var LayoutPage = {
     Init: function (_user) { return __awaiter(_this, void 0, void 0, function () {
-        var friendList;
+        var friendList, Tags;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -51,7 +51,7 @@ var LayoutPage = {
                         // 點選其他 element 時 自動隱藏展開的會員狀態
                         if (currentElemetClass === undefined || (currentElemetClass !== undefined && !currentElemetClass.includes('index_status_select'))) {
                             if ($('#memberStatus_1').is(':visible')) {
-                                $('.meunContent > ul').children('li').toggle();
+                                $('.menuContent > ul').children('li').toggle();
                                 $('.index_status_select').toggleClass('index_status_select_up');
                             }
                         }
@@ -66,15 +66,15 @@ var LayoutPage = {
                     // 展開 會員狀態下拉
                     $(".index_status").on("click", ".index_status_select", function () {
                         $(this).toggleClass('index_status_select_up');
-                        $(this).closest(".meunContent > ul").children('li').toggle();
+                        $(this).closest(".menuContent > ul").children('li').toggle();
                     });
                     // 更新會員狀態
                     $(".index_status").on("click", "li", function () {
                         var _a;
-                        var allOptions = $(".meunContent > ul").children('li');
+                        var allOptions = $(".menuContent > ul").children('li');
                         allOptions.removeClass('selected');
                         $(this).addClass('selected');
-                        $(".meunContent > ul").children('.index_status_select').html($(this).html());
+                        $(".menuContent > ul").children('.index_status_select').html($(this).html());
                         $('.index_status_select').toggleClass('index_status_select_up');
                         var currentSelectStatus = (_a = $(this).attr('id')) === null || _a === void 0 ? void 0 : _a.split('_')[1];
                         var model = new UpdateMemberStatusReqViewModel(parseInt(currentSelectStatus));
@@ -91,6 +91,21 @@ var LayoutPage = {
                     Common.ControllImgDefaultStyle();
                     // 設定 Menu 底色 (根據當前頁面)
                     LayoutPage.SetMenuColor();
+                    Tags = [
+                        "ActionScript",
+                        "AppleScript",
+                        "Asp",
+                        "BASIC",
+                        "C",
+                        "C++",
+                        "Clojure",
+                        "COBOL",
+                        "ColdFusion",
+                    ];
+                    $(".member_search").autocomplete({
+                        source: Tags,
+                        minLength: 2 //使用者最少輸入多少個字才啟動autocomplete
+                    });
                     return [2 /*return*/];
             }
         });

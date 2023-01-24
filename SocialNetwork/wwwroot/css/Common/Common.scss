@@ -357,46 +357,58 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .div_menu {
     background-color: $Color_W1;
-    width: 20%;
+    width: 300px;
     height: 100%;
     position: fixed;
     top: 0px;
     left: 0px;
+    top: $TopBar_Height;
 }
 
 .div_topBar {
-    width: 76.5%;
+    width: 100%;
     height: $TopBar_Height;
     top: 0px;
     position: fixed;
     background-color: $Color_G0;
     border-radius: 5px;
-    left: 22%;
     z-index: 999;
-    border-bottom: 1px solid $Color_G0;
+    box-shadow: 0 0 5px $Color_PK1;
 
     .topBar_Content {
-        background-color: $Color_W1;
+        background-color: $Color_PK2;
         height: 60px;
         display: flex;
         align-items: center;
         border-radius: 5px;
 
-        .topBar_Logo {
-            width: 40px;
-            height: 40px;
+        .topBar_Menu {
+            width: 35px;
             padding: 10px;
+            cursor: pointer;
+            margin-left: 30px;
 
-            .LogoPhoto {
+            .MenuPhoto {
                 width: 100%;
                 height: 100%;
             }
         }
 
+        .logo_index {
+            font-size: 24pt;
+            display: flex;
+            justify-content: center;
+            color: $Color_W1;
+            cursor: pointer;
+            margin-left: 40px;
+        }
+
         .search_container {
             display: flex;
             justify-content: center;
-            width: 60%;
+            width: 35%;
+            right: 13%;
+            position: absolute;
 
             .member_search_container {
                 overflow: hidden;
@@ -421,12 +433,69 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
                 .SearchIcon {
                     filter: $Color_PK2_Filter;
-                    height: 25px;
+                    height: 35px;
                     right: 3%;
                     position: relative;
                 }
             }
         }
+    }
+
+    .topBar_Message {
+        border-radius: 50%;
+        background: $Color_G0;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        right: 9%;
+        position: absolute;
+        cursor: pointer;
+    }
+
+    .topBar_Notification {
+        border-radius: 50%;
+        background: $Color_G0;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        right: 6%;
+        position: absolute;
+        cursor: pointer;
+    }
+
+    .topBar_Control {
+        border-radius: 50%;
+        background: $Color_G0;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        right: 3%;
+        position: absolute;
+        cursor: pointer;
+    }
+
+    .MessageIcon, .NotificationIcon, .ControlIcon {
+        width: 20px;
+    }
+
+    .News {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        width: 12px;
+        height: 12px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: $Color_R1;
+        border-radius: 50%;
+        z-index: 999;
     }
 }
 
@@ -434,13 +503,13 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     top: $TopBar_Height + 30;
     height: 100%;
     position: absolute;
-    left: 22%;
-    right: 28.5%;
+    left: 18%;
+    right: 23.5%;
 }
 
 .div_right {
     top: $TopBar_Height;
-    width: 25%;
+    width: 380px;
     height: 100%;
     position: fixed;
     right: 30px;
@@ -459,17 +528,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     }
 }
 
-a.logo_index {
-    font-size: 25pt;
-    display: flex;
-    justify-content: center;
-    padding-top: 8%;
-    padding-bottom: 10%;
-    color: $Color_PK2;
-}
-
-.meunContent {
+.menuContent {
     padding-left: 15%;
+    top: $TopBar_Height + 30;
+    position: relative;
 }
 
 .index_profilePhoto {

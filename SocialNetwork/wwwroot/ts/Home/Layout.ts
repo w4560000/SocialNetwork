@@ -13,7 +13,7 @@ const LayoutPage = {
             // 點選其他 element 時 自動隱藏展開的會員狀態
             if (currentElemetClass === undefined || (currentElemetClass !== undefined && !currentElemetClass.includes('index_status_select'))) {
                 if ($('#memberStatus_1').is(':visible')) {
-                    $('.meunContent > ul').children('li').toggle();
+                    $('.menuContent > ul').children('li').toggle();
                     $('.index_status_select').toggleClass('index_status_select_up');
                 }
             }
@@ -30,15 +30,15 @@ const LayoutPage = {
         // 展開 會員狀態下拉
         $(".index_status").on("click", ".index_status_select", function () {
             $(this).toggleClass('index_status_select_up');
-            $(this).closest(".meunContent > ul").children('li').toggle();
+            $(this).closest(".menuContent > ul").children('li').toggle();
         });
 
         // 更新會員狀態
         $(".index_status").on("click", "li", function () {
-            let allOptions = $(".meunContent > ul").children('li');
+            let allOptions = $(".menuContent > ul").children('li');
             allOptions.removeClass('selected');
             $(this).addClass('selected');
-            $(".meunContent > ul").children('.index_status_select').html($(this).html());
+            $(".menuContent > ul").children('.index_status_select').html($(this).html());
             $('.index_status_select').toggleClass('index_status_select_up');
 
             let currentSelectStatus = $(this).attr('id')?.split('_')[1] as string;
@@ -59,6 +59,24 @@ const LayoutPage = {
 
         // 設定 Menu 底色 (根據當前頁面)
         LayoutPage.SetMenuColor();
+
+
+        var Tags = [
+            "ActionScript",
+            "AppleScript",
+            "Asp",
+            "BASIC",
+            "C",
+            "C++",
+            "Clojure",
+            "COBOL",
+            "ColdFusion",
+        ];
+
+        $(".member_search").autocomplete({
+            source: Tags, //將資訊丟進Source參數裡
+            minLength: 2 //使用者最少輸入多少個字才啟動autocomplete
+        });
     },
     /** 登出 */
     Logout: () => {

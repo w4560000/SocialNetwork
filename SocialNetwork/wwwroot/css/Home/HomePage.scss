@@ -1,7 +1,6 @@
 ﻿@import '../Common/Base.scss';
 
 .div_homePage_topBar {
-    margin-top: 10px;
     width: 100%;
     height: 50px;
     display: flex;
@@ -15,6 +14,7 @@
     border-radius: 5px;
     width: 100%;
     height: 40%;
+    margin-bottom: 30px;
 
     .profile_background_container {
         width: 100%;
