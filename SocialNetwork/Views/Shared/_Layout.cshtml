@@ -46,18 +46,18 @@
         <link href="~/css/bundle/Common.min.css" rel="stylesheet" asp-append-version="true" />
     </environment>
     <script>
-        $(function () {
+        $(function() {
             LayoutPage.Init(@Html.Raw(JsonSerializer.Serialize(UserContext.User)));
         });
     </script>
 </head>
-<body style="height: 100% !important; background-color: #F5F5F5 !important;">
+<body>
     @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
     <input id="RequestVerificationToken" type="hidden" value="@Antiforgery.GetAndStoreTokens(Context).RequestToken" />
 
     <div class="div_menu">
-@*        <div style="display:flex; justify-content:center;margin: 5% 0 5% 0;">
-            <img src="~/images/Logo/logo.svg" style="width: 50%;" />
+        @*        <div style="display:flex; justify-content:center;margin: 5% 0 5% 0;">
+        <img src="~/images/Logo/logo.svg" style="width: 50%;" />
         </div>*@
         <a class="logo_index">I K K O N</a>
         <div class="meunContent">
@@ -110,18 +110,33 @@
             </div>
         </div>
     </div>
-    @RenderBody()
-    <div class="div_right">
-        <div class="div_banner">
-            <img class="banner_img" src="~/images/banner_usmaru.png">
-        </div>
-        <div class="div_friend">
-            <div class="friend_container">
-                <div class="friend_search_container">
-                    <input type="text" class="friend_search svg" placeholder="搜尋好友" maxlength="30" />
-                    <img class="SearchIcon" src="/images/search.svg">
+    <div class="div_body">
+        <div class="div_topBar">
+            <div class="topBar_Content">
+                <div class="topBar_Logo">
+                    <img class="LogoPhoto" src="/images/Logo/logo_favicon.svg">
                 </div>
-                <div class="friend_content"></div>
+                <div class="search_container">
+                    <div class="member_search_container">
+                        <input type="text" class="member_search svg" placeholder="搜尋" maxlength="30" />
+                        <img class="SearchIcon" src="/images/search.svg">
+                    </div>
+                </div>
+            </div>
+        </div>
+        @RenderBody()
+        <div class="div_right">
+            <div class="div_banner">
+                <img class="banner_img" src="~/images/banner_usmaru.png">
+            </div>
+            <div class="div_friend">
+                <div class="friend_container">
+                    <div class="friend_search_container">
+                        <input type="text" class="friend_search svg" placeholder="搜尋好友" maxlength="30" />
+                        <img class="SearchIcon" src="/images/search.svg">
+                    </div>
+                    <div class="friend_content"></div>
+                </div>
             </div>
         </div>
     </div>

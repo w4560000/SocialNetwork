@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace SocialNetwork.Service
@@ -500,6 +499,24 @@ outline: 0;";
 
             await this.SetMemberStatusForCookie(member.MemberID, MemberStatusEnum.在線);
             return "更新成功".AsSuccessResponse();
+        }
+
+        /// <summary>
+        /// 搜尋會員
+        /// </summary>
+        /// <param name="model">搜尋會員 Request ViewModel</param>
+        /// <returns>搜尋結果</returns>
+        public async Task<ResponseViewModel<List<SearchMemberResViewModel>>> SearchMember(SearchMemberReqViewModel model)
+        {
+            string sql = @$"
+SELECT TOP 10 a.MemberID, a.NickName, a.ProfilePhotoURL
+FROM dbo.Member a
+WHERE a.NickName LIKE @NickName
+ORDER BY CreatedAt ASC";
+
+            var memberList = (await this.MemberRepository.QueryAsync<SearchMemberResViewModel>(sql, new { NickName = $"%{model.NickName}%" })).ToList();
+
+            return CommonExtension.AsSuccessResponse("搜尋會員成功", memberList);
         }
 
         /// <summary>

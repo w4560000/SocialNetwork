@@ -162,7 +162,17 @@ ORDER BY PostMsgDateTime ASC";
             if (!this.PostRepository.TryGetEntity(model.PostKey, out _))
                 return CommonExtension.AsSystemFailResponse();
 
-            await this.PostRepository.TogglePostLike(model);
+            string sql = @$"
+MERGE INTO [dbo].[PostLike] a
+USING (
+		SELECT @PostKey AS 'PostKey', @MemberID AS 'MemberID', @Toggle AS 'Toggle'
+	  ) data ON a.PostKey = data.PostKey AND a.MemberID = data.MemberID
+WHEN MATCHED AND Toggle = {(int)ToggleEnum.Off} THEN
+	DELETE
+WHEN NOT MATCHED AND data.Toggle = {(int)ToggleEnum.On} THEN
+	INSERT VALUES (data.PostKey, data.MemberID, GETDATE(), data.MemberID, GETDATE(), data.MemberID);";
+
+            await this.PostMsgRepository.QueryAsync<int>(sql, new { model.PostKey, model.Toggle, this.UserContext.User.MemberID });
 
             return "操作成功".AsSuccessResponse();
         }

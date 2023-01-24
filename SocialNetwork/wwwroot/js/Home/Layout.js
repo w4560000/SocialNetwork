@@ -49,14 +49,14 @@ var LayoutPage = {
                     $("body").click(function (event) {
                         var currentElemetClass = ($(event.target).attr('class'));
                         // 點選其他 element 時 自動隱藏展開的會員狀態
-                        if (currentElemetClass !== undefined && !currentElemetClass.includes('index_status_select')) {
+                        if (currentElemetClass === undefined || (currentElemetClass !== undefined && !currentElemetClass.includes('index_status_select'))) {
                             if ($('#memberStatus_1').is(':visible')) {
                                 $('.meunContent > ul').children('li').toggle();
                                 $('.index_status_select').toggleClass('index_status_select_up');
                             }
                         }
                         // 點選其他 element 時 自動隱藏展開的貼文選項
-                        if (currentElemetClass !== undefined && !currentElemetClass.includes('postAction')) {
+                        if (currentElemetClass === undefined || (currentElemetClass !== undefined && !currentElemetClass.includes('postAction'))) {
                             var ul = $(".ul_postAction[postkey=".concat(tempSelectPostKey, "]"));
                             if (ul.is(':visible')) {
                                 ul.toggle();

@@ -5,6 +5,7 @@ using SocialNetwork.Helper;
 using SocialNetwork.Repository;
 using SocialNetwork.Service;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SocialNetwork.Controllers
@@ -305,6 +306,26 @@ namespace SocialNetwork.Controllers
             {
                 this.Logger.LogCritical(ex, $"更新會員資訊失敗，{ex.GetExceptionMessage()}");
                 return CommonExtension.AsSystemFailResponse();
+            }
+        }
+
+        /// <summary>
+        /// 搜尋會員
+        /// todo 優化成 全文檢索 Elastic Search
+        /// </summary>
+        /// <param name="model">搜尋會員 Request ViewModel</param>
+        /// <returns>搜尋結果</returns>
+        [HttpPost(nameof(SearchMember))]
+        public async Task<ResponseViewModel<List<SearchMemberResViewModel>>> SearchMember(SearchMemberReqViewModel model)
+        {
+            try
+            {
+                return await this.MemberService.SearchMember(model);
+            }
+            catch (Exception ex)
+            {
+                this.Logger.LogCritical(ex, $"搜尋會員失敗，{ex.GetExceptionMessage()}");
+                return CommonExtension.AsSystemFailResponse<List<SearchMemberResViewModel>>();
             }
         }
     }

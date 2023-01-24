@@ -6,6 +6,7 @@ $Color_PK4: #FFF3F3; // Hover(淺粉紅3) (最淺)
 
 $Color_W1: #FFFFFF; // 背景色、文字、ICON (白)
 
+$Color_G0: #F5F5F5; // Body背景
 $Color_G1: #E8E8E8; // 分隔線、狀態
 $Color_G2: #BFBFBF; // 提示文字、按鈕、ICON
 $Color_G3: #AAAAAA; // 按鈕
@@ -27,3 +28,5 @@ $Color_PK2_Filter: invert(95%) sepia(69%) saturate(1835%) hue-rotate(293deg) bri
 $Color_G4_Filter: invert(91%) sepia(6%) saturate(218%) hue-rotate(138deg) brightness(82%) contrast(85%);
 $Color_G5_Filter: invert(75%) sepia(18%) saturate(105%) hue-rotate(137deg) brightness(83%) contrast(90%);
 $Color_W1_Filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(271deg) brightness(106%) contrast(103%);
+
+$TopBar_Height: 60px;

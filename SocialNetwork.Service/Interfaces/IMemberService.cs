@@ -1,5 +1,6 @@
 ﻿using SocialNetwork.Helper;
 using SocialNetwork.Repository;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SocialNetwork.Service
@@ -105,5 +106,12 @@ namespace SocialNetwork.Service
         /// <param name="model">密碼變更 Request ViewModel</param>
         /// <returns>密碼變更結果</returns>
         ResponseViewModel ChangePassword(ChangePasswordReqViewModel model);
+
+        /// <summary>
+        /// 搜尋會員
+        /// </summary>
+        /// <param name="model">搜尋會員 Request ViewModel</param>
+        /// <returns>搜尋結果</returns>
+        Task<ResponseViewModel<List<SearchMemberResViewModel>>> SearchMember(SearchMemberReqViewModel model);
     }
 }

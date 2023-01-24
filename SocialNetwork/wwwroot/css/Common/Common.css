@@ -6,7 +6,7 @@ html {
 
 body {
   font-family: Arial, "Microsoft JhengHei";
-  background-color: #FCD4D5;
+  background-color: #F5F5F5;
   height: 100%;
   margin: 0;
   font-weight: 600;
@@ -359,7 +359,67 @@ input[type=date]::-webkit-calendar-picker-indicator {
   left: 0px;
 }
 
+.div_topBar {
+  width: 76.5%;
+  height: 60px;
+  top: 0px;
+  position: fixed;
+  background-color: #F5F5F5;
+  border-radius: 5px;
+  left: 22%;
+  z-index: 999;
+  border-bottom: 1px solid #F5F5F5;
+}
+.div_topBar .topBar_Content {
+  background-color: #FFFFFF;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+}
+.div_topBar .topBar_Content .topBar_Logo {
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+}
+.div_topBar .topBar_Content .topBar_Logo .LogoPhoto {
+  width: 100%;
+  height: 100%;
+}
+.div_topBar .topBar_Content .search_container {
+  display: flex;
+  justify-content: center;
+  width: 60%;
+}
+.div_topBar .topBar_Content .search_container .member_search_container {
+  overflow: hidden;
+  border-radius: 50px;
+  border: 1px solid #BFBFBF;
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5px;
+  background-color: #F5F5F5;
+}
+.div_topBar .topBar_Content .search_container .member_search_container .member_search {
+  font-size: 17px;
+  border: none;
+  width: 95%;
+  height: 100%;
+  font-weight: 400;
+  background-color: #F5F5F5;
+}
+.div_topBar .topBar_Content .search_container .member_search_container .SearchIcon {
+  filter: invert(95%) sepia(69%) saturate(1835%) hue-rotate(293deg) brightness(99%) contrast(91%);
+  height: 25px;
+  right: 3%;
+  position: relative;
+}
+
 .div_content {
+  top: 90px;
   height: 100%;
   position: absolute;
   left: 22%;
@@ -367,10 +427,10 @@ input[type=date]::-webkit-calendar-picker-indicator {
 }
 
 .div_right {
+  top: 60px;
   width: 25%;
   height: 100%;
   position: fixed;
-  top: 0px;
   right: 30px;
 }
 
@@ -581,6 +641,7 @@ a.logo_index {
   justify-content: center;
   align-items: center;
   margin-bottom: 5px;
+  background-color: #F5F5F5;
 }
 .div_friend .friend_container .friend_search_container .friend_search {
   font-size: 17px;
@@ -589,6 +650,7 @@ a.logo_index {
   height: 100%;
   font-weight: 400;
   padding-left: 0 !important;
+  background-color: #F5F5F5;
 }
 .div_friend .friend_container .friend_search_container .SearchIcon {
   filter: invert(95%) sepia(69%) saturate(1835%) hue-rotate(293deg) brightness(99%) contrast(91%);
