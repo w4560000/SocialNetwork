@@ -377,16 +377,6 @@ input[type=date]::-webkit-calendar-picker-indicator {
   align-items: center;
   border-radius: 5px;
 }
-.div_topBar .topBar_Content .topBar_Menu {
-  width: 35px;
-  padding: 10px;
-  cursor: pointer;
-  margin-left: 30px;
-}
-.div_topBar .topBar_Content .topBar_Menu .MenuPhoto {
-  width: 100%;
-  height: 100%;
-}
 .div_topBar .topBar_Content .logo_index {
   font-size: 24pt;
   display: flex;
@@ -399,7 +389,7 @@ input[type=date]::-webkit-calendar-picker-indicator {
   display: flex;
   justify-content: center;
   width: 35%;
-  right: 13%;
+  right: 10%;
   position: absolute;
 }
 .div_topBar .topBar_Content .search_container .member_search_container {
@@ -428,19 +418,54 @@ input[type=date]::-webkit-calendar-picker-indicator {
   right: 3%;
   position: relative;
 }
-.div_topBar .topBar_Message {
-  border-radius: 50%;
-  background: #F5F5F5;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  right: 9%;
+.div_topBar .topBar_Content .search_container .member_search_result {
   position: absolute;
-  cursor: pointer;
+  width: 100%;
+  top: 55px;
+  background: #FFFFFF;
+  border: 1px solid #FCD4D5;
+  border-radius: 20px;
 }
-.div_topBar .topBar_Notification {
+.div_topBar .topBar_Content .search_container .member_search_result .member_search_content {
+  width: 100%;
+  overflow: hidden;
+  padding: 10px 15px;
+}
+.div_topBar .topBar_Content .search_container .member_search_result .member_search_content .member_search_list {
+  width: 90%;
+  display: flex;
+  align-content: center;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.2s linear;
+  border-radius: 10px;
+}
+.div_topBar .topBar_Content .search_container .member_search_result .member_search_content .member_search_list:hover {
+  background: #FFF3F3;
+  transition: all 0.2s linear;
+}
+.div_topBar .topBar_Content .search_container .member_search_result .member_search_content .member_search_list .member_img_container {
+  width: 35px;
+  height: 35px;
+  position: relative;
+}
+.div_topBar .topBar_Content .search_container .member_search_result .member_search_content .member_search_list .member_img_container .member_img {
+  border-radius: 50%;
+  border: 1px #F2A1A1 solid;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+.div_topBar .topBar_Content .search_container .member_search_result .member_search_content .member_search_list .member_search_info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 15px;
+}
+.div_topBar .topBar_Content .search_container .member_search_result .member_search_content .member_search_list .member_search_info .member_name, .div_topBar .topBar_Content .search_container .member_search_result .member_search_content .member_search_list .member_search_info .member_friend {
+  font-size: 12pt;
+}
+.div_topBar .topBar_Message {
   border-radius: 50%;
   background: #F5F5F5;
   width: 40px;
@@ -452,7 +477,7 @@ input[type=date]::-webkit-calendar-picker-indicator {
   position: absolute;
   cursor: pointer;
 }
-.div_topBar .topBar_Control {
+.div_topBar .topBar_Notification {
   border-radius: 50%;
   background: #F5F5F5;
   width: 40px;
@@ -464,21 +489,24 @@ input[type=date]::-webkit-calendar-picker-indicator {
   position: absolute;
   cursor: pointer;
 }
-.div_topBar .MessageIcon, .div_topBar .NotificationIcon, .div_topBar .ControlIcon {
+.div_topBar .MessageIcon, .div_topBar .NotificationIcon {
   width: 20px;
 }
 .div_topBar .News {
   position: absolute;
-  top: 0px;
-  right: 0px;
-  width: 12px;
-  height: 12px;
+  top: -6px;
+  right: -8px;
+  width: 20px;
+  height: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   background: red;
   border-radius: 50%;
   z-index: 999;
+  font-size: 12px;
+  font-weight: 700;
+  color: #FFFFFF;
 }
 
 .div_content {
@@ -739,7 +767,7 @@ input[type=date]::-webkit-calendar-picker-indicator {
   border-radius: 10px;
 }
 .div_friend .friend_container .friend_content .friend:hover {
-  background: #E8E8E8;
+  background: #FFF3F3;
   transition: all 0.2s linear;
 }
 .div_friend .friend_container .friend_content .friend .friend_img_container {

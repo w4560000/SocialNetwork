@@ -1,7 +1,14 @@
-﻿var tempFileList: File[] = [];
+﻿/** 暫存 FileList */
+var tempFileList: File[] = [];
+
+/** 貼文類型 */
+var _postType: PostTypeEnum;
 
 const PublishPostPage = {
-    Init: () => {
+    Init: (postType: PostTypeEnum) => {
+
+        _postType = postType;
+
         // 輸入框 高度自動伸縮
         $('.write_post').on("input", function () {
             let _this = $(this);
@@ -106,7 +113,7 @@ const PublishPostPage = {
             $('#deploy_post_cancel').click();
 
             // 重新載入貼文
-            Post.ReLoadPost();
+            Post.Init(_postType);
         };
         let errorFunc = function () { };
         PublishPostAPI("發佈貼文中", formData, successFunc, errorFunc, '確定是否發佈?');

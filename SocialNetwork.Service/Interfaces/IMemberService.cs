@@ -112,6 +112,6 @@ namespace SocialNetwork.Service
         /// </summary>
         /// <param name="model">搜尋會員 Request ViewModel</param>
         /// <returns>搜尋結果</returns>
-        Task<ResponseViewModel<List<SearchMemberResViewModel>>> SearchMember(SearchMemberReqViewModel model);
+        Task<ResponseViewModel<SearchMemberResViewModel>> SearchMember(SearchMemberReqViewModel model);
     }
 }

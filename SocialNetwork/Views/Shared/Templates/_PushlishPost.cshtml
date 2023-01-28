@@ -1,11 +1,12 @@
 ﻿@using SocialNetwork.Helper
+@model int;
 @inject IUserContext UserContext
 <script src="~/js/Template/PublishPost.js" asp-append-version="true"></script>
 <link rel="stylesheet" href="~/css/Template/PublishPost.css" asp-append-version="true" />
 
 <script>
     $(function () {
-        PublishPostPage.Init();
+        PublishPostPage.Init(@Model);
     });
 </script>
 

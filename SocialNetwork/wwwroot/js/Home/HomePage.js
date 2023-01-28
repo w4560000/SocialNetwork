@@ -42,7 +42,7 @@ var HomePage = {
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
-                    if (!$("#query_memberID").val()) return [3 /*break*/, 2];
+                    if (!($("#query_memberID").val() != 0)) return [3 /*break*/, 2];
                     return [4 /*yield*/, GetMemberInfoAPI($("#query_memberID").val())];
                 case 1:
                     _a = _b.sent();
@@ -70,6 +70,10 @@ var HomePage = {
                     return [4 /*yield*/, HomePage.ReflashFriendStatus()];
                 case 5:
                     _b.sent();
+                    // 別人的個人主頁 隱藏發文區塊
+                    if ($("#query_memberID").val() != 0) {
+                        $('.div_mypost').remove();
+                    }
                     // 控制 Img Default Style
                     Common.ControllImgDefaultStyle();
                     return [2 /*return*/];

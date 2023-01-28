@@ -3,7 +3,7 @@
 const HomePage = {
     Init: async () => {
         // 查看別人主頁 or 個人主頁
-        memberInfo = $("#query_memberID").val() ? await GetMemberInfoAPI($("#query_memberID").val() as number) : await GetCurrentMemberInfoAPI();
+        memberInfo = $("#query_memberID").val() != 0 ? await GetMemberInfoAPI($("#query_memberID").val() as number) : await GetCurrentMemberInfoAPI();
 
         let brithday = "";
         if (memberInfo.Brithday !== null) {
@@ -21,6 +21,11 @@ const HomePage = {
         $('.profile_background').attr('src', memberInfo.BackgroundPhotoURL);
 
         await HomePage.ReflashFriendStatus();
+
+        // 別人的個人主頁 隱藏發文區塊
+        if ($("#query_memberID").val() != 0) {
+            $('.div_mypost').remove();
+        }
 
         // 控制 Img Default Style
         Common.ControllImgDefaultStyle();

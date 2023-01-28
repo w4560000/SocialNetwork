@@ -1,6 +1,10 @@
+/** 暫存 FileList */
 var tempFileList = [];
+/** 貼文類型 */
+var _postType;
 var PublishPostPage = {
-    Init: function () {
+    Init: function (postType) {
+        _postType = postType;
         // 輸入框 高度自動伸縮
         $('.write_post').on("input", function () {
             var _this = $(this);
@@ -89,7 +93,7 @@ var PublishPostPage = {
             $(".write_post").val('');
             $('#deploy_post_cancel').click();
             // 重新載入貼文
-            Post.ReLoadPost();
+            Post.Init(_postType);
         };
         var errorFunc = function () { };
         PublishPostAPI("發佈貼文中", formData, successFunc, errorFunc, '確定是否發佈?');

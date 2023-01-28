@@ -316,7 +316,7 @@ namespace SocialNetwork.Controllers
         /// <param name="model">搜尋會員 Request ViewModel</param>
         /// <returns>搜尋結果</returns>
         [HttpPost(nameof(SearchMember))]
-        public async Task<ResponseViewModel<List<SearchMemberResViewModel>>> SearchMember(SearchMemberReqViewModel model)
+        public async Task<ResponseViewModel<SearchMemberResViewModel>> SearchMember(SearchMemberReqViewModel model)
         {
             try
             {
@@ -325,7 +325,7 @@ namespace SocialNetwork.Controllers
             catch (Exception ex)
             {
                 this.Logger.LogCritical(ex, $"搜尋會員失敗，{ex.GetExceptionMessage()}");
-                return CommonExtension.AsSystemFailResponse<List<SearchMemberResViewModel>>();
+                return CommonExtension.AsSystemFailResponse<SearchMemberResViewModel>();
             }
         }
     }

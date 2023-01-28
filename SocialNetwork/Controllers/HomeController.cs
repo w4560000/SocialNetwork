@@ -60,12 +60,12 @@ namespace SocialNetwork.Controllers
         [HttpGet("Home/HomePage/{memberIDStr}")]
         public IActionResult HomePage(string memberIDStr = "")
         {
-            // memberIDStr 不為數字 則帶空
-            this.ViewBag.QueryMemberID = int.TryParse(memberIDStr, out int memberID) ? memberID.ToString() : "";
+            // memberIDStr 不為數字 則 0
+            this.ViewBag.QueryMemberID = int.TryParse(memberIDStr, out int memberID) ? memberID : 0;
 
-            // memberIDStr 為自己 則帶空
+            // memberIDStr 為自己 則 0
             if (this.UserContext.User.MemberID == memberID)
-                this.ViewBag.QueryMemberID = "";
+                this.ViewBag.QueryMemberID = 0;
 
             return View();
         }

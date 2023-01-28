@@ -1,4 +1,6 @@
-﻿namespace SocialNetwork.Repository
+﻿using System.Collections.Generic;
+
+namespace SocialNetwork.Repository
 {
     /// <summary>
     /// 搜尋會員
@@ -6,18 +8,13 @@
     public class SearchMemberResViewModel
     {
         /// <summary>
-        /// 會員編號
+        /// 好友清單
         /// </summary>
-        public int MemberID { get; set; }
+        public List<SearchMemberInfoResViewModel> FriendList { get; set; } = new List<SearchMemberInfoResViewModel>();
 
         /// <summary>
-        /// 暱稱
+        /// 陌生會員清單
         /// </summary>
-        public string NickName { get; set; }
-
-        /// <summary>
-        /// 大頭貼路徑
-        /// </summary>
-        public string ProfilePhotoURL { get; set; }
+        public List<SearchMemberInfoResViewModel> MemberList { get; set; } = new List<SearchMemberInfoResViewModel>();
     }
 }

@@ -58,3 +58,19 @@ var GetPostMsgResViewModel = /** @class */ (function () {
     }
     return GetPostMsgResViewModel;
 }());
+/**
+ * 搜尋會員 Response ViewModel
+ * */
+var SearchMemberResViewModel = /** @class */ (function () {
+    function SearchMemberResViewModel() {
+    }
+    return SearchMemberResViewModel;
+}());
+/**
+ * 搜尋會員資訊 Response ViewModel
+ * */
+var SearchMemberInfoResViewModel = /** @class */ (function () {
+    function SearchMemberInfoResViewModel() {
+    }
+    return SearchMemberInfoResViewModel;
+}());

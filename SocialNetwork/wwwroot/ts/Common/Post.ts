@@ -14,12 +14,13 @@ const Post = {
     /**
      * 初始化
      * @param postType 貼文類型
+     * @param memberID 會員編號
      */
-    Init: async (postType: PostTypeEnum) => {
+    Init: async (postType: PostTypeEnum, memberID: number = 0) => {
         tempQueryRowNo = 1;
         $('.div_post').remove();
         _postType = postType;
-        await Post.LoadPost();
+        await Post.LoadPost(memberID);
 
         //$(".postAction").on("focus", function (event) {
         //    debugger
@@ -38,11 +39,11 @@ const Post = {
 
             // 判斷頁面捲到最底部
             if (scrollTop == (documentHeight - windowHeight)) {
-                await Post.LoadPost();
+                await Post.LoadPost(memberID);
             }
         });
 
-        $('.msgComment').keydown(function (e) {
+        $('.msgComment').keydown(async function (e) {
             let _this = $(this);
             if (e.key == 'Enter' && (e.shiftKey || e.ctrlKey || e.altKey)) {
                 e.preventDefault();
@@ -51,7 +52,7 @@ const Post = {
             }
             else if (e.key == 'Enter') {
                 e.preventDefault();
-                Post.SendPostMsg(_this);
+                await Post.SendPostMsg(_this);
             }
 
             _this.height('auto');
@@ -60,22 +61,13 @@ const Post = {
     },
 
     /**
-     * 重新載入貼文
-     * */
-    ReLoadPost: async () => {
-        tempQueryRowNo = 1;
-        $('.div_post').remove();
-        await Post.LoadPost();
-    },
-
-    /**
      * 載入貼文
      * @param postType 貼文類型
      * */
-    LoadPost: async () => {
-        let postData = this._postType === PostTypeEnum.首頁 ?
+    LoadPost: async (memberID: number) => {
+        let postData = this._postType === PostTypeEnum.首頁 || memberID == 0 ?
             await GetIndexPostAPI(new QueryRowMemberReqViewModel(user.MemberID, tempQueryRowNo)) :
-            await GetHomePagePostAPI(new QueryRowMemberReqViewModel(user.MemberID, tempQueryRowNo));
+            await GetHomePagePostAPI(new QueryRowMemberReqViewModel(memberID, tempQueryRowNo));
 
         if (postData.length !== 0) {
             postData.forEach(f => {
@@ -141,7 +133,7 @@ const Post = {
                 <div class="post_footer_img">
                     <img class="postMsg" src="/images/post/textsms_black_24dp.svg" />
                 </div>
-                <span class="post_footer_number">${model.TotalPostMsgCount}</span>
+                <span class="post_footer_number postMsgCount">${model.TotalPostMsgCount}</span>
             </div>
             <div class="post_footer_container">
                 <img class="postShare" src="/images/post/share_black_24dp.svg" />
@@ -150,12 +142,12 @@ const Post = {
     </div>
     <div class="div_post_msg_send">
         <div class="post_msgPhoto_container">
-            <img class="post_msgPhoto" src="${model.ProfilePhotoUrl}">
+            <img class="post_msgPhoto" src="${user.ProfilePhotoUrl}">
         </div>
         <div class="post_msg_comment">
             <textarea class="msgComment" placeholder="留言..."></textarea>
         </div>
-        <div class="post_msg_submit">
+        <div class="post_msg_submit" onclick="Post.SubmitPostMsg(this)">
             <img class="msgSend" src="/images/post/send_black_24dp.svg">
         </div>
     </div>
@@ -277,6 +269,17 @@ const Post = {
         // 控制 Img Default Style
         Common.ControllImgDefaultStyle();
     },
+
+    /**
+     * 點擊發送貼文 按鈕
+     * @param e
+     */
+    SubmitPostMsg: async (button: HTMLElement) => {
+        let postMsgElement = $(button).prev().children('.msgComment');
+
+        await Post.SendPostMsg(postMsgElement);
+    },
+
     /**
      * 發送貼文留言
      * @param postkey 貼文編號
@@ -292,6 +295,7 @@ const Post = {
         let successFunc = (res: ResponseViewModel<GetPostMsgResViewModel>) => {
             if (res.Data) {
                 currentPost.children('.div_post_msg_send').after(Post.PostMsgHtmlTemplate(res.Data));
+                currentPost.find('.postMsgCount').html((Number(currentPost.find('.postMsgCount').html()) + 1).toString());
                 e.val('');
             }
         };

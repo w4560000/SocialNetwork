@@ -39,7 +39,7 @@ var user;
 var chatHubConnection;
 var LayoutPage = {
     Init: function (_user) { return __awaiter(_this, void 0, void 0, function () {
-        var friendList, Tags;
+        var friendList;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -87,25 +87,46 @@ var LayoutPage = {
                 case 1:
                     friendList = _a.sent();
                     LayoutPage.ReflashFriendList(friendList);
+                    // 綁定會員搜尋輸入框 input Event
+                    $('.member_search').on('input', function (e) {
+                        return __awaiter(this, void 0, void 0, function () {
+                            var _this, model, searchMemberResult, searchMemberHtml_1;
+                            return __generator(this, function (_a) {
+                                switch (_a.label) {
+                                    case 0:
+                                        _this = $(this);
+                                        if (!_this.val()) {
+                                            $('.member_search_result').hide();
+                                            $('.member_search_content').empty();
+                                            return [2 /*return*/];
+                                        }
+                                        model = new SearchMemberReqViewModel(_this.val());
+                                        return [4 /*yield*/, SearchMemberAPI(model)];
+                                    case 1:
+                                        searchMemberResult = _a.sent();
+                                        if (searchMemberResult.FriendList.length > 0 || searchMemberResult.MemberList.length > 0) {
+                                            $('.member_search_content').empty();
+                                            searchMemberHtml_1 = '';
+                                            searchMemberResult.FriendList.forEach(function (f) { return searchMemberHtml_1 += LayoutPage.SearchMemberHtmlTemplate(f, true); });
+                                            searchMemberResult.MemberList.forEach(function (f) { return searchMemberHtml_1 += LayoutPage.SearchMemberHtmlTemplate(f); });
+                                            $('.member_search_content').append(searchMemberHtml_1);
+                                            $('.member_search_result').fadeIn();
+                                            // 控制 Img Default Style
+                                            Common.ControllImgDefaultStyle();
+                                        }
+                                        else {
+                                            $('.member_search_result').fadeOut();
+                                            $('.member_search_content').empty();
+                                        }
+                                        return [2 /*return*/];
+                                }
+                            });
+                        });
+                    });
                     // 控制 Img Default Style
                     Common.ControllImgDefaultStyle();
                     // 設定 Menu 底色 (根據當前頁面)
                     LayoutPage.SetMenuColor();
-                    Tags = [
-                        "ActionScript",
-                        "AppleScript",
-                        "Asp",
-                        "BASIC",
-                        "C",
-                        "C++",
-                        "Clojure",
-                        "COBOL",
-                        "ColdFusion",
-                    ];
-                    $(".member_search").autocomplete({
-                        source: Tags,
-                        minLength: 2 //使用者最少輸入多少個字才啟動autocomplete
-                    });
                     return [2 /*return*/];
             }
         });
@@ -113,7 +134,7 @@ var LayoutPage = {
     /** 登出 */
     Logout: function () {
         var successFunc = function () {
-            Common.SweetAlertRedirect("/Member/Login", "登入頁");
+            setTimeout(function () { return Common.SweetAlertRedirect("/Member/Login", "登入頁"); });
         };
         var errorFunc = function () { };
         LogoutAPI("登出中", successFunc, errorFunc, '確定是否登出?');
@@ -165,14 +186,29 @@ var LayoutPage = {
      * @param friend 好友資料
      */
     MyFriendChatHtmlTemplate: function (friend) {
-        return "\n    <div class=\"friend\" MemberID=\"".concat(friend.MemberID, "\">\n        ").concat(LayoutPage.MyFriendChatDetailHtmlTemplate(friend), "\n    </div>\n  ");
+        return "\n    <div class=\"friend\" MemberID=\"".concat(friend.MemberID, "\">\n        ").concat(LayoutPage.MyFriendChatDetailHtmlTemplate(friend), "\n    </div>");
     },
     /**
      * 聊天室好友 Detail Html Template
      * @param friend 好友資料
      */
     MyFriendChatDetailHtmlTemplate: function (friend) {
-        return "\n    <div class=\"friend_img_container\">\n        <span class=\"friend_img_status_color friend_img_status_color_".concat(friend.Status, "\"></span>\n        <img class=\"friend_img\" src=\"").concat(friend.ProfilePhotoURL, "\" />\n    </div> \n    <div class=\"friend_name\">").concat(friend.NickName, "</div>\n  ");
+        return "\n    <div class=\"friend_img_container\">\n        <span class=\"friend_img_status_color friend_img_status_color_".concat(friend.Status, "\"></span>\n        <img class=\"friend_img\" src=\"").concat(friend.ProfilePhotoURL, "\" />\n    </div> \n    <div class=\"friend_name\">").concat(friend.NickName, "</div>");
+    },
+    /**
+     * 搜尋會員 Html Template
+     * @param friend 好友資料
+     */
+    SearchMemberHtmlTemplate: function (member, isFriend) {
+        if (isFriend === void 0) { isFriend = false; }
+        return "\n    <div class=\"member_search_list\" onclick=\"LayoutPage.RedirectToMemberIndex(".concat(member.MemberID, ")\">\n        <div class=\"member_img_container\">\n            <img class=\"member_img\" src=\"").concat(member.ProfilePhotoURL, "\" />\n        </div>\n        <div class=\"member_search_info\">\n            <div class=\"member_name\">").concat(member.NickName, "</div>\n            ").concat(isFriend ? '<div class="member_friend">朋友</div>' : '', "\n        </div>\n    </div>");
+    },
+    /**
+     * 轉導到該會員個人頁
+     * @param memberID 會員編號
+     */
+    RedirectToMemberIndex: function (memberID) {
+        window.location.href = "/Home/HomePage/".concat(memberID);
     }
 };
 window["LayoutPage"] = LayoutPage;

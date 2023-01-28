@@ -36,7 +36,8 @@ var LoginPage = {
         }
         var model = new LoginReqViewModel($('#login_account').val(), $('#login_password').val());
         var successFunc = function () {
-            Common.SweetAlertRedirect("/Home/Index", "首頁");
+            // Common.SweetAlertRedirect("/Home/Index", "首頁");
+            window.location.href = '/Home/Index';
         };
         var errorFunc = function () { };
         LoginAPI("登入中", model, successFunc, errorFunc);
@@ -55,7 +56,8 @@ var LoginPage = {
                         Common.Popup('MemberInfo');
                         return;
                     }
-                    Common.SweetAlertRedirect("/Home/Index", "首頁");
+                    // Common.SweetAlertRedirect("/Home/Index", "首頁");
+                    window.location.href = '/Home/Index';
                 };
                 var errorFunc = function () { };
                 var model = new GoogleLoginReqViewModel(response.code);
@@ -118,7 +120,8 @@ var LoginPage = {
         });
         var model = new UpdateMemberPublicInfoReqViewModel(new Date($('#brithday_datepicker').val()), $('#infoInternest').val(), $('#infoJob').val(), Number($('#infoEducation').val()), infoStatus);
         var successFunc = function () {
-            Common.SweetAlertRedirect('/Home/Index', '首頁');
+            // Common.SweetAlertRedirect('/Home/Index', '首頁');
+            window.location.href = '/Home/Index';
         };
         var errorFunc = function () { };
         UpdateMemberPublicInfoAPI("更新會員資訊中", model, successFunc, errorFunc);

@@ -54,38 +54,53 @@ const LayoutPage = {
         let friendList = await GetFriendListAPI();
         LayoutPage.ReflashFriendList(friendList);
 
+        // 綁定會員搜尋輸入框 input Event
+        $('.member_search').on('input', async function (e) {
+            let _this = $(this);
+            if (!_this.val()) {
+                $('.member_search_result').hide();
+                $('.member_search_content').empty();
+                return;
+            }
+
+            let model = new SearchMemberReqViewModel(_this.val() as string);
+            let searchMemberResult = await SearchMemberAPI(model);
+            
+            if (searchMemberResult.FriendList.length > 0 || searchMemberResult.MemberList.length > 0) {
+                $('.member_search_content').empty();
+                let searchMemberHtml = '';
+
+                searchMemberResult.FriendList.forEach(f => searchMemberHtml += LayoutPage.SearchMemberHtmlTemplate(f, true));
+                searchMemberResult.MemberList.forEach(f => searchMemberHtml += LayoutPage.SearchMemberHtmlTemplate(f));
+                $('.member_search_content').append(searchMemberHtml);
+                $('.member_search_result').fadeIn();
+
+                // 控制 Img Default Style
+                Common.ControllImgDefaultStyle();
+            }
+            else {
+                $('.member_search_result').fadeOut();
+                $('.member_search_content').empty();
+            }
+        });
+
         // 控制 Img Default Style
         Common.ControllImgDefaultStyle();
 
         // 設定 Menu 底色 (根據當前頁面)
         LayoutPage.SetMenuColor();
-
-
-        var Tags = [
-            "ActionScript",
-            "AppleScript",
-            "Asp",
-            "BASIC",
-            "C",
-            "C++",
-            "Clojure",
-            "COBOL",
-            "ColdFusion",
-        ];
-
-        $(".member_search").autocomplete({
-            source: Tags, //將資訊丟進Source參數裡
-            minLength: 2 //使用者最少輸入多少個字才啟動autocomplete
-        });
     },
+
     /** 登出 */
     Logout: () => {
         let successFunc = () => {
-            Common.SweetAlertRedirect("/Member/Login", "登入頁");
+            setTimeout(() => Common.SweetAlertRedirect("/Member/Login", "登入頁"));
+            
         };
         let errorFunc = () => { };
         LogoutAPI("登出中", successFunc, errorFunc, '確定是否登出?');
     },
+
     /**
      * 設定 Menu 底色 (根據當前頁面)
      * */
@@ -112,6 +127,7 @@ const LayoutPage = {
                 break;
         }
     },
+
     /**
      * 刷新聊天室好友狀態 (ChatHubConnection)
      * */
@@ -123,6 +139,7 @@ const LayoutPage = {
         // 控制 Img Default Style
         Common.ControllImgDefaultStyle();
     },
+
     /**
      * 刷新聊天室好友清單
      * @param friendList 好友清單
@@ -133,6 +150,7 @@ const LayoutPage = {
         // 聊天室載入好友清單
         friendList.forEach(f => $('.friend_content').append(LayoutPage.MyFriendChatHtmlTemplate(f)));
     },
+
     /**
      * 聊天室好友 Html Template
      * @param friend 好友資料
@@ -141,9 +159,9 @@ const LayoutPage = {
         return `
     <div class="friend" MemberID="${friend.MemberID}">
         ${LayoutPage.MyFriendChatDetailHtmlTemplate(friend)}
-    </div>
-  `;
+    </div>`;
     },
+
     /**
      * 聊天室好友 Detail Html Template
      * @param friend 好友資料
@@ -154,8 +172,32 @@ const LayoutPage = {
         <span class="friend_img_status_color friend_img_status_color_${friend.Status}"></span>
         <img class="friend_img" src="${friend.ProfilePhotoURL}" />
     </div> 
-    <div class="friend_name">${friend.NickName}</div>
-  `;
+    <div class="friend_name">${friend.NickName}</div>`;
+    },
+
+    /**
+     * 搜尋會員 Html Template
+     * @param friend 好友資料
+     */
+    SearchMemberHtmlTemplate: (member: SearchMemberInfoResViewModel, isFriend: boolean = false) => {
+        return `
+    <div class="member_search_list" onclick="LayoutPage.RedirectToMemberIndex(${member.MemberID})">
+        <div class="member_img_container">
+            <img class="member_img" src="${member.ProfilePhotoURL}" />
+        </div>
+        <div class="member_search_info">
+            <div class="member_name">${member.NickName}</div>
+            ${isFriend ? '<div class="member_friend">朋友</div>' : ''}
+        </div>
+    </div>`;
+    },
+
+    /**
+     * 轉導到該會員個人頁
+     * @param memberID 會員編號
+     */
+    RedirectToMemberIndex: (memberID: number) => {
+        window.location.href = `/Home/HomePage/${memberID}`;
     }
 }
 

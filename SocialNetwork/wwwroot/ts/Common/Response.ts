@@ -84,3 +84,20 @@ class GetPostMsgResViewModel {
     MsgContent: string;
     PostMsgDateTime: Date;
 }
+
+/**
+ * 搜尋會員 Response ViewModel
+ * */
+class SearchMemberResViewModel {
+    FriendList: Array<SearchMemberInfoResViewModel>;
+    MemberList: Array<SearchMemberInfoResViewModel>;
+}
+
+/**
+ * 搜尋會員資訊 Response ViewModel
+ * */
+class SearchMemberInfoResViewModel {
+    MemberID: number;
+    NickName: string;
+    ProfilePhotoURL: string;
+}

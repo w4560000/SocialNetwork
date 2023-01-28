@@ -34,7 +34,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var _this_1 = this;
+var _this = this;
 /** 點擊貼文選項開關 暫存的貼文編號 */
 var tempSelectPostKey = 0;
 /** 該頁面目前查詢貼文筆數 */
@@ -47,93 +47,94 @@ var Post = {
     /**
      * 初始化
      * @param postType 貼文類型
+     * @param memberID 會員編號
      */
-    Init: function (postType) { return __awaiter(_this_1, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    tempQueryRowNo = 1;
-                    $('.div_post').remove();
-                    _postType = postType;
-                    return [4 /*yield*/, Post.LoadPost()];
-                case 1:
-                    _a.sent();
-                    //$(".postAction").on("focus", function (event) {
-                    //    debugger
-                    //    $(this).children('.ul_postAction').show();
-                    //});
-                    //$(".postAction").blur(function (event) {
-                    //    debugger
-                    //    $(this).children('.ul_postAction').hide();
-                    //});
-                    $(window).scroll(function () {
-                        return __awaiter(this, void 0, void 0, function () {
-                            var scrollTop, documentHeight, windowHeight;
-                            return __generator(this, function (_a) {
-                                switch (_a.label) {
-                                    case 0:
-                                        scrollTop = $(document).scrollTop();
-                                        documentHeight = $(document).height();
-                                        windowHeight = $(window).height();
-                                        if (!(scrollTop == (documentHeight - windowHeight))) return [3 /*break*/, 2];
-                                        return [4 /*yield*/, Post.LoadPost()];
-                                    case 1:
-                                        _a.sent();
-                                        _a.label = 2;
-                                    case 2: return [2 /*return*/];
-                                }
+    Init: function (postType, memberID) {
+        if (memberID === void 0) { memberID = 0; }
+        return __awaiter(_this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        tempQueryRowNo = 1;
+                        $('.div_post').remove();
+                        _postType = postType;
+                        return [4 /*yield*/, Post.LoadPost(memberID)];
+                    case 1:
+                        _a.sent();
+                        //$(".postAction").on("focus", function (event) {
+                        //    debugger
+                        //    $(this).children('.ul_postAction').show();
+                        //});
+                        //$(".postAction").blur(function (event) {
+                        //    debugger
+                        //    $(this).children('.ul_postAction').hide();
+                        //});
+                        $(window).scroll(function () {
+                            return __awaiter(this, void 0, void 0, function () {
+                                var scrollTop, documentHeight, windowHeight;
+                                return __generator(this, function (_a) {
+                                    switch (_a.label) {
+                                        case 0:
+                                            scrollTop = $(document).scrollTop();
+                                            documentHeight = $(document).height();
+                                            windowHeight = $(window).height();
+                                            if (!(scrollTop == (documentHeight - windowHeight))) return [3 /*break*/, 2];
+                                            return [4 /*yield*/, Post.LoadPost(memberID)];
+                                        case 1:
+                                            _a.sent();
+                                            _a.label = 2;
+                                        case 2: return [2 /*return*/];
+                                    }
+                                });
                             });
                         });
-                    });
-                    $('.msgComment').keydown(function (e) {
-                        var _this = $(this);
-                        if (e.key == 'Enter' && (e.shiftKey || e.ctrlKey || e.altKey)) {
-                            e.preventDefault();
-                            var msg = _this.val() + '\n';
-                            _this.val(msg);
-                        }
-                        else if (e.key == 'Enter') {
-                            e.preventDefault();
-                            Post.SendPostMsg(_this);
-                        }
-                        _this.height('auto');
-                        _this.height(_this.prop('scrollHeight') + 'px');
-                    });
-                    return [2 /*return*/];
-            }
+                        $('.msgComment').keydown(function (e) {
+                            return __awaiter(this, void 0, void 0, function () {
+                                var _this, msg;
+                                return __generator(this, function (_a) {
+                                    switch (_a.label) {
+                                        case 0:
+                                            _this = $(this);
+                                            if (!(e.key == 'Enter' && (e.shiftKey || e.ctrlKey || e.altKey))) return [3 /*break*/, 1];
+                                            e.preventDefault();
+                                            msg = _this.val() + '\n';
+                                            _this.val(msg);
+                                            return [3 /*break*/, 3];
+                                        case 1:
+                                            if (!(e.key == 'Enter')) return [3 /*break*/, 3];
+                                            e.preventDefault();
+                                            return [4 /*yield*/, Post.SendPostMsg(_this)];
+                                        case 2:
+                                            _a.sent();
+                                            _a.label = 3;
+                                        case 3:
+                                            _this.height('auto');
+                                            _this.height(_this.prop('scrollHeight') + 'px');
+                                            return [2 /*return*/];
+                                    }
+                                });
+                            });
+                        });
+                        return [2 /*return*/];
+                }
+            });
         });
-    }); },
-    /**
-     * 重新載入貼文
-     * */
-    ReLoadPost: function () { return __awaiter(_this_1, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    tempQueryRowNo = 1;
-                    $('.div_post').remove();
-                    return [4 /*yield*/, Post.LoadPost()];
-                case 1:
-                    _a.sent();
-                    return [2 /*return*/];
-            }
-        });
-    }); },
+    },
     /**
      * 載入貼文
      * @param postType 貼文類型
      * */
-    LoadPost: function () { return __awaiter(_this_1, void 0, void 0, function () {
+    LoadPost: function (memberID) { return __awaiter(_this, void 0, void 0, function () {
         var postData, _a;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
-                    if (!(this._postType === PostTypeEnum.首頁)) return [3 /*break*/, 2];
+                    if (!(this._postType === PostTypeEnum.首頁 || memberID == 0)) return [3 /*break*/, 2];
                     return [4 /*yield*/, GetIndexPostAPI(new QueryRowMemberReqViewModel(user.MemberID, tempQueryRowNo))];
                 case 1:
                     _a = _b.sent();
                     return [3 /*break*/, 4];
-                case 2: return [4 /*yield*/, GetHomePagePostAPI(new QueryRowMemberReqViewModel(user.MemberID, tempQueryRowNo))];
+                case 2: return [4 /*yield*/, GetHomePagePostAPI(new QueryRowMemberReqViewModel(memberID, tempQueryRowNo))];
                 case 3:
                     _a = _b.sent();
                     _b.label = 4;
@@ -165,7 +166,7 @@ var Post = {
      * @param model 貼文 ViewModel
      */
     PostHtmlTemplate: function (model) {
-        return "\n<div class=\"div_post\" PostKey=\"".concat(model.PostKey, "\" MemberID=\"").concat(model.MemberID, "\">\n    <div class=\"div_post_content\">\n        <div class=\"post_content_topBar\">\n            <div class=\"postPhoto_container\">\n                <img class=\"postPhoto\" src=\"").concat(model.ProfilePhotoUrl, "\" />\n            </div>\n            <div class=\"postProfile\">\n                <div>").concat(model.NickName, "</div>\n                <span class=\"time\"title=\"").concat(Common.DateFormat(model.PostDateTime.toString()), "\">").concat(Post.PostDateTimeFilter(model.PostDateTime.toString()), "</span>\n            </div>\n            <div class=\"postAction\" tabindex=\"-1\" PostKey=\"").concat(model.PostKey, "\" onclick=\"Post.TogglePostAction(this)\">\u22EE\n            <ul class=\"ul_postAction\" PostKey=\"").concat(model.PostKey, "\">\n                <li><a PostKey=\"").concat(model.PostKey, "\">\u522A\u9664</a></li>\n                <li><a PostKey=\"").concat(model.PostKey, "\">\u7DE8\u8F2F</a></li>\n            </ul>\n            </div>\n        </div>\n        <div class=\"post_body\">\n            <div class=\"post_body_content\">").concat(model.PostContent, "</div>\n            <div style=\"margin-top: 10px;\">\n                <ul class=\"PostPhoto\" PostKey=\"").concat(model.PostKey, "\">\n                    ").concat(Post.PostImageHtmlTemplate(model.PostImageUrlList), "\n                </ul>\n            </div>\n        </div>\n        <div class=\"post_footerBar\">\n            <div class=\"post_footer_container\">\n                <div class=\"post_footer_img\" onclick=\"Post.TogglePostLike(").concat(model.PostKey, ")\">\n                    <img class=\"postLike ").concat(model.IsCurrnetMemberPostLiked ? 'postLiked' : '', "\" src=\"/images/post/thumb_up_black_24dp.svg\" />\n                </div>\n                <span class=\"post_footer_number postLikeCount\">").concat(model.PostLike, "</span>\n            </div>\n            <div class=\"post_footer_container\">\n                <div class=\"post_footer_img\">\n                    <img class=\"postMsg\" src=\"/images/post/textsms_black_24dp.svg\" />\n                </div>\n                <span class=\"post_footer_number\">").concat(model.TotalPostMsgCount, "</span>\n            </div>\n            <div class=\"post_footer_container\">\n                <img class=\"postShare\" src=\"/images/post/share_black_24dp.svg\" />\n            </div>\n        </div>\n    </div>\n    <div class=\"div_post_msg_send\">\n        <div class=\"post_msgPhoto_container\">\n            <img class=\"post_msgPhoto\" src=\"").concat(model.ProfilePhotoUrl, "\">\n        </div>\n        <div class=\"post_msg_comment\">\n            <textarea class=\"msgComment\" placeholder=\"\u7559\u8A00...\"></textarea>\n        </div>\n        <div class=\"post_msg_submit\">\n            <img class=\"msgSend\" src=\"/images/post/send_black_24dp.svg\">\n        </div>\n    </div>\n\n    ").concat(Post.ShowPostMsg(model.PostKey, model.PostMsgList, model.TotalPostMsgCount), "\n</div>");
+        return "\n<div class=\"div_post\" PostKey=\"".concat(model.PostKey, "\" MemberID=\"").concat(model.MemberID, "\">\n    <div class=\"div_post_content\">\n        <div class=\"post_content_topBar\">\n            <div class=\"postPhoto_container\">\n                <img class=\"postPhoto\" src=\"").concat(model.ProfilePhotoUrl, "\" />\n            </div>\n            <div class=\"postProfile\">\n                <div>").concat(model.NickName, "</div>\n                <span class=\"time\"title=\"").concat(Common.DateFormat(model.PostDateTime.toString()), "\">").concat(Post.PostDateTimeFilter(model.PostDateTime.toString()), "</span>\n            </div>\n            <div class=\"postAction\" tabindex=\"-1\" PostKey=\"").concat(model.PostKey, "\" onclick=\"Post.TogglePostAction(this)\">\u22EE\n            <ul class=\"ul_postAction\" PostKey=\"").concat(model.PostKey, "\">\n                <li><a PostKey=\"").concat(model.PostKey, "\">\u522A\u9664</a></li>\n                <li><a PostKey=\"").concat(model.PostKey, "\">\u7DE8\u8F2F</a></li>\n            </ul>\n            </div>\n        </div>\n        <div class=\"post_body\">\n            <div class=\"post_body_content\">").concat(model.PostContent, "</div>\n            <div style=\"margin-top: 10px;\">\n                <ul class=\"PostPhoto\" PostKey=\"").concat(model.PostKey, "\">\n                    ").concat(Post.PostImageHtmlTemplate(model.PostImageUrlList), "\n                </ul>\n            </div>\n        </div>\n        <div class=\"post_footerBar\">\n            <div class=\"post_footer_container\">\n                <div class=\"post_footer_img\" onclick=\"Post.TogglePostLike(").concat(model.PostKey, ")\">\n                    <img class=\"postLike ").concat(model.IsCurrnetMemberPostLiked ? 'postLiked' : '', "\" src=\"/images/post/thumb_up_black_24dp.svg\" />\n                </div>\n                <span class=\"post_footer_number postLikeCount\">").concat(model.PostLike, "</span>\n            </div>\n            <div class=\"post_footer_container\">\n                <div class=\"post_footer_img\">\n                    <img class=\"postMsg\" src=\"/images/post/textsms_black_24dp.svg\" />\n                </div>\n                <span class=\"post_footer_number postMsgCount\">").concat(model.TotalPostMsgCount, "</span>\n            </div>\n            <div class=\"post_footer_container\">\n                <img class=\"postShare\" src=\"/images/post/share_black_24dp.svg\" />\n            </div>\n        </div>\n    </div>\n    <div class=\"div_post_msg_send\">\n        <div class=\"post_msgPhoto_container\">\n            <img class=\"post_msgPhoto\" src=\"").concat(user.ProfilePhotoUrl, "\">\n        </div>\n        <div class=\"post_msg_comment\">\n            <textarea class=\"msgComment\" placeholder=\"\u7559\u8A00...\"></textarea>\n        </div>\n        <div class=\"post_msg_submit\" onclick=\"Post.SubmitPostMsg(this)\">\n            <img class=\"msgSend\" src=\"/images/post/send_black_24dp.svg\">\n        </div>\n    </div>\n\n    ").concat(Post.ShowPostMsg(model.PostKey, model.PostMsgList, model.TotalPostMsgCount), "\n</div>");
     },
     /**
      * 貼文圖片 Html Template
@@ -231,7 +232,7 @@ var Post = {
      * 顯示該貼文所有留言
      * @param postkey 貼文編號
      */
-    ShowAllPostMsg: function (postkey) { return __awaiter(_this_1, void 0, void 0, function () {
+    ShowAllPostMsg: function (postkey) { return __awaiter(_this, void 0, void 0, function () {
         var allPostMsgList, postMsgHtmlTemplateList_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -254,10 +255,27 @@ var Post = {
         });
     }); },
     /**
+     * 點擊發送貼文 按鈕
+     * @param e
+     */
+    SubmitPostMsg: function (button) { return __awaiter(_this, void 0, void 0, function () {
+        var postMsgElement;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    postMsgElement = $(button).prev().children('.msgComment');
+                    return [4 /*yield*/, Post.SendPostMsg(postMsgElement)];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); },
+    /**
      * 發送貼文留言
      * @param postkey 貼文編號
      */
-    SendPostMsg: function (e) { return __awaiter(_this_1, void 0, void 0, function () {
+    SendPostMsg: function (e) { return __awaiter(_this, void 0, void 0, function () {
         var postMsg, currentPost, postkey, successFunc, errorFunc;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -270,6 +288,7 @@ var Post = {
                     successFunc = function (res) {
                         if (res.Data) {
                             currentPost.children('.div_post_msg_send').after(Post.PostMsgHtmlTemplate(res.Data));
+                            currentPost.find('.postMsgCount').html((Number(currentPost.find('.postMsgCount').html()) + 1).toString());
                             e.val('');
                         }
                     };

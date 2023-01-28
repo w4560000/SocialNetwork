@@ -307,35 +307,50 @@ function BasePostAPIByFormData(
  * 登入 API
  */
 function LoginAPI(loadingMsg: string, model: LoginReqViewModel, successFunc: Function, errorFunc: Function): void {
-    BasePostAPIV3<LoginReqViewModel>(loadingMsg, "/MemberApi/Login", model, successFunc, errorFunc);
+    let isNotification = false;
+    let isShowSuccessMsg = false;
+
+    BasePostAPIV3<LoginReqViewModel>(loadingMsg, "/MemberApi/Login", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 
 /**
  * Google 第三方登入 API
  */
 function GoogleLoginAPI(loadingMsg: string, model: GoogleLoginReqViewModel, successFunc: Function, errorFunc: Function): void {
-    BasePostAPIV3<GoogleLoginReqViewModel>(loadingMsg, "/MemberApi/GoogleLogin", model, successFunc, errorFunc);
+    let isNotification = false;
+    let isShowSuccessMsg = false;
+
+    BasePostAPIV3<GoogleLoginReqViewModel>(loadingMsg, "/MemberApi/GoogleLogin", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 
 /**
  * 寄送驗證碼 API
  */
 function SendVCodeAPI(loadingMsg: string, model: SendVCodeReqViewModel, successFunc: Function, errorFunc: Function): void {
-    BasePostAPIV3<SendVCodeReqViewModel>(loadingMsg, "/MemberApi/SendVCode", model, successFunc, errorFunc);
+    let isNotification = false;
+    let isShowSuccessMsg = false;
+
+    BasePostAPIV3<SendVCodeReqViewModel>(loadingMsg, "/MemberApi/SendVCode", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 
 /**
  * 註冊 API
  */
 function SignupAPI(loadingMsg: string, model: SignupReqViewModel, successFunc: Function, errorFunc: Function): void {
-    BasePostAPIV3<SignupReqViewModel>(loadingMsg, "/MemberApi/Signup", model, successFunc, errorFunc);
+    let isNotification = false;
+    let isShowSuccessMsg = false;
+
+    BasePostAPIV3<SignupReqViewModel>(loadingMsg, "/MemberApi/Signup", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 
 /**
  * 更新會員公開資訊 API
  */
 function UpdateMemberPublicInfoAPI(loadingMsg: string, model: UpdateMemberPublicInfoReqViewModel, successFunc: Function, errorFunc: Function): void {
-    BasePostAPIV3<UpdateMemberPublicInfoReqViewModel>(loadingMsg, "/MemberApi/UpdateMemberPublicInfo", model, successFunc, errorFunc);
+    let isNotification = false;
+    let isShowSuccessMsg = false;
+
+    BasePostAPIV3<UpdateMemberPublicInfoReqViewModel>(loadingMsg, "/MemberApi/UpdateMemberPublicInfo", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 
 /**
@@ -345,23 +360,31 @@ function UpdateMemberPublicInfoAPI(loadingMsg: string, model: UpdateMemberPublic
 function ResetPasswordAPI(loadingMsg: string, model: ResetPasswordReqViewModel): void {
     let successFunc = () => { };
     let errorFunc = () => { };
+    let isNotification = false;
+    let isShowSuccessMsg = false;
 
-    BasePostAPIV3<ResetPasswordReqViewModel>(loadingMsg, "/MemberApi/ResetPassword", model, successFunc, errorFunc);
+    BasePostAPIV3<ResetPasswordReqViewModel>(loadingMsg, "/MemberApi/ResetPassword", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 
 /**
  * 重設密碼 Step2 API
  */
 function ResetPasswordConfirmAPI(loadingMsg: string, model: ResetPasswordConfirmReqViewModel, successFunc: Function, errorFunc: Function): void {
-    BasePostAPIV3<ResetPasswordConfirmReqViewModel>(loadingMsg, "/MemberApi/ResetPasswordConfirm", model, successFunc, errorFunc);
+    let isNotification = false;
+    let isShowSuccessMsg = false;
+
+    BasePostAPIV3<ResetPasswordConfirmReqViewModel>(loadingMsg, "/MemberApi/ResetPasswordConfirm", model, successFunc, errorFunc), isNotification, isShowSuccessMsg;
 }
 
 /**
  * 登出 API
  */
 function LogoutAPI(loadingMsg: string, successFunc: Function, errorFunc: Function, confirmTitle: string): void {
+    let isNotification = false;
+    let isShowSuccessMsg = false;
+
     Common.SweetAlertConfirm(confirmTitle,
-        () => BaseGetAPI(loadingMsg, "/MemberApi/Logout", successFunc, errorFunc));
+        () => BaseGetAPI(loadingMsg, "/MemberApi/Logout", successFunc, errorFunc, isNotification, isShowSuccessMsg));
 }
 
 /**
@@ -370,7 +393,6 @@ function LogoutAPI(loadingMsg: string, successFunc: Function, errorFunc: Functio
 function UpdateMemberStatusAPI(model: UpdateMemberStatusReqViewModel): void {
     let successFunc = () => { };
     let errorFunc = () => { };
-
     let isNotification = true;
     let isShowSuccessMsg = true;
 
@@ -383,9 +405,9 @@ function UpdateMemberStatusAPI(model: UpdateMemberStatusReqViewModel): void {
 async function GetCurrentMemberInfoAPI(): Promise<GetMemberInfoResViewModel> {
     let successFunc = () => { };
     let errorFunc = () => { };
-
     let isNotification = false;
     let isShowSuccessMsg = false;
+
     return await BaseGetAPI<GetMemberInfoResViewModel>('', "/MemberApi/GetCurrentMemberInfo", successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 
@@ -395,9 +417,9 @@ async function GetCurrentMemberInfoAPI(): Promise<GetMemberInfoResViewModel> {
 async function GetMemberInfoAPI(memberID: number): Promise<GetMemberInfoResViewModel> {
     let successFunc = () => { };
     let errorFunc = () => { };
-
     let isNotification = false;
     let isShowSuccessMsg = false;
+
     return await BaseGetAPI<GetMemberInfoResViewModel>('', `/MemberApi/GetMemberInfo/${memberID}`, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 
@@ -405,16 +427,34 @@ async function GetMemberInfoAPI(memberID: number): Promise<GetMemberInfoResViewM
  * 更新會員資訊 API
  */
 function UpdateMemberInfoAPI(loadingMsg: string, formData: FormData, successFunc: Function, errorFunc: Function, confirmTitle: string): void {
+    let isNotification = false;
+    let isShowSuccessMsg = false;
+
     Common.SweetAlertConfirm(confirmTitle,
-        () => BasePostAPIByFormData(loadingMsg, "/MemberApi/UpdateMemberInfo", formData, successFunc, errorFunc));
+        () => BasePostAPIByFormData(loadingMsg, "/MemberApi/UpdateMemberInfo", formData, successFunc, errorFunc, isNotification, isShowSuccessMsg));
 }
 
 /**
  * 密碼變更 API
  */
 function ChangePasswordAPI(loadingMsg: string, model: ChangePasswordReqViewModel, successFunc: Function, errorFunc: Function, confirmTitle: string): void {
+    let isNotification = false;
+    let isShowSuccessMsg = false;
+
     Common.SweetAlertConfirm(confirmTitle,
-        () => BasePostAPIV3<ChangePasswordReqViewModel>(loadingMsg, "/MemberApi/ChangePassword", model, successFunc, errorFunc));
+        () => BasePostAPIV3<ChangePasswordReqViewModel>(loadingMsg, "/MemberApi/ChangePassword", model, successFunc, errorFunc, isNotification, isShowSuccessMsg));
+}
+
+/**
+ * 搜尋會員 API
+ */
+async function SearchMemberAPI(model: SearchMemberReqViewModel): Promise<SearchMemberResViewModel> {
+    let successFunc = () => { };
+    let errorFunc = () => { };
+    let isNotification = false;
+    let isShowSuccessMsg = false;
+
+    return await BasePostAPIV2<SearchMemberReqViewModel, SearchMemberResViewModel>('', `/MemberApi/SearchMember`, model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 
 // Post
@@ -423,8 +463,11 @@ function ChangePasswordAPI(loadingMsg: string, model: ChangePasswordReqViewModel
  * 發佈貼文 API
  */
 function PublishPostAPI(loadingMsg: string, formData: FormData, successFunc: Function, errorFunc: Function, confirmTitle: string): void {
+    let isNotification = false;
+    let isShowSuccessMsg = false;
+
     Common.SweetAlertConfirm(confirmTitle,
-        () => BasePostAPIByFormData(loadingMsg, "/PostApi/PublishPost", formData, successFunc, errorFunc));
+        () => BasePostAPIByFormData(loadingMsg, "/PostApi/PublishPost", formData, successFunc, errorFunc, isNotification, isShowSuccessMsg));
 }
 
 /**
@@ -433,9 +476,9 @@ function PublishPostAPI(loadingMsg: string, formData: FormData, successFunc: Fun
 async function GetIndexPostAPI(model: QueryRowMemberReqViewModel): Promise<Array<GetPostResViewModel>> {
     let successFunc = () => { };
     let errorFunc = () => { };
-
     let isNotification = false;
     let isShowSuccessMsg = false;
+
     return await BasePostAPIV2<CommonMemberViewModel, Array<GetPostResViewModel>>('', "/PostApi/GetIndexPost", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 
@@ -445,9 +488,9 @@ async function GetIndexPostAPI(model: QueryRowMemberReqViewModel): Promise<Array
 async function GetHomePagePostAPI(model: QueryRowMemberReqViewModel): Promise<Array<GetPostResViewModel>> {
     let successFunc = () => { };
     let errorFunc = () => { };
-
     let isNotification = false;
     let isShowSuccessMsg = false;
+
     return await BasePostAPIV2<CommonMemberViewModel, Array<GetPostResViewModel>>('', "/PostApi/GetHomePagePost", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 
@@ -457,9 +500,9 @@ async function GetHomePagePostAPI(model: QueryRowMemberReqViewModel): Promise<Ar
 async function GetPostAllMsgAPI(model: CommonPostViewModel): Promise<Array<GetPostMsgResViewModel>> {
     let successFunc = () => { };
     let errorFunc = () => { };
-
     let isNotification = false;
     let isShowSuccessMsg = false;
+
     return await BasePostAPIV2<CommonPostViewModel, Array<GetPostMsgResViewModel>>('', "/PostApi/GetPostAllMsg", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 
@@ -469,6 +512,7 @@ async function GetPostAllMsgAPI(model: CommonPostViewModel): Promise<Array<GetPo
 function TogglePostLikeAPI(model: TogglePostLikeReqViewModel, successFunc: Function, errorFunc: Function): void {
     let isNotification = false;
     let isShowSuccessMsg = false;
+
     BasePostAPIV3<TogglePostLikeReqViewModel>('', "/PostApi/TogglePostLike", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 
@@ -489,9 +533,9 @@ async function SendPostMsgAPI(model: SendPostMsgReqViewModel, successFunc: Funct
 async function GetFriendListAPI(): Promise<Array<GetFriendListResViewModel>> {
     let successFunc = () => { };
     let errorFunc = () => { };
-
     let isNotification = false;
     let isShowSuccessMsg = false;
+
     return await BasePostAPIV1<Array<GetFriendListResViewModel>>('', "/FriendApi/GetFriendList", successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 
@@ -501,9 +545,9 @@ async function GetFriendListAPI(): Promise<Array<GetFriendListResViewModel>> {
 async function GetFriendInvitationListAPI(): Promise<Array<GetFriendListResViewModel>> {
     let successFunc = () => { };
     let errorFunc = () => { };
-
     let isNotification = false;
     let isShowSuccessMsg = false;
+
     return await BasePostAPIV1<Array<GetFriendListResViewModel>>('', "/FriendApi/GetFriendInvitationList", successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 
@@ -513,9 +557,9 @@ async function GetFriendInvitationListAPI(): Promise<Array<GetFriendListResViewM
 async function GetSendFriendInvitationListAPI(): Promise<Array<GetFriendListResViewModel>> {
     let successFunc = () => { };
     let errorFunc = () => { };
-
     let isNotification = false;
     let isShowSuccessMsg = false;
+
     return await BasePostAPIV1<Array<GetFriendListResViewModel>>('', "/FriendApi/GetSendFriendInvitationList", successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 
@@ -525,9 +569,9 @@ async function GetSendFriendInvitationListAPI(): Promise<Array<GetFriendListResV
 async function GetFriendStatusAPI(model: CommonMemberViewModel): Promise<GetFriendStatusResViewModel> {
     let successFunc = () => { };
     let errorFunc = () => { };
-
     let isNotification = false;
     let isShowSuccessMsg = false;
+
     return await BasePostAPIV2<CommonMemberViewModel, GetFriendStatusResViewModel>('', "/FriendApi/GetFriendStatus", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 
@@ -536,9 +580,11 @@ async function GetFriendStatusAPI(model: CommonMemberViewModel): Promise<GetFrie
  */
 function SendFriendInvitationAPI(model: CommonMemberViewModel, successFunc: Function, confirmTitle: string): void {
     let errorFunc = () => { };
+    let isNotification = false;
+    let isShowSuccessMsg = false;
 
     Common.SweetAlertConfirm(confirmTitle,
-        () => BasePostAPIV3<CommonMemberViewModel>('', "/FriendApi/SendFriendInvitation", model, successFunc, errorFunc));
+        () => BasePostAPIV3<CommonMemberViewModel>('', "/FriendApi/SendFriendInvitation", model, successFunc, errorFunc, isNotification, isShowSuccessMsg));
 }
 
 /**
@@ -546,9 +592,11 @@ function SendFriendInvitationAPI(model: CommonMemberViewModel, successFunc: Func
  */
 function DecideFriendInvitationAPI(model: DecideFriendInvitationReqViewModel, successFunc: Function, confirmTitle: string): void {
     let errorFunc = () => { };
+    let isNotification = false;
+    let isShowSuccessMsg = false;
 
     Common.SweetAlertConfirm(confirmTitle,
-        () => BasePostAPIV3<DecideFriendInvitationReqViewModel>('', "/FriendApi/DecideFriendInvitation", model, successFunc, errorFunc));
+        () => BasePostAPIV3<DecideFriendInvitationReqViewModel>('', "/FriendApi/DecideFriendInvitation", model, successFunc, errorFunc, isNotification, isShowSuccessMsg));
 }
 
 /**
@@ -556,9 +604,11 @@ function DecideFriendInvitationAPI(model: DecideFriendInvitationReqViewModel, su
  */
 function RevokeFriendInvitationAPI(model: CommonMemberViewModel, successFunc: Function, confirmTitle: string): void {
     let errorFunc = () => { };
-    
+    let isNotification = false;
+    let isShowSuccessMsg = false;
+
     Common.SweetAlertConfirm(confirmTitle,
-        () => BasePostAPIV3<CommonMemberViewModel>('', "/FriendApi/RevokeFriendInvitation", model, successFunc, errorFunc));
+        () => BasePostAPIV3<CommonMemberViewModel>('', "/FriendApi/RevokeFriendInvitation", model, successFunc, errorFunc, isNotification, isShowSuccessMsg));
 }
 
 /**
@@ -566,7 +616,9 @@ function RevokeFriendInvitationAPI(model: CommonMemberViewModel, successFunc: Fu
  */
 function DeleteFriendAPI(model: CommonMemberViewModel, successFunc: Function, confirmTitle: string): void {
     let errorFunc = () => { };
+    let isNotification = false;
+    let isShowSuccessMsg = false;
 
     Common.SweetAlertConfirm(confirmTitle,
-        () => BasePostAPIV3<CommonMemberViewModel>('', "/FriendApi/DeleteFriend", model, successFunc, errorFunc));
+        () => BasePostAPIV3<CommonMemberViewModel>('', "/FriendApi/DeleteFriend", model, successFunc, errorFunc, isNotification, isShowSuccessMsg));
 }

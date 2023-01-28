@@ -189,8 +189,7 @@ class TogglePostLikeReqViewModel {
 
     constructor(
         postKey: number,
-        toggle: ToggleEnum
-    ) {
+        toggle: ToggleEnum) {
         this.PostKey = postKey;
         this.Toggle = toggle;
     }
@@ -205,9 +204,20 @@ class SendPostMsgReqViewModel {
 
     constructor(
         postKey: number,
-        msg: string
-    ) {
+        msg: string) {
         this.PostKey = postKey;
         this.Msg = msg;
+    }
+}
+
+/**
+ * 搜尋會員 Request ViewModel
+ * */
+class SearchMemberReqViewModel {
+    NickName: string;
+
+    constructor(
+        nickName: string) {
+        this.NickName = nickName
     }
 }

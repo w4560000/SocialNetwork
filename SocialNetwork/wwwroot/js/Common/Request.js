@@ -152,3 +152,12 @@ var SendPostMsgReqViewModel = /** @class */ (function () {
     }
     return SendPostMsgReqViewModel;
 }());
+/**
+ * 搜尋會員 Request ViewModel
+ * */
+var SearchMemberReqViewModel = /** @class */ (function () {
+    function SearchMemberReqViewModel(nickName) {
+        this.NickName = nickName;
+    }
+    return SearchMemberReqViewModel;
+}());

@@ -506,17 +506,56 @@ outline: 0;";
         /// </summary>
         /// <param name="model">搜尋會員 Request ViewModel</param>
         /// <returns>搜尋結果</returns>
-        public async Task<ResponseViewModel<List<SearchMemberResViewModel>>> SearchMember(SearchMemberReqViewModel model)
+        public async Task<ResponseViewModel<SearchMemberResViewModel>> SearchMember(SearchMemberReqViewModel model)
         {
-            string sql = @$"
-SELECT TOP 10 a.MemberID, a.NickName, a.ProfilePhotoURL
+            var result = new SearchMemberResViewModel();
+
+            int totalCount = 8;
+
+            var queryFriendParam = new
+            {
+                this.UserContext.User.MemberID,
+                NickName = $"%{model.NickName}%"
+            };
+
+            var queryFriendSql = @$"
+                             SELECT TOP {totalCount} a.MemberID, a.NickName, a.ProfilePhotoURL
+                             FROM Member a
+                             WHERE MemberID IN (
+					                             SELECT FriendMemberID FROM [SocialNetwork].[dbo].[Friend]
+					                             WHERE MemberID = @MemberID
+					                             UNION
+					                             SELECT MemberID FROM [SocialNetwork].[dbo].[Friend]
+					                             WHERE FriendMemberID = @memberID
+				                               )
+                                AND NickName LIKE @NickName
+                            ORDER BY a.CreatedAt ASC";
+
+            var friendList = (await this.MemberRepository.QueryAsync<SearchMemberInfoResViewModel>(queryFriendSql, queryFriendParam)).ToList();
+            result.FriendList = friendList;
+
+            int queryMemberCount = totalCount - friendList.Count;
+
+            if (queryMemberCount == 0)
+                return CommonExtension.AsSuccessResponse("搜尋會員成功", result);
+
+            var queryMemberParam = new
+            {
+                NickName = $"%{model.NickName}%",
+                ExcludeMemberIDList = friendList.Select(s => s.MemberID).ToList().Concat(new List<int>() { this.UserContext.User.MemberID })
+            };
+
+            string queryMembersql = @$"
+SELECT TOP {queryMemberCount} a.MemberID, a.NickName, a.ProfilePhotoURL
 FROM dbo.Member a
 WHERE a.NickName LIKE @NickName
-ORDER BY CreatedAt ASC";
+    AND a.MemberID NOT IN @ExcludeMemberIDList
+ORDER BY a.CreatedAt ASC";
 
-            var memberList = (await this.MemberRepository.QueryAsync<SearchMemberResViewModel>(sql, new { NickName = $"%{model.NickName}%" })).ToList();
+            var memberList = (await this.MemberRepository.QueryAsync<SearchMemberInfoResViewModel>(queryMembersql, queryMemberParam)).ToList();
+            result.MemberList = memberList;
 
-            return CommonExtension.AsSuccessResponse("搜尋會員成功", memberList);
+            return CommonExtension.AsSuccessResponse("搜尋會員成功", result);
         }
 
         /// <summary>

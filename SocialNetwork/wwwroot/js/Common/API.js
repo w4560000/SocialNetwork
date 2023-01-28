@@ -300,31 +300,41 @@ function BasePostAPIByFormData(loadingMsg, api, formData, successFunc, errorFunc
  * 登入 API
  */
 function LoginAPI(loadingMsg, model, successFunc, errorFunc) {
-    BasePostAPIV3(loadingMsg, "/MemberApi/Login", model, successFunc, errorFunc);
+    var isNotification = false;
+    var isShowSuccessMsg = false;
+    BasePostAPIV3(loadingMsg, "/MemberApi/Login", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 /**
  * Google 第三方登入 API
  */
 function GoogleLoginAPI(loadingMsg, model, successFunc, errorFunc) {
-    BasePostAPIV3(loadingMsg, "/MemberApi/GoogleLogin", model, successFunc, errorFunc);
+    var isNotification = false;
+    var isShowSuccessMsg = false;
+    BasePostAPIV3(loadingMsg, "/MemberApi/GoogleLogin", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 /**
  * 寄送驗證碼 API
  */
 function SendVCodeAPI(loadingMsg, model, successFunc, errorFunc) {
-    BasePostAPIV3(loadingMsg, "/MemberApi/SendVCode", model, successFunc, errorFunc);
+    var isNotification = false;
+    var isShowSuccessMsg = false;
+    BasePostAPIV3(loadingMsg, "/MemberApi/SendVCode", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 /**
  * 註冊 API
  */
 function SignupAPI(loadingMsg, model, successFunc, errorFunc) {
-    BasePostAPIV3(loadingMsg, "/MemberApi/Signup", model, successFunc, errorFunc);
+    var isNotification = false;
+    var isShowSuccessMsg = false;
+    BasePostAPIV3(loadingMsg, "/MemberApi/Signup", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 /**
  * 更新會員公開資訊 API
  */
 function UpdateMemberPublicInfoAPI(loadingMsg, model, successFunc, errorFunc) {
-    BasePostAPIV3(loadingMsg, "/MemberApi/UpdateMemberPublicInfo", model, successFunc, errorFunc);
+    var isNotification = false;
+    var isShowSuccessMsg = false;
+    BasePostAPIV3(loadingMsg, "/MemberApi/UpdateMemberPublicInfo", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 /**
  * 重設密碼 Step1 API
@@ -333,19 +343,25 @@ function UpdateMemberPublicInfoAPI(loadingMsg, model, successFunc, errorFunc) {
 function ResetPasswordAPI(loadingMsg, model) {
     var successFunc = function () { };
     var errorFunc = function () { };
-    BasePostAPIV3(loadingMsg, "/MemberApi/ResetPassword", model, successFunc, errorFunc);
+    var isNotification = false;
+    var isShowSuccessMsg = false;
+    BasePostAPIV3(loadingMsg, "/MemberApi/ResetPassword", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 /**
  * 重設密碼 Step2 API
  */
 function ResetPasswordConfirmAPI(loadingMsg, model, successFunc, errorFunc) {
-    BasePostAPIV3(loadingMsg, "/MemberApi/ResetPasswordConfirm", model, successFunc, errorFunc);
+    var isNotification = false;
+    var isShowSuccessMsg = false;
+    BasePostAPIV3(loadingMsg, "/MemberApi/ResetPasswordConfirm", model, successFunc, errorFunc), isNotification, isShowSuccessMsg;
 }
 /**
  * 登出 API
  */
 function LogoutAPI(loadingMsg, successFunc, errorFunc, confirmTitle) {
-    Common.SweetAlertConfirm(confirmTitle, function () { return BaseGetAPI(loadingMsg, "/MemberApi/Logout", successFunc, errorFunc); });
+    var isNotification = false;
+    var isShowSuccessMsg = false;
+    Common.SweetAlertConfirm(confirmTitle, function () { return BaseGetAPI(loadingMsg, "/MemberApi/Logout", successFunc, errorFunc, isNotification, isShowSuccessMsg); });
 }
 /**
  * 更新會員狀態 API
@@ -399,20 +415,45 @@ function GetMemberInfoAPI(memberID) {
  * 更新會員資訊 API
  */
 function UpdateMemberInfoAPI(loadingMsg, formData, successFunc, errorFunc, confirmTitle) {
-    Common.SweetAlertConfirm(confirmTitle, function () { return BasePostAPIByFormData(loadingMsg, "/MemberApi/UpdateMemberInfo", formData, successFunc, errorFunc); });
+    var isNotification = false;
+    var isShowSuccessMsg = false;
+    Common.SweetAlertConfirm(confirmTitle, function () { return BasePostAPIByFormData(loadingMsg, "/MemberApi/UpdateMemberInfo", formData, successFunc, errorFunc, isNotification, isShowSuccessMsg); });
 }
 /**
  * 密碼變更 API
  */
 function ChangePasswordAPI(loadingMsg, model, successFunc, errorFunc, confirmTitle) {
-    Common.SweetAlertConfirm(confirmTitle, function () { return BasePostAPIV3(loadingMsg, "/MemberApi/ChangePassword", model, successFunc, errorFunc); });
+    var isNotification = false;
+    var isShowSuccessMsg = false;
+    Common.SweetAlertConfirm(confirmTitle, function () { return BasePostAPIV3(loadingMsg, "/MemberApi/ChangePassword", model, successFunc, errorFunc, isNotification, isShowSuccessMsg); });
+}
+/**
+ * 搜尋會員 API
+ */
+function SearchMemberAPI(model) {
+    return __awaiter(this, void 0, void 0, function () {
+        var successFunc, errorFunc, isNotification, isShowSuccessMsg;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    successFunc = function () { };
+                    errorFunc = function () { };
+                    isNotification = false;
+                    isShowSuccessMsg = false;
+                    return [4 /*yield*/, BasePostAPIV2('', "/MemberApi/SearchMember", model, successFunc, errorFunc, isNotification, isShowSuccessMsg)];
+                case 1: return [2 /*return*/, _a.sent()];
+            }
+        });
+    });
 }
 // Post
 /**
  * 發佈貼文 API
  */
 function PublishPostAPI(loadingMsg, formData, successFunc, errorFunc, confirmTitle) {
-    Common.SweetAlertConfirm(confirmTitle, function () { return BasePostAPIByFormData(loadingMsg, "/PostApi/PublishPost", formData, successFunc, errorFunc); });
+    var isNotification = false;
+    var isShowSuccessMsg = false;
+    Common.SweetAlertConfirm(confirmTitle, function () { return BasePostAPIByFormData(loadingMsg, "/PostApi/PublishPost", formData, successFunc, errorFunc, isNotification, isShowSuccessMsg); });
 }
 /**
  * 取得首頁貼文 (自己和朋友) API
@@ -578,26 +619,34 @@ function GetFriendStatusAPI(model) {
  */
 function SendFriendInvitationAPI(model, successFunc, confirmTitle) {
     var errorFunc = function () { };
-    Common.SweetAlertConfirm(confirmTitle, function () { return BasePostAPIV3('', "/FriendApi/SendFriendInvitation", model, successFunc, errorFunc); });
+    var isNotification = false;
+    var isShowSuccessMsg = false;
+    Common.SweetAlertConfirm(confirmTitle, function () { return BasePostAPIV3('', "/FriendApi/SendFriendInvitation", model, successFunc, errorFunc, isNotification, isShowSuccessMsg); });
 }
 /**
  * 判斷好友邀請 (接受 or 拒絕) API
  */
 function DecideFriendInvitationAPI(model, successFunc, confirmTitle) {
     var errorFunc = function () { };
-    Common.SweetAlertConfirm(confirmTitle, function () { return BasePostAPIV3('', "/FriendApi/DecideFriendInvitation", model, successFunc, errorFunc); });
+    var isNotification = false;
+    var isShowSuccessMsg = false;
+    Common.SweetAlertConfirm(confirmTitle, function () { return BasePostAPIV3('', "/FriendApi/DecideFriendInvitation", model, successFunc, errorFunc, isNotification, isShowSuccessMsg); });
 }
 /**
  * 收回好友邀請 API
  */
 function RevokeFriendInvitationAPI(model, successFunc, confirmTitle) {
     var errorFunc = function () { };
-    Common.SweetAlertConfirm(confirmTitle, function () { return BasePostAPIV3('', "/FriendApi/RevokeFriendInvitation", model, successFunc, errorFunc); });
+    var isNotification = false;
+    var isShowSuccessMsg = false;
+    Common.SweetAlertConfirm(confirmTitle, function () { return BasePostAPIV3('', "/FriendApi/RevokeFriendInvitation", model, successFunc, errorFunc, isNotification, isShowSuccessMsg); });
 }
 /**
  * 刪除好友 API
  */
 function DeleteFriendAPI(model, successFunc, confirmTitle) {
     var errorFunc = function () { };
-    Common.SweetAlertConfirm(confirmTitle, function () { return BasePostAPIV3('', "/FriendApi/DeleteFriend", model, successFunc, errorFunc); });
+    var isNotification = false;
+    var isShowSuccessMsg = false;
+    Common.SweetAlertConfirm(confirmTitle, function () { return BasePostAPIV3('', "/FriendApi/DeleteFriend", model, successFunc, errorFunc, isNotification, isShowSuccessMsg); });
 }

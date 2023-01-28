@@ -10,7 +10,7 @@
 <script>
     $(document).ready(async function () {
         HomePage.Init();
-        await Post.Init(@((int)PostTypeEnum.個人首頁));
+        await Post.Init(@((int)PostTypeEnum.個人首頁), @ViewBag.QueryMemberID);
 
         $(".PostContent").lightSlider({
             gallery: true, // 相本模式
@@ -98,6 +98,6 @@
             </div>
         </div>
     </div>
-    <partial name="~/Views/Shared/Templates/_PushlishPost.cshtml" />
+    <partial name="~/Views/Shared/Templates/_PushlishPost.cshtml" model='(int)PostTypeEnum.個人首頁' />
     <div id="post"></div>
 </div>

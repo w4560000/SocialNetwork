@@ -44,7 +44,8 @@
 
         let model = new LoginReqViewModel($('#login_account').val() as string, $('#login_password').val() as string);
         let successFunc = () => {
-            Common.SweetAlertRedirect("/Home/Index", "首頁");
+            // Common.SweetAlertRedirect("/Home/Index", "首頁");
+            window.location.href = '/Home/Index';
         };
         let errorFunc = () => { };
         LoginAPI("登入中", model, successFunc, errorFunc);
@@ -63,7 +64,8 @@
                         return;
                     }
 
-                    Common.SweetAlertRedirect("/Home/Index", "首頁");
+                    // Common.SweetAlertRedirect("/Home/Index", "首頁");
+                    window.location.href = '/Home/Index';
                 };
                 let errorFunc = () => { };
                 let model = new GoogleLoginReqViewModel(response.code);
@@ -146,7 +148,8 @@
             Number($('#infoEducation').val()),
             infoStatus);
         let successFunc = () => {
-            Common.SweetAlertRedirect('/Home/Index', '首頁');
+            // Common.SweetAlertRedirect('/Home/Index', '首頁');
+            window.location.href = '/Home/Index';
         };
         let errorFunc = () => { };
 
