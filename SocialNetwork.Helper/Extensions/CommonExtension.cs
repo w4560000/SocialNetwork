@@ -15,7 +15,6 @@ namespace SocialNetwork.Helper
         /// <summary>
         /// AsSuccessResponse
         /// </summary>
-        /// <typeparam name="T">type of data</typeparam>
         /// <param name="message">message</param>
         /// <returns>SuccessResponse</returns>
         public static ResponseViewModel AsSuccessResponse(this string message)

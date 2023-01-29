@@ -52,5 +52,11 @@ namespace SocialNetwork.Service
         /// <returns>發送結果</returns>
         Task<ResponseViewModel<GetPostMsgResViewModel>> SendPostMsg(SendPostMsgReqViewModel model);
 
+        /// <summary>
+        /// 刪除貼文
+        /// </summary>
+        /// <param name="model">刪除貼文 Request ViewModel</param>
+        /// <returns>刪除結果</returns>
+        Task<ResponseViewModel> DeletePostAsync(CommonPostViewModel model);
     }
 }

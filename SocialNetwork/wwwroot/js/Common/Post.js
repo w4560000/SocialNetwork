@@ -166,7 +166,8 @@ var Post = {
      * @param model 貼文 ViewModel
      */
     PostHtmlTemplate: function (model) {
-        return "\n<div class=\"div_post\" PostKey=\"".concat(model.PostKey, "\" MemberID=\"").concat(model.MemberID, "\">\n    <div class=\"div_post_content\">\n        <div class=\"post_content_topBar\">\n            <div class=\"postPhoto_container\">\n                <img class=\"postPhoto\" src=\"").concat(model.ProfilePhotoUrl, "\" />\n            </div>\n            <div class=\"postProfile\">\n                <div>").concat(model.NickName, "</div>\n                <span class=\"time\"title=\"").concat(Common.DateFormat(model.PostDateTime.toString()), "\">").concat(Post.PostDateTimeFilter(model.PostDateTime.toString()), "</span>\n            </div>\n            <div class=\"postAction\" tabindex=\"-1\" PostKey=\"").concat(model.PostKey, "\" onclick=\"Post.TogglePostAction(this)\">\u22EE\n            <ul class=\"ul_postAction\" PostKey=\"").concat(model.PostKey, "\">\n                <li><a PostKey=\"").concat(model.PostKey, "\">\u522A\u9664</a></li>\n                <li><a PostKey=\"").concat(model.PostKey, "\">\u7DE8\u8F2F</a></li>\n            </ul>\n            </div>\n        </div>\n        <div class=\"post_body\">\n            <div class=\"post_body_content\">").concat(model.PostContent, "</div>\n            <div style=\"margin-top: 10px;\">\n                <ul class=\"PostPhoto\" PostKey=\"").concat(model.PostKey, "\">\n                    ").concat(Post.PostImageHtmlTemplate(model.PostImageUrlList), "\n                </ul>\n            </div>\n        </div>\n        <div class=\"post_footerBar\">\n            <div class=\"post_footer_container\">\n                <div class=\"post_footer_img\" onclick=\"Post.TogglePostLike(").concat(model.PostKey, ")\">\n                    <img class=\"postLike ").concat(model.IsCurrnetMemberPostLiked ? 'postLiked' : '', "\" src=\"/images/post/thumb_up_black_24dp.svg\" />\n                </div>\n                <span class=\"post_footer_number postLikeCount\">").concat(model.PostLike, "</span>\n            </div>\n            <div class=\"post_footer_container\">\n                <div class=\"post_footer_img\">\n                    <img class=\"postMsg\" src=\"/images/post/textsms_black_24dp.svg\" />\n                </div>\n                <span class=\"post_footer_number postMsgCount\">").concat(model.TotalPostMsgCount, "</span>\n            </div>\n            <div class=\"post_footer_container\">\n                <img class=\"postShare\" src=\"/images/post/share_black_24dp.svg\" />\n            </div>\n        </div>\n    </div>\n    <div class=\"div_post_msg_send\">\n        <div class=\"post_msgPhoto_container\">\n            <img class=\"post_msgPhoto\" src=\"").concat(user.ProfilePhotoUrl, "\">\n        </div>\n        <div class=\"post_msg_comment\">\n            <textarea class=\"msgComment\" placeholder=\"\u7559\u8A00...\"></textarea>\n        </div>\n        <div class=\"post_msg_submit\" onclick=\"Post.SubmitPostMsg(this)\">\n            <img class=\"msgSend\" src=\"/images/post/send_black_24dp.svg\">\n        </div>\n    </div>\n\n    ").concat(Post.ShowPostMsg(model.PostKey, model.PostMsgList, model.TotalPostMsgCount), "\n</div>");
+        return "\n<div class=\"div_post\" PostKey=\"".concat(model.PostKey, "\" MemberID=\"").concat(model.MemberID, "\">\n    <div class=\"div_post_content\">\n        <div class=\"post_content_topBar\">\n            <div class=\"postPhoto_container\">\n                <img class=\"postPhoto\" src=\"").concat(model.ProfilePhotoUrl, "\" />\n            </div>\n            <div class=\"postProfile\">\n                <div>").concat(model.NickName, "</div>\n                <span class=\"time\" title=\"").concat(Common.DateFormat(model.PostDateTime.toString()), "\">").concat(Post.PostDateTimeFilter(model.PostDateTime.toString()), "</span>\n            </div>\n            ").concat((model.MemberID === user.MemberID ?
+            "<div class=\"postAction\" tabindex=\"-1\" PostKey=\"".concat(model.PostKey, "\" onclick=\"Post.TogglePostAction(this)\">\u22EE\n                <ul class=\"ul_postAction\" PostKey=\"").concat(model.PostKey, "\">\n                    <li><a PostKey=\"").concat(model.PostKey, "\" onclick=\"Post.DeletePost(this)\">\u522A\u9664</a></li>\n                    <!-- todo <li><a PostKey=\"").concat(model.PostKey, "\">\u7DE8\u8F2F</a></li> -->\n                </ul>\n            </div>") : ''), "\n            \n        </div>\n        <div class=\"post_body\">\n            <div class=\"post_body_content\">").concat(model.PostContent, "</div>\n            <div style=\"margin-top: 10px;\">\n                <ul class=\"PostPhoto\" PostKey=\"").concat(model.PostKey, "\">\n                    ").concat(Post.PostImageHtmlTemplate(model.PostImageUrlList), "\n                </ul>\n            </div>\n        </div>\n        <div class=\"post_footerBar\">\n            <div class=\"post_footer_container\">\n                <div class=\"post_footer_img\" onclick=\"Post.TogglePostLike(").concat(model.PostKey, ")\">\n                    <img class=\"postLike ").concat(model.IsCurrnetMemberPostLiked ? 'postLiked' : '', "\" src=\"/images/post/thumb_up_black_24dp.svg\" />\n                </div>\n                <span class=\"post_footer_number postLikeCount\">").concat(model.PostLike, "</span>\n            </div>\n            <div class=\"post_footer_container\">\n                <div class=\"post_footer_img postMsgContainer\" onclick=\"Post.FocusMsg(this)\">\n                    <img class=\"postMsg\" src=\"/images/post/textsms_black_24dp.svg\" />\n                </div>\n                <span class=\"post_footer_number postMsgCount\">").concat(model.TotalPostMsgCount, "</span>\n            </div>\n            <div class=\"post_footer_container\">\n                <img class=\"postShare\" src=\"/images/post/share_black_24dp.svg\" />\n            </div>\n        </div>\n    </div>\n    <div class=\"div_post_msg_send\">\n        <div class=\"post_msgPhoto_container\">\n            <img class=\"post_msgPhoto\" src=\"").concat(user.ProfilePhotoUrl, "\">\n        </div>\n        <div class=\"post_msg_comment\">\n            <textarea class=\"msgComment\" placeholder=\"\u7559\u8A00...\"></textarea>\n        </div>\n        <div class=\"post_msg_submit\" onclick=\"Post.SubmitPostMsg(this)\">\n            <img class=\"msgSend\" src=\"/images/post/send_black_24dp.svg\">\n        </div>\n    </div>\n\n    ").concat(Post.ShowPostMsg(model.PostKey, model.PostMsgList, model.TotalPostMsgCount), "\n</div>");
     },
     /**
      * 貼文圖片 Html Template
@@ -273,7 +274,7 @@ var Post = {
     }); },
     /**
      * 發送貼文留言
-     * @param postkey 貼文編號
+     * @param e element
      */
     SendPostMsg: function (e) { return __awaiter(_this, void 0, void 0, function () {
         var postMsg, currentPost, postkey, successFunc, errorFunc;
@@ -300,6 +301,26 @@ var Post = {
             }
         });
     }); },
+    /**
+     * 點選Msg Icon 自動Focus留言輸入框
+     * @param e element
+     */
+    FocusMsg: function (e) {
+        var currentPost = $(e).parents('.div_post');
+        currentPost.find('.msgComment').focus();
+    },
+    /**
+     * 刪除貼文
+     * @param e element
+     */
+    DeletePost: function (e) {
+        var postkey = Number($(e).attr('postkey'));
+        var successFunc = function () {
+            $(e).parents('.div_post').remove();
+        };
+        var errorFunc = function () { };
+        DeletePostAPI(new CommonPostViewModel(postkey), successFunc, errorFunc, '確定是否刪除貼文?');
+    },
     /**
      * Source Code 參考
      * https://www.cnblogs.com/miangao/p/13229050.html

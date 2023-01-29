@@ -88,7 +88,7 @@ var HomePage = {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    if (!$("#query_memberID").val()) return [3 /*break*/, 2];
+                    if (!($("#query_memberID").val() != 0)) return [3 /*break*/, 2];
                     $('.div_homePage_topBar').html("".concat(memberInfo.NickName, "\u7684\u500B\u4EBA\u4E3B\u9801"));
                     model = new CommonMemberViewModel(memberInfo.MemberID);
                     return [4 /*yield*/, GetFriendStatusAPI(model)];

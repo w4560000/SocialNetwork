@@ -34,11 +34,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var _this = this;
+var _this_1 = this;
 var user;
 var chatHubConnection;
 var LayoutPage = {
-    Init: function (_user) { return __awaiter(_this, void 0, void 0, function () {
+    Init: function (_user) { return __awaiter(_this_1, void 0, void 0, function () {
         var friendList;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -60,6 +60,13 @@ var LayoutPage = {
                             var ul = $(".ul_postAction[postkey=".concat(tempSelectPostKey, "]"));
                             if (ul.is(':visible')) {
                                 ul.toggle();
+                            }
+                        }
+                        // 點選其他 element 時 自動隱藏搜尋會員區塊
+                        if (currentElemetClass === undefined || (currentElemetClass !== undefined && !currentElemetClass.includes('member_search '))) {
+                            if ($('.member_search_result').is(':visible')) {
+                                $('.member_search_result').hide();
+                                $('.member_search_content').empty();
                             }
                         }
                     });
@@ -88,7 +95,7 @@ var LayoutPage = {
                     friendList = _a.sent();
                     LayoutPage.ReflashFriendList(friendList);
                     // 綁定會員搜尋輸入框 input Event
-                    $('.member_search').on('input', function (e) {
+                    $('.member_search').on('input focus', function (e) {
                         return __awaiter(this, void 0, void 0, function () {
                             var _this, model, searchMemberResult, searchMemberHtml_1;
                             return __generator(this, function (_a) {

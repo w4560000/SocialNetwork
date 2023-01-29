@@ -91,7 +91,6 @@ namespace SocialNetwork.Service
                 MemberID = this.UserContext.User.MemberID,
                 PostContent = model.Post,
                 PostImageUrl = PhotoFileUrls,
-                Status = PostStatusEnum.Publish
             };
 
             this.PostRepository.Add<int>(postEntity);
@@ -196,12 +195,43 @@ WHEN NOT MATCHED AND data.Toggle = {(int)ToggleEnum.On} THEN
 
             var postMsgKey = await this.PostMsgRepository.AddAsync<int>(postMsgEntity);
 
-            if(postMsgKey == 0)
+            if (postMsgKey == 0)
                 return CommonExtension.AsSystemFailResponse<GetPostMsgResViewModel>();
 
             var postMsg = await this.GetPostMsgAsync(postMsgKey);
 
             return "發送成功".AsSuccessResponse(postMsg);
+        }
+
+        /// <summary>
+        /// 刪除貼文
+        /// </summary>
+        /// <param name="model">刪除貼文 Request ViewModel</param>
+        /// <returns>刪除結果</returns>
+        public async Task<ResponseViewModel> DeletePostAsync(CommonPostViewModel model)
+        {
+            if (!this.PostRepository.TryGetEntity(model.PostKey, out Post post))
+                return CommonExtension.AsSystemFailResponse();
+
+            // 無法刪除他人貼文
+            if (post.MemberID != this.UserContext.User.MemberID)
+                return CommonExtension.AsSystemFailResponse();
+
+            var directory = AzureBlobDirectoryEnum.PostPhoto.ToString();
+            var postImageUrlList = new List<string>();
+
+            if (!post.PostImageUrl.IsNullOrEmpty())
+            {
+                postImageUrlList = post.PostImageUrl.Split(',').Select(s =>
+                    s.Substring(s.LastIndexOf(directory) + directory.Length, s.Length - (s.LastIndexOf(directory) + directory.Length)).Trim('/')).ToList();
+            }
+
+            await this.PostRepository.DeleteListAsync("WHERE PostKey = @PostKey", new { model.PostKey });
+            var deletePostMsgTask = this.PostMsgRepository.DeleteListAsync("WHERE PostKey = @PostKey", new { model.PostKey });
+            var deketePostImgTask = AzureHelper.DeleteImageAsync(AzureBlobDirectoryEnum.PostPhoto, postImageUrlList);
+            await Task.WhenAll(deletePostMsgTask, deketePostImgTask);
+
+            return "刪除成功".AsSuccessResponse();
         }
 
         /// <summary>

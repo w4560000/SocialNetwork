@@ -52,14 +52,28 @@
   position: absolute;
   z-index: 1000;
   min-width: 80px;
-  padding: 5px 0;
+  padding: 0px;
   margin: 2px 0 0;
   list-style: none;
   border: 1px #F2A1A1 solid;
   border-radius: 5px;
-  font-size: 25px;
+  font-size: 22px;
   top: 5px;
   left: 45px;
+  background: #FFFFFF;
+}
+.post_content_topBar .postAction .ul_postAction li {
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.post_content_topBar .postAction .ul_postAction li:hover {
+  color: #F2A1A1;
+  background: #FFE5E5 !important;
+}
+.post_content_topBar .postAction .ul_postAction li a {
+  width: 100%;
 }
 
 .post_body {

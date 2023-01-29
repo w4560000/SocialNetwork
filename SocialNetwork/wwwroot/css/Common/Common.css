@@ -704,6 +704,15 @@ input[type=date]::-webkit-calendar-picker-indicator {
   border: 4px solid #F2A1A1;
 }
 
+.lightSlider li {
+  display: flex;
+  justify-content: center;
+}
+.lightSlider li img {
+  max-width: 500px !important;
+  max-height: 500px !important;
+}
+
 /*----------------------------------- 好友列表 -----------------------------------*/
 .div_friend {
   background-color: #FFFFFF;

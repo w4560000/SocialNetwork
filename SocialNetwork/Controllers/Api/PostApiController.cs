@@ -150,5 +150,24 @@ namespace SocialNetwork.Controllers
                 return CommonExtension.AsSystemFailResponse<GetPostMsgResViewModel>();
             }
         }
+
+        /// <summary>
+        /// 刪除貼文
+        /// </summary>
+        /// <param name="model">刪除貼文 Request ViewModel</param>
+        /// <returns>刪除結果</returns>
+        [HttpPost(nameof(DeletePostAsync))]
+        public async Task<ResponseViewModel> DeletePostAsync(CommonPostViewModel model)
+        {
+            try
+            {
+                return await PostService.DeletePostAsync(model);
+            }
+            catch (Exception ex)
+            {
+                this.Logger.LogCritical(ex, $"刪除貼文失敗，{ex.GetExceptionMessage()}");
+                return CommonExtension.AsSystemFailResponse();
+            }
+        }
     }
 }

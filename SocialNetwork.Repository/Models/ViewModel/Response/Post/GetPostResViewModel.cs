@@ -13,7 +13,7 @@ namespace SocialNetwork.Repository
         /// <summary>
         /// 會員編號
         /// </summary>
-        public string MemberID { get; set; }
+        public int MemberID { get; set; }
 
         /// <summary>
         /// 會員暱稱

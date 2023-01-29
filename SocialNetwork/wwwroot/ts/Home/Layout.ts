@@ -25,6 +25,14 @@ const LayoutPage = {
                     ul.toggle();
                 }
             }
+
+            // 點選其他 element 時 自動隱藏搜尋會員區塊
+            if (currentElemetClass === undefined || (currentElemetClass !== undefined && !currentElemetClass.includes('member_search '))) {
+                if ($('.member_search_result').is(':visible')) {
+                    $('.member_search_result').hide();
+                    $('.member_search_content').empty();
+                }
+            }
         });
 
         // 展開 會員狀態下拉
@@ -55,7 +63,7 @@ const LayoutPage = {
         LayoutPage.ReflashFriendList(friendList);
 
         // 綁定會員搜尋輸入框 input Event
-        $('.member_search').on('input', async function (e) {
+        $('.member_search').on('input focus', async function (e) {
             let _this = $(this);
             if (!_this.val()) {
                 $('.member_search_result').hide();

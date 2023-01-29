@@ -371,9 +371,7 @@
             slideMargin: 10, // 間隔寬度
             enableDrag: true, // 當左右拖曳時，則切換上/下項目
             speed: 500,
-            adaptiveHeight: true,
-            //autoWidth: true
-            //verticalHeight: 500px
+            adaptiveHeight: true
         });
     }
 };

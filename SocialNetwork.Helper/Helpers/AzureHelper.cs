@@ -3,6 +3,7 @@ using Microsoft.Azure.Services.AppAuthentication;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,6 +26,16 @@ namespace SocialNetwork.Helper
 
             return blobClient.GetContainerReference(BxAPIStorageContainerName);
         });
+
+        /// <summary>
+        /// CloudBlobDirectoryDI
+        /// </summary>
+        private static Dictionary<AzureBlobDirectoryEnum, CloudBlobDirectory> CloudBlobDirectoryDI = new Dictionary<AzureBlobDirectoryEnum, CloudBlobDirectory>()
+        {
+            { AzureBlobDirectoryEnum.ProfilePhoto, CloudBlobContainer.Value.GetDirectoryReference(AzureBlobDirectoryEnum.ProfilePhoto.ToString()) },
+            { AzureBlobDirectoryEnum.BackgoundPhoto, CloudBlobContainer.Value.GetDirectoryReference(AzureBlobDirectoryEnum.BackgoundPhoto.ToString()) },
+            { AzureBlobDirectoryEnum.PostPhoto, CloudBlobContainer.Value.GetDirectoryReference(AzureBlobDirectoryEnum.PostPhoto.ToString()) }
+        };
 
         /// <summary>
         /// 帳號大頭貼Azure儲存體容器名稱
@@ -56,11 +67,12 @@ namespace SocialNetwork.Helper
         /// </summary>
         /// <param name="directory">Azure Blob 儲存體資料夾</param>
         /// <param name="photoFileDto">圖檔 Dto</param>
-        /// <returns>上傳結果</returns>
         public static async Task UpLoadImageAsync(AzureBlobDirectoryEnum directory, PhotoFileDto photoFileDto)
         {
             // 刪除相同檔名檔案
-            SystemHelper.AllowFileExtensions.ForEach(f => GetAzureCloudBlobDirectory(directory).GetBlockBlobReference(photoFileDto.FileName + f).DeleteIfExistsAsync());
+            List<string> imagePathList = new List<string>();
+            SystemHelper.AllowFileExtensions.ForEach(f => imagePathList.Add(photoFileDto.FileName + f));
+            await DeleteImageAsync(directory, imagePathList);
 
             CloudBlockBlob cloudBlockBlob = GetAzureCloudBlobDirectory(directory).GetBlockBlobReference(photoFileDto.FileName + photoFileDto.FileExtension);
 
@@ -69,6 +81,20 @@ namespace SocialNetwork.Helper
             // 設定 ContentType
             cloudBlockBlob.Properties.ContentType = GetContentType(photoFileDto.FileExtension);
             await cloudBlockBlob.SetPropertiesAsync();
+        }
+
+        /// <summary>
+        /// 刪除圖檔
+        /// </summary>
+        /// <param name="directory">Azure Blob 儲存體資料夾</param>
+        /// <param name="imagePathList">圖檔路徑清單</param>
+        public static async Task DeleteImageAsync(AzureBlobDirectoryEnum directory, List<string> imagePathList)
+        {
+            List<Task> deleteTasks = new List<Task>();
+
+            imagePathList.ForEach(f => deleteTasks.Add(GetAzureCloudBlobDirectory(directory).GetBlockBlobReference(f).DeleteIfExistsAsync()));
+
+            await Task.WhenAll(deleteTasks);
         }
 
         /// <summary>
@@ -89,7 +115,7 @@ namespace SocialNetwork.Helper
         /// <returns>AzureStorage實體</returns>
         private static CloudBlobDirectory GetAzureCloudBlobDirectory(AzureBlobDirectoryEnum directory)
         {
-            return CloudBlobContainer.Value.GetDirectoryReference(directory.ToString());
+            return CloudBlobDirectoryDI[directory];
         }
 
 

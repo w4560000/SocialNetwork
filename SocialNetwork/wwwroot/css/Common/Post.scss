@@ -57,14 +57,31 @@
             position: absolute;
             z-index: 1000;
             min-width: 80px;
-            padding: 5px 0;
+            padding: 0px;
             margin: 2px 0 0;
             list-style: none;
             border: 1px $Color_PK2 solid;
             border-radius: 5px;
-            font-size: 25px;
+            font-size: 22px;
             top: 5px;
             left: 45px;
+            background: $Color_W1;
+
+            li {
+                height: 35px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                &:hover {
+                    color: $Color_PK2;
+                    background: $Color_PK3 !important;
+                }
+
+                a {
+                    width: 100%;
+                }
+            }
         }
     }
 }
@@ -148,16 +165,16 @@
     }
 }
 
-    .post_msgPhoto_container {
-        width: 40px;
-    }
+.post_msgPhoto_container {
+    width: 40px;
+}
 
-    .post_msgPhoto {
-        border-radius: 50%;
-        border: 1px $Color_PK2 solid;
-        width: 40px;
-        height: 100%;
-    }
+.post_msgPhoto {
+    border-radius: 50%;
+    border: 1px $Color_PK2 solid;
+    width: 40px;
+    height: 100%;
+}
 
 .div_post_msg_send {
     background-color: $Color_W1;
@@ -198,63 +215,63 @@
     }
 }
 
-    .post_msg_submit {
-        width: 30px;
-        position: absolute;
-        right: 1%;
+.post_msg_submit {
+    width: 30px;
+    position: absolute;
+    right: 1%;
 
-        .msgSend {
-            width: 30px;
-            height: 30px;
+    .msgSend {
+        width: 30px;
+        height: 30px;
+        filter: $Color_PK2_Filter;
+        cursor: pointer;
+    }
+
+    .msgSend:hover {
+        filter: $Color_PK1_Filter;
+    }
+}
+
+.div_post_moreMsg {
+    background-color: $Color_W1;
+    border-radius: 5px;
+    height: 40px;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2px auto;
+    font-size: 20px;
+    font-weight: 600;
+
+    .container_moreMsg {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .moreMsg {
+            height: 25px;
+            width: 25px;
             filter: $Color_PK2_Filter;
             cursor: pointer;
         }
 
-        .msgSend:hover {
-            filter: $Color_PK1_Filter;
+        > span {
+            color: $Color_PK2;
+            cursor: pointer;
         }
-    }
 
-    .div_post_moreMsg {
-        background-color: $Color_W1;
-        border-radius: 5px;
-        height: 40px;
-        padding: 5px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 2px auto;
-        font-size: 20px;
-        font-weight: 600;
-
-        .container_moreMsg {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
+        &:hover {
             .moreMsg {
-                height: 25px;
-                width: 25px;
-                filter: $Color_PK2_Filter;
-                cursor: pointer;
+                filter: $Color_PK1_Filter;
             }
 
             > span {
-                color: $Color_PK2;
-                cursor: pointer;
-            }
-
-            &:hover {
-                .moreMsg {
-                    filter: $Color_PK1_Filter;
-                }
-
-                > span {
-                    color: $Color_PK1;
-                }
+                color: $Color_PK1;
             }
         }
     }
+}
 
 .div_post_msg {
     background-color: $Color_W1;

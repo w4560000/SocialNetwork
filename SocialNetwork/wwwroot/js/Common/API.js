@@ -537,6 +537,14 @@ function SendPostMsgAPI(model, successFunc, errorFunc) {
         });
     });
 }
+/**
+ * 刪除貼文 API
+ */
+function DeletePostAPI(model, successFunc, errorFunc, confirmTitle) {
+    var isNotification = false;
+    var isShowSuccessMsg = true;
+    Common.SweetAlertConfirm(confirmTitle, function () { return BasePostAPIV3('', "/PostApi/DeletePostAsync", model, successFunc, errorFunc, isNotification, isShowSuccessMsg); });
+}
 // Friend
 /**
  * 取得好友清單 API

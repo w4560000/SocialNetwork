@@ -337,9 +337,7 @@ var Common = {
             slideMargin: 10,
             enableDrag: true,
             speed: 500,
-            adaptiveHeight: true,
-            //autoWidth: true
-            //verticalHeight: 500px
+            adaptiveHeight: true
         });
     }
 };

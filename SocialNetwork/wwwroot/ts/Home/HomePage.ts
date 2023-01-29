@@ -35,7 +35,7 @@ const HomePage = {
      * */
     ReflashFriendStatus: async () => {
         // 若為別人主頁
-        if ($("#query_memberID").val()) {
+        if ($("#query_memberID").val() != 0) {
             $('.div_homePage_topBar').html(`${memberInfo.NickName}的個人主頁`);
 
             let model = new CommonMemberViewModel(memberInfo.MemberID);

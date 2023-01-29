@@ -105,14 +105,16 @@ const Post = {
             </div>
             <div class="postProfile">
                 <div>${model.NickName}</div>
-                <span class="time"title="${Common.DateFormat(model.PostDateTime.toString())}">${Post.PostDateTimeFilter(model.PostDateTime.toString())}</span>
+                <span class="time" title="${Common.DateFormat(model.PostDateTime.toString())}">${Post.PostDateTimeFilter(model.PostDateTime.toString())}</span>
             </div>
-            <div class="postAction" tabindex="-1" PostKey="${model.PostKey}" onclick="Post.TogglePostAction(this)">⋮
-            <ul class="ul_postAction" PostKey="${model.PostKey}">
-                <li><a PostKey="${model.PostKey}">刪除</a></li>
-                <li><a PostKey="${model.PostKey}">編輯</a></li>
-            </ul>
-            </div>
+            ${(model.MemberID === user.MemberID ?
+            `<div class="postAction" tabindex="-1" PostKey="${model.PostKey}" onclick="Post.TogglePostAction(this)">⋮
+                <ul class="ul_postAction" PostKey="${model.PostKey}">
+                    <li><a PostKey="${model.PostKey}" onclick="Post.DeletePost(this)">刪除</a></li>
+                    <!-- todo <li><a PostKey="${model.PostKey}">編輯</a></li> -->
+                </ul>
+            </div>` : '')}
+            
         </div>
         <div class="post_body">
             <div class="post_body_content">${model.PostContent}</div>
@@ -130,7 +132,7 @@ const Post = {
                 <span class="post_footer_number postLikeCount">${model.PostLike}</span>
             </div>
             <div class="post_footer_container">
-                <div class="post_footer_img">
+                <div class="post_footer_img postMsgContainer" onclick="Post.FocusMsg(this)">
                     <img class="postMsg" src="/images/post/textsms_black_24dp.svg" />
                 </div>
                 <span class="post_footer_number postMsgCount">${model.TotalPostMsgCount}</span>
@@ -282,7 +284,7 @@ const Post = {
 
     /**
      * 發送貼文留言
-     * @param postkey 貼文編號
+     * @param e element
      */
     SendPostMsg: async (e: JQuery<HTMLElement>) => {
         let postMsg = (e.val() as string);
@@ -304,6 +306,30 @@ const Post = {
 
         await SendPostMsgAPI(new SendPostMsgReqViewModel(postkey, postMsg), successFunc, errorFunc);
     },
+    /**
+     * 點選Msg Icon 自動Focus留言輸入框
+     * @param e element
+     */
+    FocusMsg: (e: HTMLElement) => {
+        let currentPost = $(e).parents('.div_post');
+        currentPost.find('.msgComment').focus();
+    },
+
+    /**
+     * 刪除貼文
+     * @param e element
+     */
+    DeletePost: (e: HTMLElement) => {
+        let postkey = Number($(e).attr('postkey'));
+        let successFunc = () => {
+            $(e).parents('.div_post').remove();
+        };
+
+        let errorFunc = () => { };
+
+        DeletePostAPI(new CommonPostViewModel(postkey), successFunc, errorFunc, '確定是否刪除貼文?');
+    },
+
     /**
      * Source Code 參考
      * https://www.cnblogs.com/miangao/p/13229050.html

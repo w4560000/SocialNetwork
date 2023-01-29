@@ -525,6 +525,18 @@ async function SendPostMsgAPI(model: SendPostMsgReqViewModel, successFunc: Funct
 
     return await BasePostAPIV2<SendPostMsgReqViewModel, GetPostMsgResViewModel>('', "/PostApi/SendPostMsg", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
+
+/**
+ * 刪除貼文 API
+ */
+function DeletePostAPI(model: CommonPostViewModel, successFunc: Function, errorFunc: Function, confirmTitle: string): void {
+    let isNotification = false;
+    let isShowSuccessMsg = true;
+
+    Common.SweetAlertConfirm(confirmTitle,
+        () => BasePostAPIV3<CommonPostViewModel>('', "/PostApi/DeletePostAsync", model, successFunc, errorFunc, isNotification, isShowSuccessMsg));
+}
+
 // Friend
 
 /**

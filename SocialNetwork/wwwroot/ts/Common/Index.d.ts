@@ -38,4 +38,15 @@ interface DatepickerOptions {
      * 是否自適應高度
      * */
     adaptiveHeight?: boolean;
+
+    /**
+     * 
+     * */
+    autoWidth?: boolean;
+
+
+    /**
+     * 垂直高度
+     * */
+    verticalHeight?: number;
 }

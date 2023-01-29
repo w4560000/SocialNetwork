@@ -3,7 +3,6 @@
     [MemberID]     INT            NOT NULL,
     [PostContent]  NVARCHAR (MAX) NOT NULL,
     [PostImageUrl] NVARCHAR (MAX) NOT NULL,
-    [Status]       INT            NOT NULL,
     [CreatedAt]    DATETIME       NOT NULL,
     [CreatedBy]    INT            NOT NULL,
     [UpdatedAt]    DATETIME       NOT NULL,
@@ -71,11 +70,3 @@ EXEC sp_addextendedproperty @name = N'MS_Description',
 GO
 
 GO
-EXEC sp_addextendedproperty @name = N'MS_Description',
-    @value = N'貼文狀態 (1 = 正常, 0 = 已刪除)',
-    @level0type = N'SCHEMA',
-    @level0name = N'dbo',
-    @level1type = N'TABLE',
-    @level1name = N'Post',
-    @level2type = N'COLUMN',
-    @level2name = N'Status'

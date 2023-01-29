@@ -12,17 +12,6 @@
         HomePage.Init();
         await Post.Init(@((int)PostTypeEnum.個人首頁), @ViewBag.QueryMemberID);
 
-        $(".PostContent").lightSlider({
-            gallery: true, // 相本模式
-            item: 1, // 顯示數量
-            loop: false, // 無限循環
-            slideMargin: 10, // 間隔寬度
-            enableDrag: true, // 當左右拖曳時，則切換上/下項目
-            speed: 500,
-            adaptiveHeight: true,
-            //autoWidth: true
-            //verticalHeight: 500px
-        });
     });
 </script>
 

@@ -740,125 +740,137 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     box-sizing: border-box;
     border: 4px solid $Color_PK2;
 }
-/*----------------------------------- 好友列表 -----------------------------------*/
-.div_friend {
-    background-color: $Color_W1;
-    width: 100%;
-    height: 75%;
-    border-radius: 5px;
 
-    .friend_container {
-        padding: 20px 30px;
-        height: 100%;
+.lightSlider {
+    li {
+        display: flex;
+        justify-content: center;
 
-        .friend_search_container {
-            overflow: hidden;
-            border-radius: 50px;
-            border: 1px solid $Color_G2;
-            width: 100%;
-            height: 30px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 5px;
-            background-color: $Color_G0;
-
-            .friend_search {
-                font-size: 17px;
-                border: none;
-                width: 85%;
-                height: 100%;
-                font-weight: 400;
-                padding-left: 0 !important;
-                background-color: $Color_G0;
-            }
-
-            .SearchIcon {
-                filter: $Color_PK2_Filter;
-                height: 25px;
-            }
-        }
-
-        .friend_content {
-            width: 100%;
-            height: 90%;
-            overflow-x: hidden;
-            overflow-y: auto;
-            margin: 10px 0;
-            //捲軸底色
-            &::-webkit-scrollbar-track {
-                background-color: $Color_G1;
-                border-radius: 10px;
-            }
-            //捲軸寬度
-            &::-webkit-scrollbar {
-                width: 10px;
-            }
-            //捲軸本體顏色
-            &::-webkit-scrollbar-thumb {
-                background-color: rgba(0,0,0,0.2);
-                border-radius: 10px;
-            }
-
-            .friend {
-                display: flex;
-                align-content: center;
-                padding: 5px 10px;
-                cursor: pointer;
-                transition: all 0.2s linear;
-                border-radius: 10px;
-
-                &:hover {
-                    background: $Color_PK4;
-                    transition: all 0.2s linear;
-                }
-
-                .friend_img_container {
-                    width: 35px;
-                    height: 35px;
-                    position: relative;
-
-                    .friend_img_status_color {
-                        width: 8px;
-                        height: 8px;
-                        border-radius: 50%;
-                        border: 2px solid $Color_W1;
-                        vertical-align: middle;
-                        bottom: 8px;
-                        right: 8px;
-                        transform: translate(75%, 75%);
-                        position: absolute;
-                        z-index: 999;
-                    }
-
-                    .friend_img_status_color_1 {
-                        background-color: $Color_GN1;
-                    }
-
-                    .friend_img_status_color_2 {
-                        background-color: $Color_R1;
-                    }
-
-                    .friend_img_status_color_3 {
-                        background-color: $Color_G1;
-                    }
-
-                    .friend_img {
-                        border-radius: 50%;
-                        border: 1px $Color_PK2 solid;
-                        width: 100%;
-                        height: 100%;
-                        box-sizing: border-box;
-                    }
-                }
-
-                .friend_name {
-                    font-size: 12pt;
-                    display: flex;
-                    align-items: center;
-                    padding-left: 15px;
-                }
-            }
+        img {
+            max-width: 500px !important;
+            max-height: 500px !important;
         }
     }
 }
+/*----------------------------------- 好友列表 -----------------------------------*/
+        .div_friend {
+            background-color: $Color_W1;
+            width: 100%;
+            height: 75%;
+            border-radius: 5px;
+
+            .friend_container {
+                padding: 20px 30px;
+                height: 100%;
+
+                .friend_search_container {
+                    overflow: hidden;
+                    border-radius: 50px;
+                    border: 1px solid $Color_G2;
+                    width: 100%;
+                    height: 30px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin-bottom: 5px;
+                    background-color: $Color_G0;
+
+                    .friend_search {
+                        font-size: 17px;
+                        border: none;
+                        width: 85%;
+                        height: 100%;
+                        font-weight: 400;
+                        padding-left: 0 !important;
+                        background-color: $Color_G0;
+                    }
+
+                    .SearchIcon {
+                        filter: $Color_PK2_Filter;
+                        height: 25px;
+                    }
+                }
+
+                .friend_content {
+                    width: 100%;
+                    height: 90%;
+                    overflow-x: hidden;
+                    overflow-y: auto;
+                    margin: 10px 0;
+                    //捲軸底色
+                    &::-webkit-scrollbar-track {
+                        background-color: $Color_G1;
+                        border-radius: 10px;
+                    }
+                    //捲軸寬度
+                    &::-webkit-scrollbar {
+                        width: 10px;
+                    }
+                    //捲軸本體顏色
+                    &::-webkit-scrollbar-thumb {
+                        background-color: rgba(0,0,0,0.2);
+                        border-radius: 10px;
+                    }
+
+                    .friend {
+                        display: flex;
+                        align-content: center;
+                        padding: 5px 10px;
+                        cursor: pointer;
+                        transition: all 0.2s linear;
+                        border-radius: 10px;
+
+                        &:hover {
+                            background: $Color_PK4;
+                            transition: all 0.2s linear;
+                        }
+
+                        .friend_img_container {
+                            width: 35px;
+                            height: 35px;
+                            position: relative;
+
+                            .friend_img_status_color {
+                                width: 8px;
+                                height: 8px;
+                                border-radius: 50%;
+                                border: 2px solid $Color_W1;
+                                vertical-align: middle;
+                                bottom: 8px;
+                                right: 8px;
+                                transform: translate(75%, 75%);
+                                position: absolute;
+                                z-index: 999;
+                            }
+
+                            .friend_img_status_color_1 {
+                                background-color: $Color_GN1;
+                            }
+
+                            .friend_img_status_color_2 {
+                                background-color: $Color_R1;
+                            }
+
+                            .friend_img_status_color_3 {
+                                background-color: $Color_G1;
+                            }
+
+                            .friend_img {
+                                border-radius: 50%;
+                                border: 1px $Color_PK2 solid;
+                                width: 100%;
+                                height: 100%;
+                                box-sizing: border-box;
+                            }
+                        }
+
+                        .friend_name {
+                            font-size: 12pt;
+                            display: flex;
+                            align-items: center;
+                            padding-left: 15px;
+                        }
+                    }
+                }
+            }
+        }
