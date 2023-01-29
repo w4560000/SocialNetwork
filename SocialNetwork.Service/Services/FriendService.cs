@@ -2,6 +2,7 @@
 using SocialNetwork.Repository;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SocialNetwork.Service
 {
@@ -54,20 +55,20 @@ namespace SocialNetwork.Service
         /// </summary>
         /// <param name="memberID">會員編號</param>
         /// <returns>取得結果</returns>
-        public ResponseViewModel<List<GetFriendListResViewModel>> GetFriendList(int memberID)
+        public async Task<ResponseViewModel<List<GetFriendListResViewModel>>> GetFriendListAsync(int memberID)
         {
             var querySql = @"
-                             SELECT MemberiD, NickName, ProfilePhotoURL, Status
-                             FROM Member
-                             WHERE MemberID IN (
-					                             SELECT FriendMemberID FROM [SocialNetwork].[dbo].[Friend]
-					                             WHERE MemberID = @MemberID
-					                             UNION
-					                             SELECT MemberID FROM [SocialNetwork].[dbo].[Friend]
-					                             WHERE FriendMemberID = @memberID
-				                               )";
+                             SELECT m.MemberiD, m.NickName, m.ProfilePhotoURL, m.Status
+                             FROM dbo.Member m
+                             WHERE m.MemberID IN (
+					                                 SELECT f.FriendMemberID FROM dbo.Friend f
+					                                 WHERE f.MemberID = @memberID
+					                                 UNION
+					                                 SELECT f.MemberID FROM dbo.Friend f
+					                                 WHERE f.FriendMemberID = @memberID
+				                                 )";
 
-            var res = this.FriendRepository.Query<GetFriendListResViewModel>(querySql, new { memberID });
+            var res = (await this.FriendRepository.QueryAsync<GetFriendListResViewModel>(querySql, new { memberID })).ToList();
 
             return "取得好友清單成功".AsSuccessResponse(res);
         }
@@ -77,17 +78,17 @@ namespace SocialNetwork.Service
         /// </summary>
         /// <param name="memberID">會員編號</param>
         /// <returns>取得結果</returns>
-        public ResponseViewModel<List<GetFriendListResViewModel>> GetFriendInvitationList(int memberID)
+        public async Task<ResponseViewModel<List<GetFriendListResViewModel>>> GetFriendInvitationListAsync(int memberID)
         {
             var querySql = @"
-                             SELECT MemberiD, NickName, ProfilePhotoURL
-                             FROM Member
-                             WHERE MemberID IN (
-					                             SELECT SendMemberID FROM [SocialNetwork].[dbo].[FriendInvitation]
-					                             WHERE ReceiveMemberID = @memberID
-				                               )";
+                             SELECT m.MemberiD, m.NickName, m.ProfilePhotoURL
+                             FROM dbo.Member m
+                             WHERE m.MemberID IN (
+					                                 SELECT fi.SendMemberID FROM dbo.FriendInvitation fi
+					                                 WHERE fi.ReceiveMemberID = @memberID
+				                                  )";
 
-            var res = this.FriendRepository.Query<GetFriendListResViewModel>(querySql, new { memberID });
+            var res = (await this.FriendRepository.QueryAsync<GetFriendListResViewModel>(querySql, new { memberID })).ToList();
 
             return "取得好友邀請清單成功".AsSuccessResponse(res);
         }
@@ -97,17 +98,17 @@ namespace SocialNetwork.Service
         /// </summary>
         /// <param name="memberID">會員編號</param>
         /// <returns>取得結果</returns>
-        public ResponseViewModel<List<GetFriendListResViewModel>> GetSendFriendInvitationList(int memberID)
+        public async Task<ResponseViewModel<List<GetFriendListResViewModel>>> GetSendFriendInvitationListAsync(int memberID)
         {
             var querySql = @"
-                             SELECT MemberiD, NickName, ProfilePhotoURL
-                             FROM Member
-                             WHERE MemberID IN (
-					                             SELECT ReceiveMemberID FROM [SocialNetwork].[dbo].[FriendInvitation]
-					                             WHERE SendMemberID = @memberID
-				                               )";
+                             SELECT m.MemberiD, m.NickName, m.ProfilePhotoURL
+                             FROM Member m
+                             WHERE m.MemberID IN (
+					                                 SELECT fi.ReceiveMemberID FROM dbo.FriendInvitation fi
+					                                 WHERE fi.SendMemberID = @memberID
+				                                 )";
 
-            var res = this.FriendRepository.Query<GetFriendListResViewModel>(querySql, new { memberID });
+            var res = (await this.FriendRepository.QueryAsync<GetFriendListResViewModel>(querySql, new { memberID })).ToList();
 
             return "取得您送出的好友邀請清單成功".AsSuccessResponse(res);
         }
@@ -117,7 +118,7 @@ namespace SocialNetwork.Service
         /// </summary>
         /// <param name="model">取得好友狀態 Request ViewModel</param>
         /// <returns>取得結果</returns>
-        public ResponseViewModel<GetFriendStatusResViewModel> GetFriendStatus(CommonMemberViewModel model)
+        public async Task<ResponseViewModel<GetFriendStatusResViewModel>> GetFriendStatusAsync(CommonMemberViewModel model)
         {
             if (!this.MemberRepository.TryGetEntity(model.MemberID, out _))
                 return CommonExtension.AsSystemFailResponse<GetFriendStatusResViewModel>();
@@ -125,15 +126,18 @@ namespace SocialNetwork.Service
             string msg = "取得好友狀態成功";
 
             // 檢查是否為好友
-            if (this.CheckFriendExist(this.UserContext.User.MemberID, model.MemberID, out _))
+            var (isFriend, _) = await this.CheckFriendExistAsync(this.UserContext.User.MemberID, model.MemberID);
+            if (isFriend)
                 return msg.AsSuccessResponse(new GetFriendStatusResViewModel() { FriendStatus = FriendStatusEnum.為好友 });
 
             // 檢查是否發送過好友邀請
-            if (this.CheckSendedFriendInvitation(this.UserContext.User.MemberID, model.MemberID, out _))
+            var (isSendedFriendInvitation, _) = await this.CheckSendedFriendInvitationAsync(this.UserContext.User.MemberID, model.MemberID);
+            if (isSendedFriendInvitation)
                 return msg.AsSuccessResponse(new GetFriendStatusResViewModel() { FriendStatus = FriendStatusEnum.已寄送好友邀請 });
 
             // 檢查對方是否發送過好友邀請
-            if (this.CheckFriendInvitation(this.UserContext.User.MemberID, model.MemberID, out _))
+            var (isExistFriendInvitation, _) = await this.CheckFriendInvitationAsync(this.UserContext.User.MemberID, model.MemberID);
+            if (isExistFriendInvitation)
                 return msg.AsSuccessResponse(new GetFriendStatusResViewModel() { FriendStatus = FriendStatusEnum.已接收好友邀請 });
 
             return msg.AsSuccessResponse(new GetFriendStatusResViewModel() { FriendStatus = FriendStatusEnum.非好友 });
@@ -144,7 +148,7 @@ namespace SocialNetwork.Service
         /// </summary>
         /// <param name="model">發送好友邀請 Request Model</param>
         /// <returns>發送結果</returns>
-        public ResponseViewModel SendFriendInvitation(CommonMemberViewModel model)
+        public async Task<ResponseViewModel> SendFriendInvitationAsync(CommonMemberViewModel model)
         {
             if (!this.MemberRepository.TryGetEntity(model.MemberID, out _))
                 return CommonExtension.AsSystemFailResponse();
@@ -152,16 +156,19 @@ namespace SocialNetwork.Service
             if (this.UserContext.User.MemberID == model.MemberID)
                 return "無法對自己發送好友邀請".AsFailResponse();
 
-            if (this.CheckFriendExist(this.UserContext.User.MemberID, model.MemberID, out _))
+            var (isFriend, _) = await this.CheckFriendExistAsync(this.UserContext.User.MemberID, model.MemberID);
+            if (isFriend)
                 return "無法對好友發送好友邀請".AsFailResponse();
 
-            if (this.CheckSendedFriendInvitation(this.UserContext.User.MemberID, model.MemberID, out _))
+            var (isSendedFriendInvitation, _) = await this.CheckSendedFriendInvitationAsync(this.UserContext.User.MemberID, model.MemberID);
+            if (isSendedFriendInvitation)
                 return "已發送過好友邀請".AsFailResponse();
 
             // 當對方已先發送好友邀請時，則直接變為好友
-            if (this.CheckFriendInvitation(this.UserContext.User.MemberID, model.MemberID, out _))
+            var (isExistFriendInvitation, _) = await this.CheckFriendInvitationAsync(this.UserContext.User.MemberID, model.MemberID);
+            if (isExistFriendInvitation)
             {
-                this.AddFriend(this.UserContext.User.MemberID, model.MemberID);
+                await this.AddFriendAsync(this.UserContext.User.MemberID, model.MemberID);
                 return "新增好友成功".AsSuccessResponse();
             }
 
@@ -171,7 +178,7 @@ namespace SocialNetwork.Service
                 ReceiveMemberID = model.MemberID
             };
 
-            this.FriendInvitationRepository.Add<int>(friendInvitationEntity);
+            await this.FriendInvitationRepository.AddAsync<int>(friendInvitationEntity);
 
             return "發送成功".AsSuccessResponse();
         }
@@ -181,16 +188,18 @@ namespace SocialNetwork.Service
         /// </summary>
         /// <param name="model">判斷好友邀請 Request Model</param>
         /// <returns>判斷結果</returns>
-        public ResponseViewModel DecideFriendInvitation(DecideFriendInvitationReqViewModel model)
+        public async Task<ResponseViewModel> DecideFriendInvitationAsync(DecideFriendInvitationReqViewModel model)
         {
             if (!this.MemberRepository.TryGetEntity(model.MemberID, out _))
                 return CommonExtension.AsSystemFailResponse();
 
-            if (this.CheckFriendExist(this.UserContext.User.MemberID, model.MemberID, out _))
+            var (isFriend, _) = await this.CheckFriendExistAsync(this.UserContext.User.MemberID, model.MemberID);
+            if (isFriend)
                 return "已互為好友關係".AsFailResponse();
 
             // 檢查對方是否有發送好友邀請
-            if (!this.CheckFriendInvitation(this.UserContext.User.MemberID, model.MemberID, out FriendInvitation friendInvitation))
+            var (isExistFriendInvitation, friendInvitation) = await this.CheckFriendInvitationAsync(this.UserContext.User.MemberID, model.MemberID);
+            if (!isExistFriendInvitation)
                 return "查無對方發送好友邀請紀錄".AsFailResponse();
 
             if (model.Decision == DecideFriendInvitationEnum.拒絕)
@@ -199,8 +208,8 @@ namespace SocialNetwork.Service
                 return "拒絕好友邀請成功".AsSuccessResponse();
             }
 
-            this.AddFriend(this.UserContext.User.MemberID, model.MemberID);
-            this.FriendInvitationRepository.Delete(friendInvitation);
+            await this.AddFriendAsync(this.UserContext.User.MemberID, model.MemberID);
+            await this.FriendInvitationRepository.DeleteAsync(friendInvitation);
 
             return "新增好友成功".AsSuccessResponse();
         }
@@ -210,16 +219,18 @@ namespace SocialNetwork.Service
         /// </summary>
         /// <param name="model">收回好友邀請 Request Model</param>
         /// <returns>收回結果</returns>
-        public ResponseViewModel RevokeFriendInvitation(CommonMemberViewModel model)
+        public async Task<ResponseViewModel> RevokeFriendInvitationAsync(CommonMemberViewModel model)
         {
             if (!this.MemberRepository.TryGetEntity(model.MemberID, out _))
                 return CommonExtension.AsSystemFailResponse();
 
-            if (this.CheckFriendExist(this.UserContext.User.MemberID, model.MemberID, out _))
+            var (isFriend, _) = await this.CheckFriendExistAsync(this.UserContext.User.MemberID, model.MemberID);
+            if (isFriend)
                 return "已互為好友關係".AsFailResponse();
 
             // 檢查是否有發送好友邀請
-            if (!this.CheckSendedFriendInvitation(this.UserContext.User.MemberID, model.MemberID, out FriendInvitation friendInvitation))
+            var (isSendedFriendInvitation, friendInvitation) = await this.CheckSendedFriendInvitationAsync(this.UserContext.User.MemberID, model.MemberID);
+            if (!isSendedFriendInvitation)
                 return "查無發送好友邀請紀錄".AsFailResponse();
 
             this.FriendInvitationRepository.Delete(friendInvitation);
@@ -232,12 +243,13 @@ namespace SocialNetwork.Service
         /// </summary>
         /// <param name="model">刪除好友 Request Model</param>
         /// <returns>刪除結果</returns>
-        public ResponseViewModel DeleteFriend(CommonMemberViewModel model)
+        public async Task<ResponseViewModel> DeleteFriendAsync(CommonMemberViewModel model)
         {
             if (!this.MemberRepository.TryGetEntity(model.MemberID, out _))
                 return CommonExtension.AsSystemFailResponse();
 
-            if (!this.CheckFriendExist(this.UserContext.User.MemberID, model.MemberID, out Friend friend))
+            var (isFriend, friend) = await this.CheckFriendExistAsync(this.UserContext.User.MemberID, model.MemberID);
+            if (!isFriend)
                 return "非好友關係，無法刪除好友".AsFailResponse();
 
             this.FriendRepository.Delete(friend);
@@ -250,14 +262,12 @@ namespace SocialNetwork.Service
         /// </summary>
         /// <param name="memberID">會員編號</param>
         /// <param name="anotherMemberID">另一個會員的編號</param>
-        /// <param name="friend">好友</param>
         /// <returns>確認結果</returns>
-        private bool CheckFriendExist(int memberID, int anotherMemberID, out Friend friend)
+        private async Task<(bool isFriend, Friend friend)> CheckFriendExistAsync(int memberID, int anotherMemberID)
         {
-            friend = this.FriendRepository.GetList(@"WHERE (MemberID = @memberID AND FriendMemberID = @anotherMemberID) OR
-                                                           (MemberID = @anotherMemberID AND FriendMemberID = @memberID)",
-                                                    new { memberID, anotherMemberID }).FirstOrDefault();
-            return friend != null;
+            var friend = (await this.FriendRepository.GetListAsync(@"WHERE (MemberID = @memberID AND FriendMemberID = @anotherMemberID) OR
+                                                           (MemberID = @anotherMemberID AND FriendMemberID = @memberID)", new { memberID, anotherMemberID })).FirstOrDefault();
+            return (friend != null, friend);
         }
 
         /// <summary>
@@ -265,13 +275,12 @@ namespace SocialNetwork.Service
         /// </summary>
         /// <param name="memberID">會員編號</param>
         /// <param name="anotherMemberID">另一個會員的編號</param>
-        /// <param name="friendInvitation">發送的好友邀請</param>
         /// <returns>確認結果</returns>
-        private bool CheckSendedFriendInvitation(int memberID, int anotherMemberID, out FriendInvitation friendInvitation)
+        private async Task<(bool isSendedFriendInvitation, FriendInvitation friendInvitation)> CheckSendedFriendInvitationAsync(int memberID, int anotherMemberID)
         {
-            friendInvitation = this.FriendInvitationRepository.GetList("WHERE SendMemberID = @memberID AND ReceiveMemberID = @anotherMemberID",
-                                                                    new { memberID, anotherMemberID }).FirstOrDefault();
-            return friendInvitation != null;
+            var friendInvitation = (await this.FriendInvitationRepository.GetListAsync("WHERE SendMemberID = @memberID AND ReceiveMemberID = @anotherMemberID",
+                                                                    new { memberID, anotherMemberID })).FirstOrDefault();
+            return (friendInvitation != null, friendInvitation);
         }
 
         /// <summary>
@@ -279,13 +288,12 @@ namespace SocialNetwork.Service
         /// </summary>
         /// <param name="memberID">會員編號</param>
         /// <param name="anotherMemberID">另一個會員的編號</param>
-        /// <param name="friendInvitation">對方發送的好友邀請</param>
         /// <returns>確認結果</returns>
-        private bool CheckFriendInvitation(int memberID, int anotherMemberID, out FriendInvitation friendInvitation)
+        private async Task<(bool isExistFriendInvitation, FriendInvitation friendInvitation)> CheckFriendInvitationAsync(int memberID, int anotherMemberID)
         {
-            friendInvitation = this.FriendInvitationRepository.GetList("WHERE SendMemberID = @anotherMemberID AND ReceiveMemberID = @memberID",
-                                                                    new { memberID, anotherMemberID }).FirstOrDefault();
-            return friendInvitation != null;
+            var friendInvitation = (await this.FriendInvitationRepository.GetListAsync("WHERE SendMemberID = @anotherMemberID AND ReceiveMemberID = @memberID",
+                                                                    new { memberID, anotherMemberID })).FirstOrDefault();
+            return (friendInvitation != null, friendInvitation);
         }
 
         /// <summary>
@@ -294,7 +302,7 @@ namespace SocialNetwork.Service
         /// <param name="memberID">會員編號</param>
         /// <param name="anotherMemberID">另一個會員的編號</param>
         /// <returns></returns>
-        private void AddFriend(int memberID, int anotherMemberID)
+        private async Task AddFriendAsync(int memberID, int anotherMemberID)
         {
             var friendEntity = new Friend()
             {
@@ -302,7 +310,7 @@ namespace SocialNetwork.Service
                 FriendMemberID = anotherMemberID
             };
 
-            this.FriendRepository.Add<int>(friendEntity);
+            await this.FriendRepository.AddAsync<int>(friendEntity);
         }
     }
 }

@@ -571,7 +571,7 @@ ORDER BY a.CreatedAt ASC";
             if (this.MemberRepository.TryGetEntity(memberID, out Member member))
             {
                 member.Status = status;
-                this.MemberRepository.Update(member);
+                await this.MemberRepository.UpdateAsync(member);
 
                 var userInfo = new UserInfo()
                 {
@@ -592,12 +592,13 @@ ORDER BY a.CreatedAt ASC";
                     this.HttpContext.Response.Cookies.AddJwtTokenToCookie(token);
                 }
 
+                var firendList = await this.FriendService.GetFriendListAsync(userInfo.MemberID);
+
                 // 會員在線狀態 存入 Redis
-                await this.CacheHelper.ResetAsync($"Member:{userInfo.MemberID}", () => userInfo);
+                var updateMemberStatusTask = this.CacheHelper.ResetAsync($"Member:{userInfo.MemberID}", () => userInfo);
 
                 // SignalR 通知所有好友 更新會員狀態
-                var firendList = this.FriendService.GetFriendList(userInfo.MemberID);
-                await this.ChatHub.ReflashFriendStatus_Send(
+                var reflashFriendStatusTask = this.ChatHub.ReflashFriendStatus_Send(
                     firendList.Data.Select(s => s.MemberID).ToList(),
                     new GetFriendListResViewModel()
                     {
@@ -606,6 +607,7 @@ ORDER BY a.CreatedAt ASC";
                         Status = userInfo.Status,
                         ProfilePhotoURL = userInfo.ProfilePhotoUrl
                     });
+                await Task.WhenAll(updateMemberStatusTask, reflashFriendStatusTask);
             }
         }
     }

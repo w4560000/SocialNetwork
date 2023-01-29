@@ -110,7 +110,7 @@ namespace SocialNetwork.Service
             if (!this.MemberRepository.TryGetEntity(model.MemberID, out _))
                 return CommonExtension.AsSystemFailResponse<List<GetPostResViewModel>>();
 
-            var friendList = this.FriendService.GetFriendList(model.MemberID);
+            var friendList = await this.FriendService.GetFriendListAsync(model.MemberID);
             var friendMemberIDList = friendList.Data.Select(s => s.MemberID).ToList();
             var queryMemberIDList = new List<int>() { this.UserContext.User.MemberID }.Concat(friendMemberIDList);
             var postData = await this.QueryPost(queryMemberIDList.ToList(), model.QueryRowNo);

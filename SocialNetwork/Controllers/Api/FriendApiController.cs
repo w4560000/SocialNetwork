@@ -5,11 +5,12 @@ using SocialNetwork.Repository;
 using SocialNetwork.Service;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SocialNetwork.Controllers
 {
     /// <summary>
-    /// FriendController
+    /// FriendApiController
     /// </summary>
     [ApiController]
     [Route("[controller]")]
@@ -41,18 +42,18 @@ namespace SocialNetwork.Controllers
             this.Logger = logger;
             this.FriendService = friendService;
             this.UserContext = userContext;
-        }   
+        }
 
         /// <summary>
         /// 取得好友清單
         /// </summary>
         /// <returns>取得結果</returns>
         [HttpPost(nameof(GetFriendList))]
-        public ResponseViewModel<List<GetFriendListResViewModel>> GetFriendList()
+        public async Task<ResponseViewModel<List<GetFriendListResViewModel>>> GetFriendList()
         {
             try
             {
-                return FriendService.GetFriendList(this.UserContext.User.MemberID);
+                return await FriendService.GetFriendListAsync(this.UserContext.User.MemberID);
             }
             catch (Exception ex)
             {
@@ -66,11 +67,11 @@ namespace SocialNetwork.Controllers
         /// </summary>
         /// <returns>取得結果</returns>
         [HttpPost(nameof(GetFriendInvitationList))]
-        public ResponseViewModel<List<GetFriendListResViewModel>> GetFriendInvitationList()
+        public async Task<ResponseViewModel<List<GetFriendListResViewModel>>> GetFriendInvitationList()
         {
             try
             {
-                return FriendService.GetFriendInvitationList(this.UserContext.User.MemberID);
+                return await FriendService.GetFriendInvitationListAsync(this.UserContext.User.MemberID);
             }
             catch (Exception ex)
             {
@@ -84,11 +85,11 @@ namespace SocialNetwork.Controllers
         /// </summary>
         /// <returns>取得結果</returns>
         [HttpPost(nameof(GetSendFriendInvitationList))]
-        public ResponseViewModel<List<GetFriendListResViewModel>> GetSendFriendInvitationList()
+        public async Task<ResponseViewModel<List<GetFriendListResViewModel>>> GetSendFriendInvitationList()
         {
             try
             {
-                return FriendService.GetSendFriendInvitationList(this.UserContext.User.MemberID);
+                return await FriendService.GetSendFriendInvitationListAsync(this.UserContext.User.MemberID);
             }
             catch (Exception ex)
             {
@@ -103,11 +104,11 @@ namespace SocialNetwork.Controllers
         /// <param name="model">取得好友狀態 Request ViewModel</param>
         /// <returns>取得結果</returns>
         [HttpPost(nameof(GetFriendStatus))]
-        public ResponseViewModel<GetFriendStatusResViewModel> GetFriendStatus(CommonMemberViewModel model)
+        public async Task<ResponseViewModel<GetFriendStatusResViewModel>> GetFriendStatus(CommonMemberViewModel model)
         {
             try
             {
-                return FriendService.GetFriendStatus(model);
+                return await FriendService.GetFriendStatusAsync(model);
             }
             catch (Exception ex)
             {
@@ -122,11 +123,11 @@ namespace SocialNetwork.Controllers
         /// <param name="model">發送好友邀請 Request ViewModel</param>
         /// <returns>發送結果</returns>
         [HttpPost(nameof(SendFriendInvitation))]
-        public ResponseViewModel SendFriendInvitation(CommonMemberViewModel model)
+        public async Task<ResponseViewModel> SendFriendInvitation(CommonMemberViewModel model)
         {
             try
             {
-                return FriendService.SendFriendInvitation(model);
+                return await FriendService.SendFriendInvitationAsync(model);
             }
             catch (Exception ex)
             {
@@ -141,11 +142,11 @@ namespace SocialNetwork.Controllers
         /// <param name="model">判斷好友邀請 Request ViewModel</param>
         /// <returns>判斷結果</returns>
         [HttpPost(nameof(DecideFriendInvitation))]
-        public ResponseViewModel DecideFriendInvitation(DecideFriendInvitationReqViewModel model)
+        public async Task<ResponseViewModel> DecideFriendInvitation(DecideFriendInvitationReqViewModel model)
         {
             try
             {
-                return FriendService.DecideFriendInvitation(model);
+                return await FriendService.DecideFriendInvitationAsync(model);
             }
             catch (Exception ex)
             {
@@ -160,11 +161,11 @@ namespace SocialNetwork.Controllers
         /// <param name="model">收回好友邀請 Request ViewModel</param>
         /// <returns>收回結果</returns>
         [HttpPost(nameof(RevokeFriendInvitation))]
-        public ResponseViewModel RevokeFriendInvitation(CommonMemberViewModel model)
+        public async Task<ResponseViewModel> RevokeFriendInvitation(CommonMemberViewModel model)
         {
             try
             {
-                return FriendService.RevokeFriendInvitation(model);
+                return await FriendService.RevokeFriendInvitationAsync(model);
             }
             catch (Exception ex)
             {
@@ -179,11 +180,11 @@ namespace SocialNetwork.Controllers
         /// <param name="model">刪除好友 Request ViewModel</param>
         /// <returns>刪除結果</returns>
         [HttpPost(nameof(DeleteFriend))]
-        public ResponseViewModel DeleteFriend(CommonMemberViewModel model)
+        public async Task<ResponseViewModel> DeleteFriend(CommonMemberViewModel model)
         {
             try
             {
-                return FriendService.DeleteFriend(model);
+                return await FriendService.DeleteFriendAsync(model);
             }
             catch (Exception ex)
             {
