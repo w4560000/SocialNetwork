@@ -31,13 +31,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MSSQL", "MSSQL", "{D945EF93
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "backup", "backup", "{92A9C2DC-F383-4B49-883D-C68AE579DE2A}"
 	ProjectSection(SolutionItems) = preProject
-		MSSQL\backup\exam.bak = MSSQL\backup\exam.bak
+		MSSQL\backup\SocialNetwork.bak = MSSQL\backup\SocialNetwork.bak
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "script", "script", "{DF784F8E-4810-44BF-B898-6216684E71FF}"
-	ProjectSection(SolutionItems) = preProject
-		MSSQL\script\test.sql = MSSQL\script\test.sql
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DB_Infrastructure", "DB_Infrastructure", "{181B3902-D885-4728-AA5D-ACD8F6D48596}"
 	ProjectSection(SolutionItems) = preProject
