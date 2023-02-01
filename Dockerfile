@@ -25,6 +25,11 @@ WORKDIR /app/$ProjectName/
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
 RUN apt-get install -y nodejs
 RUN npm install
+
+RUN npm install gulp
+RUN gulp installLib
+RUN gulp minCss
+RUN gulp minJs
 RUN dotnet publish -c Release -o /app/$ProjectName/publish --no-restore
 
 FROM mcr.microsoft.com/dotnet/aspnet:3.1 AS runtime
