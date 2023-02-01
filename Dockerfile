@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y nodejs
 
 WORKDIR /app/$ProjectName
 RUN dotnet restore 
+RUN npm install
 
 WORKDIR /app
 COPY $ProjectName/. ./$ProjectName/
