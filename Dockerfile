@@ -27,6 +27,8 @@ RUN apt-get install -y nodejs
 RUN npm install
 
 RUN npm install gulp
+RUN npm install gulp-cli
+
 RUN gulp installLib
 RUN gulp minCss
 RUN gulp minJs
