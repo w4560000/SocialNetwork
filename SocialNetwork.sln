@@ -39,11 +39,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "script", "script", "{DF784F
 		MSSQL\script\test.sql = MSSQL\script\test.sql
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TempScript", "TempScript", "{6686BAA8-1606-4C74-AB09-92CEF65B4400}"
-	ProjectSection(SolutionItems) = preProject
-		FK.sql = FK.sql
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DB_Infrastructure", "DB_Infrastructure", "{181B3902-D885-4728-AA5D-ACD8F6D48596}"
 	ProjectSection(SolutionItems) = preProject
 		Infrastructure\MSSQL_FK.sql = Infrastructure\MSSQL_FK.sql
@@ -89,7 +84,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{92A9C2DC-F383-4B49-883D-C68AE579DE2A} = {D945EF93-FB69-4AAB-9604-579CABD2A4CE}
 		{DF784F8E-4810-44BF-B898-6216684E71FF} = {D945EF93-FB69-4AAB-9604-579CABD2A4CE}
-		{6686BAA8-1606-4C74-AB09-92CEF65B4400} = {D945EF93-FB69-4AAB-9604-579CABD2A4CE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A183403A-F2CB-4CB3-B87F-18AFBCF86967}

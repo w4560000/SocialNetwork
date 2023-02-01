@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using SocialNetwork.Helper;
@@ -32,6 +33,11 @@ namespace SocialNetwork.Controllers
         private readonly ITestService TestService;
 
         /// <summary>
+        /// IWebHostEnvironment
+        /// </summary>
+        private readonly IWebHostEnvironment WebHostEnvironment;
+
+        /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="cacheHelper">ICacheHelper</param>
@@ -40,11 +46,13 @@ namespace SocialNetwork.Controllers
         public TestController(
             ICacheHelper cacheHelper,
             IOptions<AppSettings> appSettings,
-            ITestService testService)
+            ITestService testService,
+            IWebHostEnvironment webHostEnvironment)
         {
             this.CacheHelper = cacheHelper;
             this.AppSettings = appSettings.Value;
             this.TestService = testService;
+            this.WebHostEnvironment = webHostEnvironment;
         }
 
         /// <summary>
@@ -75,6 +83,12 @@ namespace SocialNetwork.Controllers
         public string PostgreSQLTest()
         {
             return this.TestService.Test();
+        }
+
+        [HttpGet(nameof(HealthCheck))]
+        public IActionResult HealthCheck()
+        {
+            return Ok(WebHostEnvironment.EnvironmentName);
         }
     }
 }

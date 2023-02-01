@@ -9,7 +9,7 @@ docker run -d --rm --name socialnetwork.container -p 7000:80 socialnetwork
 # Run Docker Composes
 ```
 docker-compose build --no-cache
-docker-compose up -d
+docker-compose up -e ASPNETCORE_ENVIRONMENT=Production -d
 ```
 
 

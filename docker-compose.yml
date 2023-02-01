@@ -2,6 +2,8 @@ version: '3'
 services:
   socialnetwork:
     container_name: socialnetwork
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
     build:
       context: .
       args:
