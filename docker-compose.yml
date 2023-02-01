@@ -20,6 +20,7 @@ services:
   mssql:
     container_name: mssql
     image: mcr.microsoft.com/mssql/server:2019-latest
+    user: root
     ports:
       - 2500:1433
     volumes:

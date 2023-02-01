@@ -26,8 +26,7 @@ RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
 RUN apt-get install -y nodejs
 RUN npm install
 
-RUN npm install gulp
-RUN npm install gulp-cli
+RUN npm install -g gulp-cli
 
 RUN gulp installLib
 RUN gulp minCss
