@@ -8,6 +8,8 @@ COPY $ProjectName.Repository/*.csproj ./$ProjectName.Repository/
 COPY $ProjectName.Repository.Base/*.csproj ./$ProjectName.Repository.Base/
 COPY $ProjectName.Helper/*.csproj ./$ProjectName.Helper/
 
+RUN apt-get update && apt-get install -y nodejs
+
 WORKDIR /app/$ProjectName
 RUN dotnet restore 
 
