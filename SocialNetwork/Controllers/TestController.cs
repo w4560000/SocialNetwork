@@ -62,7 +62,7 @@ namespace SocialNetwork.Controllers
         [HttpGet(nameof(AppSettingsTest))]
         public string AppSettingsTest()
         {
-            return AppSettings.RedisSettings.Connection;
+            return AppSettings.ConnectionStrings.SocialNetworkConnectionString;
         }
 
         /// <summary>
