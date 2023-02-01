@@ -3,7 +3,7 @@ services:
   socialnetwork:
     container_name: socialnetwork
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
     build:
       context: .
       args:

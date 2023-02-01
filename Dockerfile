@@ -12,7 +12,6 @@ RUN apt-get update && apt-get install -y nodejs
 
 WORKDIR /app/$ProjectName
 RUN dotnet restore 
-RUN npm install
 
 WORKDIR /app
 COPY $ProjectName/. ./$ProjectName/
@@ -22,6 +21,10 @@ COPY $ProjectName.Repository.Base/. ./$ProjectName.Repository.Base/
 COPY $ProjectName.Helper/. ./$ProjectName.Helper/
 
 WORKDIR /app/$ProjectName/
+
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
+RUN apt-get install -y nodejs
+RUN npm install
 RUN dotnet publish -c Release -o /app/$ProjectName/publish --no-restore
 
 FROM mcr.microsoft.com/dotnet/aspnet:3.1 AS runtime
