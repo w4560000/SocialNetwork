@@ -64,7 +64,7 @@ namespace SocialNetwork
                     c.IncludeXmlComments(fi.FullName);
             });
 
-            services.AddDataProtection().PersistKeysToFileSystem(new DirectoryInfo(@"/var/my-af-keys/")); ;
+            services.AddDataProtection().SetApplicationName("SocialNetwork").PersistKeysToFileSystem(new DirectoryInfo(@"/var/my-af-keys/")); ;
 
 
             services.Configure<AppSettings>(Configuration);
