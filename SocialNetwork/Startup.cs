@@ -63,6 +63,7 @@ namespace SocialNetwork
                     c.IncludeXmlComments(fi.FullName);
             });
 
+            services.AddDataProtection();
             services.Configure<AppSettings>(Configuration);
 
             // DIµù¥U Repository
