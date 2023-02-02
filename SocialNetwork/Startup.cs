@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -63,7 +64,9 @@ namespace SocialNetwork
                     c.IncludeXmlComments(fi.FullName);
             });
 
-            services.AddDataProtection();
+            services.AddDataProtection().PersistKeysToFileSystem(new DirectoryInfo(@"/var/my-af-keys/")); ;
+
+
             services.Configure<AppSettings>(Configuration);
 
             // DIµù¥U Repository
