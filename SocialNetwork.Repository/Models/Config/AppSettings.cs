@@ -19,6 +19,11 @@
         /// RedisSettings
         /// </summary>
         public RedisSettings RedisSettings { get; set; }
+
+        /// <summary>
+        /// StorageContainerName
+        /// </summary>
+        public string StorageContainerName { get; set; }
     }
 
     /// <summary>

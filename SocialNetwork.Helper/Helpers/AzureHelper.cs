@@ -30,17 +30,28 @@ namespace SocialNetwork.Helper
         /// <summary>
         /// CloudBlobDirectoryDI
         /// </summary>
-        private static Dictionary<AzureBlobDirectoryEnum, CloudBlobDirectory> CloudBlobDirectoryDI = new Dictionary<AzureBlobDirectoryEnum, CloudBlobDirectory>()
-        {
-            { AzureBlobDirectoryEnum.ProfilePhoto, CloudBlobContainer.Value.GetDirectoryReference(AzureBlobDirectoryEnum.ProfilePhoto.ToString()) },
-            { AzureBlobDirectoryEnum.BackgoundPhoto, CloudBlobContainer.Value.GetDirectoryReference(AzureBlobDirectoryEnum.BackgoundPhoto.ToString()) },
-            { AzureBlobDirectoryEnum.PostPhoto, CloudBlobContainer.Value.GetDirectoryReference(AzureBlobDirectoryEnum.PostPhoto.ToString()) }
-        };
+        private static Dictionary<AzureBlobDirectoryEnum, CloudBlobDirectory> CloudBlobDirectoryDI;
 
         /// <summary>
         /// 帳號大頭貼Azure儲存體容器名稱
         /// </summary>
-        private static string BxAPIStorageContainerName => "social-network";
+        private static string BxAPIStorageContainerName { get; set; }
+
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        /// <param name="storageContainerName">容器名稱</param>
+        public static void Init(string storageContainerName)
+        {
+            BxAPIStorageContainerName = storageContainerName;
+
+            CloudBlobDirectoryDI = new Dictionary<AzureBlobDirectoryEnum, CloudBlobDirectory>()
+            {
+                { AzureBlobDirectoryEnum.ProfilePhoto, CloudBlobContainer.Value.GetDirectoryReference(AzureBlobDirectoryEnum.ProfilePhoto.ToString()) },
+                { AzureBlobDirectoryEnum.BackgoundPhoto, CloudBlobContainer.Value.GetDirectoryReference(AzureBlobDirectoryEnum.BackgoundPhoto.ToString()) },
+                { AzureBlobDirectoryEnum.PostPhoto, CloudBlobContainer.Value.GetDirectoryReference(AzureBlobDirectoryEnum.PostPhoto.ToString()) }
+            };
+        }
 
         /// <summary>
         /// Azure Storage URL

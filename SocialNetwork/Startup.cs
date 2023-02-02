@@ -189,6 +189,8 @@ namespace SocialNetwork
                         options.PayloadSerializerOptions.PropertyNamingPolicy = null;
                     });
             //.AddMessagePackProtocol();
+
+            AzureHelper.Init(Configuration.GetValue<string>("StorageContainerName"));
         }
 
         /// <summary>
