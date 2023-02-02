@@ -1,4 +1,6 @@
-﻿using Microsoft.Azure.KeyVault;
+﻿using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
+using Microsoft.Azure.KeyVault;
 using Microsoft.Azure.Services.AppAuthentication;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
@@ -65,10 +67,11 @@ namespace SocialNetwork.Helper
         /// <returns>SecretVaule</returns>
         public static string GetAzureSecretVaule(string secretName)
         {
-            KeyVaultClient keyVaultClient = new KeyVaultClient(
-                new KeyVaultClient.AuthenticationCallback(new AzureServiceTokenProvider().KeyVaultTokenCallback));
+            //KeyVaultClient keyVaultClient = new KeyVaultClient(
+            //    new KeyVaultClient.AuthenticationCallback(new AzureServiceTokenProvider().KeyVaultTokenCallback));
 
-            string connectionString = keyVaultClient.GetSecretAsync("https://bingxiangKeyvault.vault.azure.net/", secretName).Result.Value;
+            var client = new SecretClient(new Uri("https://bingxiangKeyvault.vault.azure.net"), new DefaultAzureCredential());
+            string connectionString = client.GetSecretAsync(secretName).Result.Value.Value;
 
             return connectionString;
         }
