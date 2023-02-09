@@ -1,25 +1,25 @@
 version: '3'
 services:
-  socialnetwork:
-    container_name: socialnetwork
-    environment:
-      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
-      - AZURE_CLIENT_ID=${AZURE_CLIENT_ID}
-      - AZURE_CLIENT_SECRET=${AZURE_CLIENT_SECRET}
-      - AZURE_TENANT_ID=${AZURE_TENANT_ID}
-    build:
-      context: .
-      args:
-        ProjectName: SocialNetwork
-    ports:
-      - "7000:80"
-    expose:
-      - "80"
-    restart: always
-    depends_on:
-      - redis
-      - postgres
-      - mssql
+  #socialnetwork:
+  #  container_name: socialnetwork
+  #  environment:
+  #    - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+  #    - AZURE_CLIENT_ID=${AZURE_CLIENT_ID}
+  #    - AZURE_CLIENT_SECRET=${AZURE_CLIENT_SECRET}
+  #    - AZURE_TENANT_ID=${AZURE_TENANT_ID}
+  #  build:
+  #    context: .
+  #    args:
+  #      ProjectName: SocialNetwork
+  #  ports:
+  #    - "7000:80"
+  #  expose:
+  #    - "80"
+  #  restart: always
+  #  depends_on:
+  #    - redis
+  #    - postgres
+  #    - mssql
   mssql:
     container_name: mssql
     image: mcr.microsoft.com/mssql/server:2019-latest

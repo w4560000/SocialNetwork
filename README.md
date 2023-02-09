@@ -3,7 +3,7 @@
 docker build -t socialnetwork --build-arg ProjectName=SocialNetwork --no-cache .
 
 # run with appsettings.json 
-docker run -d --rm --name socialnetwork.container -p 7000:80 socialnetwork
+docker run -d -it --env-file ./.env.list -p 7000:80 socialnetwork
 ```
 
 # Run Docker Composes
