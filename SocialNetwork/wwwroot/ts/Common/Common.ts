@@ -230,7 +230,7 @@
      * @param date
      */
     DateFormat: (date: string) => {
-        return new Date(date).toISOString().replace(/T/, ' ').replace(/\..+/, '');
+        return date.replace(/T/, ' ').replace(/\..+/, '');
     },
     /**
      * 頁面註冊 Datepicker

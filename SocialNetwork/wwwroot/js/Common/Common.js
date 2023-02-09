@@ -216,7 +216,7 @@ var Common = {
      * @param date
      */
     DateFormat: function (date) {
-        return new Date(date).toISOString().replace(/T/, ' ').replace(/\..+/, '');
+        return date.replace(/T/, ' ').replace(/\..+/, '');
     },
     /**
      * 頁面註冊 Datepicker
