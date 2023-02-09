@@ -37,6 +37,10 @@ FROM mcr.microsoft.com/dotnet/aspnet:3.1 AS runtime
 ARG ProjectName
 
 WORKDIR /app
+
+# 設定台北時區
+ENV TZ="Asia/Taipei"
+
 COPY --from=build /app/$ProjectName/publish .
 
 ENV ProjectDll="${ProjectName}.dll"
