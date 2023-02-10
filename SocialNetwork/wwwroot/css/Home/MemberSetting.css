@@ -9,7 +9,8 @@
 }
 
 .DateIcon {
-  padding: 0 10px;
+  margin-right: 20px;
+  padding-left: 10px;
 }
 
 .div_save_topBar {
@@ -111,7 +112,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 20%;
   height: 80%;
   position: absolute;
   top: 50%;
@@ -231,6 +231,10 @@
   height: 35px !important;
   width: 80%;
   margin-left: 20px;
+}
+.div_profile .profile_detail .profileContent .InfoInputdiv .infoIconContainer {
+  right: 4.5%;
+  position: absolute;
 }
 .div_profile .profile_detail .profileContent .InfoInputdiv .InfoIcon {
   width: 90px;

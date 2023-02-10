@@ -65,7 +65,7 @@ const Post = {
      * @param postType 貼文類型
      * */
     LoadPost: async (memberID: number) => {
-        let postData = this._postType === PostTypeEnum.首頁 || memberID == 0 ?
+        let postData = _postType === PostTypeEnum.首頁 || memberID == 0 ?
             await GetIndexPostAPI(new QueryRowMemberReqViewModel(user.MemberID, tempQueryRowNo)) :
             await GetHomePagePostAPI(new QueryRowMemberReqViewModel(memberID, tempQueryRowNo));
 
@@ -137,9 +137,9 @@ const Post = {
                 </div>
                 <span class="post_footer_number postMsgCount">${model.TotalPostMsgCount}</span>
             </div>
-            <div class="post_footer_container">
+            <!--<div class="post_footer_container">
                 <img class="postShare" src="/images/post/share_black_24dp.svg" />
-            </div>
+            </div>todo -->
         </div>
     </div>
     <div class="div_post_msg_send">

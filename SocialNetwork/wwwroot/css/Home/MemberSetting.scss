@@ -11,7 +11,8 @@
 }
 
 .DateIcon {
-    padding: 0 10px;
+    margin-right: 20px;
+    padding-left: 10px;
 }
 
 .div_save_topBar {
@@ -120,7 +121,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 20%;
             height: 80%;
             position: absolute;
             top: 50%;
@@ -251,6 +251,11 @@
                     height: 35px !important;
                     width: 80%;
                     margin-left: 20px;
+                }
+
+                .infoIconContainer {
+                    right: 4.5%;
+                    position: absolute;
                 }
 
                 .InfoIcon {
