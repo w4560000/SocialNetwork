@@ -156,7 +156,7 @@ namespace SocialNetwork
             services.AddMvc(options =>
             {
                 // Global ActionFilter
-                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+                //options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                 options.Filters.Add(new AuthorizeFilter(new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build()));
                 options.Filters.Add(new ValidateModelAttribute());
             }).AddJsonOptions(options =>
@@ -178,12 +178,12 @@ namespace SocialNetwork
             services.AddControllersWithViews();
             services.AddHttpClient();
 
-            services.AddAntiforgery(options =>
-            {
-                // 預設是 false 表示 Antiforgery 會自動生成 X-Frame-Options SAMEORIGIN
-                // 若為 true 則不自動生成
-                options.SuppressXFrameOptionsHeader = false;
-            });
+            //services.AddAntiforgery(options =>
+            //{
+            //    // 預設是 false 表示 Antiforgery 會自動生成 X-Frame-Options SAMEORIGIN
+            //    // 若為 true 則不自動生成
+            //    options.SuppressXFrameOptionsHeader = false;
+            //});
 
             services.AddSignalR()
                     .AddJsonProtocol(options =>
