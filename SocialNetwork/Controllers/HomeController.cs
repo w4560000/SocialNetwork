@@ -97,5 +97,15 @@ namespace SocialNetwork.Controllers
         {
             return View();
         }
+
+        /// <summary>
+        /// 隱私權頁面
+        /// </summary>
+        /// <returns>隱私權頁面</returns>
+        [AllowAnonymous]
+        public IActionResult PrivacyPolicy()
+        {
+            return View();
+        }
     }
 }
