@@ -1,13 +1,13 @@
 # 網站簡介
 
-https://ls.ikkon.online
+https://ls.ikkon.online  
 練習用社群網站，僅有基礎功能，尚缺及時通知、聊天室功能
 
-專案透過 .Net Core MVC 、API 建置，版本為 .Net Core 3.1，SQL Server、Redis 協助儲存資料
-前端頁面以 .Net Core MVC Action 為進入點，透過 Razor 提供畫面，部分畫面 由 JQuery 動態操作DOM
-透過 NPM 下載第三方套件、Typescript 撰寫 JQuery語法，並自動編譯成 Javascript
-撰寫 Scss 透過 VS 的擴充工具 (Web Compiler 2022+) 來自動編譯成 css
-最後由 Gulp 來協助整合套件
+專案透過 .Net Core MVC 、API 建置，版本為 .Net Core 3.1，SQL Server、Redis 協助儲存資料  
+前端頁面以 .Net Core MVC Action 為進入點，透過 Razor 提供畫面，部分畫面 由 JQuery 動態操作DOM  
+透過 NPM 下載第三方套件、Typescript 撰寫 JQuery語法，並自動編譯成 Javascript  
+撰寫 Scss 透過 VS 的擴充工具 (Web Compiler 2022+) 來自動編譯成 css  
+最後由 Gulp 來協助整合套件 
 
 |  Gulp Task			| 說明				|
 |  ----			| ----				|
@@ -18,7 +18,7 @@ https://ls.ikkon.online
 
 
 後端透過 API 提供服務
-API 可參考 https://ls.ikkon.online/swagger/index.html
+API 可參考 https://ls.ikkon.online/swagger/index.html  
 以 JWT 當作登入驗證 Token，來判別登入狀態、是否過期
 
 |  使用的雲服務			| 說明				|
