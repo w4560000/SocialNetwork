@@ -6,6 +6,7 @@ using SocialNetwork.Helper;
 using SocialNetwork.Repository;
 using SocialNetwork.Service;
 using System;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace SocialNetwork.Controllers
@@ -93,7 +94,11 @@ namespace SocialNetwork.Controllers
 
                 var accessToken = this.HttpClientHelper.GetGoogleAccessToken(request);
 
+                this.Logger.LogInformation($"Google AccessToken:{accessToken}");
+
                 var googleUserInfo = this.HttpClientHelper.GetGoogleUserInfo(accessToken);
+
+                this.Logger.LogInformation($"Google UserInfo:{JsonSerializer.Serialize(googleUserInfo)}");
 
                 return MemberService.GoogleLogin(googleUserInfo);
             }
