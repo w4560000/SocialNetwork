@@ -45,7 +45,7 @@ var LoginPage = {
     /** Google 第三方登入 */
     GoogleLogin: function () {
         var client = google.accounts.oauth2.initCodeClient({
-            client_id: '303901313937-vtppba8h2st6brqtcpgm0ti380890a5o.apps.googleusercontent.com',
+            client_id: '303901313937-e45ne7vltcepd7sqojp3579td0tnhkr6.apps.googleusercontent.com',
             scope: 'profile email',
             ux_mode: 'popup',
             callback: function (response) {
