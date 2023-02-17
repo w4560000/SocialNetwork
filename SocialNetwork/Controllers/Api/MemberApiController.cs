@@ -91,10 +91,12 @@ namespace SocialNetwork.Controllers
                     client_secret = AzureHelper.GetAzureSecretVaule("SocialNetwork-GoogleOAuth-Secret"),
                     redirect_uri = this.AppSettings.Google_OAuth_redirect_uri
                 };
+                this.Logger.LogInformation($"Google client_secret:{request.client_secret}");
+                this.Logger.LogInformation($"Google request:{JsonSerializer.Serialize(request)}");
 
                 var accessToken = this.HttpClientHelper.GetGoogleAccessToken(request);
 
-                this.Logger.LogInformation($"Google AccessToken:{accessToken}");
+                this.Logger.LogInformation($"Google AccessToken:{accessToken.access_token}");
 
                 var googleUserInfo = this.HttpClientHelper.GetGoogleUserInfo(accessToken);
 
