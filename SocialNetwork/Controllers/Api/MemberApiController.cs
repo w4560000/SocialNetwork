@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using SocialNetwork.Helper;
 using SocialNetwork.Repository;
 using SocialNetwork.Service;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SocialNetwork.Controllers
@@ -33,16 +33,23 @@ namespace SocialNetwork.Controllers
         private readonly HttpClientHelper HttpClientHelper;
 
         /// <summary>
+        /// AppSettings
+        /// </summary>
+        private readonly AppSettings AppSettings;
+
+        /// <summary>
         /// Constructor
         /// </summary>
         public MemberApiController(
             ILogger<MemberApiController> logger,
             IMemberService memberService,
-            HttpClientHelper httpClientHelper)
+            HttpClientHelper httpClientHelper,
+            IOptions<AppSettings> appSettings)
         {
             this.Logger = logger;
             this.MemberService = memberService;
             this.HttpClientHelper = httpClientHelper;
+            this.AppSettings = appSettings.Value;
         }
 
         /// <summary>
@@ -81,7 +88,7 @@ namespace SocialNetwork.Controllers
                     code = model.Code,
                     client_id = "303901313937-vtppba8h2st6brqtcpgm0ti380890a5o.apps.googleusercontent.com",
                     client_secret = AzureHelper.GetAzureSecretVaule("SocialNetwork-GoogleOAuth-Secret"),
-                    redirect_uri = "https://localhost:44371"
+                    redirect_uri = this.AppSettings.Google_OAuth_redirect_uri
                 };
 
                 var accessToken = this.HttpClientHelper.GetGoogleAccessToken(request);

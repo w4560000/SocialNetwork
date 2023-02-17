@@ -24,6 +24,11 @@
         /// StorageContainerName
         /// </summary>
         public string StorageContainerName { get; set; }
+
+        /// <summary>
+        /// Google_OAuth_redirect_uri
+        /// </summary>
+        public string Google_OAuth_redirect_uri { get; set; }
     }
 
     /// <summary>
