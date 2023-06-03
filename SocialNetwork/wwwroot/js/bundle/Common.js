@@ -172,7 +172,7 @@ function BaseGetAPI(loadingMsg, api, successFunc, errorFunc, isNotification, isS
           if (isShowSuccessMsg) {
             if (isNotification) Common.SweetAlertNotification(true, res.Message);else Common.SweetAlertSuccess(res, successFunc);
           } else {
-            if (errorFunc) errorFunc(res);
+            if (successFunc) successFunc(res);
             Swal.close();
           }
 
@@ -226,7 +226,7 @@ function BasePostAPIV1(loadingMsg, api, successFunc, errorFunc, isNotification, 
           if (isShowSuccessMsg) {
             if (isNotification) Common.SweetAlertNotification(true, res.Message);else Common.SweetAlertSuccess(res, successFunc);
           } else {
-            if (errorFunc) errorFunc(res);
+            if (successFunc) successFunc(res);
             Swal.close();
           }
 
@@ -282,7 +282,7 @@ function BasePostAPIV2(loadingMsg, api, model, successFunc, errorFunc, isNotific
           if (isShowSuccessMsg) {
             if (isNotification) Common.SweetAlertNotification(true, res.Message);else Common.SweetAlertSuccess(res, successFunc);
           } else {
-            if (errorFunc) errorFunc(res);
+            if (successFunc) successFunc(res);
             Swal.close();
           }
 
@@ -336,7 +336,7 @@ function BasePostAPIV3(loadingMsg, api, model, successFunc, errorFunc, isNotific
         if (isShowSuccessMsg) {
           if (isNotification) Common.SweetAlertNotification(true, res.Message);else Common.SweetAlertSuccess(res, successFunc);
         } else {
-          if (errorFunc) errorFunc(res);
+          if (successFunc) successFunc(res);
           Swal.close();
         }
       } else {
@@ -385,7 +385,7 @@ function BasePostAPIByFormData(loadingMsg, api, formData, successFunc, errorFunc
         if (isShowSuccessMsg) {
           if (isNotification) Common.SweetAlertNotification(true, res.Message);else Common.SweetAlertSuccess(res, successFunc);
         } else {
-          if (errorFunc) errorFunc(res);
+          if (successFunc) successFunc(res);
           Swal.close();
         }
       } else {
@@ -404,7 +404,9 @@ function BasePostAPIByFormData(loadingMsg, api, formData, successFunc, errorFunc
 
 
 function LoginAPI(loadingMsg, model, successFunc, errorFunc) {
-  BasePostAPIV3(loadingMsg, "/MemberApi/Login", model, successFunc, errorFunc);
+  var isNotification = false;
+  var isShowSuccessMsg = false;
+  BasePostAPIV3(loadingMsg, "/MemberApi/Login", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 /**
  * Google 第三方登入 API
@@ -412,7 +414,9 @@ function LoginAPI(loadingMsg, model, successFunc, errorFunc) {
 
 
 function GoogleLoginAPI(loadingMsg, model, successFunc, errorFunc) {
-  BasePostAPIV3(loadingMsg, "/MemberApi/GoogleLogin", model, successFunc, errorFunc);
+  var isNotification = false;
+  var isShowSuccessMsg = false;
+  BasePostAPIV3(loadingMsg, "/MemberApi/GoogleLogin", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 /**
  * 寄送驗證碼 API
@@ -420,7 +424,9 @@ function GoogleLoginAPI(loadingMsg, model, successFunc, errorFunc) {
 
 
 function SendVCodeAPI(loadingMsg, model, successFunc, errorFunc) {
-  BasePostAPIV3(loadingMsg, "/MemberApi/SendVCode", model, successFunc, errorFunc);
+  var isNotification = false;
+  var isShowSuccessMsg = false;
+  BasePostAPIV3(loadingMsg, "/MemberApi/SendVCode", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 /**
  * 註冊 API
@@ -428,7 +434,9 @@ function SendVCodeAPI(loadingMsg, model, successFunc, errorFunc) {
 
 
 function SignupAPI(loadingMsg, model, successFunc, errorFunc) {
-  BasePostAPIV3(loadingMsg, "/MemberApi/Signup", model, successFunc, errorFunc);
+  var isNotification = false;
+  var isShowSuccessMsg = false;
+  BasePostAPIV3(loadingMsg, "/MemberApi/Signup", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 /**
  * 更新會員公開資訊 API
@@ -436,7 +444,9 @@ function SignupAPI(loadingMsg, model, successFunc, errorFunc) {
 
 
 function UpdateMemberPublicInfoAPI(loadingMsg, model, successFunc, errorFunc) {
-  BasePostAPIV3(loadingMsg, "/MemberApi/UpdateMemberPublicInfo", model, successFunc, errorFunc);
+  var isNotification = false;
+  var isShowSuccessMsg = false;
+  BasePostAPIV3(loadingMsg, "/MemberApi/UpdateMemberPublicInfo", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 /**
  * 重設密碼 Step1 API
@@ -449,7 +459,9 @@ function ResetPasswordAPI(loadingMsg, model) {
 
   var errorFunc = function errorFunc() {};
 
-  BasePostAPIV3(loadingMsg, "/MemberApi/ResetPassword", model, successFunc, errorFunc);
+  var isNotification = false;
+  var isShowSuccessMsg = false;
+  BasePostAPIV3(loadingMsg, "/MemberApi/ResetPassword", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 /**
  * 重設密碼 Step2 API
@@ -457,7 +469,9 @@ function ResetPasswordAPI(loadingMsg, model) {
 
 
 function ResetPasswordConfirmAPI(loadingMsg, model, successFunc, errorFunc) {
-  BasePostAPIV3(loadingMsg, "/MemberApi/ResetPasswordConfirm", model, successFunc, errorFunc);
+  var isNotification = false;
+  var isShowSuccessMsg = false;
+  BasePostAPIV3(loadingMsg, "/MemberApi/ResetPasswordConfirm", model, successFunc, errorFunc), isNotification, isShowSuccessMsg;
 }
 /**
  * 登出 API
@@ -465,8 +479,10 @@ function ResetPasswordConfirmAPI(loadingMsg, model, successFunc, errorFunc) {
 
 
 function LogoutAPI(loadingMsg, successFunc, errorFunc, confirmTitle) {
+  var isNotification = false;
+  var isShowSuccessMsg = false;
   Common.SweetAlertConfirm(confirmTitle, function () {
-    return BaseGetAPI(loadingMsg, "/MemberApi/Logout", successFunc, errorFunc);
+    return BaseGetAPI(loadingMsg, "/MemberApi/Logout", successFunc, errorFunc, isNotification, isShowSuccessMsg);
   });
 }
 /**
@@ -547,8 +563,10 @@ function GetMemberInfoAPI(memberID) {
 
 
 function UpdateMemberInfoAPI(loadingMsg, formData, successFunc, errorFunc, confirmTitle) {
+  var isNotification = false;
+  var isShowSuccessMsg = false;
   Common.SweetAlertConfirm(confirmTitle, function () {
-    return BasePostAPIByFormData(loadingMsg, "/MemberApi/UpdateMemberInfo", formData, successFunc, errorFunc);
+    return BasePostAPIByFormData(loadingMsg, "/MemberApi/UpdateMemberInfo", formData, successFunc, errorFunc, isNotification, isShowSuccessMsg);
   });
 }
 /**
@@ -557,8 +575,39 @@ function UpdateMemberInfoAPI(loadingMsg, formData, successFunc, errorFunc, confi
 
 
 function ChangePasswordAPI(loadingMsg, model, successFunc, errorFunc, confirmTitle) {
+  var isNotification = false;
+  var isShowSuccessMsg = false;
   Common.SweetAlertConfirm(confirmTitle, function () {
-    return BasePostAPIV3(loadingMsg, "/MemberApi/ChangePassword", model, successFunc, errorFunc);
+    return BasePostAPIV3(loadingMsg, "/MemberApi/ChangePassword", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
+  });
+}
+/**
+ * 搜尋會員 API
+ */
+
+
+function SearchMemberAPI(model) {
+  return __awaiter(this, void 0, void 0, function () {
+    var successFunc, errorFunc, isNotification, isShowSuccessMsg;
+    return __generator(this, function (_a) {
+      switch (_a.label) {
+        case 0:
+          successFunc = function successFunc() {};
+
+          errorFunc = function errorFunc() {};
+
+          isNotification = false;
+          isShowSuccessMsg = false;
+          return [4
+          /*yield*/
+          , BasePostAPIV2('', "/MemberApi/SearchMember", model, successFunc, errorFunc, isNotification, isShowSuccessMsg)];
+
+        case 1:
+          return [2
+          /*return*/
+          , _a.sent()];
+      }
+    });
   });
 } // Post
 
@@ -568,8 +617,10 @@ function ChangePasswordAPI(loadingMsg, model, successFunc, errorFunc, confirmTit
 
 
 function PublishPostAPI(loadingMsg, formData, successFunc, errorFunc, confirmTitle) {
+  var isNotification = false;
+  var isShowSuccessMsg = false;
   Common.SweetAlertConfirm(confirmTitle, function () {
-    return BasePostAPIByFormData(loadingMsg, "/PostApi/PublishPost", formData, successFunc, errorFunc);
+    return BasePostAPIByFormData(loadingMsg, "/PostApi/PublishPost", formData, successFunc, errorFunc, isNotification, isShowSuccessMsg);
   });
 }
 /**
@@ -668,6 +719,43 @@ function TogglePostLikeAPI(model, successFunc, errorFunc) {
   var isNotification = false;
   var isShowSuccessMsg = false;
   BasePostAPIV3('', "/PostApi/TogglePostLike", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
+}
+/**
+ * 發送貼文留言 API
+ */
+
+
+function SendPostMsgAPI(model, successFunc, errorFunc) {
+  return __awaiter(this, void 0, void 0, function () {
+    var isNotification, isShowSuccessMsg;
+    return __generator(this, function (_a) {
+      switch (_a.label) {
+        case 0:
+          isNotification = false;
+          isShowSuccessMsg = false;
+          return [4
+          /*yield*/
+          , BasePostAPIV2('', "/PostApi/SendPostMsg", model, successFunc, errorFunc, isNotification, isShowSuccessMsg)];
+
+        case 1:
+          return [2
+          /*return*/
+          , _a.sent()];
+      }
+    });
+  });
+}
+/**
+ * 刪除貼文 API
+ */
+
+
+function DeletePostAPI(model, successFunc, errorFunc, confirmTitle) {
+  var isNotification = false;
+  var isShowSuccessMsg = true;
+  Common.SweetAlertConfirm(confirmTitle, function () {
+    return BasePostAPIV3('', "/PostApi/DeletePostAsync", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
+  });
 } // Friend
 
 /**
@@ -794,8 +882,10 @@ function GetFriendStatusAPI(model) {
 function SendFriendInvitationAPI(model, successFunc, confirmTitle) {
   var errorFunc = function errorFunc() {};
 
+  var isNotification = false;
+  var isShowSuccessMsg = false;
   Common.SweetAlertConfirm(confirmTitle, function () {
-    return BasePostAPIV3('', "/FriendApi/SendFriendInvitation", model, successFunc, errorFunc);
+    return BasePostAPIV3('', "/FriendApi/SendFriendInvitation", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
   });
 }
 /**
@@ -806,8 +896,10 @@ function SendFriendInvitationAPI(model, successFunc, confirmTitle) {
 function DecideFriendInvitationAPI(model, successFunc, confirmTitle) {
   var errorFunc = function errorFunc() {};
 
+  var isNotification = false;
+  var isShowSuccessMsg = false;
   Common.SweetAlertConfirm(confirmTitle, function () {
-    return BasePostAPIV3('', "/FriendApi/DecideFriendInvitation", model, successFunc, errorFunc);
+    return BasePostAPIV3('', "/FriendApi/DecideFriendInvitation", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
   });
 }
 /**
@@ -818,8 +910,10 @@ function DecideFriendInvitationAPI(model, successFunc, confirmTitle) {
 function RevokeFriendInvitationAPI(model, successFunc, confirmTitle) {
   var errorFunc = function errorFunc() {};
 
+  var isNotification = false;
+  var isShowSuccessMsg = false;
   Common.SweetAlertConfirm(confirmTitle, function () {
-    return BasePostAPIV3('', "/FriendApi/RevokeFriendInvitation", model, successFunc, errorFunc);
+    return BasePostAPIV3('', "/FriendApi/RevokeFriendInvitation", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
   });
 }
 /**
@@ -830,8 +924,10 @@ function RevokeFriendInvitationAPI(model, successFunc, confirmTitle) {
 function DeleteFriendAPI(model, successFunc, confirmTitle) {
   var errorFunc = function errorFunc() {};
 
+  var isNotification = false;
+  var isShowSuccessMsg = false;
   Common.SweetAlertConfirm(confirmTitle, function () {
-    return BasePostAPIV3('', "/FriendApi/DeleteFriend", model, successFunc, errorFunc);
+    return BasePostAPIV3('', "/FriendApi/DeleteFriend", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
   });
 }
 
@@ -1091,7 +1187,7 @@ var Common = {
    * @param date
    */
   DateFormat: function DateFormat(date) {
-    return new Date(date).toISOString().replace(/T/, ' ').replace(/\..+/, '');
+    return date.replace(/T/, ' ').replace(/\..+/, '');
   },
 
   /**
@@ -1221,9 +1317,7 @@ var Common = {
       slideMargin: 10,
       enableDrag: true,
       speed: 500,
-      adaptiveHeight: true //autoWidth: true
-      //verticalHeight: 500px
-
+      adaptiveHeight: true
     });
   }
 };
@@ -1530,7 +1624,7 @@ var __generator = void 0 && (void 0).__generator || function (thisArg, body) {
   }
 };
 
-var _this = void 0;
+var _this_1 = void 0;
 /** 點擊貼文選項開關 暫存的貼文編號 */
 
 
@@ -1549,9 +1643,14 @@ var Post = {
   /**
    * 初始化
    * @param postType 貼文類型
+   * @param memberID 會員編號
    */
-  Init: function Init(postType) {
-    return __awaiter(_this, void 0, void 0, function () {
+  Init: function Init(postType, memberID) {
+    if (memberID === void 0) {
+      memberID = 0;
+    }
+
+    return __awaiter(_this_1, void 0, void 0, function () {
       return __generator(this, function (_a) {
         switch (_a.label) {
           case 0:
@@ -1560,7 +1659,7 @@ var Post = {
             _postType = postType;
             return [4
             /*yield*/
-            , Post.LoadPost()];
+            , Post.LoadPost(memberID)];
 
           case 1:
             _a.sent(); //$(".postAction").on("focus", function (event) {
@@ -1587,7 +1686,7 @@ var Post = {
                       , 2];
                       return [4
                       /*yield*/
-                      , Post.LoadPost()];
+                      , Post.LoadPost(memberID)];
 
                     case 1:
                       _a.sent();
@@ -1595,6 +1694,52 @@ var Post = {
                       _a.label = 2;
 
                     case 2:
+                      return [2
+                      /*return*/
+                      ];
+                  }
+                });
+              });
+            });
+            $('.msgComment').keydown(function (e) {
+              return __awaiter(this, void 0, void 0, function () {
+                var _this, msg;
+
+                return __generator(this, function (_a) {
+                  switch (_a.label) {
+                    case 0:
+                      _this = $(this);
+                      if (!(e.key == 'Enter' && (e.shiftKey || e.ctrlKey || e.altKey))) return [3
+                      /*break*/
+                      , 1];
+                      e.preventDefault();
+                      msg = _this.val() + '\n';
+
+                      _this.val(msg);
+
+                      return [3
+                      /*break*/
+                      , 3];
+
+                    case 1:
+                      if (!(e.key == 'Enter')) return [3
+                      /*break*/
+                      , 3];
+                      e.preventDefault();
+                      return [4
+                      /*yield*/
+                      , Post.SendPostMsg(_this)];
+
+                    case 2:
+                      _a.sent();
+
+                      _a.label = 3;
+
+                    case 3:
+                      _this.height('auto');
+
+                      _this.height(_this.prop('scrollHeight') + 'px');
+
                       return [2
                       /*return*/
                       ];
@@ -1611,42 +1756,17 @@ var Post = {
   },
 
   /**
-   * 重新載入貼文
-   * */
-  ReLoadPost: function ReLoadPost() {
-    return __awaiter(_this, void 0, void 0, function () {
-      return __generator(this, function (_a) {
-        switch (_a.label) {
-          case 0:
-            tempQueryRowNo = 1;
-            $('.div_post').remove();
-            return [4
-            /*yield*/
-            , Post.LoadPost()];
-
-          case 1:
-            _a.sent();
-
-            return [2
-            /*return*/
-            ];
-        }
-      });
-    });
-  },
-
-  /**
    * 載入貼文
    * @param postType 貼文類型
    * */
-  LoadPost: function LoadPost() {
-    return __awaiter(_this, void 0, void 0, function () {
+  LoadPost: function LoadPost(memberID) {
+    return __awaiter(_this_1, void 0, void 0, function () {
       var postData, _a;
 
       return __generator(this, function (_b) {
         switch (_b.label) {
           case 0:
-            if (!(this._postType === PostTypeEnum.首頁)) return [3
+            if (!(_postType === PostTypeEnum.首頁 || memberID == 0)) return [3
             /*break*/
             , 2];
             return [4
@@ -1662,7 +1782,7 @@ var Post = {
           case 2:
             return [4
             /*yield*/
-            , GetHomePagePostAPI(new QueryRowMemberReqViewModel(user.MemberID, tempQueryRowNo))];
+            , GetHomePagePostAPI(new QueryRowMemberReqViewModel(memberID, tempQueryRowNo))];
 
           case 3:
             _a = _b.sent();
@@ -1698,7 +1818,7 @@ var Post = {
    * @param model 貼文 ViewModel
    */
   PostHtmlTemplate: function PostHtmlTemplate(model) {
-    return "\n<div class=\"div_post\" PostKey=\"".concat(model.PostKey, "\" MemberID=\"").concat(model.MemberID, "\">\n    <div class=\"div_post_content\">\n        <div class=\"post_content_topBar\">\n            <div class=\"postPhoto_container\">\n                <img class=\"postPhoto\" src=\"").concat(model.ProfilePhotoUrl, "\" />\n            </div>\n            <div class=\"postProfile\">\n                <div>").concat(model.NickName, "</div>\n                <span class=\"time\"title=\"").concat(Common.DateFormat(model.PostDateTime.toString()), "\">").concat(Post.PostDateTimeFilter(model.PostDateTime.toString()), "</span>\n            </div>\n            <div class=\"postAction\" tabindex=\"-1\" PostKey=\"").concat(model.PostKey, "\" onclick=\"Post.TogglePostAction(this)\">\u22EE\n            <ul class=\"ul_postAction\" PostKey=\"").concat(model.PostKey, "\">\n                <li><a PostKey=\"").concat(model.PostKey, "\">\u522A\u9664</a></li>\n                <li><a PostKey=\"").concat(model.PostKey, "\">\u7DE8\u8F2F</a></li>\n            </ul>\n            </div>\n        </div>\n        <div class=\"post_body\">\n            ").concat(model.PostContent, "\n            <div style=\"margin-top: 10px;\">\n                <ul class=\"PostPhoto\" PostKey=\"").concat(model.PostKey, "\">\n                    ").concat(Post.PostImageHtmlTemplate(model.PostImageUrlList), "\n                </ul>\n            </div>\n        </div>\n        <div class=\"post_footerBar\">\n            <div class=\"post_footer_container\">\n                <div class=\"post_footer_img\" onclick=\"Post.TogglePostLike(").concat(model.PostKey, ")\">\n                    <img class=\"postLike ").concat(model.IsCurrnetMemberPostLiked ? 'postLiked' : '', "\" src=\"/images/post/thumb_up_black_24dp.svg\" />\n                </div>\n                <span class=\"post_footer_number\">").concat(model.PostLike, "</span>\n            </div>\n            <div class=\"post_footer_container\">\n                <div class=\"post_footer_img\">\n                    <img class=\"postMsg\" src=\"/images/post/textsms_black_24dp.svg\" />\n                </div>\n                <span class=\"post_footer_number\">").concat(model.TotalPostMsgCount, "</span>\n            </div>\n            <div class=\"post_footer_container\">\n                <img class=\"postShare\" src=\"/images/post/share_black_24dp.svg\" />\n            </div>\n        </div>\n    </div>\n    <div class=\"div_post_msg_send\">\n        <div class=\"post_msgPhoto_container\">\n            <img class=\"post_msgPhoto\" src=\"").concat(model.ProfilePhotoUrl, "\">\n        </div>\n        <div class=\"post_msg_comment\">\n            <textarea class=\"msgComment\" placeholder=\"\u7559\u8A00...\"></textarea>\n        </div>\n        <div class=\"post_msg_submit\">\n            <img class=\"msgSend\" src=\"/images/post/send_black_24dp.svg\">\n        </div>\n    </div>\n\n    ").concat(Post.ShowPostMsg(model.PostKey, model.PostMsgList, model.TotalPostMsgCount), "\n</div>");
+    return "\n<div class=\"div_post\" PostKey=\"".concat(model.PostKey, "\" MemberID=\"").concat(model.MemberID, "\">\n    <div class=\"div_post_content\">\n        <div class=\"post_content_topBar\">\n            <div class=\"postPhoto_container\">\n                <img class=\"postPhoto\" src=\"").concat(model.ProfilePhotoUrl, "\" />\n            </div>\n            <div class=\"postProfile\">\n                <div>").concat(model.NickName, "</div>\n                <span class=\"time\" title=\"").concat(Common.DateFormat(model.PostDateTime.toString()), "\">").concat(Post.PostDateTimeFilter(model.PostDateTime.toString()), "</span>\n            </div>\n            ").concat(model.MemberID === user.MemberID ? "<div class=\"postAction\" tabindex=\"-1\" PostKey=\"".concat(model.PostKey, "\" onclick=\"Post.TogglePostAction(this)\">\u22EE\n                <ul class=\"ul_postAction\" PostKey=\"").concat(model.PostKey, "\">\n                    <li><a PostKey=\"").concat(model.PostKey, "\" onclick=\"Post.DeletePost(this)\">\u522A\u9664</a></li>\n                    <!-- todo <li><a PostKey=\"").concat(model.PostKey, "\">\u7DE8\u8F2F</a></li> -->\n                </ul>\n            </div>") : '', "\n            \n        </div>\n        <div class=\"post_body\">\n            <div class=\"post_body_content\">").concat(model.PostContent, "</div>\n            <div style=\"margin-top: 10px;\">\n                <ul class=\"PostPhoto\" PostKey=\"").concat(model.PostKey, "\">\n                    ").concat(Post.PostImageHtmlTemplate(model.PostImageUrlList), "\n                </ul>\n            </div>\n        </div>\n        <div class=\"post_footerBar\">\n            <div class=\"post_footer_container\">\n                <div class=\"post_footer_img\" onclick=\"Post.TogglePostLike(").concat(model.PostKey, ")\">\n                    <img class=\"postLike ").concat(model.IsCurrnetMemberPostLiked ? 'postLiked' : '', "\" src=\"/images/post/thumb_up_black_24dp.svg\" />\n                </div>\n                <span class=\"post_footer_number postLikeCount\">").concat(model.PostLike, "</span>\n            </div>\n            <div class=\"post_footer_container\">\n                <div class=\"post_footer_img postMsgContainer\" onclick=\"Post.FocusMsg(this)\">\n                    <img class=\"postMsg\" src=\"/images/post/textsms_black_24dp.svg\" />\n                </div>\n                <span class=\"post_footer_number postMsgCount\">").concat(model.TotalPostMsgCount, "</span>\n            </div>\n            <!--<div class=\"post_footer_container\">\n                <img class=\"postShare\" src=\"/images/post/share_black_24dp.svg\" />\n            </div>todo -->\n        </div>\n    </div>\n    <div class=\"div_post_msg_send\">\n        <div class=\"post_msgPhoto_container\">\n            <img class=\"post_msgPhoto\" src=\"").concat(user.ProfilePhotoUrl, "\">\n        </div>\n        <div class=\"post_msg_comment\">\n            <textarea class=\"msgComment\" placeholder=\"\u7559\u8A00...\"></textarea>\n        </div>\n        <div class=\"post_msg_submit\" onclick=\"Post.SubmitPostMsg(this)\">\n            <img class=\"msgSend\" src=\"/images/post/send_black_24dp.svg\">\n        </div>\n    </div>\n\n    ").concat(Post.ShowPostMsg(model.PostKey, model.PostMsgList, model.TotalPostMsgCount), "\n</div>");
   },
 
   /**
@@ -1749,11 +1869,19 @@ var Post = {
    */
   TogglePostLike: function TogglePostLike(postKey) {
     var toggle = $(".div_post[PostKey='".concat(postKey, "'] .postLike")).hasClass('postLiked') ? ToggleEnum.Off : ToggleEnum.On;
-    var model = new TogglePostLikeViewModel(postKey, toggle);
+    var model = new TogglePostLikeReqViewModel(postKey, toggle);
 
     var successFunc = function successFunc() {
+      var postLike = Number($(".div_post[PostKey='".concat(postKey, "'] .postLikeCount")).html());
+
+      if (toggle == ToggleEnum.On) {
+        $(".div_post[PostKey='".concat(postKey, "'] .postLike")).addClass('postLiked');
+        $(".div_post[PostKey='".concat(postKey, "'] .postLikeCount")).html((postLike + 1).toString());
+        return;
+      }
+
       $(".div_post[PostKey='".concat(postKey, "'] .postLike")).removeClass('postLiked');
-      if (toggle == ToggleEnum.On) $(".div_post[PostKey='".concat(postKey, "'] .postLike")).addClass('postLiked');
+      $(".div_post[PostKey='".concat(postKey, "'] .postLikeCount")).html((postLike - 1).toString());
     };
 
     var errorFunc = function errorFunc() {};
@@ -1766,7 +1894,7 @@ var Post = {
    * @param postkey 貼文編號
    */
   ShowAllPostMsg: function ShowAllPostMsg(postkey) {
-    return __awaiter(_this, void 0, void 0, function () {
+    return __awaiter(_this_1, void 0, void 0, function () {
       var allPostMsgList, postMsgHtmlTemplateList_1;
       return __generator(this, function (_a) {
         switch (_a.label) {
@@ -1797,6 +1925,99 @@ var Post = {
         }
       });
     });
+  },
+
+  /**
+   * 點擊發送貼文 按鈕
+   * @param e
+   */
+  SubmitPostMsg: function SubmitPostMsg(button) {
+    return __awaiter(_this_1, void 0, void 0, function () {
+      var postMsgElement;
+      return __generator(this, function (_a) {
+        switch (_a.label) {
+          case 0:
+            postMsgElement = $(button).prev().children('.msgComment');
+            return [4
+            /*yield*/
+            , Post.SendPostMsg(postMsgElement)];
+
+          case 1:
+            _a.sent();
+
+            return [2
+            /*return*/
+            ];
+        }
+      });
+    });
+  },
+
+  /**
+   * 發送貼文留言
+   * @param e element
+   */
+  SendPostMsg: function SendPostMsg(e) {
+    return __awaiter(_this_1, void 0, void 0, function () {
+      var postMsg, currentPost, postkey, successFunc, errorFunc;
+      return __generator(this, function (_a) {
+        switch (_a.label) {
+          case 0:
+            postMsg = e.val();
+            if (postMsg.length == 0) return [2
+            /*return*/
+            ];
+            currentPost = e.parents('.div_post');
+            postkey = Number(currentPost.attr('postkey'));
+
+            successFunc = function successFunc(res) {
+              if (res.Data) {
+                currentPost.children('.div_post_msg_send').after(Post.PostMsgHtmlTemplate(res.Data));
+                currentPost.find('.postMsgCount').html((Number(currentPost.find('.postMsgCount').html()) + 1).toString());
+                e.val('');
+              }
+            };
+
+            errorFunc = function errorFunc() {};
+
+            return [4
+            /*yield*/
+            , SendPostMsgAPI(new SendPostMsgReqViewModel(postkey, postMsg), successFunc, errorFunc)];
+
+          case 1:
+            _a.sent();
+
+            return [2
+            /*return*/
+            ];
+        }
+      });
+    });
+  },
+
+  /**
+   * 點選Msg Icon 自動Focus留言輸入框
+   * @param e element
+   */
+  FocusMsg: function FocusMsg(e) {
+    var currentPost = $(e).parents('.div_post');
+    currentPost.find('.msgComment').focus();
+  },
+
+  /**
+   * 刪除貼文
+   * @param e element
+   */
+  DeletePost: function DeletePost(e) {
+    var postkey = Number($(e).attr('postkey'));
+
+    var successFunc = function successFunc() {
+      $(e).parents('.div_post').remove();
+    };
+
+    var errorFunc = function errorFunc() {};
+
+    DeletePostAPI(new CommonPostViewModel(postkey), successFunc, errorFunc, '確定是否刪除貼文?');
   },
 
   /**
@@ -1842,8 +2063,10 @@ var Post = {
       return "".concat(d_hours, "\u5C0F\u6642\u524D");
     } else if (d_minutes < 60 && d_seconds >= 60) {
       return "".concat(d_minutes, "\u5206\u9418\u524D");
-    } else {
+    } else if (d_seconds >= 10) {
       return "".concat(d_seconds, "\u79D2\u524D");
+    } else {
+      return "\u525B\u525B";
     }
   }
 };
@@ -2050,15 +2273,44 @@ function () {
  * */
 
 
-var TogglePostLikeViewModel =
+var TogglePostLikeReqViewModel =
 /** @class */
 function () {
-  function TogglePostLikeViewModel(postKey, toggle) {
+  function TogglePostLikeReqViewModel(postKey, toggle) {
     this.PostKey = postKey;
     this.Toggle = toggle;
   }
 
-  return TogglePostLikeViewModel;
+  return TogglePostLikeReqViewModel;
+}();
+/**
+ * 發送貼文留言 Request ViewModel
+ * */
+
+
+var SendPostMsgReqViewModel =
+/** @class */
+function () {
+  function SendPostMsgReqViewModel(postKey, msg) {
+    this.PostKey = postKey;
+    this.Msg = msg;
+  }
+
+  return SendPostMsgReqViewModel;
+}();
+/**
+ * 搜尋會員 Request ViewModel
+ * */
+
+
+var SearchMemberReqViewModel =
+/** @class */
+function () {
+  function SearchMemberReqViewModel(nickName) {
+    this.NickName = nickName;
+  }
+
+  return SearchMemberReqViewModel;
 }();
 /**
  * 共用回應 ViewModel
@@ -2148,6 +2400,30 @@ function () {
   function GetPostMsgResViewModel() {}
 
   return GetPostMsgResViewModel;
+}();
+/**
+ * 搜尋會員 Response ViewModel
+ * */
+
+
+var SearchMemberResViewModel =
+/** @class */
+function () {
+  function SearchMemberResViewModel() {}
+
+  return SearchMemberResViewModel;
+}();
+/**
+ * 搜尋會員資訊 Response ViewModel
+ * */
+
+
+var SearchMemberInfoResViewModel =
+/** @class */
+function () {
+  function SearchMemberInfoResViewModel() {}
+
+  return SearchMemberInfoResViewModel;
 }();
 
 var User =
