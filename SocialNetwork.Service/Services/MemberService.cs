@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
 using SocialNetwork.Helper;
 using SocialNetwork.Repository;
 using System;
@@ -60,6 +61,11 @@ namespace SocialNetwork.Service
         private readonly ChatHub ChatHub;
 
         /// <summary>
+        /// AppSettings
+        /// </summary>
+        private readonly AppSettings AppSettings;
+
+        /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="memberRepository">IMemberRepository</param>
@@ -80,7 +86,8 @@ namespace SocialNetwork.Service
             JwtHelper jwtHelper,
             IUserContext userContext,
             ICacheHelper cacheHelper,
-            ChatHub chatHub)
+            ChatHub chatHub,
+            IOptions<AppSettings> appSettings)
 
         {
             this.MemberRepository = memberRepository;
@@ -92,6 +99,7 @@ namespace SocialNetwork.Service
             this.UserContext = userContext;
             this.CacheHelper = cacheHelper;
             this.ChatHub = chatHub;
+            this.AppSettings = appSettings.Value;
         }
 
         /// <summary>
@@ -260,12 +268,13 @@ namespace SocialNetwork.Service
         /// <returns>申請結果</returns>
         public ResponseViewModel ResetPassword(ResetPasswordReqViewModel model)
         {
-            ResponseViewModel result = $"我們寄了一封重設密碼的說明到 {model.Mail}，請檢查您的收件夾或垃圾信件。".AsSuccessResponse();
             var member = this.MemberRepository.GetList("WHERE Account = @Account AND Mail = @Mail", new { model.Account, model.Mail })
                                               .FirstOrDefault();
 
             if (member == null)
-                return result;
+                return "帳號或信箱錯誤，請重新確認。".AsFailResponse();
+
+            ResponseViewModel result = $"我們寄了一封重設密碼的說明到 {model.Mail}，請檢查您的收件夾或垃圾信件。".AsSuccessResponse();
 
             var guid = Guid.NewGuid().ToString();
             var forgotPassword = new ForgotPassword()
@@ -295,7 +304,7 @@ outline: 0;";
 <body>
     <h2>嗨 {member.NickName}</h2>
     <p>您可點選底下的連結來重設 IKKON 密碼。若您未曾要求過重設密碼，請忽略本電子郵件。</p>
-    <a href='https://localhost:44371/Member/ResetPassword/{guid}' style='{forgorPasswordSubmitStyle}'>
+    <a href='{AppSettings.ApplicationDomain}/Member/ResetPassword/{guid}' style='{forgorPasswordSubmitStyle}'>
         重設密碼
     </a>
 </body>";

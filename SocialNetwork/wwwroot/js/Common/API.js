@@ -333,7 +333,7 @@ function SignupAPI(loadingMsg, model, successFunc, errorFunc) {
  */
 function UpdateMemberPublicInfoAPI(loadingMsg, model, successFunc, errorFunc) {
     var isNotification = false;
-    var isShowSuccessMsg = false;
+    var isShowSuccessMsg = true;
     BasePostAPIV3(loadingMsg, "/MemberApi/UpdateMemberPublicInfo", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 /**
@@ -344,7 +344,7 @@ function ResetPasswordAPI(loadingMsg, model) {
     var successFunc = function () { };
     var errorFunc = function () { };
     var isNotification = false;
-    var isShowSuccessMsg = false;
+    var isShowSuccessMsg = true;
     BasePostAPIV3(loadingMsg, "/MemberApi/ResetPassword", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 /**
@@ -352,7 +352,7 @@ function ResetPasswordAPI(loadingMsg, model) {
  */
 function ResetPasswordConfirmAPI(loadingMsg, model, successFunc, errorFunc) {
     var isNotification = false;
-    var isShowSuccessMsg = false;
+    var isShowSuccessMsg = true;
     BasePostAPIV3(loadingMsg, "/MemberApi/ResetPasswordConfirm", model, successFunc, errorFunc), isNotification, isShowSuccessMsg;
 }
 /**

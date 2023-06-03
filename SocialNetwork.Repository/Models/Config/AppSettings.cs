@@ -26,9 +26,9 @@
         public string StorageContainerName { get; set; }
 
         /// <summary>
-        /// Google_OAuth_redirect_uri
+        /// ApplicationDomain
         /// </summary>
-        public string Google_OAuth_redirect_uri { get; set; }
+        public string ApplicationDomain { get; set; }
     }
 
     /// <summary>

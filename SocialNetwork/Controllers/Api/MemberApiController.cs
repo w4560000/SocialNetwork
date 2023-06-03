@@ -89,7 +89,7 @@ namespace SocialNetwork.Controllers
                     code = model.Code,
                     client_id = "303901313937-e45ne7vltcepd7sqojp3579td0tnhkr6.apps.googleusercontent.com",
                     client_secret = AzureHelper.GetAzureSecretVaule("SocialNetwork-GoogleOAuth-Secret"),
-                    redirect_uri = this.AppSettings.Google_OAuth_redirect_uri
+                    redirect_uri = this.AppSettings.ApplicationDomain
                 };
                 this.Logger.LogInformation($"Google client_secret:{request.client_secret}");
                 this.Logger.LogInformation($"Google request:{JsonSerializer.Serialize(request)}");

@@ -348,7 +348,7 @@ function SignupAPI(loadingMsg: string, model: SignupReqViewModel, successFunc: F
  */
 function UpdateMemberPublicInfoAPI(loadingMsg: string, model: UpdateMemberPublicInfoReqViewModel, successFunc: Function, errorFunc: Function): void {
     let isNotification = false;
-    let isShowSuccessMsg = false;
+    let isShowSuccessMsg = true;
 
     BasePostAPIV3<UpdateMemberPublicInfoReqViewModel>(loadingMsg, "/MemberApi/UpdateMemberPublicInfo", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
@@ -361,7 +361,7 @@ function ResetPasswordAPI(loadingMsg: string, model: ResetPasswordReqViewModel):
     let successFunc = () => { };
     let errorFunc = () => { };
     let isNotification = false;
-    let isShowSuccessMsg = false;
+    let isShowSuccessMsg = true;
 
     BasePostAPIV3<ResetPasswordReqViewModel>(loadingMsg, "/MemberApi/ResetPassword", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
@@ -371,7 +371,7 @@ function ResetPasswordAPI(loadingMsg: string, model: ResetPasswordReqViewModel):
  */
 function ResetPasswordConfirmAPI(loadingMsg: string, model: ResetPasswordConfirmReqViewModel, successFunc: Function, errorFunc: Function): void {
     let isNotification = false;
-    let isShowSuccessMsg = false;
+    let isShowSuccessMsg = true;
 
     BasePostAPIV3<ResetPasswordConfirmReqViewModel>(loadingMsg, "/MemberApi/ResetPasswordConfirm", model, successFunc, errorFunc), isNotification, isShowSuccessMsg;
 }
