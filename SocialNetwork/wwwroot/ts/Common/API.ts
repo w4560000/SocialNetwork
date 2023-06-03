@@ -308,7 +308,7 @@ function BasePostAPIByFormData(
  */
 function LoginAPI(loadingMsg: string, model: LoginReqViewModel, successFunc: Function, errorFunc: Function): void {
     let isNotification = false;
-    let isShowSuccessMsg = false;
+    let isShowSuccessMsg = true;
 
     BasePostAPIV3<LoginReqViewModel>(loadingMsg, "/MemberApi/Login", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
@@ -328,7 +328,7 @@ function GoogleLoginAPI(loadingMsg: string, model: GoogleLoginReqViewModel, succ
  */
 function SendVCodeAPI(loadingMsg: string, model: SendVCodeReqViewModel, successFunc: Function, errorFunc: Function): void {
     let isNotification = false;
-    let isShowSuccessMsg = false;
+    let isShowSuccessMsg = true;
 
     BasePostAPIV3<SendVCodeReqViewModel>(loadingMsg, "/MemberApi/SendVCode", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
@@ -338,7 +338,7 @@ function SendVCodeAPI(loadingMsg: string, model: SendVCodeReqViewModel, successF
  */
 function SignupAPI(loadingMsg: string, model: SignupReqViewModel, successFunc: Function, errorFunc: Function): void {
     let isNotification = false;
-    let isShowSuccessMsg = false;
+    let isShowSuccessMsg = true;
 
     BasePostAPIV3<SignupReqViewModel>(loadingMsg, "/MemberApi/Signup", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
@@ -428,7 +428,7 @@ async function GetMemberInfoAPI(memberID: number): Promise<GetMemberInfoResViewM
  */
 function UpdateMemberInfoAPI(loadingMsg: string, formData: FormData, successFunc: Function, errorFunc: Function, confirmTitle: string): void {
     let isNotification = false;
-    let isShowSuccessMsg = false;
+    let isShowSuccessMsg = true;
 
     Common.SweetAlertConfirm(confirmTitle,
         () => BasePostAPIByFormData(loadingMsg, "/MemberApi/UpdateMemberInfo", formData, successFunc, errorFunc, isNotification, isShowSuccessMsg));
@@ -439,7 +439,7 @@ function UpdateMemberInfoAPI(loadingMsg: string, formData: FormData, successFunc
  */
 function ChangePasswordAPI(loadingMsg: string, model: ChangePasswordReqViewModel, successFunc: Function, errorFunc: Function, confirmTitle: string): void {
     let isNotification = false;
-    let isShowSuccessMsg = false;
+    let isShowSuccessMsg = true;
 
     Common.SweetAlertConfirm(confirmTitle,
         () => BasePostAPIV3<ChangePasswordReqViewModel>(loadingMsg, "/MemberApi/ChangePassword", model, successFunc, errorFunc, isNotification, isShowSuccessMsg));
@@ -464,7 +464,7 @@ async function SearchMemberAPI(model: SearchMemberReqViewModel): Promise<SearchM
  */
 function PublishPostAPI(loadingMsg: string, formData: FormData, successFunc: Function, errorFunc: Function, confirmTitle: string): void {
     let isNotification = false;
-    let isShowSuccessMsg = false;
+    let isShowSuccessMsg = true;
 
     Common.SweetAlertConfirm(confirmTitle,
         () => BasePostAPIByFormData(loadingMsg, "/PostApi/PublishPost", formData, successFunc, errorFunc, isNotification, isShowSuccessMsg));
@@ -593,7 +593,7 @@ async function GetFriendStatusAPI(model: CommonMemberViewModel): Promise<GetFrie
 function SendFriendInvitationAPI(model: CommonMemberViewModel, successFunc: Function, confirmTitle: string): void {
     let errorFunc = () => { };
     let isNotification = false;
-    let isShowSuccessMsg = false;
+    let isShowSuccessMsg = true;
 
     Common.SweetAlertConfirm(confirmTitle,
         () => BasePostAPIV3<CommonMemberViewModel>('', "/FriendApi/SendFriendInvitation", model, successFunc, errorFunc, isNotification, isShowSuccessMsg));
@@ -605,7 +605,7 @@ function SendFriendInvitationAPI(model: CommonMemberViewModel, successFunc: Func
 function DecideFriendInvitationAPI(model: DecideFriendInvitationReqViewModel, successFunc: Function, confirmTitle: string): void {
     let errorFunc = () => { };
     let isNotification = false;
-    let isShowSuccessMsg = false;
+    let isShowSuccessMsg = true;
 
     Common.SweetAlertConfirm(confirmTitle,
         () => BasePostAPIV3<DecideFriendInvitationReqViewModel>('', "/FriendApi/DecideFriendInvitation", model, successFunc, errorFunc, isNotification, isShowSuccessMsg));
@@ -617,7 +617,7 @@ function DecideFriendInvitationAPI(model: DecideFriendInvitationReqViewModel, su
 function RevokeFriendInvitationAPI(model: CommonMemberViewModel, successFunc: Function, confirmTitle: string): void {
     let errorFunc = () => { };
     let isNotification = false;
-    let isShowSuccessMsg = false;
+    let isShowSuccessMsg = true;
 
     Common.SweetAlertConfirm(confirmTitle,
         () => BasePostAPIV3<CommonMemberViewModel>('', "/FriendApi/RevokeFriendInvitation", model, successFunc, errorFunc, isNotification, isShowSuccessMsg));
@@ -629,7 +629,7 @@ function RevokeFriendInvitationAPI(model: CommonMemberViewModel, successFunc: Fu
 function DeleteFriendAPI(model: CommonMemberViewModel, successFunc: Function, confirmTitle: string): void {
     let errorFunc = () => { };
     let isNotification = false;
-    let isShowSuccessMsg = false;
+    let isShowSuccessMsg = true;
 
     Common.SweetAlertConfirm(confirmTitle,
         () => BasePostAPIV3<CommonMemberViewModel>('', "/FriendApi/DeleteFriend", model, successFunc, errorFunc, isNotification, isShowSuccessMsg));

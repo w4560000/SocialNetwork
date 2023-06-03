@@ -301,7 +301,7 @@ function BasePostAPIByFormData(loadingMsg, api, formData, successFunc, errorFunc
  */
 function LoginAPI(loadingMsg, model, successFunc, errorFunc) {
     var isNotification = false;
-    var isShowSuccessMsg = false;
+    var isShowSuccessMsg = true;
     BasePostAPIV3(loadingMsg, "/MemberApi/Login", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 /**
@@ -317,7 +317,7 @@ function GoogleLoginAPI(loadingMsg, model, successFunc, errorFunc) {
  */
 function SendVCodeAPI(loadingMsg, model, successFunc, errorFunc) {
     var isNotification = false;
-    var isShowSuccessMsg = false;
+    var isShowSuccessMsg = true;
     BasePostAPIV3(loadingMsg, "/MemberApi/SendVCode", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 /**
@@ -325,7 +325,7 @@ function SendVCodeAPI(loadingMsg, model, successFunc, errorFunc) {
  */
 function SignupAPI(loadingMsg, model, successFunc, errorFunc) {
     var isNotification = false;
-    var isShowSuccessMsg = false;
+    var isShowSuccessMsg = true;
     BasePostAPIV3(loadingMsg, "/MemberApi/Signup", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 /**
@@ -416,7 +416,7 @@ function GetMemberInfoAPI(memberID) {
  */
 function UpdateMemberInfoAPI(loadingMsg, formData, successFunc, errorFunc, confirmTitle) {
     var isNotification = false;
-    var isShowSuccessMsg = false;
+    var isShowSuccessMsg = true;
     Common.SweetAlertConfirm(confirmTitle, function () { return BasePostAPIByFormData(loadingMsg, "/MemberApi/UpdateMemberInfo", formData, successFunc, errorFunc, isNotification, isShowSuccessMsg); });
 }
 /**
@@ -424,7 +424,7 @@ function UpdateMemberInfoAPI(loadingMsg, formData, successFunc, errorFunc, confi
  */
 function ChangePasswordAPI(loadingMsg, model, successFunc, errorFunc, confirmTitle) {
     var isNotification = false;
-    var isShowSuccessMsg = false;
+    var isShowSuccessMsg = true;
     Common.SweetAlertConfirm(confirmTitle, function () { return BasePostAPIV3(loadingMsg, "/MemberApi/ChangePassword", model, successFunc, errorFunc, isNotification, isShowSuccessMsg); });
 }
 /**
@@ -452,7 +452,7 @@ function SearchMemberAPI(model) {
  */
 function PublishPostAPI(loadingMsg, formData, successFunc, errorFunc, confirmTitle) {
     var isNotification = false;
-    var isShowSuccessMsg = false;
+    var isShowSuccessMsg = true;
     Common.SweetAlertConfirm(confirmTitle, function () { return BasePostAPIByFormData(loadingMsg, "/PostApi/PublishPost", formData, successFunc, errorFunc, isNotification, isShowSuccessMsg); });
 }
 /**
@@ -628,7 +628,7 @@ function GetFriendStatusAPI(model) {
 function SendFriendInvitationAPI(model, successFunc, confirmTitle) {
     var errorFunc = function () { };
     var isNotification = false;
-    var isShowSuccessMsg = false;
+    var isShowSuccessMsg = true;
     Common.SweetAlertConfirm(confirmTitle, function () { return BasePostAPIV3('', "/FriendApi/SendFriendInvitation", model, successFunc, errorFunc, isNotification, isShowSuccessMsg); });
 }
 /**
@@ -637,7 +637,7 @@ function SendFriendInvitationAPI(model, successFunc, confirmTitle) {
 function DecideFriendInvitationAPI(model, successFunc, confirmTitle) {
     var errorFunc = function () { };
     var isNotification = false;
-    var isShowSuccessMsg = false;
+    var isShowSuccessMsg = true;
     Common.SweetAlertConfirm(confirmTitle, function () { return BasePostAPIV3('', "/FriendApi/DecideFriendInvitation", model, successFunc, errorFunc, isNotification, isShowSuccessMsg); });
 }
 /**
@@ -646,7 +646,7 @@ function DecideFriendInvitationAPI(model, successFunc, confirmTitle) {
 function RevokeFriendInvitationAPI(model, successFunc, confirmTitle) {
     var errorFunc = function () { };
     var isNotification = false;
-    var isShowSuccessMsg = false;
+    var isShowSuccessMsg = true;
     Common.SweetAlertConfirm(confirmTitle, function () { return BasePostAPIV3('', "/FriendApi/RevokeFriendInvitation", model, successFunc, errorFunc, isNotification, isShowSuccessMsg); });
 }
 /**
@@ -655,6 +655,6 @@ function RevokeFriendInvitationAPI(model, successFunc, confirmTitle) {
 function DeleteFriendAPI(model, successFunc, confirmTitle) {
     var errorFunc = function () { };
     var isNotification = false;
-    var isShowSuccessMsg = false;
+    var isShowSuccessMsg = true;
     Common.SweetAlertConfirm(confirmTitle, function () { return BasePostAPIV3('', "/FriendApi/DeleteFriend", model, successFunc, errorFunc, isNotification, isShowSuccessMsg); });
 }

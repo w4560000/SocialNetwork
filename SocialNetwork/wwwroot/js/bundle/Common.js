@@ -405,7 +405,7 @@ function BasePostAPIByFormData(loadingMsg, api, formData, successFunc, errorFunc
 
 function LoginAPI(loadingMsg, model, successFunc, errorFunc) {
   var isNotification = false;
-  var isShowSuccessMsg = false;
+  var isShowSuccessMsg = true;
   BasePostAPIV3(loadingMsg, "/MemberApi/Login", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 /**
@@ -425,7 +425,7 @@ function GoogleLoginAPI(loadingMsg, model, successFunc, errorFunc) {
 
 function SendVCodeAPI(loadingMsg, model, successFunc, errorFunc) {
   var isNotification = false;
-  var isShowSuccessMsg = false;
+  var isShowSuccessMsg = true;
   BasePostAPIV3(loadingMsg, "/MemberApi/SendVCode", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 /**
@@ -435,7 +435,7 @@ function SendVCodeAPI(loadingMsg, model, successFunc, errorFunc) {
 
 function SignupAPI(loadingMsg, model, successFunc, errorFunc) {
   var isNotification = false;
-  var isShowSuccessMsg = false;
+  var isShowSuccessMsg = true;
   BasePostAPIV3(loadingMsg, "/MemberApi/Signup", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
 }
 /**
@@ -564,7 +564,7 @@ function GetMemberInfoAPI(memberID) {
 
 function UpdateMemberInfoAPI(loadingMsg, formData, successFunc, errorFunc, confirmTitle) {
   var isNotification = false;
-  var isShowSuccessMsg = false;
+  var isShowSuccessMsg = true;
   Common.SweetAlertConfirm(confirmTitle, function () {
     return BasePostAPIByFormData(loadingMsg, "/MemberApi/UpdateMemberInfo", formData, successFunc, errorFunc, isNotification, isShowSuccessMsg);
   });
@@ -576,7 +576,7 @@ function UpdateMemberInfoAPI(loadingMsg, formData, successFunc, errorFunc, confi
 
 function ChangePasswordAPI(loadingMsg, model, successFunc, errorFunc, confirmTitle) {
   var isNotification = false;
-  var isShowSuccessMsg = false;
+  var isShowSuccessMsg = true;
   Common.SweetAlertConfirm(confirmTitle, function () {
     return BasePostAPIV3(loadingMsg, "/MemberApi/ChangePassword", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
   });
@@ -618,7 +618,7 @@ function SearchMemberAPI(model) {
 
 function PublishPostAPI(loadingMsg, formData, successFunc, errorFunc, confirmTitle) {
   var isNotification = false;
-  var isShowSuccessMsg = false;
+  var isShowSuccessMsg = true;
   Common.SweetAlertConfirm(confirmTitle, function () {
     return BasePostAPIByFormData(loadingMsg, "/PostApi/PublishPost", formData, successFunc, errorFunc, isNotification, isShowSuccessMsg);
   });
@@ -732,7 +732,7 @@ function SendPostMsgAPI(model, successFunc, errorFunc) {
       switch (_a.label) {
         case 0:
           isNotification = false;
-          isShowSuccessMsg = false;
+          isShowSuccessMsg = true;
           return [4
           /*yield*/
           , BasePostAPIV2('', "/PostApi/SendPostMsg", model, successFunc, errorFunc, isNotification, isShowSuccessMsg)];
@@ -883,7 +883,7 @@ function SendFriendInvitationAPI(model, successFunc, confirmTitle) {
   var errorFunc = function errorFunc() {};
 
   var isNotification = false;
-  var isShowSuccessMsg = false;
+  var isShowSuccessMsg = true;
   Common.SweetAlertConfirm(confirmTitle, function () {
     return BasePostAPIV3('', "/FriendApi/SendFriendInvitation", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
   });
@@ -897,7 +897,7 @@ function DecideFriendInvitationAPI(model, successFunc, confirmTitle) {
   var errorFunc = function errorFunc() {};
 
   var isNotification = false;
-  var isShowSuccessMsg = false;
+  var isShowSuccessMsg = true;
   Common.SweetAlertConfirm(confirmTitle, function () {
     return BasePostAPIV3('', "/FriendApi/DecideFriendInvitation", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
   });
@@ -911,7 +911,7 @@ function RevokeFriendInvitationAPI(model, successFunc, confirmTitle) {
   var errorFunc = function errorFunc() {};
 
   var isNotification = false;
-  var isShowSuccessMsg = false;
+  var isShowSuccessMsg = true;
   Common.SweetAlertConfirm(confirmTitle, function () {
     return BasePostAPIV3('', "/FriendApi/RevokeFriendInvitation", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
   });
@@ -925,7 +925,7 @@ function DeleteFriendAPI(model, successFunc, confirmTitle) {
   var errorFunc = function errorFunc() {};
 
   var isNotification = false;
-  var isShowSuccessMsg = false;
+  var isShowSuccessMsg = true;
   Common.SweetAlertConfirm(confirmTitle, function () {
     return BasePostAPIV3('', "/FriendApi/DeleteFriend", model, successFunc, errorFunc, isNotification, isShowSuccessMsg);
   });
@@ -1624,7 +1624,7 @@ var __generator = void 0 && (void 0).__generator || function (thisArg, body) {
   }
 };
 
-var _this_1 = void 0;
+var _this = void 0;
 /** 點擊貼文選項開關 暫存的貼文編號 */
 
 
@@ -1650,7 +1650,7 @@ var Post = {
       memberID = 0;
     }
 
-    return __awaiter(_this_1, void 0, void 0, function () {
+    return __awaiter(_this, void 0, void 0, function () {
       return __generator(this, function (_a) {
         switch (_a.label) {
           case 0:
@@ -1760,7 +1760,7 @@ var Post = {
    * @param postType 貼文類型
    * */
   LoadPost: function LoadPost(memberID) {
-    return __awaiter(_this_1, void 0, void 0, function () {
+    return __awaiter(_this, void 0, void 0, function () {
       var postData, _a;
 
       return __generator(this, function (_b) {
@@ -1818,7 +1818,7 @@ var Post = {
    * @param model 貼文 ViewModel
    */
   PostHtmlTemplate: function PostHtmlTemplate(model) {
-    return "\n<div class=\"div_post\" PostKey=\"".concat(model.PostKey, "\" MemberID=\"").concat(model.MemberID, "\">\n    <div class=\"div_post_content\">\n        <div class=\"post_content_topBar\">\n            <div class=\"postPhoto_container\">\n                <img class=\"postPhoto\" src=\"").concat(model.ProfilePhotoUrl, "\" />\n            </div>\n            <div class=\"postProfile\">\n                <div>").concat(model.NickName, "</div>\n                <span class=\"time\" title=\"").concat(Common.DateFormat(model.PostDateTime.toString()), "\">").concat(Post.PostDateTimeFilter(model.PostDateTime.toString()), "</span>\n            </div>\n            ").concat(model.MemberID === user.MemberID ? "<div class=\"postAction\" tabindex=\"-1\" PostKey=\"".concat(model.PostKey, "\" onclick=\"Post.TogglePostAction(this)\">\u22EE\n                <ul class=\"ul_postAction\" PostKey=\"").concat(model.PostKey, "\">\n                    <li><a PostKey=\"").concat(model.PostKey, "\" onclick=\"Post.DeletePost(this)\">\u522A\u9664</a></li>\n                    <!-- todo <li><a PostKey=\"").concat(model.PostKey, "\">\u7DE8\u8F2F</a></li> -->\n                </ul>\n            </div>") : '', "\n            \n        </div>\n        <div class=\"post_body\">\n            <div class=\"post_body_content\">").concat(model.PostContent, "</div>\n            <div style=\"margin-top: 10px;\">\n                <ul class=\"PostPhoto\" PostKey=\"").concat(model.PostKey, "\">\n                    ").concat(Post.PostImageHtmlTemplate(model.PostImageUrlList), "\n                </ul>\n            </div>\n        </div>\n        <div class=\"post_footerBar\">\n            <div class=\"post_footer_container\">\n                <div class=\"post_footer_img\" onclick=\"Post.TogglePostLike(").concat(model.PostKey, ")\">\n                    <img class=\"postLike ").concat(model.IsCurrnetMemberPostLiked ? 'postLiked' : '', "\" src=\"/images/post/thumb_up_black_24dp.svg\" />\n                </div>\n                <span class=\"post_footer_number postLikeCount\">").concat(model.PostLike, "</span>\n            </div>\n            <div class=\"post_footer_container\">\n                <div class=\"post_footer_img postMsgContainer\" onclick=\"Post.FocusMsg(this)\">\n                    <img class=\"postMsg\" src=\"/images/post/textsms_black_24dp.svg\" />\n                </div>\n                <span class=\"post_footer_number postMsgCount\">").concat(model.TotalPostMsgCount, "</span>\n            </div>\n            <!--<div class=\"post_footer_container\">\n                <img class=\"postShare\" src=\"/images/post/share_black_24dp.svg\" />\n            </div>todo -->\n        </div>\n    </div>\n    <div class=\"div_post_msg_send\">\n        <div class=\"post_msgPhoto_container\">\n            <img class=\"post_msgPhoto\" src=\"").concat(user.ProfilePhotoUrl, "\">\n        </div>\n        <div class=\"post_msg_comment\">\n            <textarea class=\"msgComment\" placeholder=\"\u7559\u8A00...\"></textarea>\n        </div>\n        <div class=\"post_msg_submit\" onclick=\"Post.SubmitPostMsg(this)\">\n            <img class=\"msgSend\" src=\"/images/post/send_black_24dp.svg\">\n        </div>\n    </div>\n\n    ").concat(Post.ShowPostMsg(model.PostKey, model.PostMsgList, model.TotalPostMsgCount), "\n</div>");
+    return "\n<div class=\"div_post\" PostKey=\"".concat(model.PostKey, "\" MemberID=\"").concat(model.MemberID, "\">\n    <div class=\"div_post_content\">\n        <div class=\"post_content_topBar\">\n            <div class=\"postPhoto_container\" onclick=\"LayoutPage.RedirectToMemberIndex(").concat(model.MemberID, ")\">\n                <img class=\"postPhoto\" src=\"").concat(model.ProfilePhotoUrl, "\" />\n            </div>\n            <div class=\"postProfile\">\n                <div onclick=\"LayoutPage.RedirectToMemberIndex(").concat(model.MemberID, ")\">").concat(model.NickName, "</div>\n                <span class=\"time\" title=\"").concat(Common.DateFormat(model.PostDateTime.toString()), "\">").concat(Post.PostDateTimeFilter(model.PostDateTime.toString()), "</span>\n            </div>\n            ").concat(model.MemberID === user.MemberID ? "<div class=\"postAction\" tabindex=\"-1\" PostKey=\"".concat(model.PostKey, "\" onclick=\"Post.TogglePostAction(this)\">\u22EE\n                <ul class=\"ul_postAction\" PostKey=\"").concat(model.PostKey, "\">\n                    <li><a PostKey=\"").concat(model.PostKey, "\" onclick=\"Post.DeletePost(this)\">\u522A\u9664</a></li>\n                    <!-- todo <li><a PostKey=\"").concat(model.PostKey, "\">\u7DE8\u8F2F</a></li> -->\n                </ul>\n            </div>") : '', "\n            \n        </div>\n        <div class=\"post_body\">\n            <div class=\"post_body_content\">").concat(model.PostContent, "</div>\n            <div style=\"margin-top: 10px;\">\n                <ul class=\"PostPhoto\" PostKey=\"").concat(model.PostKey, "\">\n                    ").concat(Post.PostImageHtmlTemplate(model.PostImageUrlList), "\n                </ul>\n            </div>\n        </div>\n        <div class=\"post_footerBar\">\n            <div class=\"post_footer_container\">\n                <div class=\"post_footer_img\" onclick=\"Post.TogglePostLike(").concat(model.PostKey, ")\">\n                    <img class=\"postLike ").concat(model.IsCurrnetMemberPostLiked ? 'postLiked' : '', "\" src=\"/images/post/thumb_up_black_24dp.svg\" />\n                </div>\n                <span class=\"post_footer_number postLikeCount\">").concat(model.PostLike, "</span>\n            </div>\n            <div class=\"post_footer_container\">\n                <div class=\"post_footer_img postMsgContainer\" onclick=\"Post.FocusMsg(this)\">\n                    <img class=\"postMsg\" src=\"/images/post/textsms_black_24dp.svg\" />\n                </div>\n                <span class=\"post_footer_number postMsgCount\">").concat(model.TotalPostMsgCount, "</span>\n            </div>\n            <!--<div class=\"post_footer_container\">\n                <img class=\"postShare\" src=\"/images/post/share_black_24dp.svg\" />\n            </div>todo -->\n        </div>\n    </div>\n    <div class=\"div_post_msg_send\">\n        <div class=\"post_msgPhoto_container\">\n            <img class=\"post_msgPhoto\" src=\"").concat(user.ProfilePhotoUrl, "\">\n        </div>\n        <div class=\"post_msg_comment\">\n            <textarea class=\"msgComment\" placeholder=\"\u7559\u8A00...\"></textarea>\n        </div>\n        <div class=\"post_msg_submit\" onclick=\"Post.SubmitPostMsg(this)\">\n            <img class=\"msgSend\" src=\"/images/post/send_black_24dp.svg\">\n        </div>\n    </div>\n\n    ").concat(Post.ShowPostMsg(model.PostKey, model.PostMsgList, model.TotalPostMsgCount), "\n</div>");
   },
 
   /**
@@ -1894,7 +1894,7 @@ var Post = {
    * @param postkey 貼文編號
    */
   ShowAllPostMsg: function ShowAllPostMsg(postkey) {
-    return __awaiter(_this_1, void 0, void 0, function () {
+    return __awaiter(_this, void 0, void 0, function () {
       var allPostMsgList, postMsgHtmlTemplateList_1;
       return __generator(this, function (_a) {
         switch (_a.label) {
@@ -1932,7 +1932,7 @@ var Post = {
    * @param e
    */
   SubmitPostMsg: function SubmitPostMsg(button) {
-    return __awaiter(_this_1, void 0, void 0, function () {
+    return __awaiter(_this, void 0, void 0, function () {
       var postMsgElement;
       return __generator(this, function (_a) {
         switch (_a.label) {
@@ -1958,7 +1958,7 @@ var Post = {
    * @param e element
    */
   SendPostMsg: function SendPostMsg(e) {
-    return __awaiter(_this_1, void 0, void 0, function () {
+    return __awaiter(_this, void 0, void 0, function () {
       var postMsg, currentPost, postkey, successFunc, errorFunc;
       return __generator(this, function (_a) {
         switch (_a.label) {
