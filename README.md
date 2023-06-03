@@ -1,6 +1,6 @@
 # 網站簡介
 
-https://ls.ikkon.online  
+https://ls.ikkon.app  
 練習用社群網站，僅有基礎功能，尚缺及時通知、聊天室功能
 
 專案透過 .Net Core MVC 、API 建置，版本為 .Net Core 3.1，SQL Server、Redis 協助儲存資料  
@@ -18,15 +18,15 @@ https://ls.ikkon.online
 
 
 後端透過 API 提供服務
-API 可參考 https://ls.ikkon.online/swagger/index.html  
+API 可參考 https://ls.ikkon.app/swagger/index.html  
 以 JWT 當作登入驗證 Token，來判別登入狀態、是否過期
 
 |  使用的雲服務			| 說明				|
 |  ----			| ----				|
 | GCP GCE	| 由單一台 Linux VM 透過 docker-compose 建置該網站 |
 | GCP Load Balancing			| 協助掛載 HTTPS 憑證並轉導至 GCE	|
-| GCP Cloud DNS			| 設定 ls.ikkon.online 對應至 GCP Load Balancing IP	|
-| GCP Cloud Domains	| 新增 domain ls.ikkon.online	|
+| GCP Cloud DNS			| 設定 ls.ikkon.app 對應至 GCP Load Balancing IP	|
+| GCP Cloud Domains	| 新增 domain ls.ikkon.app	|
 | Google OAuth		| 提供會員透過Google第三方登入	|
 | Azure Key Vault		| 協助保存機密連線字串	|
 | Azure Blob Storage		| 用以儲存圖檔 (大頭貼、個人背景圖、貼文圖檔)	|
@@ -60,6 +60,17 @@ API 可參考 https://ls.ikkon.online/swagger/index.html
 * TopBar - 新增聊天室查詢、通知 (當有好友邀請、貼完按讚 SingalR 即時通知)
 * 聊天室 - 點擊好友列表的好友，彈出聊天室 即時互動
 
+# 前置
+```
+sudo chmod +x /home/leozheng0411/SocialNetwork/MSSQL/entrypoint.sh
+```
+
+# Run Docker Composes
+```
+docker-compose build --no-cache
+docker-compose up -d
+```
+
 # Build Docker Image 
 ```
 docker build -t socialnetwork --build-arg ProjectName=SocialNetwork --no-cache .
@@ -67,13 +78,6 @@ docker build -t socialnetwork --build-arg ProjectName=SocialNetwork --no-cache .
 # run with appsettings.json 
 docker run --network=socialnetwork_default -d -it --env-file .env -p 7000:80 socialnetwork
 ```
-
-# Run Docker Composes
-```
-docker-compose build --no-cache
-docker-compose up -e ASPNETCORE_ENVIRONMENT=Production -d
-```
-
 
 
 ## 服務
