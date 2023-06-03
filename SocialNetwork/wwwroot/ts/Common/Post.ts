@@ -100,11 +100,11 @@ const Post = {
 <div class="div_post" PostKey="${model.PostKey}" MemberID="${model.MemberID}">
     <div class="div_post_content">
         <div class="post_content_topBar">
-            <div class="postPhoto_container">
+            <div class="postPhoto_container" onclick="LayoutPage.RedirectToMemberIndex(${model.MemberID})">
                 <img class="postPhoto" src="${model.ProfilePhotoUrl}" />
             </div>
             <div class="postProfile">
-                <div>${model.NickName}</div>
+                <div onclick="LayoutPage.RedirectToMemberIndex(${model.MemberID})">${model.NickName}</div>
                 <span class="time" title="${Common.DateFormat(model.PostDateTime.toString())}">${Post.PostDateTimeFilter(model.PostDateTime.toString())}</span>
             </div>
             ${(model.MemberID === user.MemberID ?

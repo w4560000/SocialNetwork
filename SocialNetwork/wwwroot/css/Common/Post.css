@@ -5,6 +5,7 @@
 }
 
 .postPhoto_container {
+  cursor: pointer;
   width: 50px;
 }
 
@@ -27,6 +28,9 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+.post_content_topBar .postProfile div {
+  cursor: pointer;
 }
 .post_content_topBar .postProfile .time {
   padding-top: 5px;

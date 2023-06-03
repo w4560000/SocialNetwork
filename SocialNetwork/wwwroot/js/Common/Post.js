@@ -34,7 +34,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var _this_1 = this;
+var _this = this;
 /** 點擊貼文選項開關 暫存的貼文編號 */
 var tempSelectPostKey = 0;
 /** 該頁面目前查詢貼文筆數 */
@@ -51,7 +51,7 @@ var Post = {
      */
     Init: function (postType, memberID) {
         if (memberID === void 0) { memberID = 0; }
-        return __awaiter(_this_1, void 0, void 0, function () {
+        return __awaiter(_this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -124,7 +124,7 @@ var Post = {
      * 載入貼文
      * @param postType 貼文類型
      * */
-    LoadPost: function (memberID) { return __awaiter(_this_1, void 0, void 0, function () {
+    LoadPost: function (memberID) { return __awaiter(_this, void 0, void 0, function () {
         var postData, _a;
         return __generator(this, function (_b) {
             switch (_b.label) {
@@ -166,7 +166,7 @@ var Post = {
      * @param model 貼文 ViewModel
      */
     PostHtmlTemplate: function (model) {
-        return "\n<div class=\"div_post\" PostKey=\"".concat(model.PostKey, "\" MemberID=\"").concat(model.MemberID, "\">\n    <div class=\"div_post_content\">\n        <div class=\"post_content_topBar\">\n            <div class=\"postPhoto_container\">\n                <img class=\"postPhoto\" src=\"").concat(model.ProfilePhotoUrl, "\" />\n            </div>\n            <div class=\"postProfile\">\n                <div>").concat(model.NickName, "</div>\n                <span class=\"time\" title=\"").concat(Common.DateFormat(model.PostDateTime.toString()), "\">").concat(Post.PostDateTimeFilter(model.PostDateTime.toString()), "</span>\n            </div>\n            ").concat((model.MemberID === user.MemberID ?
+        return "\n<div class=\"div_post\" PostKey=\"".concat(model.PostKey, "\" MemberID=\"").concat(model.MemberID, "\">\n    <div class=\"div_post_content\">\n        <div class=\"post_content_topBar\">\n            <div class=\"postPhoto_container\" onclick=\"LayoutPage.RedirectToMemberIndex(").concat(model.MemberID, ")\">\n                <img class=\"postPhoto\" src=\"").concat(model.ProfilePhotoUrl, "\" />\n            </div>\n            <div class=\"postProfile\">\n                <div onclick=\"LayoutPage.RedirectToMemberIndex(").concat(model.MemberID, ")\">").concat(model.NickName, "</div>\n                <span class=\"time\" title=\"").concat(Common.DateFormat(model.PostDateTime.toString()), "\">").concat(Post.PostDateTimeFilter(model.PostDateTime.toString()), "</span>\n            </div>\n            ").concat((model.MemberID === user.MemberID ?
             "<div class=\"postAction\" tabindex=\"-1\" PostKey=\"".concat(model.PostKey, "\" onclick=\"Post.TogglePostAction(this)\">\u22EE\n                <ul class=\"ul_postAction\" PostKey=\"").concat(model.PostKey, "\">\n                    <li><a PostKey=\"").concat(model.PostKey, "\" onclick=\"Post.DeletePost(this)\">\u522A\u9664</a></li>\n                    <!-- todo <li><a PostKey=\"").concat(model.PostKey, "\">\u7DE8\u8F2F</a></li> -->\n                </ul>\n            </div>") : ''), "\n            \n        </div>\n        <div class=\"post_body\">\n            <div class=\"post_body_content\">").concat(model.PostContent, "</div>\n            <div style=\"margin-top: 10px;\">\n                <ul class=\"PostPhoto\" PostKey=\"").concat(model.PostKey, "\">\n                    ").concat(Post.PostImageHtmlTemplate(model.PostImageUrlList), "\n                </ul>\n            </div>\n        </div>\n        <div class=\"post_footerBar\">\n            <div class=\"post_footer_container\">\n                <div class=\"post_footer_img\" onclick=\"Post.TogglePostLike(").concat(model.PostKey, ")\">\n                    <img class=\"postLike ").concat(model.IsCurrnetMemberPostLiked ? 'postLiked' : '', "\" src=\"/images/post/thumb_up_black_24dp.svg\" />\n                </div>\n                <span class=\"post_footer_number postLikeCount\">").concat(model.PostLike, "</span>\n            </div>\n            <div class=\"post_footer_container\">\n                <div class=\"post_footer_img postMsgContainer\" onclick=\"Post.FocusMsg(this)\">\n                    <img class=\"postMsg\" src=\"/images/post/textsms_black_24dp.svg\" />\n                </div>\n                <span class=\"post_footer_number postMsgCount\">").concat(model.TotalPostMsgCount, "</span>\n            </div>\n            <!--<div class=\"post_footer_container\">\n                <img class=\"postShare\" src=\"/images/post/share_black_24dp.svg\" />\n            </div>todo -->\n        </div>\n    </div>\n    <div class=\"div_post_msg_send\">\n        <div class=\"post_msgPhoto_container\">\n            <img class=\"post_msgPhoto\" src=\"").concat(user.ProfilePhotoUrl, "\">\n        </div>\n        <div class=\"post_msg_comment\">\n            <textarea class=\"msgComment\" placeholder=\"\u7559\u8A00...\"></textarea>\n        </div>\n        <div class=\"post_msg_submit\" onclick=\"Post.SubmitPostMsg(this)\">\n            <img class=\"msgSend\" src=\"/images/post/send_black_24dp.svg\">\n        </div>\n    </div>\n\n    ").concat(Post.ShowPostMsg(model.PostKey, model.PostMsgList, model.TotalPostMsgCount), "\n</div>");
     },
     /**
@@ -233,7 +233,7 @@ var Post = {
      * 顯示該貼文所有留言
      * @param postkey 貼文編號
      */
-    ShowAllPostMsg: function (postkey) { return __awaiter(_this_1, void 0, void 0, function () {
+    ShowAllPostMsg: function (postkey) { return __awaiter(_this, void 0, void 0, function () {
         var allPostMsgList, postMsgHtmlTemplateList_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -259,7 +259,7 @@ var Post = {
      * 點擊發送貼文 按鈕
      * @param e
      */
-    SubmitPostMsg: function (button) { return __awaiter(_this_1, void 0, void 0, function () {
+    SubmitPostMsg: function (button) { return __awaiter(_this, void 0, void 0, function () {
         var postMsgElement;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -276,7 +276,7 @@ var Post = {
      * 發送貼文留言
      * @param e element
      */
-    SendPostMsg: function (e) { return __awaiter(_this_1, void 0, void 0, function () {
+    SendPostMsg: function (e) { return __awaiter(_this, void 0, void 0, function () {
         var postMsg, currentPost, postkey, successFunc, errorFunc;
         return __generator(this, function (_a) {
             switch (_a.label) {
