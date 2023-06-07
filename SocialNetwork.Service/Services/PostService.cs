@@ -114,7 +114,11 @@ namespace SocialNetwork.Service
             var friendMemberIDList = friendList.Data.Select(s => s.MemberID).ToList();
             var queryMemberIDList = new List<int>() { this.UserContext.User.MemberID }.Concat(friendMemberIDList);
             var postData = await this.QueryPost(queryMemberIDList.ToList(), model.QueryRowNo);
-
+            postData.ForEach(f =>
+            {
+                f.PostContent = System.Net.WebUtility.HtmlEncode(f.PostContent);
+                f.PostMsgList.ForEach(f1 => f1.MsgContent = System.Net.WebUtility.UrlEncode(f1.MsgContent));
+            });
             return "取得貼文成功".AsSuccessResponse(postData);
         }
 
@@ -126,6 +130,11 @@ namespace SocialNetwork.Service
         public async Task<ResponseViewModel<List<GetPostResViewModel>>> GetHomePagePost(QueryRowMemberReqViewModel model)
         {
             var postData = await this.QueryPost(new List<int>() { model.MemberID }, model.QueryRowNo);
+            postData.ForEach(f =>
+            {
+                f.PostContent = System.Net.WebUtility.HtmlEncode(f.PostContent);
+                f.PostMsgList.ForEach(f1 => f1.MsgContent = System.Net.WebUtility.UrlEncode(f1.MsgContent));
+            });
 
             return "取得會員貼文成功".AsSuccessResponse(postData);
         }
@@ -147,6 +156,7 @@ ORDER BY PostMsgDateTime ASC";
 
             // 貼文留言清單
             List<GetPostMsgResViewModel> postMsgList = (await this.PostRepository.QueryAsync<GetPostMsgResViewModel>(sql, new { model.PostKey })).ToList();
+            postMsgList.ForEach(f => f.MsgContent = System.Net.WebUtility.HtmlEncode(f.MsgContent));
 
             return "取得該貼文所有留言成功".AsSuccessResponse(postMsgList);
         }
