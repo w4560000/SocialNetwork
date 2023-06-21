@@ -35,7 +35,7 @@ API 可參考 https://ls.ikkon.app/swagger/index.html
 
 1. 會員
    * 新會員註冊、登入
-   * Google第三方登入 (目前無法使用，Google OAuth 審核中)
+   * Google第三方登入
    * 忘記密碼
      * 填寫註冊時帳號、信箱
      * 收取驗證信，點擊驗證信內容的連結來變更密碼
