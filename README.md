@@ -1,35 +1,35 @@
 # 網站簡介
 
-https://ls.ikkon.app  
+https://ls.ikkon.app (目前網站已下架)
 練習用社群網站，僅有基礎功能，尚缺及時通知、聊天室功能
 
 專案透過 .Net Core MVC 、API 建置，版本為 .Net Core 3.1，SQL Server、Redis 協助儲存資料  
 前端頁面以 .Net Core MVC Action 為進入點，透過 Razor 提供畫面，部分畫面 由 JQuery 動態操作DOM  
-透過 NPM 下載第三方套件、Typescript 撰寫 JQuery語法，並自動編譯成 Javascript  
+專案透過 NPM 下載第三方套件、Typescript 撰寫 JQuery語法，並自動編譯成 Javascript  
 撰寫 Scss 透過 VS 的擴充工具 (Web Compiler 2022+) 來自動編譯成 css  
 最後由 Gulp 來協助整合套件 
 
-|  Gulp Task			| 說明				|
-|  ----			| ----				|
-| installLib	| 將 node_modules 底下部分所需套件 移至 wwwroot/lib |
-| minJs			| 將 bundleconfig.json 設定要 bundle 的 .js檔 壓縮成 .min.js檔	|
-| minCss		| 將 bundleconfig.json 設定要 bundle 的 .css檔 壓縮成 .min.css檔	|
-| clean		| 清除 .min.js檔、.min.css檔	|
+|  Gulp Task | 說明 |
+|  ----			 | ---- |
+| installLib | 將 node_modules 底下部分所需套件 移至 wwwroot/lib |
+| minJs			 | 將 bundleconfig.json 設定要 bundle 的 .js檔 壓縮成 .min.js檔	|
+| minCss		 | 將 bundleconfig.json 設定要 bundle 的 .css檔 壓縮成 .min.css檔	|
+| clean		   | 清除 .min.js檔、.min.css檔	|
 
 
 後端透過 API 提供服務
 API 可參考 https://ls.ikkon.app/swagger/index.html  
 以 JWT 當作登入驗證 Token，來判別登入狀態、是否過期
 
-|  使用的雲服務			| 說明				|
-|  ----			| ----				|
-| GCP GCE	| 由單一台 Linux VM 透過 docker-compose 建置該網站 |
-| GCP Load Balancing			| 協助掛載 HTTPS 憑證並轉導至 GCE	|
-| GCP Cloud DNS			| 設定 ls.ikkon.app 對應至 GCP Load Balancing IP	|
-| GCP Cloud Domains	| 新增 domain ls.ikkon.app	|
-| Google OAuth		| 提供會員透過Google第三方登入	|
-| Azure Key Vault		| 協助保存機密連線字串	|
-| Azure Blob Storage		| 用以儲存圖檔 (大頭貼、個人背景圖、貼文圖檔)	|
+|  使用的雲服務 | 說明 |
+|  ---- | ---- |
+| GCP GCE	           | 由單一台 Linux VM 透過 docker-compose 建置該網站 |
+| GCP Load Balancing | 協助掛載 HTTPS 憑證並轉導至 GCE	|
+| GCP Cloud DNS      | 設定 ls.ikkon.app 對應至 GCP Load Balancing IP	|
+| GCP Cloud Domains	 | 新增 domain ls.ikkon.app	|
+| Google OAuth		   | 提供會員透過Google第三方登入	|
+| Azure Key Vault		 | 協助保存機密連線字串	|
+| Azure Blob Storage | 用以儲存圖檔 (大頭貼、個人背景圖、貼文圖檔)	|
 
 # 功能
 
