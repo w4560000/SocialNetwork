@@ -1,6 +1,6 @@
 # 網站簡介
 
-https://ls.ikkon.app (目前網站已下架)
+https://ls.ikkon.app (目前網站已下架)  
 練習用社群網站，僅有基礎功能，尚缺及時通知、聊天室功能
 
 專案透過 .Net Core MVC 、API 建置，版本為 .Net Core 3.1，SQL Server、Redis 協助儲存資料  
